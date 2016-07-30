@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UmbrellaRegullar';
+    src: url('fonts/UmbrellaRegullar.eot');
+    src: url('fonts/UmbrellaRegullar.eot') format('embedded-opentype'),
+         url('fonts/UmbrellaRegullar.woff2') format('woff2'),
+         url('fonts/UmbrellaRegullar.woff') format('woff'),
+         url('fonts/UmbrellaRegullar.ttf') format('truetype'),
+         url('fonts/UmbrellaRegullar.svg#UmbrellaRegullar') format('svg');
+}

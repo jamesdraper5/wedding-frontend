@@ -1,0 +1,31 @@
+{
+  "name": "wedding-frontend",
+  "version": "0.0.0",
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-requirejs-bundler": "^0.1.1",
+    "gulp-concat": "~2.2.0",
+    "gulp-clean": "~0.2.4",
+    "event-stream": "~3.1.0",
+    "gulp-replace": "~0.2.0",
+    "gulp-uglify": "~0.2.1",
+    "gulp-html-replace": "~1.0.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-connect": "^2.2.0",
+    "gulp-filter": "^3.0.1",
+    "object-assign": "^4.0.1",
+    "karma": "^0.13.10",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-requirejs": "^0.2.2",
+    "karma-requireglobal-preprocessor": "^0.0.0",
+    "karma-babel-preprocessor": "^5.2.2",
+    "jasmine-core": "^2.3.4",
+    "requirejs": "^2.1.11",
+    "deeply": "~0.1.0",
+    "chalk": "~0.4.0"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^0.16.0"
+  }
+}

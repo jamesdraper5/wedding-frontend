@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UmbrellaItalic';
+    src: url('fonts/UmbrellaItalic.eot');
+    src: url('fonts/UmbrellaItalic.eot') format('embedded-opentype'),
+         url('fonts/UmbrellaItalic.woff2') format('woff2'),
+         url('fonts/UmbrellaItalic.woff') format('woff'),
+         url('fonts/UmbrellaItalic.ttf') format('truetype'),
+         url('fonts/UmbrellaItalic.svg#UmbrellaItalic') format('svg');
+}

@@ -1,0 +1,48 @@
+.nav-tabs {
+	border: 0 none;
+	> li {
+		float: none;
+		display: inline-block;
+		a {
+			color: inherit;
+			font-size: 16px;
+			position: relative;
+			border: 0 none;
+			opacity: 0.6;
+			&:hover {
+				border-color: transparent;
+			}
+		}
+		&::after {
+		  content: '';
+		  position: absolute;
+		  width: 1px;
+		  height: 50%;
+		  top: 25%;
+		  right: 0;
+		  transform: rotate(20deg);
+		  z-index: 2;
+		  background: #fff;
+		}
+		&:last-child::after {
+			width: 0;
+			height: 0;
+		}
+	}
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: inherit;
+    background-color: inherit;
+    border: 0 none;
+	font-weight: bold;
+	opacity: 1;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+    background-color: inherit;
+}

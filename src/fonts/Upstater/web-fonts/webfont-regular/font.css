@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Upstater';
+  src: url('Upstater-Regular.eot'); /* IE9 Compat Modes */
+  src: url('Upstater-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Upstater-Regular.woff') format('woff'), /* Modern Browsers */
+       url('Upstater-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('Upstater-Regular.svg#1acf0833c601a159b6b3f977f532df45') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+

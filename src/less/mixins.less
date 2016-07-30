@@ -1,0 +1,23 @@
+//mixin with all css that depends on your theme
+.setupThemeCss() {
+	.serif() {
+		font-family: @serifFamily;
+	}
+	.sansSerif() {
+		font-family: @sansSerifFamily;
+	}
+	.displayFont() {
+		font-family: @displayFamily;
+	}
+
+	.serif {
+		.serif()
+	}
+	.sansSerif {
+		.sansSerif()
+	}
+
+	h1.main-header {
+	    .displayFont();
+	}
+}

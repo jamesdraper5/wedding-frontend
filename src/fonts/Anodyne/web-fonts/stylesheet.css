@@ -1,0 +1,105 @@
+/*
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ *
+ * The fonts included in this stylesheet are subject to the End User License you
+ * purchased. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2014 Yellow Design Studio
+ *
+ *
+ *
+ *
+ */
+
+
+
+
+@font-face {
+    font-family: 'anodyneregular';
+    src: url('anodyne-webfont.eot');
+    src: url('anodyne-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodyne-webfont.woff') format('woff'),
+         url('anodyne-webfont.ttf') format('truetype'),
+         url('anodyne-webfont.svg#anodyneregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'anodyne_combinedregular';
+    src: url('anodynecombined-webfont.eot');
+    src: url('anodynecombined-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodynecombined-webfont.woff') format('woff'),
+         url('anodynecombined-webfont.ttf') format('truetype'),
+         url('anodynecombined-webfont.svg#anodyne_combinedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'anodyne_combineditalic';
+    src: url('anodynecombineditalic-webfont.eot');
+    src: url('anodynecombineditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodynecombineditalic-webfont.woff') format('woff'),
+         url('anodynecombineditalic-webfont.ttf') format('truetype'),
+         url('anodynecombineditalic-webfont.svg#anodyne_combineditalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'anodyneitalic';
+    src: url('anodyneitalic-webfont.eot');
+    src: url('anodyneitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodyneitalic-webfont.woff') format('woff'),
+         url('anodyneitalic-webfont.ttf') format('truetype'),
+         url('anodyneitalic-webfont.svg#anodyneitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'anodyne_shadowregular';
+    src: url('anodyneshadow-webfont.eot');
+    src: url('anodyneshadow-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodyneshadow-webfont.woff') format('woff'),
+         url('anodyneshadow-webfont.ttf') format('truetype'),
+         url('anodyneshadow-webfont.svg#anodyne_shadowregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'anodyne_shadowitalic';
+    src: url('anodyneshadowitalic-webfont.eot');
+    src: url('anodyneshadowitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('anodyneshadowitalic-webfont.woff') format('woff'),
+         url('anodyneshadowitalic-webfont.ttf') format('truetype'),
+         url('anodyneshadowitalic-webfont.svg#anodyne_shadowitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

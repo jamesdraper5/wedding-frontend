@@ -1,0 +1,12 @@
+/* Webfont: Jabana-Alt-Extra-Wide-Light */@font-face {
+    font-family: 'JabanaAltExtraWideLight';
+    src: url('Jabana-Alt-Extra-Wide-Light.eot'); /* IE9 Compat Modes */
+    src: url('Jabana-Alt-Extra-Wide-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Jabana-Alt-Extra-Wide-Light.woff') format('woff'), /* Modern Browsers */
+         url('Jabana-Alt-Extra-Wide-Light.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Jabana-Alt-Extra-Wide-Light.svg#Jabana-Alt-Extra-Wide-Light') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

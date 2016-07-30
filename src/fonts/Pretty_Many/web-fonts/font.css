@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Pretty Many';
+  src: url('Pretty Many.eot'); /* IE9 Compat Modes */
+  src: url('Pretty Many.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Pretty Many.woff') format('woff'), /* Modern Browsers */
+       url('Pretty Many.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('Pretty Many.svg#3a2e10bc53a8daf5ce96e3f2e3c8dfd7') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+  -moz-font-feature-settings:"kern" 1, "liga" 1, "salt" 1;
+-moz-font-feature-settings:"kern=1, liga=1, salt=1";
+-ms-font-feature-settings:"kern" 1, "liga" 1, "salt" 1;
+-o-font-feature-settings:"kern" 1, "liga" 1, "salt" 1;
+-webkit-font-feature-settings:"kern" 1, "liga" 1, "salt" 1;
+font-feature-settings:"kern" 1, "liga" 1, "salt" 1; 
+text-rendering: optimizeLegibility;
+}
+

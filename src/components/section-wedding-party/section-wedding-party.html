@@ -1,0 +1,46 @@
+<!-- ko with: weddingParty -->
+<section class="row">
+	<div class="col-md-2 col-md-offset-5 text-center">
+		<hr>
+	</div>
+</section>
+
+<section class="row">
+	<div class="col-md-6 col-md-offset-3 text-center">
+		<div>
+
+			<!-- ko foreach: groups -->
+				<!-- ko if: $index() > 0 -->
+					<section class="row">
+						<div class="col-md-4 col-md-offset-4 text-center">
+							<hr>
+						</div>
+					</section>
+				<!-- /ko -->
+				<h2>{{ title }}</h2>
+
+				<ul role="tablist" class="nav nav-tabs">
+					<!-- ko foreach: people -->
+						<li class="serif" data-bind="css: {'active': $index() === 0}" role="presentation">
+							<a data-bind="attr: { href: '#'+$parent.title+$index(), 'aria-controls': $parent.title+$index() }" role="tab", data-toggle="tab">{{ name }}</a>
+						</li>
+					<!-- /ko -->
+				</ul>
+				<div class="tab-content">
+					<!-- ko foreach: people -->
+						<div class="tab-pane" data-bind="attr: { id: $parent.title+$index()}, css: { 'active': $index() === 0 }" role="tabpanel">
+							<section class="row">
+								<div class="col-md-4">
+									<img class="img-responsive wedding-person" data-bind="attr: { src: imageUrl, alt: name }">
+								</div>
+								<div class="col-md-8">{{ text }}</div>
+							</section>
+						</div>
+					<!-- /ko -->
+				</div>
+			<!-- /ko -->
+
+		</div>
+	</div>
+</section>
+<!-- /ko -->

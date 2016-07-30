@@ -1,0 +1,28 @@
+.paris {
+	@textColor: #333;
+	@backgroundColor: #fff;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @averaSans;
+	@displayFamily: @amelia;
+	@headerFamily: @grounday;
+
+	.setupThemeCss();
+
+	color: @textColor;
+	background: @backgroundColor;
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @montserrat;
+		letter-spacing: 8px;
+	}
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+}
+

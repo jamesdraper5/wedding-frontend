@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Upstater Shadow';
+  src: url('Upstater-Shadow.eot'); /* IE9 Compat Modes */
+  src: url('Upstater-Shadow.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Upstater-Shadow.woff') format('woff'), /* Modern Browsers */
+       url('Upstater-Shadow.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('Upstater-Shadow.svg#866b16b5e2dcd7e8543c3f2eba49f2e4') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+

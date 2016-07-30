@@ -1,0 +1,29 @@
+/*
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ *
+ * The fonts included in this stylesheet are subject to the End User License you
+ * purchased. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2014 Yellow Design Studio
+ *
+ *
+ *
+ *
+ */
+
+
+@font-face {
+	font-family:'GistRoughReg-Regular';
+	src: url('GistRoughReg_latin+latin-ext_nohint.eot');
+	src: url('GistRoughReg_latin+latin-ext_nohint.eot?#iefix') format('embedded-opentype'),
+		url('GistRoughReg_latin+latin-ext_nohint.woff') format('woff'),
+		url('GistRoughReg_latin+latin-ext_nohint.ttf') format('truetype'),
+		url('GistRoughReg_latin+latin-ext_nohint.svg#GistRoughReg-Regular') format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+000D-F6F0;
+}
