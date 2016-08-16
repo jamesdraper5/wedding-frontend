@@ -5,7 +5,7 @@ class IntroSection {
     constructor(params) {
     	this.intro = app.installation.sections.intro;
     	this.signature = app.installation.name;
-    	console.log('this.intro', this.intro);
+    	//console.log('this.intro', this.intro);
     }
 
     dispose() {

@@ -5,7 +5,7 @@ import templateMarkup from 'text!./section-wedding-party.html';
 class WeddingPartySection {
     constructor(params) {
     	this.weddingParty = app.installation.sections.weddingParty;
-    	console.log('weddingParty', this.weddingParty);
+    	//console.log('weddingParty', this.weddingParty);
 
     }
 
