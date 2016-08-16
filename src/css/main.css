@@ -5919,11 +5919,43 @@ body {
 .main-section {
   margin-top: 160px;
 }
-.main-section h1.main-header {
-  font-size: 62px;
-}
 .map {
   height: 400px;
+}
+#rsvp-form {
+  text-align: left;
+  font-size: 16px;
+}
+#rsvp-form .rsvp-block {
+  margin: 10px 0;
+}
+#rsvp-form select,
+#rsvp-form option {
+  -webkit-appearance: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: 0 none;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: #eee;
+  padding: 2px 10px;
+}
+#rsvp-form input {
+  background: #eee;
+  box-shadow: none;
+  -webkit-appearance: none;
+  outline: none;
+  border: 0 none;
+  padding: 2px 10px;
+}
+#rsvp-form textarea {
+  border: 0 none;
+  background: #eee;
+  resize: none;
+  width: 100%;
 }
 .paris {
   color: #333;
@@ -5933,10 +5965,21 @@ body {
   font-family: "Quincy", Georgia, serif;
 }
 .paris .sansSerif {
-  font-family: "Avera_Sans", "helvetica neue", Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 .paris h1.main-header {
-  font-family: "Amelia", "helvetica neue", Arial, sans-serif;
+  font-family: "Baurbon", "helvetica neue", Arial, sans-serif;
+  font-size: 100px;
+  color: #d090d3;
+}
+.paris h1.main-header span {
+  font-family: 'Lato', sans-serif;
+  display: block;
+  margin: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+  color: #888;
 }
 .paris h2 {
   text-transform: uppercase;
