@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./section-rsvp.html';
+import * as Validator from '../../helpers/validation';
 
 class RsvpSection {
     constructor(params) {
@@ -33,21 +34,25 @@ class RsvpSection {
     	});
 
     	this.isSubmitting = ko.observable(false);
+        this.validator = new Validator();
     }
 
     validateForm() {
-    	// TO DO: validate and give toastr feedback
-    	//this.emailAddress
-    	//this.guestName
+
+        var isValid = this.validator.ValidateAll([
+            { input: this.emailAddress, inputName: 'Your email address', typeCheck: 'isEmail' },
+            { input: this.guestName, inputName: 'Your name', typeCheck: 'isLength', params: { min: 1, max: 100 } }
+        ]);
+
+        return isValid;
+
     }
 
     OnSubmit() {
 
-    	/*
-    	if ( !this.validateForm() ) {
-    		return false;
-    	}
-    	*/
+        if ( !this.validateForm() ) {
+            return false;
+        }
 
     	this.isSubmitting(true);
 

@@ -23,7 +23,9 @@ var require = {
         "signals":              "bower_modules/js-signals/dist/signals.min",
         "spin":                 "bower_modules/ladda/dist/spin.min",
         "text":                 "bower_modules/requirejs-text/text",
-        "toastr":               "bower_modules/toastr/toastr.min"
+        "toastr":               "bower_modules/toastr/toastr.min",
+        "validationHelper":     "helpers/validation",
+        "validator":            "bower_modules/validator-js/validator.min",
     },
     shim: {
         "bootstrap": { deps: ["jquery"] }
