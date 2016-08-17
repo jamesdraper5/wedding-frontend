@@ -1,18 +1,18 @@
 import * as FlashHelper from './flash';
 import * as _ from 'lodash';
 
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 class ErrorHelper {
 
-    constructor(app) {
-        this.app = app;
-        app.flash = new FlashHelper(this.app);
+    constructor() {
 
         // Some messages to save us having them everywhere in code
         this.messages = {
             AccessDenied: "Access Denied",
             AccessDeniedDetail: "The server has denied you access. If this seems unusual, try logging out and back in again.",
             NotFound: "Not Found",
-            NotFoundDetail: "Sorry, either that resource does not exists or you do not have permission to access it.",
+            NotFoundDetail: "Sorry, either that resource does not exist or you do not have permission to access it.",
             NetworkTimeout: "Network Timeout",
             NetworkTimeoutDetail: "Please check your internet connection and try again. Email support@XXXXX.com if you still have problems.",
             ServerRejected: "Server Rejected",
@@ -22,6 +22,7 @@ class ErrorHelper {
             ServerErrorDetail: "Sorry the server ran into a problem processing this request. Please bear with us while we squish this little bug."
         }
 
+        this.Ajax = __bind(this.Ajax, this);
     }
 
     // Use this if there was an error performing an action
@@ -59,7 +60,8 @@ class ErrorHelper {
                     }
                 }
                 if ( validationMessages.length ) {
-                    app.flash.Error( "<strong>"+expl+"</strong> ", validationMessages[0] );
+                    var validationMsg = validationMessages[0].substring(0,1).toUpperCase() + validationMessages[0].substring(1,validationMessages[0].length);
+                    app.flash.Error( "<strong>"+expl+"</strong> ", validationMsg );
                 } else {
                     app.flash.Error( "<strong>"+expl+"</strong> ", this.messages.ServerRejectedDetail );
                 }
