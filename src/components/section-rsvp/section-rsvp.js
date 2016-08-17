@@ -32,6 +32,40 @@ class RsvpSection {
     		return guestCount;
     	});
 
+    	this.isSubmitting = ko.observable(false);
+    }
+
+    validateForm() {
+    	// TO DO: validate and give toastr feedback
+    	//this.emailAddress
+    	//this.guestName
+    }
+
+    OnSubmit() {
+
+    	/*
+    	if ( !this.validateForm() ) {
+    		return false;
+    	}
+    	*/
+
+    	this.isSubmitting(true);
+
+    	var rsvpId = this.rsvp.id();
+    	var data = {
+			name: this.guestName(),
+			emailAddress: this.emailAddress(),
+			numGuests: this.numGuests(),
+			comment: this.comment(),
+			isAttending: this.isAttending()
+    	}
+    	console.log('data', data);
+    	//return false;
+    	app.api.post(`api/rsvps/${rsvpId}/reply`, data).then((result) => {
+    		console.log('result', result);
+    	}).finally(() => {
+    		this.isSubmitting(false);
+    	});
     }
 
     dispose() {

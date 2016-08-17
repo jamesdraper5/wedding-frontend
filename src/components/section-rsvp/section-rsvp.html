@@ -52,7 +52,9 @@
 			  	<button type="submit" class="btn btn-default">Submit</button>
 			</form>
 			-->
+
 			<hr>
+
 			<form id="rsvp-form">
 				<div>
 					<p>Hi James & Lucy</p>
@@ -111,7 +113,9 @@
 					</div>
 			  	</div>
 
-			  	<button type="submit" class="btn btn-default">Send</button>
+			  	<button type="submit" class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
+			  		<span class="ladda-label" data-bind="text: isSubmitting() ? 'Sending' : 'Send'"></span>
+			  	</button>
 			</form>
 
 		</div>
