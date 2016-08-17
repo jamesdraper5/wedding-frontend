@@ -5,6 +5,12 @@ import * as $ from 'jquery';
 class ValidationHelper {
 
     constructor() {
+        // Add new validation methods here....
+        validator.notEmpty = function(str) {
+            return validator.isLength(str, {
+                min: 1
+            });
+        }
 
     }
 
@@ -76,6 +82,8 @@ class ValidationHelper {
 	    		return `${inputName} must be between ${params.min} and ${params.max} characters long`;
 	    	case 'isNumeric':
 	    		return `${inputName} must be a number`;
+            case 'notEmpty':
+                return `${inputName} cannot be empty`;
 
     	}
     }
