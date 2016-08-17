@@ -16,7 +16,7 @@ class Api extends EventEmitter2 {
         super();
         /*
         if ( !window.devMode ) {
-            Promise.onPossiblyUnhandledRejection (e, promise) ->
+            Promise.onPossiblyUnhandledRejection((e, promise) => {
                 if e.httpRequestOptions?
                     Raven.captureMessage 'XHR failed',
                         extra:
@@ -26,8 +26,10 @@ class Api extends EventEmitter2 {
                 else
                     Raven.captureException e
                 return #This prevents console alerts about unhandled
+            });
         }
         */
+
     }
 
     request({url, method, data, inOpts}) {

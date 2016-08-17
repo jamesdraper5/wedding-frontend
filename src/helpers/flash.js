@@ -3,8 +3,7 @@ import ko from 'knockout';
 
 class Flash {
 
-    constructor(app) {
-        this.app = app;
+    constructor() {
         this.toasterOpts = {
             closeButton: false,
             debug: false,

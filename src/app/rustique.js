@@ -12,8 +12,8 @@ class Rustique {
         this.findInstallation();
         this.api = api;
 
-        this.flash = new FlashHelper(this);
-        this.errorHelper = new ErrorHelper(this);
+        this.flash = new FlashHelper();
+        this.errorHelper = new ErrorHelper();
         this.api.on('error', this.errorHelper.Ajax);
     }
 
