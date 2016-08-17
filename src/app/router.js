@@ -14,14 +14,14 @@ import hasher from 'hasher';
 class Router {
     constructor(config) {
         this.currentRoute = ko.observable({});
-    
+
         // Configure Crossroads route handlers
         ko.utils.arrayForEach(config.routes, (route) => {
             crossroads.addRoute(route.url, (requestParams) => {
                 this.currentRoute(ko.utils.extend(requestParams, route.params));
             });
         });
-    
+
         // Activate Crossroads
         crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
         hasher.initialized.add(hash => crossroads.parse(hash));
@@ -33,8 +33,7 @@ class Router {
 // Create and export router instance
 var routerInstance = new Router({
     routes: [
-        { url: '',          params: { page: 'home-page' } },
-        { url: 'about',     params: { page: 'about-page' } }
+        { url: '',          params: { page: 'home-page' } }
     ]
 });
 
