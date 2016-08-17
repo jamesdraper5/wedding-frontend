@@ -4,44 +4,52 @@ import * as Validator from '../../helpers/validation';
 
 class RsvpSection {
     constructor(params) {
-    	this.rsvp = app.installation.sections.rsvp;
-    	//console.log('this.rsvp', this.rsvp);
-
-    	this.isAttending = ko.observable(true);
-    	this.numGuests = ko.observable(0);
-    	this.emailAddress = ko.observable('');
-    	this.guestName = ko.observable('');
-    	this.comment = ko.observable('');
-    	this.guestType = ko.observable(0);
-    	this.numPermittedGuests = ko.pureComputed(() => {
-    		console.log('this.guestType()', this.guestType());
-    		var guestCount = 0;
-    		switch( parseInt(this.guestType(), 10) ) {
-    			case 0:
-    				guestCount = 0;
-    				break;
-    			case 1:
-    				guestCount = 1;
-    				break;
-    			case 2:
-    				guestCount = 4;
-    				break;
-    			default:
-    				guestCount = 0;
-    		}
-    		console.log('guestCount', guestCount);
-    		return guestCount;
-    	});
-
-    	this.isSubmitting = ko.observable(false);
         this.validator = new Validator();
+        this.rsvp = app.installation.sections.rsvp;
+        this.isAttending = ko.observable(true);
+        this.numGuests = ko.observable(0);
+        this.emailAddress = ko.observable('');
+        this.guestName = ko.observable('');
+        this.comment = ko.observable('');
+        this.guestType = ko.observable(0);
+        this.numPermittedGuests = ko.pureComputed(() => {
+            console.log('this.guestType()', this.guestType());
+            var guestCount = 0;
+            switch( parseInt(this.guestType(), 10) ) {
+                case 0:
+                    guestCount = 0;
+                    break;
+                case 1:
+                    guestCount = 1;
+                    break;
+                case 2:
+                    guestCount = 4;
+                    break;
+                default:
+                    guestCount = 0;
+            }
+            console.log('guestCount', guestCount);
+            return guestCount;
+        });
+
+        this.isSubmitting = ko.observable(false);
+        this.hasSubmitted = ko.observable(false);
+        this.btnText = ko.pureComputed(() => {
+            if ( this.isSubmitting() ) {
+                return 'Sending RSVP';
+            } else if ( this.hasSubmitted() ) {
+                return 'RSVP Sent';
+            } else {
+                return 'Send';
+            }
+        });
     }
 
     validateForm() {
 
         var isValid = this.validator.ValidateAll([
             { input: this.emailAddress, inputName: 'Your email address', typeCheck: 'isEmail' },
-            { input: this.guestName, inputName: 'Your name', typeCheck: 'isLength', params: { min: 1, max: 100 } }
+            { input: this.guestName, inputName: 'Your name', typeCheck: 'notEmpty' }
         ]);
 
         return isValid;
@@ -68,6 +76,10 @@ class RsvpSection {
     	//return false;
     	app.api.post(`api/rsvps/${rsvpId}/reply`, data).then((result) => {
     		console.log('result', result);
+            app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')
+            setTimeout(() => {
+                this.hasSubmitted(true)
+            }, 200);
     	}).finally(() => {
     		this.isSubmitting(false);
     	});

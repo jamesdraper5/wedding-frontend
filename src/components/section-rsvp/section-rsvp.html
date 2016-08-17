@@ -113,8 +113,8 @@
 					</div>
 			  	</div>
 
-			  	<button type="submit" class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
-			  		<span class="ladda-label" data-bind="text: isSubmitting() ? 'Sending' : 'Send'"></span>
+			  	<button disabled type="submit" class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit, enable: !hasSubmitted()">
+			  		<span class="ladda-label" data-bind="text: btnText()"></span>
 			  	</button>
 			</form>
 
