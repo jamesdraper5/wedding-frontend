@@ -35,8 +35,7 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
         include: [
             'requireLib',
             'components/nav-bar/nav-bar',
-            'components/home-page/home',
-            'text!components/about-page/about.html'
+            'components/home-page/home'
         ],
         insertRequire: ['app/startup'],
         bundles: {
@@ -94,7 +93,8 @@ gulp.task('less', function () {
     return gulp.src('./src/less/main.less')
         .pipe(less({
             paths: [
-                path.join(__dirname, './src/bower_modules/components-bootstrap/less')
+                path.join(__dirname, './src/bower_modules/components-bootstrap/less'),
+                path.join(__dirname, './src/bower_modules/toastr')
             ]
         }))
         .pipe(gulp.dest('./src/css'));

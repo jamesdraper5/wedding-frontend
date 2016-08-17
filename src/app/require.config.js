@@ -2,8 +2,13 @@
 var require = {
     baseUrl: ".",
     paths: {
+        "bindings-ladda":       "bindings/ladda",
+        "bluebird":             "bower_modules/bluebird/js/browser/bluebird.min",
         "bootstrap":            "bower_modules/components-bootstrap/js/bootstrap.min",
         "crossroads":           "bower_modules/crossroads/dist/crossroads.min",
+        "errorHelper":          "helpers/errorHelper",
+        "eventemitter2":        "bower_modules/eventemitter2/lib/eventemitter2",
+        "flash":                "helpers/flash",
         "google-maps":          "bower_modules/google-maps/lib/Google.min",
         "hasher":               "bower_modules/hasher/dist/js/hasher.min",
         "installationModel":    "models/installationModel",
@@ -12,8 +17,13 @@ var require = {
         "knockout-mapping":     "bower_modules/knockout-mapping/knockout.mapping",
         "knockout-projections": "bower_modules/knockout-projections/dist/knockout-projections",
         "knockout-punches":     "bower_modules/knockout.punches/knockout.punches.min",
+        "ladda":                "bower_modules/ladda/dist/ladda.min",
+        "lodash":               "bower_modules/lodash/dist/lodash.min",
+        "moment":               "bower_modules/moment/min/moment.min",
         "signals":              "bower_modules/js-signals/dist/signals.min",
-        "text":                 "bower_modules/requirejs-text/text"
+        "spin":                 "bower_modules/ladda/dist/spin.min",
+        "text":                 "bower_modules/requirejs-text/text",
+        "toastr":               "bower_modules/toastr/toastr.min"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] }
