@@ -55,7 +55,7 @@ class Api extends EventEmitter2 {
         var xhr = $.ajax(opts);
 
         return Promise.resolve(xhr).then((response) => {
-            id = 0;
+            var id = 0;
             if ( method === 'post' ) {
                 id = parseInt(xhr.getResponseHeader('id'), 10)
             }
