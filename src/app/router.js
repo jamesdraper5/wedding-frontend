@@ -33,7 +33,8 @@ class Router {
 // Create and export router instance
 var routerInstance = new Router({
     routes: [
-        { url: '',          params: { page: 'home-page' } }
+        { url: '',          params: { page: 'home-page' } },
+        { url: 'admin',     params: { page: 'home-page', showAdmin: true } }
     ]
 });
 
