@@ -1,39 +1,49 @@
 import ko from 'knockout';
-import * as InstallationModel from 'installationModel';
+import 'bindings-ladda';
+import 'jquery';
+import 'bootstrap';
+import 'knockout-projections'
+import 'knockout-punches'
 import * as api from '../helpers/api';
+import * as router from './router';
+import * as InstallationModel from 'installationModel';
 import * as FlashHelper from '../helpers/flash';
 import * as ErrorHelper from '../helpers/errorHelper';
-import 'bindings-ladda';
 
 class Rustique {
     constructor(config) {
-        //this.installation = ko.observable(null);
-        this.hasLoadedData = ko.observable(false);
-        this.findInstallation();
-        this.api = api;
 
+        this.api = api;
+        this.router = router;
+        this.currentRoute = router.currentRoute;
         this.flash = new FlashHelper();
         this.errorHelper = new ErrorHelper();
         this.api.on('error', this.errorHelper.Ajax);
+
+        this.hasLoadedData = ko.observable(false);
+        this.isWeddingFound = ko.observable(false);
+        this.hasError = ko.observable(false);
+        this.isUserLoggedIn = ko.observable(false);
+
+        this.findInstallation();
     }
 
     findInstallation() {
-        var url = window.location.hostname;
-        $.getJSON( "api/installationInfo", {
-           url: url
-		})
-		.done(( result ) => {
-    		//console.log( "JSON Data: ", result );
 
-            this.installation = new InstallationModel( result.installation );
+        this.api.get("api/installationInfo").then(( result ) => {
+            this.installation = new InstallationModel( result.response.installation );
             this.hasLoadedData(true);
+            this.isWeddingFound(true);
             this.setPageTitle(this.installation.name());
 
-  		})
-  		.fail(( jqxhr, textStatus, error ) => {
-    		var err = textStatus + ", " + error;
-    		console.log( "Request Failed: ", err );
-            this.hasLoadedData(true);
+  		}).catch(( error ) => {
+    		console.log( "Request Failed: ", error );
+    		if ( error.status == 404 && error.responseJSON.message != null && error.responseJSON.message == 'Wedding site not found' ) {
+	            this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
+    		} else {
+    			this.hasLoadedData(true);
+    			this.hasError(true);
+    		}
     	});
 	}
 

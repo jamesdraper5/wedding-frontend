@@ -16,16 +16,38 @@
 	</head>
 
 	<body>
-		<!-- ko if: app.hasLoadedData -->
+
+		<!--
+		<pre data-bind="text: 'app.hasLoadedData - ' +  app.hasLoadedData()"></pre>
+		<pre data-bind="text: 'app - ' +  ko.toJSON(app)"></pre>
+		-->
+
+		<!-- ko if: !app.hasLoadedData() || typeof window.app == 'undefined' -->
+			<div id="preloader">
+				LOADING!!!!!
+			</div>
+		<!-- /ko -->
+
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
 			<div data-bind="css: app.installation.themeClass">
 
 				<nav-bar params="route: route"></nav-bar>
-				<div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
+
+				<!-- ko if: app.currentRoute().showAdmin == true && app.isUserLoggedIn() -->
+				<div id="admin-holder">
+					<admin-panel></admin-panel>
+				</div>
+				<!-- /ko -->
+
+				<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
 
 			</div>
 		<!-- /ko -->
-		<!-- ko ifnot: app.hasLoadedData -->
-			LOADING!!!!!
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && !app.isWeddingFound() && !app.hasError() -->
+			WEDDING NOT FOUND!!!
+		<!-- /ko -->
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
+			LOADED WITH ERRORS!!!
 		<!-- /ko -->
 
 	</body>

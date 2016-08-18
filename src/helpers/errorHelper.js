@@ -48,6 +48,9 @@ class ErrorHelper {
                 return;
             }
         } else if ( xhr.status == 404 ) { // Not found
+        	if ( xhr.responseJSON.message === 'Wedding site not found' ) {
+        		return;
+        	}
             app.flash.Error( this.messages.NotFound, opts.custom404Text || this.messages.NotFoundDetail );
         } else if ( xhr.status == 403 ) { // Access Denied
             app.flash.Error( this.messages.AccessDenied, ( xhr.statusText.toLowerCase() === 'access denied' ? this.messages.AccessDeniedDetail : xhr.statusText ) );
