@@ -6,15 +6,7 @@ class MapsSection {
     constructor(params) {
     	this.title = app.installation.sections.maps.linkText;
     	this.maps = app.installation.sections.maps.locations;
-    	var self = this;
-
-    	GoogleMapsLoader.KEY = 'AIzaSyBdlmh7fqtInzVycyxMmzS4n9rAvZSlZYI';
-
-    	GoogleMapsLoader.load(function(google) {
-    		self.createMaps(google);
-    	});
-
-    	// TO DO: Add map marker
+		// TO DO: Add map marker to styles
     	this.themeStyles = {
 	    	paris: [
 	    		{
@@ -33,6 +25,16 @@ class MapsSection {
 	    		}
 	    	]
     	};
+
+    	GoogleMapsLoader.KEY = 'AIzaSyBdlmh7fqtInzVycyxMmzS4n9rAvZSlZYI';
+
+    }
+
+    OnRendered() {
+    	var self = this;
+    	GoogleMapsLoader.load(function(google) {
+    		self.createMaps(google);
+    	});
     }
 
     createMaps(google) {
