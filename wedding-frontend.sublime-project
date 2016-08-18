@@ -2,7 +2,8 @@
 	"folders":
 	[
 		{
-			"path": "/Users/james/Sites/wedding-frontend"
+			"path": "/Users/james/Sites/wedding-frontend",
+			"folder_exclude_patterns": ["dist", "node_modules", "bower_components"]
 		}
 	]
 }
