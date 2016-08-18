@@ -6,8 +6,15 @@ class AdminPanel {
         this.message = ko.observable('Hello from the admin-panel component!');
     }
 
-    OnClickEditOption(opt) {
-    	console.log('click', opt);
+    OnClickEditIntro() {
+    	console.log('app.installation.sections.intro', app.installation.sections.intro);
+    	var introData = {
+    		id: ko.unwrap(app.installation.sections.intro.id),
+    		title: ko.unwrap(app.installation.sections.intro.header),
+    		content: ko.unwrap(app.installation.sections.intro.content),
+    		linkText: ko.unwrap(app.installation.sections.intro.linkText)
+    	}
+    	app.modal.Show('edit-intro', introData, this);
     }
 
     dispose() {

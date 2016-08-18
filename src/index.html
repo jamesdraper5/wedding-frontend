@@ -45,5 +45,10 @@
 			LOADED WITH ERRORS!!!
 		<!-- /ko -->
 
+		<!-- Load Modals on demand -->
+		<!-- ko foreach: app.modals -->
+		<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
+		<!-- /ko -->
+
 	</body>
 </html>
