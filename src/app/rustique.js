@@ -51,7 +51,6 @@ class Rustique {
 	}
 
 	getLoggedInUser() {
-
 		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
 			if ( this.loggedInUser != null ) {
 				console.log('this.loggedInUser', this.loggedInUser);
@@ -68,22 +67,17 @@ class Rustique {
 		});
 	}
 
-	/* TO DO
-	Logout: () ->
-	    Tipped.hideAll()
-	    @notifications.Disconnect()
-	    if @heartBeatInterval?
-	        clearInterval @heartBeatInterval
-	    firstName = app.loggedInUser.firstName()
-	    app.GoTo 'login'
-	    app.flash.Success( ko.unwrap(app.tl('Righto [_s], you are now signed out, have a great day, and wonderful life in general.', firstName)))
-	    app.api.put('./v/1/logout.json').then (result) ->
-	        app.loggedInUser = null
-	        app.cachedProjects = {}
-	        app.cachedCategories = {}
-	        app.isLoggedIn false
-	        app.intercom.shutdown()
-	*/
+
+	Logout() {
+	    var firstName = app.loggedInUser.firstName()
+	    app.api.post('api/me/logout').then((result) => {
+	        app.loggedInUser = null;
+	        app.isUserLoggedIn(false);
+		    app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
+		});
+	}
+
+
 
     setPageTitle(title) {
         document.title = title;

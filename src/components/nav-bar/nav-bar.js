@@ -31,6 +31,10 @@ class NavBarViewModel {
     		this.isLoginSubmitting(false);
     	});
     }
+
+    OnLogOut() {
+    	app.Logout();
+    }
 }
 
 export default { viewModel: NavBarViewModel, template: template };
