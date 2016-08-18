@@ -4,6 +4,9 @@ import homeTemplate from 'text!./home.html';
 class HomeViewModel {
     constructor(route) {
         this.installation = app.installation;
+        this.showAdmin = ko.observable(route.showAdmin || false);
+
+        console.log('route', route);
     }
 }
 

@@ -1,12 +1,63 @@
 body {
 	padding-bottom: 80px;
 }
+
+#preloader {
+	position: fixed;
+	z-index: 1000000;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	background-size: cover;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #666;
+	text-align: center;
+	padding: 200px 0;
+}
+
 .main-section {
 	margin-top: 160px;
 }
 
 .map {
 	height: 400px;
+}
+
+#admin-holder {
+	background: #a94274;
+	width: 300px;
+	position: fixed;
+    left: 0px;
+    top: 0;
+    bottom: 0;
+    padding: 5px 10px;
+	transition: left 1s linear;
+	color: #fff;
+	margin-top: 50px;
+	z-index: 1000;
+	.open {
+		left: 0px;
+	}
+}
+#admin-options {
+	list-style: none;
+	padding-left: 0;
+	li {
+		text-transform: uppercase;
+		margin-bottom: 10px;
+		a {
+			color: #fff;
+		}
+	}
+}
+
+#page {
+	//position: absolute;
+	left: 0;
+	background: #fff;
+	z-index: 1000;
+    //box-shadow: 11px 0px 18px 15px rgba(0,0,0,0.4);
 }
 
 #rsvp-form {
