@@ -6,7 +6,7 @@ class HomeViewModel {
         this.installation = app.installation;
         this.showAdmin = ko.observable(route.showAdmin || false);
 
-        console.log('route', route);
+        //console.log('route', route);
     }
 }
 

@@ -35,18 +35,8 @@ class ErrorHelper {
         var explOpts = ["Whoops!","Yikes!","Oi vey!","Oh no!","Oh Dear!","Daaamn!","Holy Smokes Batman!"];
         var expl = explOpts[Math.floor(explOpts.length*Math.random())];
         if ( xhr.status == 401 ) { // Expired session
-            if ( opts.redirectIfAccessDenied ) {
-                console.warn('TO DO - redirect to login');
-                //Lightbox.cancel()# Close all lightboxes
-                //app.redirectToLogin()
-            /*
-            TO DO: build login modal??
-            } else if ( !app.isShowingLoginModal() and app.currentRoute?().page? and app.currentRoute().page isnt 'login' ) {
-                app.showLoginModal()
-            */
-            } else {
-                return;
-            }
+        	// TO DO: handle expired session
+
         } else if ( xhr.status == 404 ) { // Not found
         	if ( xhr.responseJSON.message === 'Wedding site not found' ) {
         		return;

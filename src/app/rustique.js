@@ -4,9 +4,11 @@ import 'jquery';
 import 'bootstrap';
 import 'knockout-projections'
 import 'knockout-punches'
+import * as mapping from 'knockout-mapping';
 import * as api from '../helpers/api';
 import * as router from './router';
 import * as InstallationModel from 'installationModel';
+import * as LoggedInUserModel from 'loggedInUserModel';
 import * as FlashHelper from '../helpers/flash';
 import * as ErrorHelper from '../helpers/errorHelper';
 
@@ -35,6 +37,7 @@ class Rustique {
             this.hasLoadedData(true);
             this.isWeddingFound(true);
             this.setPageTitle(this.installation.name());
+            this.getLoggedInUser();
 
   		}).catch(( error ) => {
     		console.log( "Request Failed: ", error );
@@ -46,6 +49,41 @@ class Rustique {
     		}
     	});
 	}
+
+	getLoggedInUser() {
+
+		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
+			if ( this.loggedInUser != null ) {
+				console.log('this.loggedInUser', this.loggedInUser);
+				this.loggedInUser.UpdateData(result.response.data);
+			} else { // First time login
+			    this.loggedInUser = new LoggedInUserModel(result.response.data)
+			    //this.showWelcomeModal() // TO DO: low priority
+			}
+			this.isUserLoggedIn(true);
+			return result;
+		}).catch((err) => {
+			this.isUserLoggedIn(false);
+			return err;
+		});
+	}
+
+	/* TO DO
+	Logout: () ->
+	    Tipped.hideAll()
+	    @notifications.Disconnect()
+	    if @heartBeatInterval?
+	        clearInterval @heartBeatInterval
+	    firstName = app.loggedInUser.firstName()
+	    app.GoTo 'login'
+	    app.flash.Success( ko.unwrap(app.tl('Righto [_s], you are now signed out, have a great day, and wonderful life in general.', firstName)))
+	    app.api.put('./v/1/logout.json').then (result) ->
+	        app.loggedInUser = null
+	        app.cachedProjects = {}
+	        app.cachedCategories = {}
+	        app.isLoggedIn false
+	        app.intercom.shutdown()
+	*/
 
     setPageTitle(title) {
         document.title = title;

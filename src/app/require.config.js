@@ -19,6 +19,7 @@ var require = {
         "knockout-punches":     "bower_modules/knockout.punches/knockout.punches.min",
         "ladda":                "bower_modules/ladda/dist/ladda.min",
         "lodash":               "bower_modules/lodash/dist/lodash.min",
+        "loggedInUserModel":    "models/loggedInUserModel",
         "moment":               "bower_modules/moment/min/moment.min",
         "signals":              "bower_modules/js-signals/dist/signals.min",
         "spin":                 "bower_modules/ladda/dist/spin.min",
