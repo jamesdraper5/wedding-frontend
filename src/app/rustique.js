@@ -1,15 +1,17 @@
+// import 'jquery-ui'; this randomly throws errors for some reason
 import ko from 'knockout';
-import 'bindings-ladda';
 import 'jquery';
 import 'bootstrap';
 import 'knockout-projections'
 import 'knockout-punches'
+import 'bindings-ladda';
 import * as mapping from 'knockout-mapping';
 import * as api from '../helpers/api';
 import * as router from './router';
 import * as InstallationModel from 'installationModel';
 import * as LoggedInUserModel from 'loggedInUserModel';
 import * as FlashHelper from '../helpers/flash';
+import * as ModalHelper from '../helpers/modal';
 import * as ErrorHelper from '../helpers/errorHelper';
 
 class Rustique {
@@ -20,6 +22,9 @@ class Rustique {
         this.currentRoute = router.currentRoute;
         this.flash = new FlashHelper();
         this.errorHelper = new ErrorHelper();
+        this.modal = new ModalHelper();
+        this.modals = ko.observableArray(); //used or tracking loaded modals components
+
         this.api.on('error', this.errorHelper.Ajax);
 
         this.hasLoadedData = ko.observable(false);
