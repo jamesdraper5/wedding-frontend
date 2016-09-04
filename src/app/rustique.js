@@ -2,9 +2,11 @@
 import ko from 'knockout';
 import 'jquery';
 import 'bootstrap';
-import 'knockout-projections'
-import 'knockout-punches'
+import 'knockout-postbox';
+import 'knockout-projections';
+import 'knockout-punches';
 import 'bindings-ladda';
+import 'extenders-trackChanges';
 import * as mapping from 'knockout-mapping';
 import * as api from '../helpers/api';
 import * as router from './router';
@@ -33,6 +35,20 @@ class Rustique {
         this.isUserLoggedIn = ko.observable(false);
 
         this.findInstallation();
+
+        this.hasSidebar = ko.pureComputed(() => {
+        	return this.currentRoute().hasAdmin && this.isUserLoggedIn();
+        });
+
+        this.sidebarPosition = ko.observable('closed');
+        this.overlayToShow = ko.observable(null);
+
+
+
+
+
+
+
     }
 
     findInstallation() {
@@ -58,7 +74,6 @@ class Rustique {
 	getLoggedInUser() {
 		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
 			if ( this.loggedInUser != null ) {
-				console.log('this.loggedInUser', this.loggedInUser);
 				this.loggedInUser.UpdateData(result.response.data);
 			} else { // First time login
 			    this.loggedInUser = new LoggedInUserModel(result.response.data)
@@ -78,6 +93,8 @@ class Rustique {
 	    app.api.post('api/me/logout').then((result) => {
 	        app.loggedInUser = null;
 	        app.isUserLoggedIn(false);
+	        app.sidebarPosition('closed');
+	        app.overlayToShow(null);
 		    app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});
 	}
