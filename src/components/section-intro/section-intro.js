@@ -6,6 +6,11 @@ class IntroSection {
     	this.intro = app.installation.sections.intro;
     	this.signature = app.installation.name;
     	//console.log('this.intro', this.intro);
+
+    	this.testPic = ko.observable('')
+    	console.log('this.testPic', this.testPic);
+
+
     }
 
     dispose() {

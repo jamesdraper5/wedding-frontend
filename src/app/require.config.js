@@ -3,6 +3,7 @@ var require = {
 	baseUrl: ".",
 	paths: {
 		"bindings-ladda":       		"bindings/ladda",
+		"bindings-image-uploader": 		"bindings/image-uploader",
 		"bluebird":             		"bower_modules/bluebird/js/browser/bluebird.min",
 		"bootstrap":            		"bower_modules/components-bootstrap/js/bootstrap.min",
 		"crossroads":           		"bower_modules/crossroads/dist/crossroads.min",
@@ -32,6 +33,7 @@ var require = {
 		"validator":            		"bower_modules/validator-js/validator.min",
 		"weddingPartyGroupsModel":    	"models/weddingPartyGroupsModel",
 		"weddingPartyPeopleModel":    	"models/weddingPartyPeopleModel",
+		"cloudinary": 					"//widget.cloudinary.com/global/all"
 	},
 	shim: {
 		"bootstrap": { deps: ["jquery"] }
