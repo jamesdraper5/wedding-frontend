@@ -150,8 +150,6 @@ class ModalHelper {
 			modalRef: modalRef
 		});
 
-		console.log('modalRef', modalRef);
-
 		app.modals.push(modalRef);
 	}
 
