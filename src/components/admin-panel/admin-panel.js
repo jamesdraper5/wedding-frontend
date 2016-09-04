@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./admin-panel.html';
+import * as mapping from 'knockout-mapping';
 
 class AdminPanel {
     constructor(params) {
@@ -12,9 +13,38 @@ class AdminPanel {
     		id: ko.unwrap(app.installation.sections.intro.id),
     		title: ko.unwrap(app.installation.sections.intro.header),
     		content: ko.unwrap(app.installation.sections.intro.content),
-    		linkText: ko.unwrap(app.installation.sections.intro.linkText)
+    		menuText: ko.unwrap(app.installation.sections.intro.menuText)
     	}
-    	app.modal.Show('edit-intro', introData, this);
+    	//app.modal.Show('edit-intro', introData, this);
+
+    	app.overlayToShow({
+    		name: 'edit-intro',
+    		params: introData
+    	});
+    }
+
+    OnClickEditWeddingParty() {
+    	console.log('app.installation.sections.weddingParty', app.installation.sections.weddingParty);
+    	var weddingPartyData = {
+    		id: ko.unwrap(app.installation.sections.weddingParty.id),
+    		title: ko.unwrap(app.installation.sections.weddingParty.title),
+    		content: ko.unwrap(app.installation.sections.weddingParty.text),
+    		groups: mapping.toJS(app.installation.sections.weddingParty.groups),
+    		menuText: ko.unwrap(app.installation.sections.weddingParty.menuText)
+    	}
+
+    	app.overlayToShow({
+    		name: 'edit-wedding-party',
+    		params: weddingPartyData
+    	});
+    }
+
+    OnClickEditLocations() {
+    	console.log('app.installation.sections.maps', app.installation.sections.maps);
+    }
+
+    OnClickEditRsvp() {
+    	console.log('app.installation.sections.rsvp', app.installation.sections.rsvp);
     }
 
     dispose() {
