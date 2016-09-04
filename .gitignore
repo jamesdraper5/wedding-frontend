@@ -6,3 +6,9 @@ bower_modules/
 dist/
 
 src/css/main.css
+
+*.sublime-workspace
+
+*.sublime-workspace
+
+wedding-frontend.sublime-workspace
