@@ -26,15 +26,24 @@
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
 			<div data-bind="css: app.installation.themeClass">
 
-				<nav-bar params="route: route"></nav-bar>
 
-				<!-- ko if: app.currentRoute().showAdmin == true && app.isUserLoggedIn() -->
+				<!-- ko if: app.hasSidebar() -->
 				<div id="admin-holder">
 					<admin-panel></admin-panel>
 				</div>
 				<!-- /ko -->
 
-				<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
+				<div id="page-holder" data-bind="css: app.sidebarPosition()">
+					<nav-bar params="route: route"></nav-bar>
+					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
+
+					<!-- ko if: app.overlayToShow() -->
+						<!-- ko with: app.overlayToShow() -->
+							<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
+						<!-- /ko -->
+					<!-- /ko -->
+
+				</div>
 
 			</div>
 		<!-- /ko -->
