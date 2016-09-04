@@ -1,0 +1,5 @@
+{
+	AWS_ACCESS_KEY_ID: 'AKIAJA5JE5WGJ47SYRRQ',
+	AWS_SECRET_ACCESS_KEY: '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',
+	S3_BUCKET_NAME: 'james-draper-test'
+}
