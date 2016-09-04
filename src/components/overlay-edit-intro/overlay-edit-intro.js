@@ -1,13 +1,13 @@
 import ko from 'knockout';
-import templateMarkup from 'text!./modal-edit-intro.html';
+import templateMarkup from 'text!./overlay-edit-intro.html';
 
-class ModalWelcomeMessage {
+class OverlayWelcomeMessage {
     constructor(params) {
 
     	this.id = params.id;
     	this.title = ko.observable( params.title );
     	this.content = ko.observable( params.content );
-    	this.linkText = ko.observable( params.linkText );
+    	this.menuText = ko.observable( params.menuText );
 
     	this.isSubmitting = ko.observable(false);
     	this.btnText = ko.pureComputed(() => {
@@ -18,8 +18,10 @@ class ModalWelcomeMessage {
     	    }
     	});
 
+    	console.log('this is here');
+
         // Setup OnShow
-        app.modal.Init('edit-intro', this, params);
+        //app.modal.Init('edit-intro', this, params);
     }
 
     OnShow() {
@@ -31,7 +33,7 @@ class ModalWelcomeMessage {
     	var introData = {
     		header: this.title(),
     		content: this.content(),
-    		linkText: this.linkText()
+    		menuText: this.menuText()
     	};
     	app.api.put(`api/intros/${this.id}`, introData).then((result) => {
     		app.flash.Success('Updated baby!');
@@ -42,7 +44,8 @@ class ModalWelcomeMessage {
     }
 
     Close() {
-        app.modal.Close(this, false);
+        app.overlayToShow(null);
+        console.log('close');
     }
 
     dispose() {
@@ -51,4 +54,4 @@ class ModalWelcomeMessage {
     }
 }
 
-export default { viewModel: ModalWelcomeMessage, template: templateMarkup };
+export default { viewModel: OverlayWelcomeMessage, template: templateMarkup };

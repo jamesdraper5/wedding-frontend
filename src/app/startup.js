@@ -13,7 +13,8 @@ ko.components.register('section-wedding-party', { require: 'components/section-w
 ko.components.register('section-maps', { require: 'components/section-maps/section-maps' });
 ko.components.register('section-rsvp', { require: 'components/section-rsvp/section-rsvp' });
 ko.components.register('admin-panel', { require: 'components/admin-panel/admin-panel' });
-ko.components.register('modal-edit-intro', { require: 'components/modal-edit-intro/modal-edit-intro' });
+ko.components.register('overlay-edit-intro', { require: 'components/overlay-edit-intro/overlay-edit-intro' });
+ko.components.register('overlay-edit-wedding-party', { require: 'components/overlay-edit-wedding-party/overlay-edit-wedding-party' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

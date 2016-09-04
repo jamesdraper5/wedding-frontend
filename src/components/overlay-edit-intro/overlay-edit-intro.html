@@ -1,7 +1,8 @@
-<div data-bind="attr:{'id':modalDivId},css:{fade:allowFade}" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="overlay">
+		<div id="overlay-bg"></div>
 
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+
+
             <div class="modal-header">
                 <button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
                 <h4 class="modal-title">Edit Your Introduction</h4>
@@ -31,7 +32,7 @@
 					        <span class="in_label">Menu Text</span>
 					    </div>
 					    <div class="col-inputs">
-					        <input type="text" class="form-control" data-bind="textInput: linkText">
+					        <input type="text" class="form-control" data-bind="textInput: menuText">
 					    </div>
 					</div>
 
@@ -39,16 +40,16 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
-                    	<span class="ladda-label" data-bind="text: btnText()"></span>
-                    </button>
+                    <button class="btn btn-default" data-bind="click: Close">Close</button>
                 </div>
                 <div class="pull-right">
-                    <a href="#" class="btn btn-link" data-bind="click: Close">Cancel</a>
+                    <button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
+	                	<span class="ladda-label" data-bind="text: btnText()"></span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
+
+
 </div>
 <!-- IMPORTANT - Mark this template loaded -->
 <!-- ko if: $data.readyToShow != null && readyToShow -->
