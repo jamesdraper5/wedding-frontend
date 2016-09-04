@@ -3,8 +3,12 @@ import * as mapping from 'knockout-mapping';
 
 class InstallationModel {
     constructor(data) {
-        mapping.fromJS(data, {}, this);
+        this.UpdateData(data);
         this.activeSections = ko.pureComputed(this.generateLinks, this);
+    }
+
+    UpdateData(data) {
+    	mapping.fromJS(data, {}, this);
     }
 
     generateLinks() {
@@ -12,7 +16,7 @@ class InstallationModel {
         var sections = this.sections;
         for ( var section in sections ) {
             if ( sections.hasOwnProperty(section) && this.sections[section] != null ) { // TO DO: `&& this.sections[section].isVisible` - waiting on adding `isVisible` to each JSON section
-                activeSections.push( this.sections[section].linkText );
+                activeSections.push( this.sections[section].menuText );
             }
         }
         return activeSections;
