@@ -34,7 +34,7 @@ class Router {
 var routerInstance = new Router({
     routes: [
         { url: '',          params: { page: 'home-page' } },
-        { url: 'admin',     params: { page: 'home-page', showAdmin: true } }
+        { url: 'admin',     params: { page: 'home-page', hasAdmin: true } }
     ]
 });
 
