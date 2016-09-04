@@ -21,6 +21,7 @@ class NavBarViewModel {
     		console.log('result', result);
     		app.getLoggedInUser().then((result) => {
 	    		app.flash.Success(`Welcome back ${app.loggedInUser.firstName()}!`);
+	    		app.sidebarPosition('open');
     		})
     	}).catch((result) => {
         	if ( result.response.message ) {

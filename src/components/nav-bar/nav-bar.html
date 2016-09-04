@@ -1,5 +1,5 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-bind="css: app.sidebarPosition()">
+	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span>
@@ -16,7 +16,7 @@
 					<a href="#">{{ $data }}</a>
 				</li>
 				<!-- /ko -->
-				<!-- ko if: app.currentRoute().showAdmin -->
+				<!-- ko if: app.currentRoute().hasAdmin -->
 					<!-- ko if: app.isUserLoggedIn -->
 						<li>
 							<a href="#" data-bind="click: OnLogOut">
