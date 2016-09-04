@@ -45,11 +45,6 @@ class Rustique {
 		this.overlayToShow = ko.observable(null);
 
 
-
-
-
-
-
 	}
 
 	findInstallation() {

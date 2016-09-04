@@ -3,6 +3,7 @@ import * as mapping from 'knockout-mapping';
 
 class WeddingPartyPersonModel {
 	constructor(data) {
+
 		this.UpdateData(data);
 		this.isEditing = ko.observable(false);
 
@@ -18,7 +19,7 @@ class WeddingPartyPersonModel {
 	}
 
 	UpdateData(data) {
-		mapping.fromJS(data, {}, this);
+		mapping.fromJS(data, WeddingPartyPersonModel.mapping, this);
 	}
 
 	ToggleEdit() {
@@ -50,6 +51,20 @@ class WeddingPartyPersonModel {
 	            this[key].extend({ trackChanges: true });
 	        }
 	    }
+	}
+}
+
+WeddingPartyPersonModel.mapping = {
+	'imageUrl': {
+		create: (options) => {
+			if ( options.data != null ) {
+				console.log('not null');
+				return ko.observable( options.data );
+			} else {
+				console.log('null');
+				return ko.observable( "https://maxcdn.icons8.com/iOS7/PNG/100/Users/user_male_circle_filled-100.png" );
+			}
+		}
 	}
 }
 

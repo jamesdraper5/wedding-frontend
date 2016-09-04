@@ -35,12 +35,12 @@
 						<!-- ko if: isEditing -->
 							<br>
 							<div class="form-group">
-							    <label>Description</label>
-						        <textarea class="form-control" data-bind="textInput: text"></textarea>
+								<image class="user-preview" src="https://maxcdn.icons8.com/iOS7/PNG/25/Users/user_male_circle_filled-25.png" data-bind="attr: { src: imageUrl }" />
+								<a href="#" data-bind="imageUploader: { koObservable: imageUrl }">Edit</a>
 							</div>
 							<div class="form-group">
-							    <label>Image</label>
-								<input type="text" class="form-control" data-bind="textInput: imageUrl">
+							    <label>Description</label>
+						        <textarea class="form-control" data-bind="textInput: text"></textarea>
 							</div>
 						<!-- /ko -->
 					</div>

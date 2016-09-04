@@ -7,12 +7,13 @@ uploadOpts = params to pass to Cloudinary for the image upload
 import ko from 'knockout';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
+import * as cloudinary from 'cloudinary';
 
 ko.bindingHandlers.imageUploader = {
 
 	init: (element, valueAccessor) => {
 
-		var subscriptions = []
+		var subscriptions = [];
 		var options = ko.unwrap(valueAccessor());
 		var uploadOpts = options.uploadOpts || {};
 		var defaults = {
@@ -23,6 +24,9 @@ ko.bindingHandlers.imageUploader = {
 			cropping: 'server',
 			cropping_aspect_ratio: 1,
 			theme: 'white',
+			button_class: 'btn btn-primary',
+			button_caption: 'Edit Image',
+			thumbnails: false,
 			thumbnail_transformation: {
 				width: 200,
 				height: 200,
