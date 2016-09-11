@@ -5,8 +5,11 @@ import templateMarkup from 'text!./section-wedding-party.html';
 class WeddingPartySection {
     constructor(params) {
     	this.weddingParty = app.installation.sections.weddingParty;
-    	//console.log('weddingParty', this.weddingParty);
 
+    	for ( var i = 0, j = this.weddingParty.groups().length; i < j; i++ ) {
+    		var group = this.weddingParty.groups()[i];
+    		group.navTitle = group.title().split(" ")[0] + i;
+    	}
     }
 
     dispose() {

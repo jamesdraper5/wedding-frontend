@@ -22,13 +22,13 @@
 				<ul role="tablist" class="nav nav-tabs">
 					<!-- ko foreach: people -->
 						<li class="serif" data-bind="css: {'active': $index() === 0}" role="presentation">
-							<a data-bind="attr: { href: '#'+$parent.title+$index(), 'aria-controls': $parent.title+$index() }" role="tab", data-toggle="tab">{{ name }}</a>
+							<a data-bind="attr: { href: '#'+$parent.navTitle + $index(), 'aria-controls': $parent.navTitle + $index() }" role="tab", data-toggle="tab">{{ name }}</a>
 						</li>
 					<!-- /ko -->
 				</ul>
 				<div class="tab-content">
 					<!-- ko foreach: people -->
-						<div class="tab-pane" data-bind="attr: { id: $parent.title+$index()}, css: { 'active': $index() === 0 }" role="tabpanel">
+						<div class="tab-pane" data-bind="attr: { id: $parent.navTitle + $index()}, css: { 'active': $index() === 0 }" role="tabpanel">
 							<section class="row">
 								<div class="col-md-4">
 									<img class="img-responsive wedding-person" data-bind="attr: { src: imageUrl, alt: name }">
