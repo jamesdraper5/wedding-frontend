@@ -1,6 +1,20 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
 
+const weddingPartyMapping = {
+	'imageUrl': {
+		create: (options) => {
+			if ( options.data != null ) {
+				console.log('not null');
+				return ko.observable( options.data );
+			} else {
+				console.log('null');
+				return ko.observable( "https://maxcdn.icons8.com/iOS7/PNG/100/Users/user_male_circle_filled-100.png" );
+			}
+		}
+	}
+}
+
 class WeddingPartyPersonModel {
 	constructor(data) {
 
@@ -19,7 +33,7 @@ class WeddingPartyPersonModel {
 	}
 
 	UpdateData(data) {
-		mapping.fromJS(data, WeddingPartyPersonModel.mapping, this);
+		mapping.fromJS(data, weddingPartyMapping, this);
 	}
 
 	ToggleEdit() {
@@ -51,20 +65,6 @@ class WeddingPartyPersonModel {
 	            this[key].extend({ trackChanges: true });
 	        }
 	    }
-	}
-}
-
-WeddingPartyPersonModel.mapping = {
-	'imageUrl': {
-		create: (options) => {
-			if ( options.data != null ) {
-				console.log('not null');
-				return ko.observable( options.data );
-			} else {
-				console.log('null');
-				return ko.observable( "https://maxcdn.icons8.com/iOS7/PNG/100/Users/user_male_circle_filled-100.png" );
-			}
-		}
 	}
 }
 
