@@ -49,6 +49,7 @@ class OverlayEditWeddingParty {
 
 		app.api.put(`api/weddingParties/${this.id}`, partyData).then((result) => {
 			app.flash.Success('Updated baby!');
+			app.updateInstallationData();
 			this.Close();
 		}).finally(() => {
 			this.isSubmitting(false);
@@ -63,12 +64,12 @@ class OverlayEditWeddingParty {
 		alert('TO DO - showAddForm');
 	}
 
+	// remove unnecessary params before submitting form
 	getGroupFormData(groups) {
 
 		var groupsObj = ko.toJS(groups);
 
 		for ( var group of groupsObj ) {
-			console.log('group', group);
 
 			delete group.__ko_mapping__
 			delete group.isDirty
@@ -79,8 +80,6 @@ class OverlayEditWeddingParty {
 				delete person.__ko_mapping__;
 			}
 		}
-
-		console.log('groupsObj', groupsObj);
 
 		return groupsObj;
 	}

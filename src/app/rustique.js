@@ -67,6 +67,15 @@ class Rustique {
 		});
 	}
 
+	updateInstallationData() {
+		this.api.get("api/installationInfo").then(( result ) => {
+			this.installation.UpdateData(result.response.installation);
+		}).catch(( error ) => {
+			console.log( "Request Failed: ", error );
+			this.hasError(true);
+		});
+	}
+
 	getLoggedInUser() {
 		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
 			if ( this.loggedInUser != null ) {
