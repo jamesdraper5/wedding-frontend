@@ -23,7 +23,10 @@ class WeddingPartyGroupModel {
 	}
 
 	removePerson(person) {
-		alert('TO DO!!');
+		var idx = app.utility.FindIndexByKeyValue(this.people(), 'id', person.id());
+		if ( idx > -1 ) {
+			this.people.splice(idx, 1);
+		}
 	}
 
 	Save(showMessage=false) {
