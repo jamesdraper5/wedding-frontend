@@ -16,6 +16,7 @@ import * as LoggedInUserModel from 'loggedInUserModel';
 import * as FlashHelper from '../helpers/flash';
 import * as ModalHelper from '../helpers/modal';
 import * as ErrorHelper from '../helpers/errorHelper';
+import * as UtilityHelper from '../helpers/utility';
 
 class Rustique {
 	constructor(config) {
@@ -26,6 +27,7 @@ class Rustique {
 		this.flash = new FlashHelper();
 		this.errorHelper = new ErrorHelper();
 		this.modal = new ModalHelper();
+		this.utility = new UtilityHelper();
 		this.modals = ko.observableArray(); //used or tracking loaded modals components
 
 		this.api.on('error', this.errorHelper.Ajax);
