@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./overlay-edit-wedding-party.html';
 import * as GroupModel from '../../models/weddingPartyGroupModel';
+import * as PersonModel from '../../models/weddingPartyPersonModel';
 
 class OverlayEditWeddingParty {
 	constructor(params) {
@@ -43,10 +44,6 @@ class OverlayEditWeddingParty {
 
 		partyData.groups = this.getGroupFormData(this.groups);
 
-		console.log('this.groups', partyData.groups);
-
-		//return false;
-
 		app.api.put(`api/weddingParties/${this.id}`, partyData).then((result) => {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
@@ -60,8 +57,15 @@ class OverlayEditWeddingParty {
 		app.overlayToShow(null);
 	}
 
-	ShowAddForm() {
-		alert('TO DO - showAddForm');
+	AddPerson(group) {
+
+		var newPerson = new PersonModel({
+			id: Date.now(),
+			name: "New Person",
+            text: ""
+		});
+		group.people.push(newPerson);
+
 	}
 
 	// remove unnecessary params before submitting form
