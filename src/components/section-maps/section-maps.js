@@ -1,6 +1,6 @@
 import ko from 'knockout';
-import * as GoogleMapsLoader from 'google-maps';
 import templateMarkup from 'text!./section-maps.html';
+import * as GoogleMapsLoader from 'google-maps';
 
 class MapsSection {
 	constructor(params) {

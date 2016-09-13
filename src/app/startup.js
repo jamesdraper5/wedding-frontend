@@ -15,6 +15,7 @@ ko.components.register('section-rsvp', { require: 'components/section-rsvp/secti
 ko.components.register('admin-panel', { require: 'components/admin-panel/admin-panel' });
 ko.components.register('overlay-edit-intro', { require: 'components/overlay-edit-intro/overlay-edit-intro' });
 ko.components.register('overlay-edit-wedding-party', { require: 'components/overlay-edit-wedding-party/overlay-edit-wedding-party' });
+ko.components.register('overlay-edit-maps', { require: 'components/overlay-edit-maps/overlay-edit-maps' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

@@ -41,6 +41,22 @@ class AdminPanel {
 
 	OnClickEditLocations() {
 		console.log('app.installation.sections.maps', app.installation.sections.maps);
+
+		// TO DO: either remove this obj or fix it
+		var mapData = {}
+		/*
+			id: ko.unwrap(app.installation.sections.weddingParty.id),
+			title: ko.unwrap(app.installation.sections.weddingParty.title),
+			content: ko.unwrap(app.installation.sections.weddingParty.text),
+			groups: app.installation.sections.weddingParty.groups,
+			menuText: ko.unwrap(app.installation.sections.weddingParty.menuText)
+		}
+		*/
+
+		app.overlayToShow({
+			name: 'edit-maps',
+			params: mapData
+		});
 	}
 
 	OnClickEditRsvp() {
