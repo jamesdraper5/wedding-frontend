@@ -1,14 +1,12 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
 
-const weddingPartyMapping = {
+const weddingPartyPersonMapping = {
 	'imageUrl': {
 		create: (options) => {
 			if ( options.data != null ) {
-				console.log('not null');
 				return ko.observable( options.data );
 			} else {
-				console.log('null');
 				return ko.observable( "https://maxcdn.icons8.com/iOS7/PNG/100/Users/user_male_circle_filled-100.png" );
 			}
 		}
@@ -33,7 +31,7 @@ class WeddingPartyPersonModel {
 	}
 
 	UpdateData(data) {
-		mapping.fromJS(data, weddingPartyMapping, this);
+		mapping.fromJS(data, weddingPartyPersonMapping, this);
 	}
 
 	ToggleEdit() {

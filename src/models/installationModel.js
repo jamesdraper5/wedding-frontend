@@ -1,5 +1,14 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
+import * as WeddingPartyModel from '../../models/weddingPartyModel';
+
+const installationMapping = {
+	'weddingParty': {
+		create: (options) => {
+			return new WeddingPartyModel(options.data)
+		}
+	}
+}
 
 class InstallationModel {
     constructor(data) {
@@ -8,7 +17,7 @@ class InstallationModel {
     }
 
     UpdateData(data) {
-    	mapping.fromJS(data, {}, this);
+    	mapping.fromJS(data, installationMapping, this);
     }
 
     generateLinks() {

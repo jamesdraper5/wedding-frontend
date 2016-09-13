@@ -31,6 +31,7 @@ var require = {
 		"toastr":               		"bower_modules/toastr/toastr.min",
 		"validationHelper":     		"helpers/validation",
 		"validator":            		"bower_modules/validator-js/validator.min",
+		"weddingPartyModel": 		   	"models/weddingPartyModel",
 		"weddingPartyGroupsModel":    	"models/weddingPartyGroupsModel",
 		"weddingPartyPeopleModel":    	"models/weddingPartyPeopleModel",
 		"cloudinary": 					"//widget.cloudinary.com/global/all"

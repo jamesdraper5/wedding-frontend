@@ -10,11 +10,7 @@ class OverlayEditWeddingParty {
 		this.title = ko.observable( params.title );
 		this.content = ko.observable( params.content );
 		this.menuText = ko.observable( params.menuText );
-		this.groups = ko.observableArray([]);
-
-		for ( var group of params.groups ) {
-			this.groups.push( new GroupModel(group) );
-		}
+		this.groups = ko.observableArray(ko.unwrap(params.groups));
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -62,7 +58,8 @@ class OverlayEditWeddingParty {
 		var newPerson = new PersonModel({
 			id: Date.now(),
 			name: "New Person",
-            text: ""
+            text: "",
+            imageUrl: null
 		});
 		group.people.push(newPerson);
 

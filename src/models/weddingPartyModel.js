@@ -1,9 +1,9 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
-import * as PersonModel from './weddingPartyPersonModel';
+import * as GroupModel from './weddingPartyGroupModel';
 
 
-class WeddingPartyGroupModel {
+class WeddingPartyModel {
 	constructor(data) {
 		this.UpdateData(data);
 
@@ -16,6 +16,7 @@ class WeddingPartyGroupModel {
 		    }
 		});
 
+		//console.log('party model - data', data);
 		this.navTitle = ko.pureComputed(() => {
 			return this.title().split(" ")[0] + Date.now();
 		})
@@ -23,7 +24,7 @@ class WeddingPartyGroupModel {
 	}
 
 	UpdateData(data) {
-		mapping.fromJS(data, WeddingPartyGroupModel.mapping, this);
+		mapping.fromJS(data, WeddingPartyModel.mapping, this);
 	}
 
 	removePerson(person) {
@@ -61,13 +62,13 @@ class WeddingPartyGroupModel {
 	}
 }
 
-WeddingPartyGroupModel.mapping = {
-	'people': {
+WeddingPartyModel.mapping = {
+	'groups': {
         create: (options) => {
-			return new PersonModel(options.data)
+			return new GroupModel(options.data)
         }
     }
 }
 
 
-export default WeddingPartyGroupModel;
+export default WeddingPartyModel;
