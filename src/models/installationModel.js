@@ -1,11 +1,17 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
 import * as WeddingPartyModel from '../../models/weddingPartyModel';
+import * as MapModel from '../../models/mapModel';
 
 const installationMapping = {
 	'weddingParty': {
 		create: (options) => {
 			return new WeddingPartyModel(options.data)
+		}
+	},
+	'locations': {
+		create: (options) => {
+			return new MapModel(options.data)
 		}
 	}
 }
