@@ -10,8 +10,12 @@
 
 <!-- ko foreach: maps -->
 	<section class="row">
-		<div class="col-md-6 col-md-offset-3 text-center">
-			<div data-bind="attr: { id: 'map' + id() }" class="map-container" style="height: 300px;"></div>
+		<div class="col-md-12 text-center">
+			<div data-bind="attr: { id: 'map' + id() }" class="map-container" style="height: 400px;"></div>
+		</div>
+	</section>
+	<section class="row map-text">
+		<div class="col-md-8 col-md-offset-2 text-center">
 			<h4>{{ title }}</h4>
 			<p>{{ description }}</p>
 		</div>

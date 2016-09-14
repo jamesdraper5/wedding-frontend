@@ -6152,6 +6152,7 @@ button.toast-close-button {
 }
 body {
   padding-bottom: 80px;
+  font-size: 16px;
 }
 #preloader {
   position: fixed;
@@ -6221,6 +6222,11 @@ body {
 }
 .map {
   height: 400px;
+}
+.map-text {
+  background: #333;
+  color: #fff;
+  padding: 20px;
 }
 .navbar .container-fluid {
   padding-left: 30px;
