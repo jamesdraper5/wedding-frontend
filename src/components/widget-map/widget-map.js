@@ -31,7 +31,7 @@ class WidgetMap {
     			}
     		]
     	};
-
+    	this.subscriptions = [];
     	this.setInitialLocation()
 
     }
@@ -69,8 +69,11 @@ class WidgetMap {
     	if ( this.isEditMode ) {
 	    	google.maps.event.addListener(this.googleMarker, 'dragend', () => {
 	    		this.geocodePosition(this.googleMarker.getPosition());
-	    		console.log('here');
 	    	});
+
+	    	this.subscriptions.push( this.map.title.subscribe((title) => {
+	    		this.googleMarker.setTitle(title)
+	    	}));
     	}
 
     	// To add the marker to the map, call setMap();
@@ -88,9 +91,8 @@ class WidgetMap {
                 this.map.title( results[0].formatted_address )
 
             } else {
-                //$("#mapErrorMsg").html('Cannot determine address at this location.'+status).show(100);
-                console.log('error', status);
-                app.flash.Error( "<strong>Sorry!</strong> ", 'Cannot determine address at this location.' );
+            	// Not sure if we need an error message for this, could probably just fail silently...
+                //app.flash.Error( "<strong>Sorry!</strong> ", 'Cannot determine address at this location.' );
             }
 	    });
 	}
@@ -103,9 +105,6 @@ class WidgetMap {
 		}
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition((position) => {
-				console.log('position', position);
-				this.map.latitude( position.coords.latitude )
-				this.map.latitude( position.coords.longitude )
 				this.moveMarker( position.coords.latitude, position.coords.longitude )
 			});
 		}
@@ -114,6 +113,8 @@ class WidgetMap {
 	moveMarker( lat, lng ) {
 		this.googleMap.panTo( new google.maps.LatLng( lat, lng ) );
 		this.googleMarker.setPosition( new google.maps.LatLng( lat, lng ) );
+		this.map.latitude( lat );
+		this.map.latitude( lng );
 	};
 
 	dispose() {
