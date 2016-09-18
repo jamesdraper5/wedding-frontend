@@ -17,7 +17,7 @@ class AdminPanel {
 		}
 		//app.modal.Show('edit-intro', introData, this);
 
-		app.overlayToShow({
+		app.showOverlay({
 			name: 'edit-intro',
 			params: introData
 		});
@@ -33,7 +33,7 @@ class AdminPanel {
 			menuText: ko.unwrap(app.installation.sections.weddingParty.menuText)
 		}
 
-		app.overlayToShow({
+		app.showOverlay({
 			name: 'edit-wedding-party',
 			params: weddingPartyData
 		});
@@ -53,7 +53,7 @@ class AdminPanel {
 		}
 		*/
 
-		app.overlayToShow({
+		app.showOverlay({
 			name: 'edit-maps',
 			params: mapData
 		});

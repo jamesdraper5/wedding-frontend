@@ -6154,6 +6154,9 @@ body {
   padding-bottom: 80px;
   font-size: 16px;
 }
+body.no-scroll {
+  overflow: hidden;
+}
 #preloader {
   position: fixed;
   z-index: 1000000;
@@ -6226,7 +6229,7 @@ body {
 .map-text {
   background: #333;
   color: #fff;
-  padding: 20px;
+  padding: 30px;
 }
 .navbar .container-fluid {
   padding-left: 30px;
@@ -6302,6 +6305,8 @@ body {
   color: #fff;
   margin-top: 50px;
   z-index: 1000;
+  overflow-y: auto;
+  background: #333;
 }
 #overlay #overlay-bg {
   background: #333;
@@ -6312,9 +6317,25 @@ body {
   width: 100%;
   bottom: 0;
 }
-#overlay .modal-header,
-#overlay .modal-footer {
+#overlay #overlay-main {
+  height: 375px;
+  overflow: auto;
+}
+#overlay .modal-header {
   position: relative;
+}
+#overlay .modal-body {
+  padding: 20px 15px;
+}
+#overlay .overlay-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 15px;
+  padding: 20px 25px;
+  text-align: right;
+  z-index: 9999999;
 }
 #overlay .close {
   font-size: 24px;

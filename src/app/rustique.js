@@ -94,6 +94,15 @@ class Rustique {
 		});
 	}
 
+	showOverlay(overlay) {
+		app.overlayToShow(overlay);
+		$('body').addClass('no-scroll');
+	}
+
+	hideOverlay() {
+		app.overlayToShow(null);
+		$('body').removeClass('no-scroll');
+	}
 
 	Logout() {
 		var firstName = app.loggedInUser.firstName()
@@ -101,7 +110,7 @@ class Rustique {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
-			app.overlayToShow(null);
+
 			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});
 	}

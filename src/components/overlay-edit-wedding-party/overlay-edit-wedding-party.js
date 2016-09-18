@@ -23,13 +23,18 @@ class OverlayEditWeddingParty {
 
 	}
 
-	OnShow() {
-		return;
+	OnRendered() {
+		var overlayOffset = $('#page-holder').offset().left,
+			bodyHeight = $(window).height(),
+			navHeight = $('#navbar').outerHeight(),
+			footerHeight = $('.overlay-footer').outerHeight(),
+			overlayHeight = bodyHeight - (navHeight + footerHeight);
+
+		$('.overlay-footer').css({left: overlayOffset+'px'});
+		$('#overlay-main').height(overlayHeight + 'px');
 	}
 
 	OnSubmit() {
-
-
 		this.isSubmitting(true);
 
 		var partyData = {
@@ -50,7 +55,7 @@ class OverlayEditWeddingParty {
 	}
 
 	Close() {
-		app.overlayToShow(null);
+		app.closeOverlay();
 	}
 
 	AddPerson(group) {

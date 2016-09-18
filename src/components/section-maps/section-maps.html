@@ -11,7 +11,7 @@
 <!-- ko foreach: maps -->
 	<section class="row">
 		<div class="col-md-12 text-center">
-			<div data-bind="attr: { id: 'map' + id() }" class="map-container" style="height: 400px;"></div>
+			<widget-map params="map: $data, mapHeight: '400px'"></widget-map>
 		</div>
 	</section>
 	<section class="row map-text">
@@ -21,6 +21,4 @@
 		</div>
 	</section>
 <!-- /ko -->
-
-<div data-bind="template: { afterRender:OnRendered }">
 

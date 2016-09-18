@@ -16,12 +16,18 @@ class OverlayEditMaps {
 			}
 		});
 
-
-
-		//GoogleMapsLoader.KEY = 'AIzaSyBdlmh7fqtInzVycyxMmzS4n9rAvZSlZYI';
 	}
 
+	OnRendered() {
+		var overlayOffset = $('#page-holder').offset().left,
+			bodyHeight = $(window).height(),
+			navHeight = $('#navbar').outerHeight(),
+			footerHeight = $('.overlay-footer').outerHeight(),
+			overlayHeight = bodyHeight - (navHeight + footerHeight);
 
+		$('.overlay-footer').css({left: overlayOffset+'px'});
+		$('#overlay-main').height(overlayHeight + 'px');
+	}
 
 	OnSubmit() {
 		this.isSubmitting(true);
@@ -38,7 +44,7 @@ class OverlayEditMaps {
 	}
 
 	Close() {
-		app.overlayToShow(null);
+		app.hideOverlay();
 	}
 
 	dispose() {

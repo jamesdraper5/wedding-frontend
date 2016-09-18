@@ -32,12 +32,11 @@ class WidgetMap {
     		]
     	};
     	this.subscriptions = [];
-    	this.setInitialLocation()
+    	this.setInitialLocation();
 
     }
 
     OnRendered() {
-		console.log('OnRendered');
 		GoogleMapsLoader.load((google) => {
 			this.renderGoogleMap(google);
 		});
@@ -67,6 +66,7 @@ class WidgetMap {
     	});
 
     	if ( this.isEditMode ) {
+    		console.log('doing edit stuff');
 	    	google.maps.event.addListener(this.googleMarker, 'dragend', () => {
 	    		this.geocodePosition(this.googleMarker.getPosition());
 	    	});
@@ -98,6 +98,11 @@ class WidgetMap {
 	}
 
 	setInitialLocation() {
+		console.log('this', this);
+		console.log('this.isEditMode', this.isEditMode);
+		if ( !this.isEditMode ) return;
+
+		console.log('doing edit stuff 2');
 		// The inital location is set to Times Square in the DB.
 		// If it hasn't been edited then ask user for their current location to set map marker, else return
 		if ( this.map.latitude() !== '40.7505' && this.map.longitude() !== '-73.9934' ) {

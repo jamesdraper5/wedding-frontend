@@ -1,6 +1,9 @@
 body {
 	padding-bottom: 80px;
 	font-size: 16px;
+	&.no-scroll {
+		overflow: hidden;
+	}
 }
 
 #preloader {
@@ -161,6 +164,9 @@ body {
 	color: #fff;
 	margin-top: 50px;
 	z-index: 1000;
+	overflow-y: auto;
+	background: #333;
+
 	#overlay-bg {
 		background: #333;
 	    opacity: 0.95;
@@ -170,8 +176,27 @@ body {
 	    width: 100%;
 	    bottom: 0;
 	}
-	.modal-header, .modal-footer {
+	#overlay-main {
+		height: 375px;
+	    overflow: auto;
+	}
+
+	.modal-header {
 		position: relative;
+	}
+	.modal-body {
+		padding: 20px 15px;
+	}
+	.overlay-footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin-top: 15px;
+		padding: 20px 25px;
+		text-align: right;
+	    z-index: 9999999;
+	    //background: #3d3d3d;
 	}
 	.close {
 		font-size: 24px;
