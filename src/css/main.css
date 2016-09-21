@@ -6170,6 +6170,11 @@ body.no-scroll {
   text-align: center;
   padding: 200px 0;
 }
+.popover {
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
+}
 #login-dp {
   min-width: 250px;
   padding: 14px 14px 0;
