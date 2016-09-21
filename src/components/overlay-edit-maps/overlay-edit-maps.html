@@ -13,10 +13,35 @@
 
 				<!-- ko foreach: maps -->
 					<div class="form-group">
+						<label>
+							Location
+							<span
+								class="glyphicon glyphicon-info-sign"
+								aria-hidden="true"
+								data-toggle="popover"
+								data-trigger="hover"
+								title="Entering a location"
+								data-content="Type the address below and click 'View on map' to set your location. If you need to adjust the location on the map, you can drag the marker to your chosen location. Press the + and - buttons on the map to zoom in and out, and drag the map to move it's location."
+							></span>
+						</label>
+
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Enter the address of your venue" data-bind="textInput: address">
+				            <span class="input-group-btn">
+								<button class="btn btn-primary" type="button" data-bind="click: updateGoogleMapLocation">
+			              			<span class="glyphicon glyphicon-screenshot"></span>
+									View on map
+			              		</button>
+			              	</span>
+			            </div>
+
+						<br>
 						<widget-map params="map: $data, mapHeight: '300px', isEditMode: true"></widget-map>
+
+
 						<div class="form-group">
 							<label data-bind="attr: { for: 'map-title-' + id() }">Title</label>
-							<input type="text" data-bind="attr: { id: 'map-title-' + id() }" class="form-control" data-bind="textInput: title">
+							<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title" class="form-control">
 						</div>
 						<div class="form-group">
 							<label data-bind="attr: { for: 'map-desc-' + id() }">Description</label>
