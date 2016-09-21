@@ -46,7 +46,10 @@ class Rustique {
 		this.sidebarPosition = ko.observable('closed');
 		this.overlayToShow = ko.observable(null);
 
-
+		$('body').popover({
+		    selector: '[data-toggle="popover"]',
+		    trigger: 'hover'
+		});
 	}
 
 	findInstallation() {
