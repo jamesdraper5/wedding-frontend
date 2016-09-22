@@ -5,10 +5,11 @@ bower_modules/
 # Don't track build output
 dist/
 
-src/css/main.css
+src/css/
 
 *.sublime-workspace
 
 *.sublime-workspace
 
 wedding-frontend.sublime-workspace
+

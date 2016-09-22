@@ -6175,6 +6175,10 @@ body.no-scroll {
   font-size: 14px;
   font-weight: normal;
 }
+#modalConfirmBtn {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 #login-dp {
   min-width: 250px;
   padding: 14px 14px 0;
