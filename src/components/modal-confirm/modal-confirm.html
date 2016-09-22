@@ -1,0 +1,26 @@
+<div data-bind="attr:{'id':modalDivId},css:{fade:allowFade}" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" data-bind="text:title">x</h4>
+			</div>
+			<div class="modal-body">
+				<p class="title-label" data-bind="html:question">q</p>
+			</div>
+			<div class="modal-footer">
+				<div class="text-right">
+					<!-- ko if: showCancel -->
+						<button class="btn btn-link" data-bind="click:OnClickCancel">Cancel</button>
+					<!-- /ko -->
+					<button id="modalConfirmBtn" class="btn btn-success" data-bind="click:OnClickConfirm">OK</button>
+				</div>
+			</div>
+	    </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- IMPORTANT - Mark this template loaded -->
+<!-- ko if: $data.readyToShow != null && readyToShow -->
+    <div data-bind="template:{afterRender:function(){templateLoaded(true)}}" class="hidden"></div>
+<!-- /ko -->

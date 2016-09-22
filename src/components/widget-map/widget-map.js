@@ -72,7 +72,10 @@ class WidgetMap {
 
 		if ( this.isEditMode ) {
 			google.maps.event.addListener(this.googleMarker, 'dragend', () => {
-				this.geocodePosition(this.googleMarker.getPosition());
+				var position = this.googleMarker.getPosition();
+				this.geocodePosition(position);
+				this.map.latitude( position.lat() )
+				this.map.latitude( position.lng() )
 			});
 
 			this.subscriptions.push( this.map.address.subscribe((address) => {
@@ -90,13 +93,10 @@ class WidgetMap {
 			latLng: pos
 		}, (results, status) => {
 			if (status == google.maps.GeocoderStatus.OK) {
-				this.map.latitude( pos.lat() )
-				this.map.latitude( pos.lng() )
 				this.map.address( results[0].formatted_address )
-
 			} else {
-				// Not sure if we need an error message for this, could probably just fail silently...
-				//app.flash.Error( "<strong>Sorry!</strong> ", 'Cannot determine address at this location.' );
+				// TO DO: This should just be a toastr at most
+				//app.modal.Alert('Oh Dear', 'We had a problem determining the address at this location. ')
 			}
 		});
 	}
@@ -106,13 +106,19 @@ class WidgetMap {
         this.geocoder.geocode({
         	'address': address
         }, (results, status) => {
-	        if (status === 'OK' && results.length) {
-	            this.googleMap.setCenter(results[0].geometry.location);
-	            this.googleMarker.setPosition(results[0].geometry.location);
-	            this.map.latitude( results[0].geometry.location.lat() )
-	            this.map.longitude( results[0].geometry.location.lng() )
+	        if (status === 'OK') {
+	        	if ( results.length ) {
+		            this.googleMap.setCenter(results[0].geometry.location);
+		            this.googleMarker.setPosition(results[0].geometry.location);
+		            this.map.latitude( results[0].geometry.location.lat() )
+		            this.map.longitude( results[0].geometry.location.lng() )
+		        } else {
+		        	app.modal.Alert('This is Awkward...', 'We couldn\'t find a location for this address. Please check that you have entered it correctly. If you have, then that\'s our bad. If you try entering a less specific, or a nearby address, you can then drag the marker on the map to the exact location. Sorry about that.')
+		        }
+		    } else if ( status === 'ZERO_RESULTS' ) {
+	        	app.modal.Alert('This is Awkward...', 'We couldn\'t find a location for this address. Please check that you have entered it correctly. If you have, then that\'s our bad. If you try entering a less specific, or a nearby address, you can then drag the marker on the map to the exact location. Sorry about that.')
 	        } else {
-	            alert('Geocode was not successful for the following reason: ' + status);
+	            app.modal.Alert('This is Awkward...', 'We had a problem determining the location for this address. Please try again.')
 	        }
         });
 	}

@@ -22,7 +22,7 @@ class ModalHelper {
 		modalVM.allowFade = ko.observable(true);
 
 
-		var ShowModal = (modalVM) => {
+		var showModal = (modalVM) => {
 			modalVM.modalDiv.modal("show");
 			app.currentModalVM = modalVM;
 
@@ -36,10 +36,10 @@ class ModalHelper {
 			*/
 
 			// Setup the after-closing-animation function:
-			AttachOnhide(modalVM);
+			attachOnhide(modalVM);
 		}
 
-		var AttachOnhide = (modalVM) => {
+		var attachOnhide = (modalVM) => {
 			modalVM.modalDiv.on('hidden.bs.modal', (e) => {
 				// Clear the binding - not having this causes madness
 				$( modalVM.modalDiv ).unbind( 'hidden.bs.modal' )
@@ -55,7 +55,7 @@ class ModalHelper {
 					app.currentModalVM = undefined;
 				// ..Otherwise restore the modal this was stacked on
 				} else {
-					ShowModal(modalVM.stackedOnModalVM);
+					showModal(modalVM.stackedOnModalVM);
 				}
 
 				// Remove the modal component from the DOM by removing it in app.modals
@@ -76,7 +76,7 @@ class ModalHelper {
 
 			// If no existing stack, just show the view model
 			if ( app.currentModalVM == null ) {
-				ShowModal(modalVM);
+				showModal(modalVM);
 			}
 			// Existing stack, need to hide existing modal and show ours
 			else {
@@ -100,7 +100,7 @@ class ModalHelper {
 					modalVM.allowFade(false);
 
 					// Show the new modal
-					ShowModal(modalVM);
+					showModal(modalVM);
 				});
 
 				// Turn off the fade-out effect
@@ -127,6 +127,14 @@ class ModalHelper {
 			title: title,
 			question: question,
 			callback: callback
+		}, this);
+	}
+
+	Alert(title, text) {
+		app.modal.Show("confirm", {
+			title: title,
+			question: text,
+			showCancel: false
 		}, this);
 	}
 
