@@ -37,13 +37,14 @@ class OverlayEditRsvp {
 		this.isSubmitting(true);
 		var rsvpData = {
 			title: this.title(),
-			text: this.content(),
+			text: this.text(),
 			menuText: this.menuText(),
 			isVisible: this.isVisible()
 		};
 		app.api.put(`api/rsvps/${this.id}`, rsvpData).then((result) => {
 			console.log('result', result);
 			app.flash.Success('Updated baby!');
+			app.updateInstallationData();
 			this.Close();
 		}).finally(() => {
 			this.isSubmitting(false);
