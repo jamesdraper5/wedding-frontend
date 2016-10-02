@@ -10,12 +10,6 @@ class OverlayEditMaps {
 		this.isVisible = ko.observable( params.isVisible );
 		this.locations = ko.observableArray( params.locations );
 
-
-		for ( var loc of this.locations() ) {
-			console.log('latitude', loc.latitude());
-			console.log('longitude', loc.longitude());
-		}
-
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
 			if ( this.isSubmitting() ) {
@@ -60,9 +54,6 @@ class OverlayEditMaps {
 			}
 			mapData.locations.push(mapObj);
 		}
-
-		console.log('mapData', mapData);
-		return;
 
 		app.api.put(`api/mapSections/${this.id}`, mapData).then((result) => {
 			app.flash.Success('Updated baby!');
