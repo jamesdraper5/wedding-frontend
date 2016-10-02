@@ -40,6 +40,7 @@ class OverlayWelcomeMessage {
 		};
 		app.api.put(`api/intros/${this.id}`, introData).then((result) => {
 			app.flash.Success('Updated baby!');
+			app.updateInstallationData();
 			this.Close();
 		}).finally(() => {
 			this.isSubmitting(false);
