@@ -18,6 +18,7 @@ ko.components.register('overlay-edit-wedding-party', { require: 'components/over
 ko.components.register('overlay-edit-maps', { require: 'components/overlay-edit-maps/overlay-edit-maps' });
 ko.components.register('widget-map', { require: 'components/widget-map/widget-map' });
 ko.components.register('modal-confirm', { require: 'components/modal-confirm/modal-confirm' });
+ko.components.register('overlay-edit-rsvp', { require: 'components/overlay-edit-rsvp/overlay-edit-rsvp' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

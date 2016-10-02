@@ -8,14 +8,12 @@ class AdminPanel {
 	}
 
 	OnClickEditIntro() {
-		console.log('app.installation.sections.intro', app.installation.sections.intro);
 		var introData = {
 			id: ko.unwrap(app.installation.sections.intro.id),
 			title: ko.unwrap(app.installation.sections.intro.header),
 			content: ko.unwrap(app.installation.sections.intro.content),
 			menuText: ko.unwrap(app.installation.sections.intro.menuText)
 		}
-		//app.modal.Show('edit-intro', introData, this);
 
 		app.showOverlay({
 			name: 'edit-intro',
@@ -24,7 +22,6 @@ class AdminPanel {
 	}
 
 	OnClickEditWeddingParty() {
-		console.log('app.installation.sections.weddingParty', app.installation.sections.weddingParty);
 		var weddingPartyData = {
 			id: ko.unwrap(app.installation.sections.weddingParty.id),
 			title: ko.unwrap(app.installation.sections.weddingParty.title),
@@ -40,27 +37,18 @@ class AdminPanel {
 	}
 
 	OnClickEditLocations() {
-		console.log('app.installation.sections.maps', app.installation.sections.maps);
-
-		// TO DO: either remove this obj or fix it
-		var mapData = {}
-		/*
-			id: ko.unwrap(app.installation.sections.weddingParty.id),
-			title: ko.unwrap(app.installation.sections.weddingParty.title),
-			content: ko.unwrap(app.installation.sections.weddingParty.text),
-			groups: app.installation.sections.weddingParty.groups,
-			menuText: ko.unwrap(app.installation.sections.weddingParty.menuText)
-		}
-		*/
-
 		app.showOverlay({
 			name: 'edit-maps',
-			params: mapData
+			params: {}
 		});
 	}
 
 	OnClickEditRsvp() {
 		console.log('app.installation.sections.rsvp', app.installation.sections.rsvp);
+		app.showOverlay({
+			name: 'edit-rsvp',
+			params: {}
+		});
 	}
 
 	dispose() {
