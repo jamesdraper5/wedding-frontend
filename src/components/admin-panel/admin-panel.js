@@ -37,9 +37,16 @@ class AdminPanel {
 	}
 
 	OnClickEditLocations() {
+		var mapsData = {
+			id: ko.unwrap(app.installation.sections.maps.id),
+			title: ko.unwrap(app.installation.sections.maps.title),
+			menuText: ko.unwrap(app.installation.sections.maps.menuText),
+			isVisible: ko.unwrap(app.installation.sections.maps.isVisible),
+			locations: ko.unwrap(app.installation.sections.maps.locations.slice(0))
+		}
 		app.showOverlay({
 			name: 'edit-maps',
-			params: {}
+			params: mapsData
 		});
 	}
 
