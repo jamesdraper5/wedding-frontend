@@ -55,7 +55,7 @@ class OverlayEditWeddingParty {
 	}
 
 	Close() {
-		app.closeOverlay();
+		app.hideOverlay();
 	}
 
 	AddPerson(group) {

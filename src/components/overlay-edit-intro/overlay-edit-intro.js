@@ -47,8 +47,7 @@ class OverlayWelcomeMessage {
 	}
 
 	Close() {
-		app.closeOverlay();
-		console.log('close');
+		app.hideOverlay();
 	}
 
 	dispose() {
