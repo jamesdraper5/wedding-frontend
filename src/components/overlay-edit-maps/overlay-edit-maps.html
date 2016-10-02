@@ -7,14 +7,19 @@
 		<div class="modal-body">
 			<div class="forms-container">
 				<div class="form-group">
-					<label for="map-title">Title</label>
+					<label for="map-title">Section Title</label>
 					<input type="text" id="map-title" class="form-control" data-bind="textInput: title">
 				</div>
+				<div class="form-group">
+					<label for="menu-text">Menu Text</label>
+					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText">
+				</div>
 
-				<!-- ko foreach: maps -->
+				<!-- ko foreach: locations -->
+					<hr>
 					<div class="form-group">
 						<label>
-							Location
+							{{ 'Map #' + parseInt($index()+1) + ' Location' }}
 							<span
 								class="glyphicon glyphicon-info-sign"
 								aria-hidden="true"
@@ -40,15 +45,25 @@
 						<br>
 
 						<div class="form-group">
-							<label data-bind="attr: { for: 'map-title-' + id() }">Title</label>
+							<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Title', attr: { for: 'map-title-' + id() }">Map Title</label>
 							<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title" class="form-control">
 						</div>
 						<div class="form-group">
-							<label data-bind="attr: { for: 'map-desc-' + id() }">Description</label>
+							<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Description', attr: { for: 'map-desc-' + id() }">Map Description</label>
 							<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }"></textarea>
+						</div>
+						<div class="form-group align-right">
+								<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap">Delete this Location</button>
 						</div>
 					</div>
 				<!-- /ko -->
+
+				<hr>
+				<div class="form-group">
+					<div class="form-inline">
+				        <button class="btn btn-success" data-bind="click: AddLocation">Add New Location</button>
+					</div>
+				</div>
 
 			</div>
 		</div>

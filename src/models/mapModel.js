@@ -6,6 +6,18 @@ class MapModel {
         mapping.fromJS(data, {}, this);
 
         this.address = ko.observable('') // used for geocoding address string to map co-ords
+        this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API
+
+        console.log('this.latitude', this.latitude());
+        console.log('this.longitude', this.longitude());
+
+        this.latitude.subscribe((lat) => {
+        	console.log('lat', lat);
+        })
+
+        this.longitude.subscribe((lon) => {
+        	console.log('lon', lon);
+        })
     }
 
     updateGoogleMapLocation() {

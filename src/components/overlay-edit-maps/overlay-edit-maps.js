@@ -1,11 +1,20 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./overlay-edit-maps.html';
-//import * as GoogleMapsLoader from 'google-maps';
+import * as MapModel from '../../models/mapModel';
 
 class OverlayEditMaps {
 	constructor(params) {
-		this.title = app.installation.sections.maps.menuText;
-		this.maps = app.installation.sections.maps.locations;
+		this.id = ko.unwrap( params.id );
+		this.title = ko.observable( params.title );
+		this.menuText = ko.observable( params.menuText );
+		this.isVisible = ko.observable( params.isVisible );
+		this.locations = ko.observableArray( params.locations );
+
+
+		for ( var loc of this.locations() ) {
+			console.log('latitude', loc.latitude());
+			console.log('longitude', loc.longitude());
+		}
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -31,16 +40,58 @@ class OverlayEditMaps {
 
 	OnSubmit() {
 		this.isSubmitting(true);
-		var introData = {
-			header: this.title(),
-			content: this.content(),
+		var mapData = {
+			title: this.title(),
+			isVisible: this.isVisible(),
 			menuText: this.menuText()
 		};
-		app.api.put(`api/intros/${this.id}`, introData).then((result) => {
+
+		mapData.locations = []
+
+		for ( var loc of this.locations() ) {
+			var mapObj = {
+				title: loc.title(),
+				description: loc.description(),
+				latitude: loc.latitude(),
+				longitude: loc.longitude()
+			}
+			if ( !loc.isNew ) {
+				mapObj.id = loc.id()
+			}
+			mapData.locations.push(mapObj);
+		}
+
+		console.log('mapData', mapData);
+		return;
+
+		app.api.put(`api/mapSections/${this.id}`, mapData).then((result) => {
+			app.flash.Success('Updated baby!');
+			app.updateInstallationData();
 			this.Close();
 		}).finally(() => {
 			this.isSubmitting(false);
 		});
+	}
+
+	OnClickDeleteMap(map) {
+		var idx = app.utility.FindIndexByKeyValue(this.locations(), 'id', map.id());
+		if ( idx > -1 ) {
+			console.log('this', this);
+			this.locations.splice(idx, 1);
+		}
+	}
+
+	AddLocation(group) {
+		var newMap = new MapModel({
+			id: Date.now(),
+			title: "New Map",
+            description: "",
+            latitude: 40.7505,
+            longitude: -73.9934,
+            isNew: true
+		});
+		this.locations.push(newMap);
+
 	}
 
 	Close() {
@@ -48,6 +99,7 @@ class OverlayEditMaps {
 	}
 
 	dispose() {
+		console.log('dispose');
 		// This runs when the component is torn down. Put here any logic necessary to clean up,
 		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
 	}
