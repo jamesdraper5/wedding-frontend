@@ -41,6 +41,7 @@ class WidgetMap {
 	}
 
 	OnRendered() {
+		console.log('OnRendered');
 		GoogleMapsLoader.load((google) => {
 			this.geocoder = new google.maps.Geocoder();
 			this.renderGoogleMap(google);
@@ -75,7 +76,7 @@ class WidgetMap {
 				var position = this.googleMarker.getPosition();
 				this.geocodePosition(position);
 				this.map.latitude( position.lat() )
-				this.map.latitude( position.lng() )
+				this.map.longitude( position.lng() )
 			});
 
 			this.subscriptions.push( this.map.address.subscribe((address) => {
@@ -135,7 +136,7 @@ class WidgetMap {
 			navigator.geolocation.getCurrentPosition((position) => {
 				this.moveMarker( position.coords.latitude, position.coords.longitude )
 				this.map.latitude( position.coords.latitude );
-				this.map.latitude( position.coords.longitude );
+				this.map.longitude( position.coords.longitude );
 			});
 		}
 	}
@@ -144,7 +145,7 @@ class WidgetMap {
 		this.googleMap.panTo( new google.maps.LatLng( lat, lng ) );
 		this.googleMarker.setPosition( new google.maps.LatLng( lat, lng ) );
 		this.map.latitude( lat );
-		this.map.latitude( lng );
+		this.map.longitude( lng );
 	}
 
 	updateLocation(data) {
