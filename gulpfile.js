@@ -130,7 +130,7 @@ gulp.task('clean', function() {
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
 gulp.task('serve:src', function() {
-    var apiProxy = proxy('/api', { target: 'http://localhost:3000', changeOrigin: true, logLevel: 'debug'});
+    var apiProxy = proxy('/api', { target: 'http://localhost:5000', changeOrigin: true, logLevel: 'debug'});
     return connect.server({
         root: transpilationConfig.root,
         middleware: function(connect, opt) {
