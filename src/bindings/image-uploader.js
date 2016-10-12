@@ -7,7 +7,7 @@ uploadOpts = params to pass to Cloudinary for the image upload
 import ko from 'knockout';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
-import * as cloudinary from 'cloudinary';
+//import * as cloudinary from 'cloudinary';
 
 ko.bindingHandlers.imageUploader = {
 

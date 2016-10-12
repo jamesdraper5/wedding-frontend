@@ -50,6 +50,8 @@ class Rustique {
 		    selector: '[data-toggle="popover"]',
 		    trigger: 'hover'
 		});
+
+		$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
 	}
 
 	findInstallation() {
@@ -63,7 +65,7 @@ class Rustique {
 
 		}).catch(( error ) => {
 			console.log( "Request Failed: ", error );
-			if ( error.status == 404 && error.responseJSON.message != null && error.responseJSON.message == 'Wedding site not found' ) {
+			if ( error.status == 404 && error.responseJSON && error.responseJSON.message == 'Wedding site not found' ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 			} else {
 				this.hasLoadedData(true);

@@ -14,7 +14,7 @@ var require = {
 		"google-maps":          		"bower_modules/google-maps/lib/Google.min",
 		"hasher":               		"bower_modules/hasher/dist/js/hasher.min",
 		"installationModel":    		"models/installationModel",
-		"jquery":               		"bower_modules/jquery/dist/jquery",
+		"jquery":               		"bower_modules/jquery/dist/jquery.min",
 		"knockout":             		"bower_modules/knockout/dist/knockout",
 		"knockout-mapping":     		"bower_modules/knockout-mapping/knockout.mapping",
 		"knockout-postbox":     		"bower_modules/knockout-postbox/build/knockout-postbox.min",
@@ -28,15 +28,15 @@ var require = {
 		"signals":              		"bower_modules/js-signals/dist/signals.min",
 		"spin":                 		"bower_modules/ladda/dist/spin.min",
 		"text":                 		"bower_modules/requirejs-text/text",
-		"toastr":               		"bower_modules/toastr/toastr.min",
+		"toastr":               		"bower_modules/toastr/toastr",
 		"validationHelper":     		"helpers/validation",
 		"validator":            		"bower_modules/validator-js/validator.min",
 		"weddingPartyModel": 		   	"models/weddingPartyModel",
 		"weddingPartyGroupsModel":    	"models/weddingPartyGroupsModel",
-		"weddingPartyPeopleModel":    	"models/weddingPartyPeopleModel",
-		"cloudinary": 					"//widget.cloudinary.com/global/all"
+		"weddingPartyPeopleModel":    	"models/weddingPartyPeopleModel"
 	},
 	shim: {
-		"bootstrap": { deps: ["jquery"] }
+		"bootstrap": { deps: ["jquery"] },
+		"rustique": { deps: ["toastr"] }
 	}
 };

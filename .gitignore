@@ -4,6 +4,7 @@ bower_modules/
 
 # Don't track build output
 dist/
+temp/
 
 src/css/
 
