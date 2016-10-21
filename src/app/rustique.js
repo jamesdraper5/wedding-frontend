@@ -51,7 +51,6 @@ class Rustique {
 		    trigger: 'hover'
 		});
 
-		$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
 	}
 
 	findInstallation() {
@@ -92,6 +91,11 @@ class Rustique {
 				//this.showWelcomeModal() // TO DO: low priority
 			}
 			this.isUserLoggedIn(true);
+
+			setTimeout(() => {
+				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
+			}, 500)
+
 			return result;
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
