@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Loading...</title>
+		<link rel="stylesheet" href="css.css">
+		<script src="scripts.js"></script>
+	</head>
+
+	<body>
+
+		<!-- ko if: !app.hasLoadedData() || typeof window.app == 'undefined' -->
+			<div id="preloader">
+				LOADING!!!!!
+			</div>
+		<!-- /ko -->
+
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
+			<div data-bind="css: app.installation.themeClass">
+
+
+				<!-- ko if: app.hasSidebar() -->
+				<div id="admin-holder">
+					<admin-panel></admin-panel>
+				</div>
+				<!-- /ko -->
+
+				<div id="page-holder" data-bind="css: app.sidebarPosition()">
+					<nav-bar params="route: route"></nav-bar>
+					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
+
+					<!-- ko if: app.overlayToShow() -->
+						<!-- ko with: app.overlayToShow() -->
+							<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
+						<!-- /ko -->
+					<!-- /ko -->
+
+				</div>
+
+			</div>
+		<!-- /ko -->
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && !app.isWeddingFound() && !app.hasError() -->
+			WEDDING NOT FOUND!!!
+		<!-- /ko -->
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
+			LOADED WITH ERRORS!!!
+		<!-- /ko -->
+
+		<!-- Load Modals on demand -->
+		<!-- ko foreach: app.modals -->
+		<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
+		<!-- /ko -->
+
+		<!--
+		<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+		 -->
+	</body>
+</html>
