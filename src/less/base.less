@@ -102,6 +102,10 @@ body {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+.navbar-default {
+	background-color: transparent;
+	border-color: transparent;
+}
 
 #admin-holder {
 	background: #a94274;
@@ -120,7 +124,7 @@ body {
 		margin: 20px 35px;
 	}
 }
-#admin-options {
+#admin-panel-content ul {
 	list-style: none;
 	padding-left: 0;
 	li {
@@ -141,6 +145,11 @@ body {
 		    &.selected {
 		    	background: rgba(0,0,0,0.2);
 		    }
+		}
+	}
+	ul {
+		a {
+			padding-left: 70px;
 		}
 	}
 }
@@ -173,7 +182,6 @@ body {
     width: 100%;
     padding: 5px 10px;
 	color: #fff;
-	margin-top: 50px;
 	z-index: 1000;
 	overflow-y: auto;
 	background: #333;

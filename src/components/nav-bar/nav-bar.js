@@ -8,6 +8,33 @@ class NavBarViewModel {
         this.userEmail = ko.observable('');
         this.userPassword = ko.observable('');
         this.isLoginSubmitting = ko.observable(false);
+
+        this.menuIcon = ko.pureComputed(() => {
+        	if ( app.sidebarPosition() === 'open' ) {
+        		return 'x'
+        	} else {
+        		return '<i class="glyphicon glyphicon-align-justify"></i>'
+        	}
+        });
+
+        this.navbarClass = ko.pureComputed(() => {
+        	var className = '';
+        	console.log('app.overlayToShow()', app.overlayToShow());
+        	if ( app.overlayToShow() == null ) {
+        		className += 'navbar-fixed-top ';
+        	}
+        	className += app.sidebarPosition();
+        	return className;
+        });
+    }
+
+    OnClickToggleSidebar() {
+    	if ( app.sidebarPosition() === 'open' ) {
+    		app.sidebarPosition( 'closed' )
+    	} else {
+    		app.sidebarPosition( 'open' )
+    	}
+
     }
 
     OnSubmitLogin() {
@@ -36,6 +63,7 @@ class NavBarViewModel {
     OnLogOut() {
     	app.Logout();
     }
+
 }
 
 export default { viewModel: NavBarViewModel, template: template };

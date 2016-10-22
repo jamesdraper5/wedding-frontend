@@ -2,25 +2,33 @@
 	<h3>Logo</h3>
 
 	<ul id="admin-options">
-		<li>
-			<a href="javascript:;" data-bind="click: OnClickEditIntro, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-intro' }">
-				Home
-			</a>
+		<li class="editor">
+			<a href="javascript:;">Site Editor</a>
+			<ul>
+				<li>
+					<a href="javascript:;" data-bind="click: OnClickEditIntro, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-intro' }">
+						Home
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" data-bind="click: OnClickEditWeddingParty, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-wedding-party' }">
+						Wedding Party
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" data-bind="click: OnClickEditLocations, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-locations' }">
+						Locations
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" data-bind="click: OnClickEditRsvp, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-rsvp' }">
+						RSVP
+					</a>
+				</li>
+			</ul>
 		</li>
-		<li>
-			<a href="javascript:;" data-bind="click: OnClickEditWeddingParty, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-wedding-party' }">
-				Wedding Party
-			</a>
-		</li>
-		<li>
-			<a href="javascript:;" data-bind="click: OnClickEditLocations, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-locations' }">
-				Locations
-			</a>
-		</li>
-		<li>
-			<a href="javascript:;" data-bind="click: OnClickEditRsvp, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-rsvp' }">
-				RSVP
-			</a>
+		<li class="my-account">
+			<a href="javascript:;">My Account</a>
 		</li>
 	</ul>
 </div>
