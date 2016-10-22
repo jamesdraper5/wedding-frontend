@@ -27,7 +27,6 @@
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
 			<div data-bind="css: app.installation.themeClass">
 
-
 				<!-- ko if: app.hasSidebar() -->
 				<div id="admin-holder">
 					<admin-panel></admin-panel>
@@ -35,7 +34,11 @@
 				<!-- /ko -->
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition()">
-					<nav-bar params="route: route"></nav-bar>
+
+					<!-- ko if: route.showNav -->
+						<nav-bar params="route: route"></nav-bar>
+					<!-- /ko -->
+
 					<div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
 
 					<!-- ko if: app.overlayToShow() -->

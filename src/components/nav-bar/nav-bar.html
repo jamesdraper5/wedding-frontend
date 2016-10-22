@@ -22,7 +22,7 @@
 				</li>
 				<!-- /ko -->
 				<!-- ko if: false -->
-					<!-- ko if: app.currentRoute().hasAdmin -->
+					<!-- ko if: app.currentRoute().isLoggedInPage -->
 						<!-- ko if: app.isUserLoggedIn -->
 							<li>
 								<a href="#" data-bind="click: OnLogOut">

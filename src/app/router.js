@@ -14,9 +14,16 @@ import hasher from 'hasher';
 class Router {
     constructor(config) {
         this.currentRoute = ko.observable({});
+        this.hasher = hasher;
 
         // Configure Crossroads route handlers
         ko.utils.arrayForEach(config.routes, (route) => {
+
+        	// Defaults
+        	if ( route.params.showNav == null ) {
+        	    route.params.showNav = true;
+        	}
+
             crossroads.addRoute(route.url, (requestParams) => {
                 this.currentRoute(ko.utils.extend(requestParams, route.params));
             });
@@ -33,8 +40,10 @@ class Router {
 // Create and export router instance
 var routerInstance = new Router({
     routes: [
-        { url: '',          params: { page: 'home-page' } },
-        { url: 'admin',     params: { page: 'home-page', hasAdmin: true } }
+        { url: '',          params: { page: 'page-home' } },
+        { url: 'editor',    params: { page: 'page-home', isLoggedInPage: true } },
+        { url: 'account',   params: { page: 'page-home', isLoggedInPage: true } },
+        { url: 'login',   	params: { page: 'page-login', isLoggedInPage: false, showNav: false } }
     ]
 });
 

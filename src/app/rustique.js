@@ -23,6 +23,7 @@ class Rustique {
 
 		this.api = api;
 		this.router = router;
+		this.hasher = router.hasher;
 		this.currentRoute = router.currentRoute;
 		this.flash = new FlashHelper();
 		this.errorHelper = new ErrorHelper();
@@ -36,11 +37,14 @@ class Rustique {
 		this.isWeddingFound = ko.observable(false);
 		this.hasError = ko.observable(false);
 		this.isUserLoggedIn = ko.observable(false);
+		this.currentRoute.subscribe((newRoute) => {
+			this.onUpdateRoute(newRoute)
+		});
 
 		this.findInstallation();
 
 		this.hasSidebar = ko.pureComputed(() => {
-			return this.currentRoute().hasAdmin && this.isUserLoggedIn();
+			return this.currentRoute().isLoggedInPage && this.isUserLoggedIn();
 		});
 
 		this.sidebarPosition = ko.observable('closed');
@@ -100,8 +104,81 @@ class Rustique {
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
 			return err;
+		}).finally(() => {
+			this.onUpdateRoute(app.currentRoute())
 		});
 	}
+
+	onUpdateRoute(newRoute, firstPageLoad = false) {
+		// TO DO: maybe add something here to map /editor to /#editor, etc
+
+	    //jQuery.scrollTo(0)
+
+	    console.log('newRoute', newRoute);
+	    console.log('firstPageLoad', firstPageLoad);
+
+	    if ( (newRoute.isLoggedInPage || firstPageLoad) && app.loggedInUser == null ) {
+
+	        if ( $.isEmptyObject( app.currentRoute() ) ) {
+	            // If no current route set, and not logged in AND loading first page, then store asked for Hash for redirect after login
+	            app.currentRoute().request_ = app.hasher.getHash()
+	        }
+
+	        app.redirectToLogin()
+	    }
+
+	    //app.UpdatePageTitle()
+
+	    if ( app.loggedInUser != null && app.currentRoute().isLoggedInPage && !this.essentialDataIsLoaded() && !this.essentialDataIsLoading ) {
+	        this.essentialDataIsLoading = true
+	        this.loadEssentialData()
+	    }
+
+	}
+
+	redirectToLogin( callback ) {
+	    // Redirect to login but remember this page
+	    if ( app.currentRoute().page !== "login" ) {
+	        app.requestedRouteBeforeLoginRedirect = app.currentRoute()
+	        app.GoTo("#login")
+	    }
+	    return false
+	}
+
+
+	// For navigating around the app
+	// Pass the silent flag to change it without the app updating
+	// Handy for when something is added ie. we just set the url, the app doesn't react
+	// option: onNotFound - a callback function for when the next item isn't found
+	GoTo(hash, inOpts) {
+	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
+
+	    console.log('hash', hash);
+
+	    var opts = {
+	        format: true,
+	        onNotFound: null,
+	        silent: false
+	    }
+	    $.extend(opts, inOpts)
+
+	    if (opts.format) {
+	        hash = hash.toLowerCase()
+	    }
+
+	    this.router.onNextItemNotFound = opts.onNotFound // ok for this not to exist
+
+	    if (opts.silent) {
+	        this.hasher.changed.active = false
+	        this.hasher.setHash(hash)
+	        this.hasher.changed.active = true
+	    } else {
+	    	console.log('setting hash here', this);
+	        this.hasher.setHash(hash)
+	    }
+	}
+
+
 
 	showOverlay(overlay) {
 		app.overlayToShow(overlay);

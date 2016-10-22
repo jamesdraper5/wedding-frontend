@@ -8,21 +8,7 @@ class HomeViewModel {
 	}
 
 	OnRendered() {
-		//ko.postbox.publish('home-page-rendered');
-
-		/*
-		if ( app.hasSidebar() ) {
-			console.log('has sidebar');
-			setTimeout(() => {
-				console.log('here');
-				app.sidebarPosition('open');
-			}, 500);
-		} else {
-			console.log('no sidebar');
-		}
-		*/
-
-
+		// this might be useful as it's a callback after the home page is fully rendered
 	}
 
 

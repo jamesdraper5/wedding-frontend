@@ -19,7 +19,6 @@ class NavBarViewModel {
 
         this.navbarClass = ko.pureComputed(() => {
         	var className = '';
-        	console.log('app.overlayToShow()', app.overlayToShow());
         	if ( app.overlayToShow() == null ) {
         		className += 'navbar-fixed-top ';
         	}
