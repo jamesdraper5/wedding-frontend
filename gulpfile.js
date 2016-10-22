@@ -151,6 +151,7 @@ gulp.task('serve:src', function() {
 	var apiProxy = proxy('/api', { target: 'http://localhost:5000', changeOrigin: true, logLevel: 'debug'});
 	return connect.server({
 		root: transpilationConfig.root,
+		//livereload: true, TO DO: wire this up, see https://www.npmjs.com/package/gulp-connect
 		middleware: function(connect, opt) {
 			return [
 				apiProxy,
