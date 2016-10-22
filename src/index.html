@@ -41,13 +41,13 @@
 
 					<div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
 
-					<!-- ko if: app.overlayToShow() -->
-						<!-- ko with: app.overlayToShow() -->
-							<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
-						<!-- /ko -->
-					<!-- /ko -->
-
 				</div>
+
+				<!-- ko if: app.overlayToShow() -->
+					<!-- ko with: app.overlayToShow() -->
+						<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
+					<!-- /ko -->
+				<!-- /ko -->
 
 			</div>
 		<!-- /ko -->

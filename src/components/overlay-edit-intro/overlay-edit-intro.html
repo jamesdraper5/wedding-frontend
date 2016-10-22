@@ -1,4 +1,4 @@
-<div id="overlay">
+<div id="overlay" data-bind="style: { left: app.overlayLeftPos(), width: app.overlayWidth() }">
 	<div id="overlay-main">
 		<div class="modal-header">
 			<button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="overlay-footer">
+		<div class="overlay-footer" data-bind="style: { left: app.overlayLeftPos() }">
 			<div class="pull-left">
 				<button id="overlay-close-btn" class="btn btn-default" data-bind="click: Close">Close</button>
 			</div>

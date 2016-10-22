@@ -21,13 +21,10 @@ class OverlayWelcomeMessage {
 	}
 
 	OnRendered() {
-		var overlayOffset = $('#page-holder').offset().left,
-			bodyHeight = $(window).height(),
-			navHeight = $('#navbar').outerHeight(),
+		var bodyHeight = $(window).height(),
 			footerHeight = $('.overlay-footer').outerHeight(),
-			overlayHeight = bodyHeight - (navHeight + footerHeight);
+			overlayHeight = bodyHeight - footerHeight;
 
-		$('.overlay-footer').css({left: overlayOffset+'px'});
 		$('#overlay-main').height(overlayHeight + 'px');
 	}
 

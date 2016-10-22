@@ -1,39 +1,39 @@
-<div id="overlay">
+<div id="overlay" data-bind="style: { left: app.overlayLeftPos(), width: app.overlayWidth() }">
 	<div id="overlay-main">
-        <div class="modal-header">
-            <button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
-            <h4 class="modal-title">Edit Your RSVP Section</h4>
-        </div>
-        <div class="modal-body">
-            <div class="forms-container">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" class="form-control" placeholder="This is the heading for this section, e.g. RSVP" data-bind="textInput: title">
-                </div>
+		<div class="modal-header">
+			<button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			<h4 class="modal-title">Edit Your RSVP Section</h4>
+		</div>
+		<div class="modal-body">
+			<div class="forms-container">
 				<div class="form-group">
-				    <label for="content">Sub Title</label>
-				    <input type="text" id="content" class="form-control" placeholder="An optional short description or message" data-bind="textInput: text">
+					<label for="title">Title</label>
+					<input type="text" id="title" class="form-control" placeholder="This is the heading for this section, e.g. RSVP" data-bind="textInput: title">
 				</div>
 				<div class="form-group">
-				    <label for="menu-text">Menu Text</label>
-				    <input type="text" id="menu-text" class="form-control" placeholder="The title that will show in your top navigation, e.g. RSVP" data-bind="textInput: menuText">
+					<label for="content">Sub Title</label>
+					<input type="text" id="content" class="form-control" placeholder="An optional short description or message" data-bind="textInput: text">
 				</div>
 				<div class="form-group">
-				    <label for="toggle-section">Show this Section</label>
-				    <input type="checkbox" id="toggle-section" class="form-control" data-bind="value: isVisible">
+					<label for="menu-text">Menu Text</label>
+					<input type="text" id="menu-text" class="form-control" placeholder="The title that will show in your top navigation, e.g. RSVP" data-bind="textInput: menuText">
 				</div>
-            </div>
-        </div>
-        <div class="overlay-footer">
-            <div class="pull-left">
-                <button id="overlay-close-btn" class="btn btn-default" data-bind="click: Close">Close</button>
-            </div>
-            <div class="pull-right">
-                <button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
-                	<span class="ladda-label" data-bind="text: btnText()"></span>
-                </button>
-            </div>
-        </div>
+				<div class="form-group">
+					<label for="toggle-section">Show this Section</label>
+					<input type="checkbox" id="toggle-section" class="form-control" data-bind="value: isVisible">
+				</div>
+			</div>
+		</div>
+		<div class="overlay-footer" data-bind="style: { left: app.overlayLeftPos() }">
+			<div class="pull-left">
+				<button id="overlay-close-btn" class="btn btn-default" data-bind="click: Close">Close</button>
+			</div>
+			<div class="pull-right">
+				<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
+					<span class="ladda-label" data-bind="text: btnText()"></span>
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
 <div data-bind="template: { afterRender:OnRendered }">

@@ -49,6 +49,27 @@ class Rustique {
 
 		this.sidebarPosition = ko.observable('closed');
 		this.overlayToShow = ko.observable(null);
+		this.sidebarWidth = 260;
+		this.viewPortWidth = ko.observable($('body').width())
+        this.viewPortHeight = ko.observable($('body').height())
+
+		this.overlayLeftPos = ko.pureComputed(() => {
+			return (this.viewPortWidth() > 768 ? `${this.sidebarWidth}px` : 0)
+		})
+		this.overlayWidth = ko.pureComputed(() => {
+			if ( this.viewPortWidth() > 768 ) {
+				return (this.viewPortWidth() - this.sidebarWidth) + 'px';
+			} else {
+				return '100%'
+			}
+		})
+
+		$(window).resize(() => {
+		    var $body = $('body')
+		    this.viewPortWidth( $body.width() )
+		    this.viewPortHeight( $body.height() )
+		})
+
 
 		$('body').popover({
 		    selector: '[data-toggle="popover"]',
@@ -96,9 +117,11 @@ class Rustique {
 			}
 			this.isUserLoggedIn(true);
 
+			/*
 			setTimeout(() => {
 				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
 			}, 500)
+			*/
 
 			return result;
 		}).catch((err) => {
@@ -112,7 +135,7 @@ class Rustique {
 	onUpdateRoute(newRoute) {
 		// TO DO: maybe add something here to map /editor to /#editor, etc
 
-	    //jQuery.scrollTo(0)
+	    //$.scrollTo(0)
 
 	    console.log('newRoute', newRoute);
 
