@@ -129,11 +129,6 @@ class Rustique {
 
 	    //app.UpdatePageTitle()
 
-	    if ( app.loggedInUser != null && app.currentRoute().isLoggedInPage && !this.essentialDataIsLoaded() && !this.essentialDataIsLoading ) {
-	        this.essentialDataIsLoading = true
-	        this.loadEssentialData()
-	    }
-
 	}
 
 	redirectToLogin( callback ) {
@@ -196,7 +191,7 @@ class Rustique {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
-
+			app.GoTo( '' )
 			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});
 	}

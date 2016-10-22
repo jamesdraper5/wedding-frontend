@@ -5,9 +5,6 @@ class NavBarViewModel {
     constructor(params) {
         this.route = params.route;
         this.installation = app.installation;
-        this.userEmail = ko.observable('');
-        this.userPassword = ko.observable('');
-        this.isLoginSubmitting = ko.observable(false);
 
         this.menuIcon = ko.pureComputed(() => {
         	if ( app.sidebarPosition() === 'open' ) {
