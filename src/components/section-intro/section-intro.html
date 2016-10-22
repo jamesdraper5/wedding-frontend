@@ -11,8 +11,8 @@
 			<!-- ko if: header -->
 				<h2>{{ header }} </h2>
 			<!-- /ko -->
-			<blockquote>{{ content }}</blockquote>
-			<!-- ko if: includeSignature -->
+			<p>{{ content }}</p>
+			<!-- ko if: false && includeSignature -->
 				<p class="pull-right"> {{ $component.signature }} </p>
 			<!-- /ko -->
 		</div>
