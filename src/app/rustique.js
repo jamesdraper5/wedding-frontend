@@ -109,25 +109,24 @@ class Rustique {
 		});
 	}
 
-	onUpdateRoute(newRoute, firstPageLoad = false) {
+	onUpdateRoute(newRoute) {
 		// TO DO: maybe add something here to map /editor to /#editor, etc
 
 	    //jQuery.scrollTo(0)
 
 	    console.log('newRoute', newRoute);
-	    console.log('firstPageLoad', firstPageLoad);
 
-	    if ( (newRoute.isLoggedInPage || firstPageLoad) && app.loggedInUser == null ) {
+	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
 
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
-	            // If no current route set, and not logged in AND loading first page, then store asked for Hash for redirect after login
+	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
 	            app.currentRoute().request_ = app.hasher.getHash()
 	        }
 
 	        app.redirectToLogin()
 	    }
 
-	    //app.UpdatePageTitle()
+	    //app.UpdatePageTitle() TO DO: dynamic page titles
 
 	}
 
