@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>Loading...</title>
 		<link rel="stylesheet" href="css.css">
 		<script src="scripts.js"></script>
@@ -19,7 +20,6 @@
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
 			<div data-bind="css: app.installation.themeClass">
 
-
 				<!-- ko if: app.hasSidebar() -->
 				<div id="admin-holder">
 					<admin-panel></admin-panel>
@@ -27,16 +27,24 @@
 				<!-- /ko -->
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition()">
-					<nav-bar params="route: route"></nav-bar>
-					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
 
-					<!-- ko if: app.overlayToShow() -->
-						<!-- ko with: app.overlayToShow() -->
-							<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
-						<!-- /ko -->
+					<!-- ko if: route().showNav -->
+						<nav-bar params="route: route"></nav-bar>
 					<!-- /ko -->
 
+					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
+
+					<footer id="page-footer">
+						<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
+					</footer>
+
 				</div>
+
+				<!-- ko if: app.overlayToShow() -->
+					<!-- ko with: app.overlayToShow() -->
+						<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
+					<!-- /ko -->
+				<!-- /ko -->
 
 			</div>
 		<!-- /ko -->
@@ -51,6 +59,7 @@
 		<!-- ko foreach: app.modals -->
 		<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
 		<!-- /ko -->
+
 
 		<!--
 		<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
