@@ -22,7 +22,8 @@ var gulp = require('gulp'),
 	objectAssign = require('object-assign'),
 	proxy = require('http-proxy-middleware'),
 	less = require('gulp-less'),
-	server = require('gulp-express');
+	server = require('gulp-express'),
+	serveStatic = require('serve-static');
 
 // Config
 var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;'),
@@ -150,12 +151,14 @@ gulp.task('html', function() {
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
 gulp.task('serve:src', function() {
 	var apiProxy = proxy('/api', { target: 'http://localhost:5000', changeOrigin: true, logLevel: 'debug'});
+	var staticFiles = serveStatic("public");
 	return connect.server({
 		root: transpilationConfig.root,
 		//livereload: true, TO DO: wire this up, see https://www.npmjs.com/package/gulp-connect
 		middleware: function(connect, opt) {
 			return [
 				apiProxy,
+				staticFiles,
 				function (req, res, next) {
 					var pathname = path.normalize(url.parse(req.url).pathname);
 					babelTranspile(pathname, function(err, result) {
