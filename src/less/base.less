@@ -1,9 +1,32 @@
 body {
 	padding-bottom: 80px;
-	font-size: 16px;
+	font-size: 18px;
+	letter-spacing: 1px;
 	&.no-scroll {
 		overflow: hidden;
 	}
+}
+
+h2 {
+	margin: 60px 0;
+}
+
+p {
+	line-height: 1.6em
+}
+
+#page-footer {
+	border-top: 1px solid #ccc;
+    margin-top: 60px;
+    padding: 10px;
+    p {
+		font-size: 12px;
+		margin: 0;
+    }
+    a {
+		color: #333;
+		text-decoration: underline;
+    }
 }
 
 #preloader {
@@ -14,7 +37,6 @@ body {
 	background: #fff;
 	background-size: cover;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 16px;
 	color: #666;
 	text-align: center;
 	padding: 200px 0;
@@ -31,60 +53,6 @@ body {
 	padding-right: 30px;
 }
 
-// Copied from http://bootsnipp.com/snippets/featured/fancy-navbar-login-sign-in-form - nice FB and Twitter options there too for future use
-#login-dp{
-    min-width: 250px;
-    padding: 14px 14px 0;
-    overflow:hidden;
-    background-color:rgba(255,255,255,.8);
-}
-#login-dp .help-block{
-    font-size:12px
-}
-#login-dp .bottom{
-    background-color:rgba(255,255,255,.8);
-    border-top:1px solid #ddd;
-    clear:both;
-    padding:14px;
-}
-#login-dp .social-buttons{
-    margin:12px 0
-}
-#login-dp .social-buttons a{
-    width: 49%;
-}
-#login-dp .form-group {
-    margin-bottom: 10px;
-}
-.btn-fb{
-    color: #fff;
-    background-color:#3b5998;
-}
-.btn-fb:hover{
-    color: #fff;
-    background-color:#496ebc
-}
-.btn-tw{
-    color: #fff;
-    background-color:#55acee;
-}
-.btn-tw:hover{
-    color: #fff;
-    background-color:#59b5fa;
-}
-@media(max-width:768px){
-    #login-dp{
-        background-color: inherit;
-        color: #fff;
-    }
-    #login-dp .bottom{
-        background-color: inherit;
-        border-top:0 none;
-    }
-}
-
-
-
 .main-section {
 	margin-top: 160px;
 }
@@ -93,19 +61,34 @@ body {
 	height: 400px;
 }
 .map-text {
-	background: #333;
-	color: #fff;
-	padding: 30px;
+	//background: #333;
+	//color: #fff;
+	padding: 30px 30px 40px;
 }
 
-.navbar .container-fluid {
-	padding-left: 30px;
-	padding-right: 30px;
+.navbar {
+	font-size: 16px;
+	transition: left 0.4s linear;
+	&.open {
+		left: 260px;
+	}
+	.container-fluid {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
 }
 .navbar-default {
-	background-color: transparent;
+	background-color: #fff;
 	border-color: transparent;
+	.navbar-toggle {
+		border-color: transparent;
+		&:hover, &:focus {
+			background-color: transparent;
+		}
+	}
 }
+
+
 
 #admin-holder {
 	background: #a94274;
@@ -115,7 +98,7 @@ body {
     top: 0;
     bottom: 0;
 	color: #fff;
-	//margin-top: 50px;
+	font-size: 16px;
 	z-index: 1000;
 	.open {
 		left: 0px;
@@ -167,18 +150,7 @@ body {
 	}
 }
 
-.navbar {
-	transition: left 0.4s linear;
-	&.open {
-		left: 260px;
-	}
-}
-.navbar-default .navbar-toggle {
-	border-color: transparent;
-	&:hover, &:focus {
-		background-color: transparent;
-	}
-}
+
 
 #overlay {
 	position: fixed;
@@ -235,15 +207,14 @@ body {
 
 #rsvp-form {
 	text-align: left;
-	font-size: 16px;
 	.rsvp-block {
-		margin: 10px 0;
+		margin: 30px 0;
 	}
 	select, option {
 		-webkit-appearance: none;
 		font-family: inherit;
 		font-size: inherit;
-		line-height: inherit;
+		line-height: 1em;
 	    border: 0 none;
 	    background: transparent;
 	    text-decoration: underline;
