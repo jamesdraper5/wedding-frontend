@@ -120,7 +120,7 @@ gulp.task('less', function () {
 				path.join(__dirname, './src/bower_modules/toastr')
 			]
 		}))
-		.pipe(gulp.dest('./src/css'));
+		.pipe(gulp.dest('./src/css'))
 });
 
 // Concatenates CSS files, rewrites relative paths to Bootstrap fonts, copies Bootstrap fonts
@@ -148,13 +148,34 @@ gulp.task('html', function() {
 		.pipe(gulp.dest('./'));
 });
 
+gulp.task('watch', function() {
+	gulp.watch(['./src/less/*.less'], ['reloadLess']);
+	gulp.watch(['./src/**/*.js'], ['reloadJS']);
+	gulp.watch(['./src/**/*.html'], ['reloadHtml']);
+});
+
+gulp.task('reloadLess', function(){
+	gulp.src('./src/less/*.less')
+		.pipe(connect.reload())
+});
+
+gulp.task('reloadJS', function(){
+	gulp.src('./src/**/*.js')
+		.pipe(connect.reload())
+});
+
+gulp.task('reloadHtml', function(){
+	gulp.src('./src/**/*.html')
+		.pipe(connect.reload())
+});
+
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
-gulp.task('serve:src', function() {
+gulp.task('serve:src', ['watch'], function() {
 	var apiProxy = proxy('/api', { target: 'http://localhost:5000', changeOrigin: true, logLevel: 'debug'});
 	var staticFiles = serveStatic("public");
 	return connect.server({
 		root: transpilationConfig.root,
-		//livereload: true, TO DO: wire this up, see https://www.npmjs.com/package/gulp-connect
+		livereload: true,
 		middleware: function(connect, opt) {
 			return [
 				apiProxy,
