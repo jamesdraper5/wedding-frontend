@@ -150,7 +150,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch(['./src/less/*.less'], ['reloadLess']);
+	gulp.watch(['./src/less/*.less'], ['less', 'reloadLess']);
 	gulp.watch(['./src/**/*.js'], ['reloadJS']);
 	gulp.watch(['./src/**/*.html'], ['reloadHtml']);
 });
