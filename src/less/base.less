@@ -15,6 +15,24 @@ p {
 	line-height: 1.6em;
 }
 
+/*
+#test-logo {
+	#word1 {
+		font: 20px Fairy_Tales;
+	    display: block;
+	    line-height: 1em;
+	    margin-left: -31px;
+	    color: #666;
+	}
+	#word2 {
+	    font: 50px Fairy_Tales;
+	    display: block;
+	    color: #9575CD;
+	    margin-top: -22px;
+	}
+}
+*/
+
 #page-footer {
 	border-top: 1px solid #ccc;
     margin-top: 60px;
@@ -89,6 +107,96 @@ p {
 }
 
 
+.hamburger-btn {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: block;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .8s ease-in-out;
+  -moz-transition: .8s ease-in-out;
+  -o-transition: .8s ease-in-out;
+  transition: .8s ease-in-out;
+  cursor: pointer;
+}
+
+.hamburger-btn span {
+  display: block;
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: #333;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .3s ease-in-out;
+  -moz-transition: .3s ease-in-out;
+  -o-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+
+
+/* Animated hanburger menu */
+.admin-toggle {
+	position: relative;
+	float: left;
+	padding: 9px 10px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	background-color: transparent;
+	background-image: none;
+}
+
+.hamburger-btn span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-btn span:nth-child(2),.hamburger-btn span:nth-child(3) {
+  top: 5px;
+}
+
+.hamburger-btn span:nth-child(4) {
+  top: 10px;
+}
+
+.hamburger-btn.open span:nth-child(1) {
+  top: 5px;
+  width: 0%;
+  left: 50%;
+}
+
+.hamburger-btn.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.hamburger-btn.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.hamburger-btn.open span:nth-child(4) {
+  top: 5px;
+  width: 0%;
+  left: 50%;
+}
+
+
+
+
+
+
 
 #admin-holder {
 	background: #a94274;
@@ -98,7 +206,7 @@ p {
     top: 0;
     bottom: 0;
 	color: #fff;
-	font-size: 16px;
+	font-size: 14px;
 	font-family: 'Quicksand', Helvetica, sans-serif;
 
 	z-index: 1000;

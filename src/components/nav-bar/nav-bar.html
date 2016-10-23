@@ -2,13 +2,32 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
+
+				<!-- <span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+				<span class="icon-bar"></span> -->
+
+				<span class="hamburger-btn">
+				  <span></span>
+				  <span></span>
+				  <span></span>
+				  <span></span>
+				</span>
+
 			</button>
+
+
 			<!-- ko if: app.hasSidebar() -->
-				<a href="#" data-bind="click: OnClickToggleSidebar, html: menuIcon" class="navbar-brand">x</a>
+				<a href="#" data-bind="click: OnClickToggleSidebar" class="admin-toggle">
+					<span class="sr-only">Toggle admin menu</span>
+					<span class="hamburger-btn" data-bind="css: app.sidebarPosition()">
+					  <span></span>
+					  <span></span>
+					  <span></span>
+					  <span></span>
+					</span>
+				</a>
 			<!-- /ko -->
 			<!-- ko ifnot: app.hasSidebar() -->
 				<a href="/" class="navbar-brand">{{ installation.name }}</a>

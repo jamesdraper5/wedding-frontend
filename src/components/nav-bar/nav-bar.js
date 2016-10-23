@@ -22,6 +22,7 @@ class NavBarViewModel {
         	className += app.sidebarPosition();
         	return className;
         });
+
     }
 
     OnClickToggleSidebar() {
