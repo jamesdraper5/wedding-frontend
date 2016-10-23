@@ -117,7 +117,8 @@ gulp.task('less', function () {
 		.pipe(less({
 			paths: [
 				path.join(__dirname, './src/bower_modules/components-bootstrap/less'),
-				path.join(__dirname, './src/bower_modules/toastr')
+				path.join(__dirname, './src/bower_modules/toastr'),
+				path.join(__dirname, './src/less/font-awesome')
 			]
 		}))
 		.pipe(gulp.dest('./src/css'))
@@ -155,7 +156,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('reloadLess', function(){
-	gulp.src('./src/less/*.less')
+	gulp.src('./src/less/**/*.less')
 		.pipe(connect.reload())
 });
 
