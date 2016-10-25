@@ -1,10 +1,10 @@
 <div id="login-page" class="text-center">
 
-	<h2>LOGO</h2>
-
 	<div class="login-form">
 		<h3>Welcome!</h3>
 		<p>Login to your Account</p>
+
+		<!-- <img src="images/logo-white.png" style="width:120px; margin: 30px;"/> -->
 
 		<div class="row">
 			<div class="col-md-12">
@@ -14,24 +14,26 @@
 						<input type="email" class="form-control" id="email" placeholder="Email address" required data-bind="textInput: userEmail">
 					</div>
 					<div class="form-group">
-						<label class="sr-only" for="paswword">Password</label>
-						<input type="password" class="form-control" id="paswword" placeholder="Password" required data-bind="textInput: userPassword">
-                        <div class="help-block text-right"><a href="">Forgot your password?</a></div>
+						<label class="sr-only" for="password">Password</label>
+						<input type="password" class="form-control" id="password" placeholder="Password" required data-bind="textInput: userPassword">
+                        <small class="help-block text-right"><a href="">Forgot your password?</a></small>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">Sign in</button>
 					</div>
-					<!--
-					<div class="checkbox">
-						<label>
-						<input type="checkbox"> Keep me logged-in
-						</label>
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox"> <small>Keep me logged-in</small>
+							</label>
+						</div>
 					</div>
+					<!--
 					-->
 				</form>
-			</div>
-			<div class="bottom text-center">
-				New here ? <a href="www.weddingpixie.com"><b>Join Us</b></a>
+				<div class="bottom text-center">
+					<small>You new around here? <a href="www.weddingpixie.com"><b>Join Us</b></a></small>
+				</div>
 			</div>
 	</div>
 
