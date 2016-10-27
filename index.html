@@ -9,7 +9,7 @@
 		<script src="scripts.js"></script>
 	</head>
 
-	<body>
+	<body data-bind="css: app.currentRoute().page">
 
 		<!-- ko if: !app.hasLoadedData() || typeof window.app == 'undefined' -->
 			<div id="preloader">
@@ -34,9 +34,11 @@
 
 					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
 
+					<!-- ko if: route().page != 'page-login' -->
 					<footer id="page-footer">
 						<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
 					</footer>
+					<!-- /ko -->
 
 				</div>
 

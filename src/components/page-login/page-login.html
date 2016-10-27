@@ -1,41 +1,44 @@
-<div id="login-page" class="text-center">
+<div id="login-page">
 
 	<div class="login-form">
-		<h3>Welcome!</h3>
-		<p>Login to your Account</p>
+
+		<div class="text-center">
+			<h3>Welcome! 123</h3>
+			<p>Login to your Account</p>
+		</div>
 
 		<!-- <img src="images/logo-white.png" style="width:120px; margin: 30px;"/> -->
 
-		<div class="row">
-			<div class="col-md-12">
-				<form class="form" role="form" id="login-nav" accept-charset="UTF-8" data-bind="submit: OnSubmitLogin">
-					<div class="form-group">
-						<label class="sr-only" for="email">Email address</label>
-						<input type="email" class="form-control" id="email" placeholder="Email address" required data-bind="textInput: userEmail">
-					</div>
-					<div class="form-group">
-						<label class="sr-only" for="password">Password</label>
-						<input type="password" class="form-control" id="password" placeholder="Password" required data-bind="textInput: userPassword">
-                        <small class="help-block text-right"><a href="">Forgot your password?</a></small>
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">Sign in</button>
-					</div>
-					<div class="form-group">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox"> <small>Keep me logged-in</small>
-							</label>
-						</div>
-					</div>
-					<!--
-					-->
-				</form>
-				<div class="bottom text-center">
-					<small>You new around here? <a href="www.weddingpixie.com"><b>Join Us</b></a></small>
-				</div>
+
+		<form class="form" role="form" accept-charset="UTF-8" data-bind="submit: OnSubmitLogin">
+			<div class="form-group">
+				<label class="sr-only" for
+				="email">Email address</label>
+				<input type="email" class="form-control" id="email" placeholder="Email address" required data-bind="textInput: userEmail">
 			</div>
-	</div>
+			<div class="form-group">
+				<label class="sr-only" for="password">Password</label>
+				<input type="password" class="form-control" id="password" placeholder="Password" required data-bind="textInput: userPassword">
+			</div>
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox">
+					<small>Keep me logged-in</small>
+				</label>
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary btn-block">Sign in</button>
+			</div>
+			<div class="form-group">
+                <small class="help-block text-center"><a href="">Forgot your password?</a></small>
+            </div>
+		</form>
+		<div class="bottom text-center">
+			<small>New here? <a href="www.weddingpixie.com"><b>Join Us</b></a></small>
+		</div>
+
 
 
 </div>
