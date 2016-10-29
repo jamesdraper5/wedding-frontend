@@ -17,6 +17,7 @@ import * as FlashHelper from '../helpers/flash';
 import * as ModalHelper from '../helpers/modal';
 import * as ErrorHelper from '../helpers/errorHelper';
 import * as UtilityHelper from '../helpers/utility';
+import { constants as Constants } from '../helpers/constants';
 
 class Rustique {
 	constructor(config) {
@@ -30,6 +31,7 @@ class Rustique {
 		this.modal = new ModalHelper();
 		this.utility = new UtilityHelper();
 		this.modals = ko.observableArray(); //used or tracking loaded modals components
+		this.constants = Constants;
 
 		this.api.on('error', this.errorHelper.Ajax);
 
@@ -42,6 +44,7 @@ class Rustique {
 		});
 
 		this.findInstallation();
+
 
 		this.hasSidebar = ko.pureComputed(() => {
 			return this.currentRoute().isLoggedInPage && this.isUserLoggedIn();
@@ -82,13 +85,15 @@ class Rustique {
 
 		this.api.get("api/installationInfo").then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
+			console.log('this.currentRoute()', this.currentRoute());
+			this.validateRoute(this.currentRoute().request_)
+			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
 			this.isWeddingFound(true);
-			this.setPageTitle(this.installation.name());
 			this.getLoggedInUser();
 
 		}).catch(( error ) => {
-			console.log( "Request Failed: ", error );
+			console.error( "Request Failed: ", error );
 			if ( error.status == 404 && error.responseJSON && error.responseJSON.message == 'Wedding site not found' ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 			} else {
@@ -102,7 +107,7 @@ class Rustique {
 		this.api.get("api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
 		}).catch(( error ) => {
-			console.log( "Request Failed: ", error );
+			console.error( "Request Failed: ", error );
 			this.hasError(true);
 		});
 	}
@@ -137,7 +142,9 @@ class Rustique {
 
 	    //$.scrollTo(0)
 
-	    console.log('newRoute', newRoute);
+	    console.log('onUpdateRoute - newRoute', newRoute.request_);
+
+	    this.validateRoute(newRoute.request_)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
 
@@ -152,6 +159,19 @@ class Rustique {
 	    //app.UpdatePageTitle() TO DO: dynamic page titles
 
 	}
+
+	validateRoute(hash) {
+		if ( !this.isValidRoute(hash) ) {
+			console.log('validateRoute - invalid route here', hash);
+			this.GoTo('')
+		}
+	}
+
+	isValidRoute(hash) {
+	    console.log('isValidRoute - hash', hash);
+	    return this.constants.VALIDROUTES.indexOf(hash) > -1
+	}
+
 
 	redirectToLogin( callback ) {
 	    // Redirect to login but remember this page
@@ -170,7 +190,7 @@ class Rustique {
 	GoTo(hash, inOpts) {
 	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
 
-	    console.log('hash', hash);
+	    console.log('app.GoTo - hash', hash);
 
 	    var opts = {
 	        format: true,
@@ -190,7 +210,6 @@ class Rustique {
 	        this.hasher.setHash(hash)
 	        this.hasher.changed.active = true
 	    } else {
-	    	console.log('setting hash here', this);
 	        this.hasher.setHash(hash)
 	    }
 	}
