@@ -37,6 +37,7 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		include: [
 			'requireLib',
 			'components/admin-panel/admin-panel',
+			'components/page-404/page-404',
 			'components/page-home/home',
 			'components/page-login/page-login',
 			'components/modal-confirm/modal-confirm',
@@ -150,14 +151,15 @@ gulp.task('html', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch(['./src/less/*.less'], ['less', 'reloadLess']);
+	gulp.watch(['./src/less/*.less'], ['less']);
 	gulp.watch(['./src/**/*.js'], ['reloadJS']);
 	gulp.watch(['./src/**/*.html'], ['reloadHtml']);
 });
 
 gulp.task('reloadLess', function(){
-	gulp.src('./src/less/**/*.less')
-		.pipe(connect.reload())
+	//gulp.src('./src/less/**/*.less')
+	//	.pipe(connect.reload())
+	connect.reload('index.html')
 });
 
 gulp.task('reloadJS', function(){
@@ -176,7 +178,6 @@ gulp.task('serve:src', ['watch'], function() {
 	var staticFiles = serveStatic("public");
 	return connect.server({
 		root: transpilationConfig.root,
-		livereload: true,
 		middleware: function(connect, opt) {
 			return [
 				apiProxy,
