@@ -6,6 +6,7 @@ var require = {
 		"bindings-image-uploader": 		"bindings/image-uploader",
 		"bluebird":             		"bower_modules/bluebird/js/browser/bluebird.min",
 		"bootstrap":            		"bower_modules/components-bootstrap/js/bootstrap.min",
+		"constants":                	"helpers/constants",
 		"crossroads":           		"bower_modules/crossroads/dist/crossroads.min",
 		"errorHelper":          		"helpers/errorHelper",
 		"eventemitter2":        		"bower_modules/eventemitter2/lib/eventemitter2",
