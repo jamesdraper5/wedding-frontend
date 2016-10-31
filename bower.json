@@ -22,7 +22,7 @@
 		"validator-js": "^5.5.0",
 		"knockout-postbox": "^0.5.2"
 	},
-	"resolutions": {
-		"knockout": "~3.3.0-alpha"
-	}
+  	"resolutions": {
+    	"knockout": "~3.3.0-alpha"
+  	}
 }
