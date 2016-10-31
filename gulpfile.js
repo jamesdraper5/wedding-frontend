@@ -62,7 +62,11 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 	}),
 	transpilationConfig = {
 		root: 'src',
-		skip: ['bower_modules/**', 'app/require.config.js'],
+		skip: [
+			'bower_modules/**',
+			'libs/**',
+			'app/require.config.js'
+		],
 		babelConfig: {
 			modules: 'amd',
 			sourceMaps: 'inline'

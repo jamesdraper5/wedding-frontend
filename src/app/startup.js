@@ -21,6 +21,7 @@ ko.components.register('modal-confirm', { require: 'components/modal-confirm/mod
 ko.components.register('overlay-edit-rsvp', { require: 'components/overlay-edit-rsvp/overlay-edit-rsvp' });
 ko.components.register('page-login', { require: 'components/page-login/page-login' });
 ko.components.register('page-404', { require: 'components/page-404/page-404' });
+ko.components.register('widget-text-editor', { require: 'components/widget-text-editor/widget-text-editor' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

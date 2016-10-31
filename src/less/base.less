@@ -58,6 +58,10 @@ p {
 	color: #666;
 	text-align: center;
 	padding: 200px 0;
+	p {
+		margin-top: 20px;
+		font: 24px 'Quicksand', Helvetica, sans-serif;
+	}
 }
 
 .popover {
@@ -269,10 +273,11 @@ p {
     bottom: 0;
     width: 100%;
     padding: 5px 10px;
-	color: #fff;
+	//color: #fff;
 	z-index: 1000;
 	overflow-y: auto;
-	background: #333;
+	//background: #333;
+	background: #fff;
 
 	#overlay-bg {
 		background: #333;
@@ -321,13 +326,12 @@ p {
 		margin: 30px 0;
 	}
 	select, option {
-		-webkit-appearance: none;
+		//-webkit-appearance: none;
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1em;
 	    border: 0 none;
-	    background: transparent;
-	    text-decoration: underline;
+	    //text-decoration: underline;
 	    cursor: pointer;
 	    border-radius: 0;
 	    background-color: #eee;
@@ -410,4 +414,11 @@ Edit user images in wedding party section
 	btn-holder {
 
 	}
+}
+
+/**** Text Editor ****/
+// This class is used so that the paragraph will inherit the quill styles for things like text-align etc.
+// Quill recommend using a text editor instance in read-only mode for this but it seems like overkill to me
+.ql-editor.fake {
+	padding: 0;
 }
