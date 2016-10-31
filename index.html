@@ -13,7 +13,8 @@
 
 		<!-- ko if: !app.hasLoadedData() || typeof window.app == 'undefined' -->
 			<div id="preloader">
-				LOADING!!!!!
+				<i class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
+				<p>Loading website</p>
 			</div>
 		<!-- /ko -->
 
@@ -51,7 +52,7 @@
 			</div>
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && !app.isWeddingFound() && !app.hasError() -->
-			WEDDING NOT FOUND!!!
+			<!-- ko component: { name: 'page-404', params: { route: route } } --><!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
 			LOADED WITH ERRORS!!!
