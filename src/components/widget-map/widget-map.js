@@ -41,7 +41,6 @@ class WidgetMap {
 	}
 
 	OnRendered() {
-		console.log('OnRendered');
 		GoogleMapsLoader.load((google) => {
 			this.geocoder = new google.maps.Geocoder();
 			this.renderGoogleMap(google);

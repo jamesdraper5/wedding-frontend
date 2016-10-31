@@ -11,15 +11,11 @@ class WidgetTextEditor {
 
     	this.toolbarOpts = [
 			[{ 'header': [1, 2, 3, false] }],
-
 			['bold', 'italic', 'underline'],        // toggled buttons
 			['blockquote'],
-
 			[{ 'list': 'ordered'}, { 'list': 'bullet' }],
 			[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-
 			[{ 'align': [] }],
-
 		];
     }
 
@@ -36,7 +32,6 @@ class WidgetTextEditor {
     }
 
 	OnTextChange(delta, oldDelta, source) {
-		//console.log('this.editor.root', this.editor.root.innerHTML);
 		this.writeableContent( this.editor.root.innerHTML );
 	}
 
