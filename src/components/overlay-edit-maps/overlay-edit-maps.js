@@ -4,11 +4,12 @@ import * as MapModel from '../../models/mapModel';
 
 class OverlayEditMaps {
 	constructor(params) {
-		this.id = ko.unwrap( params.id );
-		this.title = ko.observable( params.title );
-		this.menuText = ko.observable( params.menuText );
-		this.isVisible = ko.observable( params.isVisible );
-		this.locations = ko.observableArray( params.locations );
+
+		this.id = ko.unwrap(app.installation.sections.maps.id);
+		this.title = ko.observable( ko.unwrap(app.installation.sections.maps.title) );
+		this.menuText = ko.observable( ko.unwrap(app.installation.sections.maps.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.maps.isVisible) );
+		this.locations = ko.observableArray( ko.unwrap(app.installation.sections.maps.locations.slice(0)) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {

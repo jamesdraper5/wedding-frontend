@@ -45,17 +45,14 @@ class Rustique {
 
 		this.findInstallation();
 
-
 		this.hasSidebar = ko.pureComputed(() => {
 			return this.currentRoute().isLoggedInPage && this.isUserLoggedIn();
 		});
-
 		this.sidebarPosition = ko.observable('closed');
-		this.overlayToShow = ko.observable(null);
+		this.overlayToShow = ko.observable( null );
 		this.sidebarWidth = 260;
 		this.viewPortWidth = ko.observable($('body').width())
         this.viewPortHeight = ko.observable($('body').height())
-
 		this.overlayLeftPos = ko.pureComputed(() => {
 			return (this.viewPortWidth() > 768 ? `${this.sidebarWidth}px` : 0)
 		})
@@ -67,12 +64,23 @@ class Rustique {
 			}
 		})
 
+		this.validRoutes = {
+			login: true,
+			editor: {
+				subroutes: [
+					'home',
+					'maps',
+					'rsvp',
+					'weddingparty'
+				]
+			}
+		}
+
 		$(window).resize(() => {
 		    var $body = $('body')
 		    this.viewPortWidth( $body.width() )
 		    this.viewPortHeight( $body.height() )
 		})
-
 
 		$('body').popover({
 		    selector: '[data-toggle="popover"]',
@@ -85,7 +93,6 @@ class Rustique {
 
 		this.api.get("api/installationInfo").then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
-			console.log('this.currentRoute()', this.currentRoute());
 			this.validateRoute(this.currentRoute().request_)
 			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
@@ -122,6 +129,20 @@ class Rustique {
 			}
 			this.isUserLoggedIn(true);
 
+			if ( this.currentRoute().pageToEdit != null ) {
+				var overlayName = `edit-${this.currentRoute().pageToEdit}`;
+				var overlay = {
+					name: overlayName,
+					params: {}
+				}
+				setTimeout(() => {
+					this.sidebarPosition('open');
+				}, 1000);
+				setTimeout(() => {
+					this.showOverlay(overlay)
+				}, 2000);
+			}
+
 			/*
 			setTimeout(() => {
 				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
@@ -142,7 +163,7 @@ class Rustique {
 
 	    //$.scrollTo(0)
 
-	    console.log('onUpdateRoute - newRoute', newRoute.request_);
+	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
 
 	    this.validateRoute(newRoute.request_)
 
@@ -161,15 +182,38 @@ class Rustique {
 	}
 
 	validateRoute(hash) {
+		//var page = hash.split('/');
 		if ( !this.isValidRoute(hash) ) {
-			console.log('validateRoute - invalid route here', hash);
+			//console.log('validateRoute - invalid route here', hash);
 			this.GoTo('')
 		}
 	}
 
 	isValidRoute(hash) {
-	    console.log('isValidRoute - hash', hash);
-	    return this.constants.VALIDROUTES.indexOf(hash) > -1
+	    //console.log('isValidRoute - hash', hash);
+
+	    if ( hash === '' ) return true;
+
+	    var segments = hash.split('/');
+	    var section = this.validRoutes[segments[0]];
+
+	    //console.log('segments', segments);
+	    //console.log('section', section);
+
+	    if ( section != null ) { // does route exist in validRoutes
+	    	if ( section.subroutes != null ) { // does the matched section have sub routes
+	    		if ( segments.length > 1 && segments[1] != null ) {
+	    			return section.subroutes.indexOf(segments[1]) > -1; // Does the second level of the url match one of the sub routes, e.g. /editor/maps
+	    		} else {
+	    			return true; // only a top level url was passed so we already have a match, e.g. /editor
+	    		}
+	    	} else {
+	    		return true; // No sub routes, so the top level matches - success
+	    	}
+	    } else {
+	    	return false; // Didn't match
+	    }
+
 	}
 
 
@@ -189,8 +233,6 @@ class Rustique {
 	// option: onNotFound - a callback function for when the next item isn't found
 	GoTo(hash, inOpts) {
 	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
-
-	    console.log('app.GoTo - hash', hash);
 
 	    var opts = {
 	        format: true,

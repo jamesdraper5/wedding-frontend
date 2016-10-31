@@ -12,39 +12,40 @@ import hasher from 'hasher';
 // many possible ways of setting up client-side routes.
 
 class Router {
-    constructor(config) {
-        this.currentRoute = ko.observable({});
-        this.hasher = hasher;
+	constructor(config) {
+		this.currentRoute = ko.observable({});
+		this.hasher = hasher;
 
-        // Configure Crossroads route handlers
-        ko.utils.arrayForEach(config.routes, (route) => {
+		// Configure Crossroads route handlers
+		ko.utils.arrayForEach(config.routes, (route) => {
 
-        	// Defaults
-        	if ( route.params.showNav == null ) {
-        	    route.params.showNav = true;
-        	}
+			// Defaults
+			if ( route.params.showNav == null ) {
+				route.params.showNav = true;
+			}
 
-            crossroads.addRoute(route.url, (requestParams) => {
-                this.currentRoute(ko.utils.extend(requestParams, route.params));
-            });
-        });
+			crossroads.addRoute(route.url, (requestParams) => {
+				this.currentRoute(ko.utils.extend(requestParams, route.params));
+			});
+		});
 
-        // Activate Crossroads
-        crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
-        hasher.initialized.add(hash => crossroads.parse(hash));
-        hasher.changed.add(hash => crossroads.parse(hash));
-        hasher.init();
-    }
+		// Activate Crossroads
+		crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
+		hasher.initialized.add(hash => crossroads.parse(hash));
+		hasher.changed.add(hash => crossroads.parse(hash));
+		hasher.init();
+	}
 }
 
 // Create and export router instance
 var routerInstance = new Router({
-    routes: [
-        { url: '',          params: { page: 'page-home' } },
-        { url: 'editor',    params: { page: 'page-home', isLoggedInPage: true } },
-        { url: 'account',   params: { page: 'page-home', isLoggedInPage: true } },
-        { url: 'login',   	params: { page: 'page-login', isLoggedInPage: false, showNav: false } }
-    ]
+	routes: [
+		{ url: '',                      params: { page: 'page-home' } },
+		{ url: 'editor',                params: { page: 'page-home', isLoggedInPage: true } },
+		{ url: 'editor/:pageToEdit:',   params: { page: 'page-home', isLoggedInPage: true } },
+		{ url: 'account',               params: { page: 'page-home', isLoggedInPage: true } },
+		{ url: 'login',   	            params: { page: 'page-login', isLoggedInPage: false, showNav: false } }
+	]
 });
 
 export default routerInstance;
