@@ -14,7 +14,7 @@ class Flash {
             onclick: null,
             showDuration: "300",
             hideDuration: "1000",
-            timeOut: 4000,
+            timeOut: 6000,
             extendedTimeOut: 0,
             showEasing: "swing",
             hideEasing: "linear",
