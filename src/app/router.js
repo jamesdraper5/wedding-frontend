@@ -44,7 +44,9 @@ var routerInstance = new Router({
 		{ url: 'editor',                params: { page: 'page-home', isLoggedInPage: true } },
 		{ url: 'editor/:pageToEdit:',   params: { page: 'page-home', isLoggedInPage: true } },
 		{ url: 'account',               params: { page: 'page-home', isLoggedInPage: true } },
-		{ url: 'login',   	            params: { page: 'page-login', isLoggedInPage: false, showNav: false } }
+		{ url: 'login',   	            params: { page: 'page-login', isLoggedInPage: false, showNav: false } },
+		{ url: 'forgotpassword', 		params: { page: 'page-forgot-password', isLoggedInPage: false, showNav: false } },
+		{ url: 'resetpassword/{token}', params: { page: 'page-reset-password', isLoggedInPage: false, showNav: false } }
 	]
 });
 

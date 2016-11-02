@@ -22,6 +22,8 @@ ko.components.register('overlay-edit-rsvp', { require: 'components/overlay-edit-
 ko.components.register('page-login', { require: 'components/page-login/page-login' });
 ko.components.register('page-404', { require: 'components/page-404/page-404' });
 ko.components.register('widget-text-editor', { require: 'components/widget-text-editor/widget-text-editor' });
+ko.components.register('page-forgot-password', { require: 'components/page-forgot-password/page-forgot-password' });
+ko.components.register('page-reset-password', { require: 'components/page-reset-password/page-reset-password' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

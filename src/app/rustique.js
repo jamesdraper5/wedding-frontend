@@ -66,6 +66,8 @@ class Rustique {
 
 		this.validRoutes = {
 			login: true,
+			forgotpassword: true,
+			resetpassword: true,
 			editor: {
 				subroutes: [
 					'home',
@@ -91,12 +93,13 @@ class Rustique {
 
 	findInstallation() {
 
-		this.api.get("api/installationInfo").then(( result ) => {
+		this.api.get("api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateRoute(this.currentRoute().request_)
 			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
 			this.isWeddingFound(true);
+			// TO DO: Is the below call necessary all the time, e.g. on the login page?
 			this.getLoggedInUser();
 
 		}).catch(( error ) => {
@@ -182,6 +185,10 @@ class Rustique {
 	}
 
 	validateRoute(hash) {
+		if ( hash == null ) {
+			return;
+		}
+
 		//var page = hash.split('/');
 		if ( !this.isValidRoute(hash) ) {
 			//console.log('validateRoute - invalid route here', hash);
