@@ -40,6 +40,7 @@ class PageResetPassword {
 		}
 
 		var data = {
+			token: this.token,
 			password: this.newPassword()
 		}
 
@@ -52,13 +53,9 @@ class PageResetPassword {
 					app.GoTo( '#editor' )
 				}, 1000)
 			})
-		}).catch((result) => {
-			if ( result.response.message ) {
-				app.flash.Error( "<strong>Sorry!</strong> ", result.response.message );
-			}
-		}).finally(() => {
 			this.newPassword('');
 			this.confirmation('');
+		}).finally(() => {
 			this.isSubmitting(false);
 		});
 	}
