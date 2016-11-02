@@ -58,6 +58,10 @@ p {
 	color: #666;
 	text-align: center;
 	padding: 200px 0;
+	&.white {
+		color: #fff;
+		background: transparent;
+	}
 	p {
 		margin-top: 20px;
 		font: 24px 'Quicksand', Helvetica, sans-serif;
@@ -365,8 +369,8 @@ Edit user images in wedding party section
 	margin-right: 20px;
 }
 
-/**** Login Page ****/
-.page-login {
+/**** Login Pages ****/
+.page-login, .page-forgot-password, .page-reset-password {
 	background: url(../images/couple-feet.jpg) no-repeat center center fixed;
 	background-size: cover;
 	#page-holder {
@@ -387,7 +391,7 @@ Edit user images in wedding party section
 		    padding: 10px;
 		}
 	}
-	#email, #password {
+	#email, #password, #confirmation {
 		border-top: 0 none;
 		border-right: 0 none;
 		border-left: 0 none;
@@ -421,4 +425,9 @@ Edit user images in wedding party section
 // Quill recommend using a text editor instance in read-only mode for this but it seems like overkill to me
 .ql-editor.fake {
 	padding: 0;
+}
+
+/**** Toastr Messages ****/
+#toast-container {
+	font-size: 14px;
 }
