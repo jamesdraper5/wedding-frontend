@@ -14,7 +14,7 @@ class ErrorHelper {
 			NotFound: "Not Found",
 			NotFoundDetail: "Sorry, either that resource does not exist or you do not have permission to access it.",
 			NetworkTimeout: "Network Timeout",
-			NetworkTimeoutDetail: "Please check your internet connection and try again. Email support@XXXXX.com if you still have problems.",
+			NetworkTimeoutDetail: "Please check your internet connection and try again. Email support@weddingpixie.com if you still have problems.",
 			ServerRejected: "Server Rejected",
 			ServerRejectedDetail: "Sorry the server rejected this request.",
 			ServerRejectedWithMessage: "The server rejected this request with the message:",
@@ -32,18 +32,22 @@ class ErrorHelper {
 		}
 		$.extend(opts, inOpts);
 
+		var errorCodesToIgnore = xhr.httpRequestOptions.errorCodesToIgnore || [];
 		var explOpts = ["Whoops!","Yikes!","Oi vey!","Oh no!","Oh Dear!","Daaamn!","Holy Smokes Batman!"];
 		var expl = explOpts[Math.floor(explOpts.length*Math.random())];
 		if ( xhr.status == 401 ) { // Expired session
 			// TO DO: handle expired session
-
-		} else if ( xhr.status == 404 ) { // Not found
-			if ( xhr.responseJSON && xhr.responseJSON.message === 'Wedding site not found' ) {
+			if ( errorCodesToIgnore.indexOf(xhr.status) > -1 ) {
 				return;
 			}
-			app.flash.Error( this.messages.NotFound, opts.custom404Text || this.messages.NotFoundDetail );
+		} else if ( xhr.status == 404 ) { // Not found
+			if ( errorCodesToIgnore.indexOf(xhr.status) === -1 ) {
+				app.flash.Error( this.messages.NotFound, opts.custom404Text || this.messages.NotFoundDetail );
+			}
 		} else if ( xhr.status == 403 ) { // Access Denied
-			app.flash.Error( this.messages.AccessDenied, ( xhr.statusText.toLowerCase() === 'access denied' ? this.messages.AccessDeniedDetail : xhr.statusText ) );
+			if ( errorCodesToIgnore.indexOf(xhr.status) === -1 ) {
+				app.flash.Error( this.messages.AccessDenied, ( xhr.statusText.toLowerCase() === 'access denied' ? this.messages.AccessDeniedDetail : xhr.statusText ) );
+			}
 		} else if ( xhr.status == 400 ) { // Server rejected
 			if ( xhr.responseJSON != null && xhr.responseJSON.message && xhr.responseJSON.message === 'Validation error' && xhr.responseJSON.data != null && _.isArray(xhr.responseJSON.data) ) {
 				var validationMessages = [];
