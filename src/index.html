@@ -35,7 +35,8 @@
 				</div>
 				<!-- /ko -->
 
-				<div id="page-holder" data-bind="css: app.sidebarPosition()">
+
+				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
 					<!-- ko if: route().showNav -->
 						<nav-bar params="route: route"></nav-bar>
@@ -51,7 +52,8 @@
 
 				</div>
 
-				<!-- ko if: app.overlayToShow() -->
+
+				<!-- ko if: app.overlayToShow() != null -->
 					<!-- ko with: app.overlayToShow() -->
 						<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
 					<!-- /ko -->
