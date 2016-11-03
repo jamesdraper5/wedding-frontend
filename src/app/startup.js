@@ -14,7 +14,7 @@ ko.components.register('section-maps', { require: 'components/section-maps/secti
 ko.components.register('section-rsvp', { require: 'components/section-rsvp/section-rsvp' });
 ko.components.register('admin-panel', { require: 'components/admin-panel/admin-panel' });
 ko.components.register('overlay-edit-intro', { require: 'components/overlay-edit-intro/overlay-edit-intro' });
-ko.components.register('overlay-edit-wedding-party', { require: 'components/overlay-edit-wedding-party/overlay-edit-wedding-party' });
+ko.components.register('overlay-edit-weddingparty', { require: 'components/overlay-edit-weddingparty/overlay-edit-weddingparty' });
 ko.components.register('overlay-edit-maps', { require: 'components/overlay-edit-maps/overlay-edit-maps' });
 ko.components.register('widget-map', { require: 'components/widget-map/widget-map' });
 ko.components.register('modal-confirm', { require: 'components/modal-confirm/modal-confirm' });

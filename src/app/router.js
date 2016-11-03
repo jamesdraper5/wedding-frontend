@@ -41,8 +41,8 @@ class Router {
 var routerInstance = new Router({
 	routes: [
 		{ url: '',                      params: { page: 'page-home' } },
-		{ url: 'editor',                params: { page: 'page-home', isLoggedInPage: true } },
-		{ url: 'editor/:pageToEdit:',   params: { page: 'page-home', isLoggedInPage: true } },
+		{ url: 'editor',                params: { page: 'page-home', isLoggedInPage: true, isEditorPage: true } },
+		{ url: 'editor/:pageToEdit:',   params: { page: 'page-home', isLoggedInPage: true, isEditorPage: true } },
 		{ url: 'account',               params: { page: 'page-home', isLoggedInPage: true } },
 		{ url: 'login',   	            params: { page: 'page-login', isLoggedInPage: false, showNav: false } },
 		{ url: 'forgotpassword', 		params: { page: 'page-forgot-password', isLoggedInPage: false, showNav: false } },

@@ -1,5 +1,5 @@
 import ko from 'knockout';
-import templateMarkup from 'text!./overlay-edit-wedding-party.html';
+import templateMarkup from 'text!./overlay-edit-weddingparty.html';
 import * as GroupModel from '../../models/weddingPartyGroupModel';
 import * as PersonModel from '../../models/weddingPartyPersonModel';
 

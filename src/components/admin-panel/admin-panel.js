@@ -7,34 +7,6 @@ class AdminPanel {
 		this.message = ko.observable('Hello from the admin-panel component!');
 	}
 
-	OnClickEditIntro() {
-		app.showOverlay({
-			name: 'edit-intro',
-			params: {}
-		});
-	}
-
-	OnClickEditWeddingParty() {
-		app.showOverlay({
-			name: 'edit-wedding-party',
-			params: {}
-		});
-	}
-
-	OnClickEditLocations() {
-		app.showOverlay({
-			name: 'edit-maps',
-			params: {}
-		});
-	}
-
-	OnClickEditRsvp() {
-		app.showOverlay({
-			name: 'edit-rsvp',
-			params: {}
-		});
-	}
-
 	OnClickLogOut() {
     	app.Logout();
     }

@@ -70,7 +70,7 @@ class Rustique {
 			resetpassword: true,
 			editor: {
 				subroutes: [
-					'home',
+					'intro',
 					'maps',
 					'rsvp',
 					'weddingparty'
@@ -132,20 +132,6 @@ class Rustique {
 			}
 			this.isUserLoggedIn(true);
 
-			if ( this.currentRoute().pageToEdit != null ) {
-				var overlayName = `edit-${this.currentRoute().pageToEdit}`;
-				var overlay = {
-					name: overlayName,
-					params: {}
-				}
-				setTimeout(() => {
-					this.sidebarPosition('open');
-				}, 1000);
-				setTimeout(() => {
-					this.showOverlay(overlay)
-				}, 2000);
-			}
-
 			/*
 			setTimeout(() => {
 				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
@@ -161,12 +147,31 @@ class Rustique {
 		});
 	}
 
+
+	checkEditorStatus() {
+		var route = this.currentRoute()
+		console.log('checkEditorStatus - route', route);
+
+		if ( route.isEditorPage ) {
+			this.sidebarPosition('open')
+		}
+		if ( route.pageToEdit != null && this.isUserLoggedIn() ) {
+			var overlayName = `edit-${route.pageToEdit}`;
+			var overlay = {
+				name: overlayName,
+				params: {}
+			}
+			//this.sidebarPosition('open')
+			this.showOverlay(overlay)
+		}
+	}
+
 	onUpdateRoute(newRoute) {
 		// TO DO: maybe add something here to map /editor to /#editor, etc
 
 	    //$.scrollTo(0)
 
-	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
+	    console.log('onUpdateRoute - newRoute', newRoute.request_);
 
 	    this.validateRoute(newRoute.request_)
 
@@ -180,6 +185,9 @@ class Rustique {
 	        app.redirectToLogin()
 	    }
 
+	    this.checkEditorStatus();
+
+
 	    //app.UpdatePageTitle() TO DO: dynamic page titles
 
 	}
@@ -191,21 +199,21 @@ class Rustique {
 
 		//var page = hash.split('/');
 		if ( !this.isValidRoute(hash) ) {
-			//console.log('validateRoute - invalid route here', hash);
+			console.log('validateRoute - invalid route here', hash);
 			this.GoTo('')
 		}
 	}
 
 	isValidRoute(hash) {
-	    //console.log('isValidRoute - hash', hash);
+	    console.log('isValidRoute - hash', '"' + hash + '"');
 
 	    if ( hash === '' ) return true;
 
 	    var segments = hash.split('/');
 	    var section = this.validRoutes[segments[0]];
 
-	    //console.log('segments', segments);
-	    //console.log('section', section);
+	    console.log('segments', segments);
+	    console.log('section', section);
 
 	    if ( section != null ) { // does route exist in validRoutes
 	    	if ( section.subroutes != null ) { // does the matched section have sub routes
@@ -263,8 +271,6 @@ class Rustique {
 	    }
 	}
 
-
-
 	showOverlay(overlay) {
 		app.overlayToShow(overlay);
 		$('body').addClass('no-scroll');
@@ -273,6 +279,7 @@ class Rustique {
 	hideOverlay() {
 		app.overlayToShow(null);
 		$('body').removeClass('no-scroll');
+		app.GoTo('editor');
 	}
 
 	Logout() {
