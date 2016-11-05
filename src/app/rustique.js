@@ -152,17 +152,25 @@ class Rustique {
 		var route = this.currentRoute()
 		console.log('checkEditorStatus - route', route);
 
-		if ( route.isEditorPage ) {
-			this.sidebarPosition('open')
-		}
-		if ( route.pageToEdit != null && this.isUserLoggedIn() ) {
-			var overlayName = `edit-${route.pageToEdit}`;
-			var overlay = {
-				name: overlayName,
-				params: {}
+		if ( this.isUserLoggedIn() ) {
+			if ( route.isEditorPage ) {
+				this.sidebarPosition('open')
+			} else {
+				this.sidebarPosition('closed')
 			}
-			//this.sidebarPosition('open')
-			this.showOverlay(overlay)
+			if ( route.pageToEdit != null ) {
+				var overlayName = `edit-${route.pageToEdit}`;
+				var overlay = {
+					name: overlayName,
+					params: {}
+				}
+				this.showOverlay(overlay)
+			} else {
+				this.hideOverlay();
+			}
+		} else {
+			this.sidebarPosition('closed')
+			this.hideOverlay();
 		}
 	}
 
@@ -279,16 +287,19 @@ class Rustique {
 	hideOverlay() {
 		app.overlayToShow(null);
 		$('body').removeClass('no-scroll');
-		app.GoTo('editor');
+		//app.GoTo('editor');
 	}
 
-	Logout() {
+	Logout(redirect=false) {
 		var firstName = app.loggedInUser.firstName()
 		app.api.post('api/me/logout').then((result) => {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
-			app.GoTo( '' )
+			app.hideOverlay();
+			if (redirect) {
+				app.GoTo('')
+			}
 			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});
 	}

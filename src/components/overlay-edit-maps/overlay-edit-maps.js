@@ -85,6 +85,7 @@ class OverlayEditMaps {
 
 	Close() {
 		app.hideOverlay();
+		app.GoTo('editor')
 	}
 
 	dispose() {

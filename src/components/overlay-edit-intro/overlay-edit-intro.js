@@ -46,6 +46,7 @@ class OverlayWelcomeMessage {
 
 	Close() {
 		app.hideOverlay();
+		app.GoTo('editor')
 	}
 
 	dispose() {

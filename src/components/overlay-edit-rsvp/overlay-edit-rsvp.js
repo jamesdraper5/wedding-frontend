@@ -50,6 +50,7 @@ class OverlayEditRsvp {
 
 	Close() {
 		app.hideOverlay();
+		app.GoTo('editor')
 	}
 
 	dispose() {

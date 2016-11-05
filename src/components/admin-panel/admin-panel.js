@@ -8,7 +8,7 @@ class AdminPanel {
 	}
 
 	OnClickLogOut() {
-    	app.Logout();
+    	app.Logout(true);
     }
 
 	dispose() {
