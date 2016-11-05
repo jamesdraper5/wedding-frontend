@@ -6,6 +6,7 @@ class PageLogin {
 		this.userEmail = ko.observable('');
 		this.userPassword = ko.observable('');
 		this.isSubmitting = ko.observable(false);
+		this.isLoggingOut = ko.observable(false);
 	}
 
 	OnSubmitLogin() {
@@ -40,6 +41,13 @@ class PageLogin {
 			this.userPassword('');
 			this.isSubmitting(false);
 		});
+	}
+
+	OnClickLogOut() {
+		this.isLoggingOut(true);
+		app.Logout().then(() => {
+			this.isLoggingOut(false);
+		})
 	}
 
 	dispose() {

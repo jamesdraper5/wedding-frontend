@@ -5,6 +5,7 @@ class PageForgotPassword {
 	constructor(params) {
 		this.userEmail = ko.observable('');
 		this.isSubmitting = ko.observable(false);
+		this.isLoggingOut = ko.observable(false);
 	}
 
 
@@ -25,6 +26,13 @@ class PageForgotPassword {
 			this.userEmail('');
 			this.isSubmitting(false);
 		});
+	}
+
+	OnClickLogOut() {
+		this.isLoggingOut(true);
+		app.Logout().then(() => {
+			this.isLoggingOut(false);
+		})
 	}
 
 	dispose() {

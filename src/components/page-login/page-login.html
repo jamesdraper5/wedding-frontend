@@ -7,35 +7,50 @@
 			<p>Login to your Account</p>
 		</div>
 
-		<form class="form" role="form" accept-charset="UTF-8" data-bind="submit: OnSubmitLogin">
-			<div class="form-group">
-				<label class="sr-only" for="email">Email address</label>
-				<input type="email" class="form-control" id="email" placeholder="Email address" required data-bind="textInput: userEmail">
-			</div>
-			<div class="form-group">
-				<label class="sr-only" for="password">Password</label>
-				<input type="password" class="form-control" id="password" placeholder="Password" required data-bind="textInput: userPassword">
-			</div>
+		<!-- ko ifnot: app.isUserLoggedIn -->
+			<form class="form" role="form" accept-charset="UTF-8" data-bind="submit: OnSubmitLogin">
+				<div class="form-group">
+					<label class="sr-only" for="email">Email address</label>
+					<input type="email" class="form-control" id="email" placeholder="Email address" required data-bind="textInput: userEmail">
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="password">Password</label>
+					<input type="password" class="form-control" id="password" placeholder="Password" required data-bind="textInput: userPassword">
+				</div>
 
-			<div class="checkbox">
-				<label>
-					<input type="checkbox">
-					<small>Keep me logged-in</small>
-				</label>
-			</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox">
+						<small>Keep me logged-in</small>
+					</label>
+				</div>
 
+				<div class="form-group">
+					<button type="submit" class="ladda-button btn btn-primary btn-block" data-style="zoom-out" data-bind="ladda:isSubmitting">
+						<span class="ladda-label">Sign In</span>
+	  				</button>
+				</div>
+				<div class="form-group">
+	                <small class="help-block text-center"><a href="">Forgot your password?</a></small>
+	            </div>
+			</form>
+			<div class="bottom text-center">
+				<small>New here? <a href="www.weddingpixie.com"><b>Join Us</b></a></small>
+			</div>
+		<!-- /ko -->
+		<!-- ko if: app.isUserLoggedIn -->
+			<p>Hmmm, it looks like you are already logged in as <strong>{{ app.loggedInUser.email() }}</strong>.</p>
 			<div class="form-group">
-				<button type="submit" class="ladda-button btn btn-primary btn-block" data-style="zoom-out" data-bind="ladda:isSubmitting">
-					<span class="ladda-label">Sign In</span>
+				<a href="#editor" class="btn btn-primary btn-block">Go to Editor Page</a>
+			</div>
+			<p class="text-center">or</p>
+			<div class="form-group">
+				<button class="ladda-button btn btn-danger btn-block" data-style="zoom-out" data-bind="click: OnClickLogOut,ladda:isLoggingOut">
+					<span class="ladda-label">Sign Out</span>
   				</button>
 			</div>
-			<div class="form-group">
-                <small class="help-block text-center"><a href="">Forgot your password?</a></small>
-            </div>
-		</form>
-		<div class="bottom text-center">
-			<small>New here? <a href="www.weddingpixie.com"><b>Join Us</b></a></small>
-		</div>
+			<div class="clearfix"></div>
+		<!-- /ko -->
 
 	</div>
 
