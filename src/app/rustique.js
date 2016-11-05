@@ -243,6 +243,7 @@ class Rustique {
 	redirectToLogin( callback ) {
 	    // Redirect to login but remember this page
 	    if ( app.currentRoute().page !== "login" ) {
+	        this.flash.Error('You shall not pass!', 'You need to be logged in before you can access that page')
 	        app.requestedRouteBeforeLoginRedirect = app.currentRoute()
 	        app.GoTo("#login")
 	    }
