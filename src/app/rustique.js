@@ -95,13 +95,7 @@ class Rustique {
 
 		this.api.get("api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
-			this.validateRoute(this.currentRoute().request_)
-			this.setPageTitle(this.installation.name());
-			this.hasLoadedData(true);
-			this.isWeddingFound(true);
-			// TO DO: Is the below call necessary all the time, e.g. on the login page?
-			this.getLoggedInUser();
-
+			this.validateInitialRoute()
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
 			if ( error.status == 404 && error.responseJSON && error.responseJSON.message == 'Wedding site not found' ) {
@@ -111,6 +105,25 @@ class Rustique {
 				this.hasError(true);
 			}
 		});
+	}
+
+	validateInitialRoute() {
+		var initPage = () => {
+			this.onUpdateRoute(app.currentRoute())
+			this.setPageTitle(this.installation.name());
+			this.hasLoadedData(true);
+			this.isWeddingFound(true);
+		}
+
+		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
+			// If loggedInPage, make /api/me call then validate route and show page
+			this.getLoggedInUser().then(() => {
+				initPage()
+			})
+		} else {
+			// else just validate route and show page immediately
+			initPage()
+		}
 	}
 
 	updateInstallationData() {
@@ -142,15 +155,11 @@ class Rustique {
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
 			return err;
-		}).finally(() => {
-			this.onUpdateRoute(app.currentRoute())
 		});
 	}
 
-
 	checkEditorStatus() {
 		var route = this.currentRoute()
-		console.log('checkEditorStatus - route', route);
 
 		if ( this.isUserLoggedIn() ) {
 			if ( route.isEditorPage ) {
@@ -201,14 +210,17 @@ class Rustique {
 	}
 
 	validateRoute(hash) {
-		if ( hash == null ) {
-			return;
+		var redirect = () => {
+			if ( app.isUserLoggedIn() ) {
+				app.GoTo('editor');
+			} else {
+				app.GoTo('');
+			}
 		}
 
-		//var page = hash.split('/');
-		if ( !this.isValidRoute(hash) ) {
-			console.log('validateRoute - invalid route here', hash);
-			this.GoTo('')
+		// hash will be null when a shite url is passed in or the router isn't initialized
+		if ( hash == null || !this.isValidRoute(hash) ) {
+			redirect()
 		}
 	}
 
