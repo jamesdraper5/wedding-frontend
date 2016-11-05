@@ -6,19 +6,19 @@
 			<p> {{ weddingDate }} </p>
 		</div>
 
-		<!-- ko if: sections.intro -->
+		<!-- ko if: sections.intro && sections.intro.isVisible() -->
 			<section-intro></section-intro>
 		<!-- /ko -->
 
-		<!-- ko if: sections.weddingParty -->
+		<!-- ko if: sections.weddingParty && sections.weddingParty.isVisible() -->
 			<section-wedding-party></section-wedding-party>
 		<!-- /ko -->
 
-		<!-- ko if: sections.maps -->
+		<!-- ko if: sections.maps && sections.maps.isVisible() -->
 			<section-maps></section-maps>
 		<!-- /ko -->
 
-		<!-- ko if: sections.rsvp -->
+		<!-- ko if: sections.rsvp && sections.rsvp.isVisible() -->
 			<section-rsvp></section-rsvp>
 		<!-- /ko -->
 

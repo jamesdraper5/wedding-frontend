@@ -36,13 +36,16 @@ class InstallationModel {
 		var activeSections = [];
 		var sections = this.sections;
 		for ( var section in sections ) {
-			if ( sections.hasOwnProperty(section) && this.sections[section] != null ) { // TO DO: `&& this.sections[section].isVisible` - waiting on adding `isVisible` to each JSON section
-				//console.log('section.isVisible', section.isVisible);
-				activeSections.push( this.sections[section].menuText );
+			if ( sections.hasOwnProperty(section) && this.sections[section] != null && this.sections[section].isVisible() ) {
+				activeSections.push({
+					title: ko.unwrap(this.sections[section].menuText),
+					idx: ko.unwrap(this.sections[section].displayIndex)
+				});
 			}
 		}
-		return activeSections;
+		return activeSections.sort((a,b) => a.idx - b.idx).map((section) => section.title)
 	}
 }
 
 export default InstallationModel;
+
