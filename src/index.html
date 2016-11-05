@@ -65,7 +65,7 @@
 			<!-- ko component: { name: 'page-404', params: { route: route } } --><!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
-			LOADED WITH ERRORS!!!
+			<!-- ko component: { name: 'page-error', params: { route: route } } --><!-- /ko -->
 		<!-- /ko -->
 
 		<!-- Load Modals on demand -->

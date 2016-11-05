@@ -98,7 +98,7 @@ class Rustique {
 			this.validateInitialRoute()
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
-			if ( error.status == 404 && error.responseJSON && error.responseJSON.message == 'Wedding site not found' ) {
+			if ( error.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 			} else {
 				this.hasLoadedData(true);
