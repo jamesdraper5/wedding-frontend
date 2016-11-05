@@ -15,6 +15,7 @@ var require = {
 		"google-maps":          		"bower_modules/google-maps/lib/Google.min",
 		"hasher":               		"bower_modules/hasher/dist/js/hasher.min",
 		"installationModel":    		"models/installationModel",
+		"jquery-scrollTo":              "bower_modules/jquery.scrollTo/jquery.scrollTo",
 		"jquery":               		"bower_modules/jquery/dist/jquery.min",
 		"knockout":             		"bower_modules/knockout/dist/knockout",
 		"knockout-mapping":     		"bower_modules/knockout-mapping/knockout.mapping",

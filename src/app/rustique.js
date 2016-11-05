@@ -5,6 +5,7 @@ import 'bootstrap';
 import 'knockout-postbox';
 import 'knockout-projections';
 import 'knockout-punches';
+import 'jquery-scrollTo';
 import 'bindings-ladda';
 import 'bindings-image-uploader';
 import 'extenders-trackChanges';

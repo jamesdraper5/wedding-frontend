@@ -25,6 +25,12 @@ class NavBarViewModel {
 
     }
 
+    OnClickNavItem(item) {
+    	var navHeight = $('#main-nav').height();
+    	var sectionId = '#' + item.toLowerCase().split(' ').join('-') + '-container'; // e.g. #wedding-party-container
+    	$.scrollTo( $(sectionId), 600, { offset: -navHeight } )
+    }
+
     OnClickToggleSidebar() {
     	if ( app.sidebarPosition() === 'open' ) {
     		app.sidebarPosition( 'closed' )

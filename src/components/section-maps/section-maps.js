@@ -5,6 +5,7 @@ class MapsSection {
 	constructor(params) {
 		this.title = app.installation.sections.maps.menuText;
 		this.maps = app.installation.sections.maps.locations;
+		this.containerId = this.title().toLowerCase().split(' ').join('-') + '-container';
 	}
 
 	dispose() {
