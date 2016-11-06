@@ -10,6 +10,7 @@ class OverlayEditWeddingParty {
 		this.title = ko.observable( ko.unwrap(app.installation.sections.intro.title) );
 		this.content = ko.observable( ko.unwrap(app.installation.sections.intro.text) );
 		this.menuText = ko.observable( ko.unwrap(app.installation.sections.intro.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.intro.isVisible) );
 		this.groups = ko.observableArray(ko.unwrap(app.installation.sections.weddingParty.groups));
 
 		this.isSubmitting = ko.observable(false);
@@ -20,6 +21,11 @@ class OverlayEditWeddingParty {
 				return 'Save';
 			}
 		});
+
+		$("input[type='text']:disabled").popover({
+			trigger: 'hover',
+			text: 'test'
+		})
 
 	}
 

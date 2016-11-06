@@ -6,13 +6,16 @@
 		</div>
 		<div class="modal-body">
 			<div class="forms-container">
+				<div class="form-group" style="margin-bottom: 5px;">
+					<widget-toggle-switch params="{ value: isVisible, labelText: 'Show this section', style: { marginLeft: '10px' } }"></widget-toggle-switch>
+				</div>
 				<div class="form-group">
 					<label for="map-title">Section Title</label>
-					<input type="text" id="map-title" class="form-control" data-bind="textInput: title">
+					<input type="text" id="map-title" class="form-control" data-bind="textInput: title, enable: isVisible">
 				</div>
 				<div class="form-group">
 					<label for="menu-text">Menu Text</label>
-					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText">
+					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText, enable: isVisible">
 				</div>
 
 				<!-- ko foreach: locations -->
@@ -31,9 +34,9 @@
 						</label>
 
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Enter the address of your venue" data-bind="textInput: address">
+							<input type="text" class="form-control" placeholder="Enter the address of your venue" data-bind="textInput: address, enable: $component.isVisible">
 				            <span class="input-group-btn">
-								<button class="btn btn-primary" type="button" data-bind="click: updateGoogleMapLocation">
+								<button class="btn btn-primary" type="button" data-bind="click: updateGoogleMapLocation, enable: $component.isVisible">
 			              			<span class="glyphicon glyphicon-screenshot"></span>
 									View on map
 			              		</button>
@@ -46,14 +49,14 @@
 
 						<div class="form-group">
 							<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Title', attr: { for: 'map-title-' + id() }">Map Title</label>
-							<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title" class="form-control">
+							<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title, enable: $component.isVisible" class="form-control">
 						</div>
 						<div class="form-group">
 							<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Description', attr: { for: 'map-desc-' + id() }">Map Description</label>
-							<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }"></textarea>
+							<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }, enable: $component.isVisible"></textarea>
 						</div>
 						<div class="form-group align-right">
-								<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap">Delete this Location</button>
+							<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap, enable: $component.isVisible">Delete this Location</button>
 						</div>
 					</div>
 				<!-- /ko -->
@@ -61,7 +64,7 @@
 				<hr>
 				<div class="form-group">
 					<div class="form-inline">
-				        <button class="btn btn-success" data-bind="click: AddLocation">Add New Location</button>
+				        <button class="btn btn-success" data-bind="click: AddLocation, enable: isVisible">Add New Location</button>
 					</div>
 				</div>
 

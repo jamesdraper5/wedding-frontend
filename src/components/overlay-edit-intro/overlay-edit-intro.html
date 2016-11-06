@@ -6,16 +6,19 @@
 		</div>
 		<div class="modal-body">
 			<div class="forms-container">
-				<div class="form-group">
-					<label for="title">Section Title</label>
-					<input type="text" id="title" class="form-control" data-bind="textInput: title">
+				<div class="form-group" style="margin-bottom: 5px;">
+					<widget-toggle-switch params="{ value: isVisible, labelText: 'Show this section', style: { marginLeft: '10px' } }"></widget-toggle-switch>
 				</div>
 				<div class="form-group">
-					<widget-text-editor params="content: content, labelText: 'Content'"></widget-text-editor>
+					<label for="title">Section Title</label>
+					<input type="text" id="title" class="form-control" data-bind="textInput: title, enable: isVisible">
+				</div>
+				<div class="form-group">
+					<widget-text-editor params="content: content, labelText: 'Content', enable: isVisible"></widget-text-editor>
 				</div>
 				<div class="form-group">
 					<label for="menu-text">Menu Text</label>
-					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText">
+					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText, enable: isVisible">
 				</div>
 			</div>
 		</div>

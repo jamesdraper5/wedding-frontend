@@ -1,3 +1,5 @@
-<label data-bind="text: labelText, attr: { for: editorId }"></label>
-<p data-bind="html: originalContent, attr: { id: editorId }"></p>
-<div data-bind="template: { afterRender:OnRendered }">
+<div class="text-editor-container" data-bind="css: { disabled: !enable() }">
+	<label data-bind="text: labelText, attr: { for: editorId }"></label>
+	<p data-bind="html: originalContent, attr: { id: editorId }"></p>
+	<div data-bind="template: { afterRender:OnRendered }">
+</div>

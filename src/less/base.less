@@ -443,8 +443,64 @@ Edit user images in wedding party section
 .ql-editor.fake {
 	padding: 0;
 }
+.text-editor-container.disabled {
+	.ql-toolbar, .ql-container {
+		background: #eee;
+	}
+}
 
 /**** Toastr Messages ****/
 #toast-container {
 	font-size: 14px;
+}
+
+/**** Toggle Switch ****/
+.toggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    vertical-align: middle;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+}
+.toggleswitch-checkbox {
+    display: none;
+}
+.toggleswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    height: 24px;
+    padding: 0;
+    line-height: 24px;
+    border: 1px solid #CCCCCC;
+    border-radius: 24px;
+    background-color: #F5F5F5;
+    transition: background-color 0.3s ease-in;
+}
+.toggleswitch-label:before {
+    content: "";
+    display: block;
+    width: 24px;
+    margin: 0px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 18px;
+    border: 1px solid #CCCCCC;
+    border-radius: 24px;
+    transition: all 0.3s ease-in 0s;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.toggleswitch-checkbox:checked + .toggleswitch-label {
+    background-color: #449D44;
+}
+.toggleswitch-checkbox:checked + .toggleswitch-label, .toggleswitch-checkbox:checked + .toggleswitch-label:before {
+   border-color: #449D44;
+}
+.toggleswitch-checkbox:checked + .toggleswitch-label:before {
+    right: 0px;
 }

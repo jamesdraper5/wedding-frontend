@@ -25,6 +25,7 @@ ko.components.register('widget-text-editor', { require: 'components/widget-text-
 ko.components.register('page-forgot-password', { require: 'components/page-forgot-password/page-forgot-password' });
 ko.components.register('page-reset-password', { require: 'components/page-reset-password/page-reset-password' });
 ko.components.register('page-error', { require: 'components/page-error/page-error' });
+ko.components.register('widget-toggle-switch', { require: 'components/widget-toggle-switch/widget-toggle-switch' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

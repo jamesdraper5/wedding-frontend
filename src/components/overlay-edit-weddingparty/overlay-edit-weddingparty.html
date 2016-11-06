@@ -6,17 +6,20 @@
 	    </div>
 	    <div class="modal-body">
 	        <div class="forms-container">
+				<div class="form-group" style="margin-bottom: 5px;">
+					<widget-toggle-switch params="{ value: isVisible, labelText: 'Show this section', style: { marginLeft: '10px' } }"></widget-toggle-switch>
+				</div>
 
 				<div class="form-group">
 				    <label>Menu Text</label>
-			        <input type="text" class="form-control" data-bind="textInput: menuText">
+			        <input type="text" class="form-control" data-bind="textInput: menuText, enable: isVisible">
 				</div>
 
 				<!-- ko foreach: groups -->
 					<hr>
 					<div class="form-group">
 					    <label data-bind="text: 'Group #' + parseInt($index()+1) + ' Title'">Group #1 Title</label>
-				        <input type="text" class="form-control" data-bind="textInput: title">
+				        <input type="text" class="form-control" data-bind="textInput: title, enable: $component.isVisible">
 					</div>
 
 					<div class="form-group">
@@ -26,12 +29,12 @@
 					<!-- ko foreach: people -->
 						<div class="form-group">
 							<div class="form-inline">
-								<input type="text" class="form-control" data-bind="textInput: name">
-						        <button class="btn btn-primary" data-bind="click: ToggleEdit">Edit</button>
-						        <button class="btn btn-danger" data-bind="click: $parent.removePerson">Remove</button>
+								<input type="text" class="form-control" data-bind="textInput: name, enable: $component.isVisible">
+						        <button class="btn btn-primary" data-bind="click: ToggleEdit, enable: $component.isVisible">Edit</button>
+						        <button class="btn btn-danger" data-bind="click: $parent.removePerson, enable: $component.isVisible">Remove</button>
 							</div>
 
-							<!-- ko if: isEditing -->
+							<!-- ko if: isEditing() && $component.isVisible() -->
 								<br>
 								<div class="form-group">
 									<image class="user-preview" src="https://maxcdn.icons8.com/iOS7/PNG/25/Users/user_male_circle_filled-25.png" data-bind="attr: { src: imageUrl }" />
@@ -39,7 +42,7 @@
 								</div>
 								<div class="form-group">
 								    <label>Description</label>
-							        <textarea class="form-control" data-bind="textInput: text"></textarea>
+							        <textarea class="form-control" data-bind="textInput: text, enable: $component.isVisible"></textarea>
 								</div>
 							<!-- /ko -->
 						</div>
@@ -47,7 +50,7 @@
 
 					<div class="form-group">
 						<div class="form-inline">
-					        <button class="btn btn-success" data-bind="click: $component.AddPerson">Add Person</button>
+					        <button class="btn btn-success" data-bind="click: $component.AddPerson, enable: $component.isVisible">Add Person</button>
 						</div>
 					</div>
 				<!-- /ko -->

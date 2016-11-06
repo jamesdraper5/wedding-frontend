@@ -8,6 +8,7 @@ class OverlayWelcomeMessage {
 		this.title = ko.observable( ko.unwrap(app.installation.sections.intro.header) );
 		this.content = ko.observable( ko.unwrap(app.installation.sections.intro.content) );
 		this.menuText = ko.observable( ko.unwrap(app.installation.sections.intro.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.intro.isVisible) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {

@@ -8,6 +8,8 @@ class WidgetTextEditor {
     	this.writeableContent = params.content || ko.observable('');
     	this.labelText = params.labelText || '';
     	this.editorId = 'editor' + Date.now();
+    	this.enable = params.enable || ko.observable(true);
+    	this.subscriptions = [];
 
     	this.toolbarOpts = [
 			[{ 'header': [1, 2, 3, false] }],
@@ -27,6 +29,11 @@ class WidgetTextEditor {
   			}
   		});
 
+    	this.editor.enable( this.enable() )
+    	this.subscriptions.push(this.enable.subscribe(n => {
+    		console.log('enable', n);
+    		this.editor.enable(n)
+	    }))
     	this.editor.on('text-change', this.OnTextChange.bind(this))
 
     }
@@ -39,6 +46,7 @@ class WidgetTextEditor {
         // This runs when the component is torn down. Put here any logic necessary to clean up,
         // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
         this.editor.off('text-change', this.OnTextChange)
+        this.subscriptions.forEach(subscription => subscription.dispose())
     }
 }
 
