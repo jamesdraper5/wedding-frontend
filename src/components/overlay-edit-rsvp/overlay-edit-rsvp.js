@@ -8,8 +8,7 @@ class OverlayEditRsvp {
 		this.title = ko.observable( ko.unwrap(app.installation.sections.rsvp.title) );
 		this.text = ko.observable( ko.unwrap(app.installation.sections.rsvp.text) );
 		this.menuText = ko.observable( ko.unwrap(app.installation.sections.rsvp.menuText) );
-		this.isVisible = ko.observable( params.isVisible || false );
-
+		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.rsvp.isVisible) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {

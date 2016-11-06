@@ -6,11 +6,11 @@ import * as PersonModel from '../../models/weddingPartyPersonModel';
 class OverlayEditWeddingParty {
 	constructor(params) {
 
-		this.id = ko.unwrap(app.installation.sections.intro.id);
-		this.title = ko.observable( ko.unwrap(app.installation.sections.intro.title) );
-		this.content = ko.observable( ko.unwrap(app.installation.sections.intro.text) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.intro.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.intro.isVisible) );
+		this.id = ko.unwrap(app.installation.sections.weddingParty.id);
+		this.title = ko.observable( ko.unwrap(app.installation.sections.weddingParty.title) );
+		this.content = ko.observable( ko.unwrap(app.installation.sections.weddingParty.text) );
+		this.menuText = ko.observable( ko.unwrap(app.installation.sections.weddingParty.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.weddingParty.isVisible) );
 		this.groups = ko.observableArray(ko.unwrap(app.installation.sections.weddingParty.groups));
 
 		this.isSubmitting = ko.observable(false);
@@ -43,7 +43,8 @@ class OverlayEditWeddingParty {
 		var partyData = {
 			header: this.title(),
 			content: this.content(),
-			menuText: this.menuText()
+			menuText: this.menuText(),
+			isVisible: this.isVisible()
 		};
 
 		partyData.groups = this.getGroupFormData(this.groups);

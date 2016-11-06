@@ -34,7 +34,8 @@ class OverlayWelcomeMessage {
 		var introData = {
 			header: this.title(),
 			content: this.content(),
-			menuText: this.menuText()
+			menuText: this.menuText(),
+			isVisible: this.isVisible()
 		};
 		app.api.put(`api/intros/${this.id}`, introData).then((result) => {
 			app.flash.Success('Updated baby!');
