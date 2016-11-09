@@ -5,6 +5,7 @@ class PageLogin {
 	constructor(params) {
 		this.userEmail = ko.observable('');
 		this.userPassword = ko.observable('');
+		this.stayLoggedIn = ko.observable(false);
 		this.isSubmitting = ko.observable(false);
 		this.isLoggingOut = ko.observable(false);
 	}
@@ -12,7 +13,8 @@ class PageLogin {
 	OnSubmitLogin() {
 		var data = {
 			email: this.userEmail(),
-			password: this.userPassword()
+			password: this.userPassword(),
+			stayLoggedIn: this.stayLoggedIn()
 		}
 		this.isSubmitting(true);
 
