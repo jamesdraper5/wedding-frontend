@@ -108,25 +108,6 @@ class Rustique {
 		});
 	}
 
-	validateInitialRoute() {
-		var initPage = () => {
-			this.onUpdateRoute(app.currentRoute())
-			this.setPageTitle(this.installation.name());
-			this.hasLoadedData(true);
-			this.isWeddingFound(true);
-		}
-
-		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
-			// If loggedInPage, make /api/me call then validate route and show page
-			this.getLoggedInUser().then(() => {
-				initPage()
-			})
-		} else {
-			// else just validate route and show page immediately
-			initPage()
-		}
-	}
-
 	updateInstallationData() {
 		this.api.get("api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
@@ -159,28 +140,24 @@ class Rustique {
 		});
 	}
 
-	checkEditorStatus() {
-		var route = this.currentRoute()
+	validateInitialRoute() {
+		//console.log('validateInitialRoute');
+		var initPage = () => {
+			this.onUpdateRoute(app.currentRoute())
+			this.setPageTitle(this.installation.name());
+			this.hasLoadedData(true);
+			this.isWeddingFound(true);
+		}
 
-		if ( this.isUserLoggedIn() ) {
-			if ( route.isEditorPage ) {
-				this.sidebarPosition('open')
-			} else {
-				this.sidebarPosition('closed')
-			}
-			if ( route.pageToEdit != null ) {
-				var overlayName = `edit-${route.pageToEdit}`;
-				var overlay = {
-					name: overlayName,
-					params: {}
-				}
-				this.showOverlay(overlay)
-			} else {
-				this.hideOverlay();
-			}
+		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
+			console.log('1');
+			// If loggedInPage, make /api/me call then validate route and show page
+			return this.getLoggedInUser().finally(() => {
+				initPage()
+			})
 		} else {
-			this.sidebarPosition('closed')
-			this.hideOverlay();
+			// else just validate route and show page immediately
+			initPage()
 		}
 	}
 
@@ -252,6 +229,30 @@ class Rustique {
 
 	}
 
+	checkEditorStatus() {
+		var route = this.currentRoute()
+
+		if ( this.isUserLoggedIn() ) {
+			if ( route.isEditorPage ) {
+				this.sidebarPosition('open')
+			} else {
+				this.sidebarPosition('closed')
+			}
+			if ( route.pageToEdit != null ) {
+				var overlayName = `edit-${route.pageToEdit}`;
+				var overlay = {
+					name: overlayName,
+					params: {}
+				}
+				this.showOverlay(overlay)
+			} else {
+				this.hideOverlay();
+			}
+		} else {
+			this.sidebarPosition('closed')
+			this.hideOverlay();
+		}
+	}
 
 	redirectToLogin( callback ) {
 	    // Redirect to login but remember this page
