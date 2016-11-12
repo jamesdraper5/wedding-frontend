@@ -141,7 +141,6 @@ class Rustique {
 	}
 
 	validateInitialRoute() {
-		//console.log('validateInitialRoute');
 		var initPage = () => {
 			this.onUpdateRoute(app.currentRoute())
 			this.setPageTitle(this.installation.name());

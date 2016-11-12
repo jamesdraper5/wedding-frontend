@@ -5,13 +5,12 @@ class HomeViewModel {
 	constructor(route) {
 		this.installation = app.installation;
 		this.showAdmin = ko.observable(route.showAdmin || false);
+		this.imageUrl = ko.observable(null)
 	}
 
 	OnRendered() {
 		// this might be useful as it's a callback after the home page is fully rendered
 	}
-
-
 
 }
 

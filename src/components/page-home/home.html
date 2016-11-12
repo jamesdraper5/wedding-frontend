@@ -6,6 +6,9 @@
 			<p> {{ weddingDate }} </p>
 		</div>
 
+		<widget-image-uploader params="{ observable: $component.imageUrl }"></widget-image-uploader>
+		<img src="http://placekitten.com/100/100" alt="" data-bind="attr: { src: $component.imageUrl }">
+
 		<!-- ko if: sections.intro && sections.intro.isVisible() -->
 			<section-intro></section-intro>
 		<!-- /ko -->
