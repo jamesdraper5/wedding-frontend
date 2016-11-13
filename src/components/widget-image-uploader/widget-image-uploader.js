@@ -32,13 +32,14 @@ class WidgetImageUploader {
     }
 
     onFileSelected(file) {
+    	this.fileName = this.uid + '-' + file.name;
+    	this.fileType = file.type;
+
     	if ( !this.useEditor ) {
 	    	this.getSignedRequest( file );
 	    	return;
     	}
 
-    	this.fileName = file.name;
-    	this.fileType = file.type;
         var fr = new FileReader();
         fr.onload = () => {
             this.observable(fr.result); // Need to add image src to preview img so we can edit it
@@ -64,8 +65,8 @@ class WidgetImageUploader {
     			},
     			save: {
     				callback: function() {
+    					var base64String = this.darkroom.sourceImage.toDataURL();
     					this.darkroom.selfDestroy();
-    					var base64String = $('#'+self.imgId).attr('src')
     					var generatedFile = self.dataURItoFile(base64String, self.fileName, self.fileType);
     					self.getSignedRequest(generatedFile);
     				}
