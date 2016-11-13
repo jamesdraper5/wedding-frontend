@@ -49,13 +49,15 @@ class WidgetImageUploader {
     }
 
     initEditor() {
+    	var maxWidth = $('.modal-body').width();
+    	console.log('maxWidth', maxWidth);
     	var self = this;
     	new Darkroom('#'+this.imgId, {
     		// Size options
     		minWidth: 100,
     		minHeight: 100,
-    		maxWidth: 600,
-    		maxHeight: 500,
+    		maxWidth: maxWidth,
+    		maxHeight: 600,
     		ratio: 4/3,
     		backgroundColor: '#000',
     		// Plugins options
@@ -66,7 +68,7 @@ class WidgetImageUploader {
     			save: {
     				callback: function() {
     					var base64String = this.darkroom.sourceImage.toDataURL();
-    					this.darkroom.selfDestroy();
+    					self.destroyDarkroom(base64String)
     					var generatedFile = self.dataURItoFile(base64String, self.fileName, self.fileType);
     					self.getSignedRequest(generatedFile);
     				}
@@ -75,12 +77,15 @@ class WidgetImageUploader {
     		// Post initialize script
     		initialize: function() {
     			var cropPlugin = this.plugins['crop'];
-    			// cropPlugin.selectZone(170, 25, 300, 300);
     			cropPlugin.requireFocus();
     		}
     	});
     }
 
+    destroyDarkroom(src) {
+    	$('#'+this.imgId).insertBefore('#'+this.inputId).attr('src',src).show();
+    	$('.darkroom-container').remove();
+    }
 
     dataURItoFile(dataURI, name, type) {
         // convert base64/URLEncoded data component to raw binary data held in a string
@@ -140,6 +145,10 @@ class WidgetImageUploader {
 			}
 		};
 		xhr.send(fileData);
+	}
+
+	OnClickImage() {
+		$('#'+this.inputId).trigger('click')
 	}
 
     dispose() {

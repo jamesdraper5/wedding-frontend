@@ -1,2 +1,4 @@
-<input type="file" data-bind="attr: { id: inputId }">
-<img data-bind="attr: { src: observable, id: imgId }">
+<div class="image-uploader">
+	<img data-bind="click: OnClickImage, attr: { src: observable, id: imgId }" class="file-upload-image img-responsive">
+	<input type="file" data-bind="attr: { id: inputId }" class="file-upload-input">
+</div>
