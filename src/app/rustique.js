@@ -146,6 +146,10 @@ class Rustique {
 			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
 			this.isWeddingFound(true);
+
+			setTimeout(() => {
+				app.modal.Show("upload-image", {});
+			}, 500)
 		}
 
 		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
