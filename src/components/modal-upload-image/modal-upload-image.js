@@ -5,7 +5,10 @@ class ModalUploadImage {
     constructor(params) {
     	this.callback = params.callback;
     	this.title = params.title || 'Upload Image';
+    	this.uid = Date.now();
     	this.imageUrl = params.imageUrl || ko.observable('images/lucy.jpg');
+    	this.subscriptions = [];
+    	this.subscriptions.push( ko.postbox.subscribe(`image-uploaded-${this.uid}`, () => this.Close() ) )
 
     	app.modal.Init('UploadImage', this, params)
     }
@@ -16,6 +19,10 @@ class ModalUploadImage {
 
     OnClickCancel() {
         this.Close()
+    }
+
+    OnSubmit() {
+    	ko.postbox.publish(`image-edited-${this.uid}`)
     }
 
     OnClickConfirm() {

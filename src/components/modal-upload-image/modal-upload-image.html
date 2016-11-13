@@ -6,12 +6,12 @@
 		        <h4 class="modal-title" data-bind="text:title">Upload Image</h4>
 			</div>
 			<div class="modal-body">
-				<widget-image-uploader params="{ observable: imageUrl, useEditor: true }"></widget-image-uploader>
+				<widget-image-uploader params="{ observable: imageUrl, useEditor: true, uid: uid }"></widget-image-uploader>
 			</div>
 			<div class="modal-footer">
 				<div class="text-right">
 					<button class="btn btn-link" data-bind="click:OnClickCancel">Cancel</button>
-					<button id="modalConfirmBtn" class="btn btn-success" data-bind="click:OnClickConfirm">OK</button>
+					<button id="modalConfirmBtn" class="btn btn-success" data-bind="click:OnSubmit">OK</button>
 				</div>
 			</div>
 	    </div><!-- /.modal-content -->

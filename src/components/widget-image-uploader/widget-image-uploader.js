@@ -6,12 +6,17 @@ class WidgetImageUploader {
     constructor(params) {
     	this.observable = params.observable || ko.observable(null)
     	this.useEditor = params.useEditor || false;
-    	this.uid = Date.now()
+    	this.uid = params.uid || Date.now();
     	this.inputId = 'image-upload-' + this.uid
     	this.imgId = 'image-' + this.uid
     	this.listenToInput()
     	this.fileName = null;
     	this.fileType = null;
+    	this.subscriptions = [];
+    	this.subscriptions.push( ko.postbox.subscribe(`image-edited-${this.uid}`, () => {
+    		console.log('okay');
+    		this.OnSaveEdits()
+    	}))
     }
 
     listenToInput() {
@@ -19,8 +24,6 @@ class WidgetImageUploader {
         $(document).on('change', '#'+this.inputId, function() {
             if ( FileReader ) {
 	            if ( this.files && this.files.length ){
-
-
 		            self.onFileSelected(this.files[0])
 	            } else {
 		            app.flash.Info('No file selected')
@@ -50,7 +53,6 @@ class WidgetImageUploader {
 
     initEditor() {
     	var maxWidth = $('.modal-body').width();
-    	console.log('maxWidth', maxWidth);
     	var self = this;
     	new Darkroom('#'+this.imgId, {
     		// Size options
@@ -60,27 +62,29 @@ class WidgetImageUploader {
     		maxHeight: 600,
     		ratio: 4/3,
     		backgroundColor: '#000',
-    		// Plugins options
     		plugins: {
     			crop: {
     			  ratio: 4/3
     			},
     			save: {
-    				callback: function() {
-    					var base64String = this.darkroom.sourceImage.toDataURL();
-    					self.destroyDarkroom(base64String)
-    					var generatedFile = self.dataURItoFile(base64String, self.fileName, self.fileType);
-    					self.getSignedRequest(generatedFile);
-    				}
+    				callback: self.OnSaveEdits.bind(self)
     			}
     		},
     		// Post initialize script
     		initialize: function() {
     			var cropPlugin = this.plugins['crop'];
     			cropPlugin.requireFocus();
+    			self.darkroom = this;
     		}
     	});
     }
+
+    OnSaveEdits() {
+		var base64String = this.darkroom.sourceImage.toDataURL();
+		var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
+		this.getSignedRequest(generatedFile);
+		this.destroyDarkroom(base64String)
+	}
 
     destroyDarkroom(src) {
     	$('#'+this.imgId).insertBefore('#'+this.inputId).attr('src',src).show();
@@ -138,7 +142,7 @@ class WidgetImageUploader {
 				if(xhr.status === 200){
 					this.observable(imageUrl)
 					app.flash.Success('Image Uploaded')
-
+					ko.postbox.publish(`image-uploaded-${this.uid}`)
 				} else{
 					app.flash.Error('Oh No!', 'Sorry, there seems to be an issue adding images at the moment, please try again')
 				}
