@@ -149,7 +149,6 @@ class Rustique {
 		}
 
 		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
-			console.log('1');
 			// If loggedInPage, make /api/me call then validate route and show page
 			return this.getLoggedInUser().finally(() => {
 				initPage()
@@ -163,9 +162,7 @@ class Rustique {
 	onUpdateRoute(newRoute) {
 		// TO DO: maybe add something here to map /editor to /#editor, etc
 
-	    //$.scrollTo(0)
-
-	    console.log('onUpdateRoute - newRoute', newRoute.request_);
+	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
 
 	    this.validateRoute(newRoute.request_)
 
@@ -202,15 +199,12 @@ class Rustique {
 	}
 
 	isValidRoute(hash) {
-	    console.log('isValidRoute - hash', '"' + hash + '"');
+	    //console.log('isValidRoute - hash', '"' + hash + '"');
 
 	    if ( hash === '' ) return true;
 
 	    var segments = hash.split('/');
 	    var section = this.validRoutes[segments[0]];
-
-	    console.log('segments', segments);
-	    console.log('section', section);
 
 	    if ( section != null ) { // does route exist in validRoutes
 	    	if ( section.subroutes != null ) { // does the matched section have sub routes

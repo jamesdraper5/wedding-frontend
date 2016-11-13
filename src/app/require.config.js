@@ -8,9 +8,11 @@ var require = {
 		"bootstrap":            		"bower_modules/components-bootstrap/js/bootstrap.min",
 		"constants":                	"helpers/constants",
 		"crossroads":           		"bower_modules/crossroads/dist/crossroads.min",
+		"darkroom":           			"bower_modules/darkroom/build/darkroom",
 		"errorHelper":          		"helpers/errorHelper",
 		"eventemitter2":        		"bower_modules/eventemitter2/lib/eventemitter2",
 		"extenders-trackChanges":       "extenders/trackChanges",
+		"fabric":               		"bower_modules/fabric/dist/fabric",
 		"flash":                		"helpers/flash",
 		"google-maps":          		"bower_modules/google-maps/lib/Google.min",
 		"hasher":               		"bower_modules/hasher/dist/js/hasher.min",
@@ -40,6 +42,7 @@ var require = {
 	},
 	shim: {
 		"bootstrap": { deps: ["jquery"] },
-		"rustique": { deps: ["toastr"] }
+		"rustique": { deps: ["toastr"] },
+		"darkroom": { deps: ["fabric"] }
 	}
 };
