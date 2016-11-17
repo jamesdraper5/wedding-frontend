@@ -148,7 +148,7 @@ class Rustique {
 			this.isWeddingFound(true);
 
 			setTimeout(() => {
-				//app.modal.Show("upload-image", { imageUrl: 'images/ice.jpg' });
+				//app.modal.Show("upload-image", { imageUrl: 'images/test/ice.jpg' });
 			}, 500)
 		}
 
