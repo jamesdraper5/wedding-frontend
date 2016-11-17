@@ -52,9 +52,10 @@ class WidgetImageUploader {
     }
 
     OnClickEdit() {
-    	var fileName = this.observable().substr(0, x.lastIndexOf('.'));
+    	var file = this.observable();
+    	var fileName = file.substr(0, file.lastIndexOf('.'));
     	this.fileName = this.uid + '-' + fileName;
-    	this.fileType = this.observable().split('.').pop();
+    	this.fileType = file.split('.').pop();
     	this.initEditor()
     }
 
