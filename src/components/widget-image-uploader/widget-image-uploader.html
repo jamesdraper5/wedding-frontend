@@ -1,4 +1,8 @@
 <div class="image-uploader">
-	<img data-bind="click: OnClickImage, attr: { src: observable, id: imgId }" class="file-upload-image img-responsive">
-	<input type="file" data-bind="attr: { id: inputId }" class="file-upload-input">
+	<img data-bind="click: OnClickEdit, attr: { src: observable, id: imgId }" class="file-upload-image img-responsive" crossOrigin="Anonymous">
+	<input type="file" data-bind="attr: { id: inputId }" class="file-upload-input" style="display:none">
+
+	<button class="btn btn-primary" data-bind="click: OnClickEdit">Edit this Image</button>
+	or
+	<button class="btn btn-primary" data-bind="click: OnClickUpload">Select a new Image</button>
 </div>

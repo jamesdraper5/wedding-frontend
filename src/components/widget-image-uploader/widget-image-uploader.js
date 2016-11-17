@@ -51,6 +51,17 @@ class WidgetImageUploader {
         fr.readAsDataURL(file);
     }
 
+    OnClickEdit() {
+    	var fileName = this.observable().substr(0, x.lastIndexOf('.'));
+    	this.fileName = this.uid + '-' + fileName;
+    	this.fileType = this.observable().split('.').pop();
+    	this.initEditor()
+    }
+
+    OnClickUpload() {
+    	$('#'+this.inputId).trigger('click')
+    }
+
     initEditor() {
     	var maxWidth = $('.modal-body').width();
     	var self = this;
@@ -162,10 +173,6 @@ class WidgetImageUploader {
 			}
 		};
 		xhr.send(fileData);
-	}
-
-	OnClickImage() {
-		$('#'+this.inputId).trigger('click')
 	}
 
     dispose() {
