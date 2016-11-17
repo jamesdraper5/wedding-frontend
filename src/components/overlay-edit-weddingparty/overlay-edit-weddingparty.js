@@ -58,6 +58,10 @@ class OverlayEditWeddingParty {
 		});
 	}
 
+	OnClickEditImage(person) {
+		app.modal.Show("upload-image", { imageUrl: person.imageUrl });
+	}
+
 	Close() {
 		app.hideOverlay();
 		app.GoTo('editor')

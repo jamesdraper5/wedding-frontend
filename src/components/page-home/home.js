@@ -5,7 +5,6 @@ class HomeViewModel {
 	constructor(route) {
 		this.installation = app.installation;
 		this.showAdmin = ko.observable(route.showAdmin || false);
-		this.imageUrl = ko.observable('images/lucy.jpg')
 	}
 
 	OnRendered() {

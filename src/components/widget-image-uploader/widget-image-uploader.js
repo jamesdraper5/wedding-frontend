@@ -9,14 +9,14 @@ class WidgetImageUploader {
     	this.uid = params.uid || Date.now();
     	this.inputId = 'image-upload-' + this.uid
     	this.imgId = 'image-' + this.uid
-    	this.listenToInput()
+    	this.isEditing = ko.observable(false);
     	this.fileName = null;
     	this.fileType = null;
     	this.subscriptions = [];
-    	this.subscriptions.push( ko.postbox.subscribe(`image-edited-${this.uid}`, () => {
-    		console.log('okay');
+    	this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
     		this.OnSaveEdits()
     	}))
+    	this.listenToInput()
     }
 
     listenToInput() {
@@ -74,16 +74,29 @@ class WidgetImageUploader {
     		initialize: function() {
     			var cropPlugin = this.plugins['crop'];
     			cropPlugin.requireFocus();
+    			self.isEditing(true);
     			self.darkroom = this;
     		}
     	});
     }
 
     OnSaveEdits() {
-		var base64String = this.darkroom.sourceImage.toDataURL();
-		var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
-		this.getSignedRequest(generatedFile);
-		this.destroyDarkroom(base64String)
+    	if ( this.isEditing ) {
+			var base64String = this.darkroom.sourceImage.toDataURL();
+			var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
+			this.getSignedRequest(generatedFile);
+			this.destroyDarkroom(base64String)
+			this.isEditing(false)
+    	} else {
+    		if ( this.useEditor ) {
+	    		// TO DO: nothing has changed: just close modal.
+	    		// TO DO: Should this logic be in another function that then calls OnSaveEdits if necessary? Yeah....
+
+    		} else {
+    			// TO DO: not using editor - will this ever happen after editing?
+    			// The modal should probably be closed as soon as a new file is chosen, so clicking Okay in modal would just close the modal
+    		}
+    	}
 	}
 
     destroyDarkroom(src) {
