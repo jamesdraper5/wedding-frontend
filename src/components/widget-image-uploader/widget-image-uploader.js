@@ -13,11 +13,20 @@ class WidgetImageUploader {
 		this.isEditing = ko.observable(false);
 		this.fileName = null;
 		this.fileType = null;
+		this.originalImgSrc = this.observable();
+
+		// Subscriptions
 		this.subscriptions = [];
+		this.editBtnText = ko.pureComputed(() => {
+			return this.isEditing() ? 'Cancel Editing' : 'Edit Image'
+		});
+		this.subscriptions.push(this.editBtnText);
 		this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
 			this.OnSaveEdits()
 		}))
+
 		this.listenToInput()
+
 	}
 
 	listenToInput() {
@@ -52,12 +61,20 @@ class WidgetImageUploader {
 		fr.readAsDataURL(file);
 	}
 
-	OnClickEdit() {
-		var file = this.observable();
-		var fileName = file.substr(0, file.lastIndexOf('.'));
-		this.fileName = this.uid + '-' + fileName;
-		this.fileType = file.split('.').pop();
-		this.initEditor()
+	OnClickToggleEdit() {
+		this.isEditing( !this.isEditing() )
+
+		if ( this.isEditing() ) {
+			var file = this.observable();
+			var fileName = file.substr(0, file.lastIndexOf('.'));
+			this.fileName = this.uid + '-' + fileName;
+			this.fileType = file.split('.').pop();
+			this.initEditor()
+		} else {
+
+			this.cancelEditor()
+
+		}
 	}
 
 	OnClickUpload() {
@@ -66,11 +83,9 @@ class WidgetImageUploader {
 
 	initEditor() {
 		const opts = this.editorOpts;
-
 		var maxWidth = $('.modal-body').width();
-		console.log('maxWidth', maxWidth);
 		var self = this;
-		new Darkroom('#'+this.imgId, {
+		this.darkroom = new Darkroom('#'+this.imgId, {
 			// Size options
 			minWidth: opts.minWidth || 100,
 			minHeight: opts.minHeight || 100,
@@ -91,13 +106,12 @@ class WidgetImageUploader {
 				var cropPlugin = this.plugins['crop'];
 				cropPlugin.requireFocus();
 				self.isEditing(true);
-				self.darkroom = this;
 			}
 		});
 	}
 
 	OnSaveEdits() {
-		if ( this.isEditing ) {
+		if ( this.isEditing() ) {
 			var base64String = this.darkroom.sourceImage.toDataURL();
 			var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
 			this.getSignedRequest(generatedFile);
@@ -113,6 +127,10 @@ class WidgetImageUploader {
 				// The modal should probably be closed as soon as a new file is chosen, so clicking Okay in modal would just close the modal
 			}
 		}
+	}
+
+	cancelEditor() {
+		this.destroyDarkroom(this.originalImgSrc)
 	}
 
 	destroyDarkroom(src) {
