@@ -14,6 +14,7 @@ class WidgetImageUploader {
 		this.fileName = null;
 		this.fileType = null;
 		this.originalImgSrc = this.observable();
+		this.allowedMimeTypes = ['image/jpeg', 'image/png'];
 
 		// Subscriptions
 		this.subscriptions = [];
@@ -25,29 +26,36 @@ class WidgetImageUploader {
 			this.OnSaveEdits()
 		}))
 
-		this.listenToInput()
+		$(document).on('change', '#'+this.inputId, (evt) => this.OnFileInputChange(evt) )
 
 	}
 
-	listenToInput() {
-		var self = this;
-		$(document).on('change', '#'+this.inputId, function() {
-			if ( FileReader ) {
-				if ( this.files && this.files.length ){
-					self.onFileSelected(this.files[0])
-				} else {
-					app.flash.Info('No file selected')
-				}
+	OnFileInputChange(evt) {
+		var files = evt.target.files;
+
+		if ( FileReader ) {
+			if ( files && files.length ){
+				this.onFileSelected(files[0])
 			} else {
-				// TO DO: need fallback for shit browsers
+				app.flash.Info('No file selected')
 			}
-		})
+		} else {
+			// TO DO: need fallback for shit browsers
+		}
+
 	}
 
 	onFileSelected(file) {
+
+		if ( this.allowedMimeTypes.indexOf(file.type) === -1 ) {
+			app.flash.Info('Hold Up', 'Only image files can be selected')
+			return;
+		}
+
 		this.fileName = this.uid + '-' + file.name;
 		this.fileType = file.type;
 
+		// If we're not gonna edit it then just upload straight away
 		if ( !this.useEditor ) {
 			this.getSignedRequest( file );
 			return;
@@ -201,6 +209,7 @@ class WidgetImageUploader {
 	dispose() {
 		// This runs when the component is torn down. Put here any logic necessary to clean up,
 		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+		$(document).off('change', '#'+this.inputId, this.OnFileInputChange)
 	}
 }
 
