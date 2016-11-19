@@ -5,8 +5,10 @@
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" data-bind="text:title">Upload Image</h4>
 			</div>
-			<div class="modal-body">
-				<widget-image-uploader params="{ observable: imageUrl, useEditor: true, uid: uid }"></widget-image-uploader>
+			<div class="modal-body uploader-body">
+				<!-- ko if: templateLoaded -->
+					<widget-image-uploader params="{ observable: imageUrl, useEditor: true, uid: uid, editorOptions: editorOptions }"></widget-image-uploader>
+				<!-- /ko -->
 			</div>
 			<div class="modal-footer">
 				<div class="text-right">
@@ -22,3 +24,4 @@
 <!-- ko if: $data.readyToShow != null && readyToShow -->
     <div data-bind="template:{afterRender:function(){templateLoaded(true)}}" class="hidden"></div>
 <!-- /ko -->
+

@@ -3,162 +3,166 @@ import darkroom from 'darkroom';
 import templateMarkup from 'text!./widget-image-uploader.html';
 
 class WidgetImageUploader {
-    constructor(params) {
-    	this.observable = params.observable || ko.observable(null)
-    	this.useEditor = params.useEditor || false;
-    	this.uid = params.uid || Date.now();
-    	this.inputId = 'image-upload-' + this.uid
-    	this.imgId = 'image-' + this.uid
-    	this.isEditing = ko.observable(false);
-    	this.fileName = null;
-    	this.fileType = null;
-    	this.subscriptions = [];
-    	this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
-    		this.OnSaveEdits()
-    	}))
-    	this.listenToInput()
-    }
+	constructor(params) {
+		this.observable = params.observable || ko.observable(null)
+		this.useEditor = params.useEditor || false;
+		this.editorOpts = params.editorOpts || {};
+		this.uid = params.uid || Date.now();
+		this.inputId = 'image-upload-' + this.uid
+		this.imgId = 'image-' + this.uid
+		this.isEditing = ko.observable(false);
+		this.fileName = null;
+		this.fileType = null;
+		this.subscriptions = [];
+		this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
+			this.OnSaveEdits()
+		}))
+		this.listenToInput()
+	}
 
-    listenToInput() {
-    	var self = this;
-        $(document).on('change', '#'+this.inputId, function() {
-            if ( FileReader ) {
-	            if ( this.files && this.files.length ){
-		            self.onFileSelected(this.files[0])
-	            } else {
-		            app.flash.Info('No file selected')
-	            }
-	        } else {
-	        	// TO DO: need fallback for shit browsers
-	        }
-        })
-    }
+	listenToInput() {
+		var self = this;
+		$(document).on('change', '#'+this.inputId, function() {
+			if ( FileReader ) {
+				if ( this.files && this.files.length ){
+					self.onFileSelected(this.files[0])
+				} else {
+					app.flash.Info('No file selected')
+				}
+			} else {
+				// TO DO: need fallback for shit browsers
+			}
+		})
+	}
 
-    onFileSelected(file) {
-    	this.fileName = this.uid + '-' + file.name;
-    	this.fileType = file.type;
+	onFileSelected(file) {
+		this.fileName = this.uid + '-' + file.name;
+		this.fileType = file.type;
 
-    	if ( !this.useEditor ) {
-	    	this.getSignedRequest( file );
-	    	return;
-    	}
+		if ( !this.useEditor ) {
+			this.getSignedRequest( file );
+			return;
+		}
 
-        var fr = new FileReader();
-        fr.onload = () => {
-            this.observable(fr.result); // Need to add image src to preview img so we can edit it
-        	this.initEditor()
-        }
-        fr.readAsDataURL(file);
-    }
+		var fr = new FileReader();
+		fr.onload = () => {
+			this.observable(fr.result); // Need to add image src to preview img so we can edit it
+			this.initEditor()
+		}
+		fr.readAsDataURL(file);
+	}
 
-    OnClickEdit() {
-    	var file = this.observable();
-    	var fileName = file.substr(0, file.lastIndexOf('.'));
-    	this.fileName = this.uid + '-' + fileName;
-    	this.fileType = file.split('.').pop();
-    	this.initEditor()
-    }
+	OnClickEdit() {
+		var file = this.observable();
+		var fileName = file.substr(0, file.lastIndexOf('.'));
+		this.fileName = this.uid + '-' + fileName;
+		this.fileType = file.split('.').pop();
+		this.initEditor()
+	}
 
-    OnClickUpload() {
-    	$('#'+this.inputId).trigger('click')
-    }
+	OnClickUpload() {
+		$('#'+this.inputId).trigger('click')
+	}
 
-    initEditor() {
-    	var maxWidth = $('.modal-body').width();
-    	var self = this;
-    	new Darkroom('#'+this.imgId, {
-    		// Size options
-    		minWidth: 100,
-    		minHeight: 100,
-    		maxWidth: maxWidth,
-    		maxHeight: 600,
-    		ratio: 4/3,
-    		backgroundColor: '#000',
-    		plugins: {
-    			crop: {
-    			  ratio: 4/3
-    			},
-    			save: {
-    				callback: self.OnSaveEdits.bind(self)
-    			}
-    		},
-    		// Post initialize script
-    		initialize: function() {
-    			var cropPlugin = this.plugins['crop'];
-    			cropPlugin.requireFocus();
-    			self.isEditing(true);
-    			self.darkroom = this;
-    		}
-    	});
-    }
+	initEditor() {
+		const opts = this.editorOpts;
 
-    OnSaveEdits() {
-    	if ( this.isEditing ) {
+		var maxWidth = $('.modal-body').width();
+		console.log('maxWidth', maxWidth);
+		var self = this;
+		new Darkroom('#'+this.imgId, {
+			// Size options
+			minWidth: opts.minWidth || 100,
+			minHeight: opts.minHeight || 100,
+			maxWidth: opts.maxWidth || $('.uploader-body').width(),
+			maxHeight: opts.maxHeight || 1000,
+			ratio: opts.ratio || 4/3,
+			backgroundColor: '#000',
+			plugins: {
+				crop: {
+				  ratio: 4/3
+				},
+				save: {
+					callback: self.OnSaveEdits.bind(self)
+				}
+			},
+			// Post initialize script
+			initialize: function() {
+				var cropPlugin = this.plugins['crop'];
+				cropPlugin.requireFocus();
+				self.isEditing(true);
+				self.darkroom = this;
+			}
+		});
+	}
+
+	OnSaveEdits() {
+		if ( this.isEditing ) {
 			var base64String = this.darkroom.sourceImage.toDataURL();
 			var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
 			this.getSignedRequest(generatedFile);
 			this.destroyDarkroom(base64String)
 			this.isEditing(false)
-    	} else {
-    		if ( this.useEditor ) {
-	    		// TO DO: nothing has changed: just close modal.
-	    		// TO DO: Should this logic be in another function that then calls OnSaveEdits if necessary? Yeah....
+		} else {
+			if ( this.useEditor ) {
+				// TO DO: nothing has changed: just close modal.
+				// TO DO: Should this logic be in another function that then calls OnSaveEdits if necessary? Yeah....
 
-    		} else {
-    			// TO DO: not using editor - will this ever happen after editing?
-    			// The modal should probably be closed as soon as a new file is chosen, so clicking Okay in modal would just close the modal
-    		}
-    	}
+			} else {
+				// TO DO: not using editor - will this ever happen after editing?
+				// The modal should probably be closed as soon as a new file is chosen, so clicking Okay in modal would just close the modal
+			}
+		}
 	}
 
-    destroyDarkroom(src) {
-    	$('#'+this.imgId).insertBefore('#'+this.inputId).attr('src',src).show();
-    	$('.darkroom-container').remove();
-    }
+	destroyDarkroom(src) {
+		$('#'+this.imgId).insertBefore('#'+this.inputId).attr('src',src).show();
+		$('.darkroom-container').remove();
+	}
 
-    dataURItoFile(dataURI, name, type) {
-        // convert base64/URLEncoded data component to raw binary data held in a string
-        var byteString;
-        if (dataURI.split(',')[0].indexOf('base64') >= 0)
-            byteString = atob(dataURI.split(',')[1]);
-        else
-            byteString = unescape(dataURI.split(',')[1]);
+	dataURItoFile(dataURI, name, type) {
+		// convert base64/URLEncoded data component to raw binary data held in a string
+		var byteString;
+		if (dataURI.split(',')[0].indexOf('base64') >= 0)
+			byteString = atob(dataURI.split(',')[1]);
+		else
+			byteString = unescape(dataURI.split(',')[1]);
 
-        // separate out the mime component
-        if ( type == null ) {
-        	type = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        }
+		// separate out the mime component
+		if ( type == null ) {
+			type = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		}
 
-        // write the bytes of the string to a typed array
-        var ia = new Uint8Array(byteString.length);
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
+		// write the bytes of the string to a typed array
+		var ia = new Uint8Array(byteString.length);
+		for (var i = 0; i < byteString.length; i++) {
+			ia[i] = byteString.charCodeAt(i);
+		}
 
-        return new File([ia], name, {type:type});
-    }
+		return new File([ia], name, {type:type});
+	}
 
 
-    // @filetype: String - 'file' or 'base64'
-    getSignedRequest(fileData) {
+	// @filetype: String - 'file' or 'base64'
+	getSignedRequest(fileData) {
 
-      	var url = 'api/files/sign-s3'
-      	var postData = {
-      		fileName: this.fileName,
-      		fileType: this.fileType
-      	}
+		var url = 'api/files/sign-s3'
+		var postData = {
+			fileName: this.fileName,
+			fileType: this.fileType
+		}
 
-      	app.api.post(url, postData).then((result) => {
-      		let data = result.response.data;
-      		console.log('signed request result - data', data);
-    		this.uploadFile(fileData, data.signedRequest, data.url);
-      	}).catch((err) => {
-      		console.log('err', err);
-            app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
-      	})
-    }
+		app.api.post(url, postData).then((result) => {
+			let data = result.response.data;
+			console.log('signed request result - data', data);
+			this.uploadFile(fileData, data.signedRequest, data.url);
+		}).catch((err) => {
+			console.log('err', err);
+			app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
+		})
+	}
 
-    // @fileData: Object - either a File object or an object containing a base64 encoded image string
+	// @fileData: Object - either a File object or an object containing a base64 encoded image string
 	uploadFile(fileData, signedRequestUrl, imageUrl) {
 		const xhr = new XMLHttpRequest();
 		xhr.open('PUT', signedRequestUrl);
@@ -176,10 +180,10 @@ class WidgetImageUploader {
 		xhr.send(fileData);
 	}
 
-    dispose() {
-        // This runs when the component is torn down. Put here any logic necessary to clean up,
-        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
-    }
+	dispose() {
+		// This runs when the component is torn down. Put here any logic necessary to clean up,
+		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+	}
 }
 
 export default { viewModel: WidgetImageUploader, template: templateMarkup };
