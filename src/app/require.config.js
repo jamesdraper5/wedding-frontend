@@ -9,6 +9,7 @@ var require = {
 		"constants":                	"helpers/constants",
 		"crossroads":           		"bower_modules/crossroads/dist/crossroads.min",
 		"darkroom":           			"bower_modules/darkroom/build/darkroom",
+		"darkroom-plugins":           	"helpers/darkroom/saveImage",
 		"errorHelper":          		"helpers/errorHelper",
 		"eventemitter2":        		"bower_modules/eventemitter2/lib/eventemitter2",
 		"extenders-trackChanges":       "extenders/trackChanges",
@@ -43,6 +44,7 @@ var require = {
 	shim: {
 		"bootstrap": { deps: ["jquery"] },
 		"rustique": { deps: ["toastr"] },
-		"darkroom": { deps: ["fabric"] }
+		"darkroom": { deps: ["fabric"] },
+		"darkroom-plugins": { deps: ["darkroom"] }
 	}
 };

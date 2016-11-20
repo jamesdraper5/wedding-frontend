@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import darkroom from 'darkroom';
+import 'darkroom-plugins';
 import templateMarkup from 'text!./widget-image-editor.html';
 
 class WidgetImageEditor {
@@ -121,7 +122,8 @@ class WidgetImageEditor {
 				crop: {
 				  ratio: opts.cropRatio || 4/3
 				},
-				save: {
+				save: false,
+				saveImage: {
 					callback: self.OnFinishedEditing.bind(self)
 				}
 			},
