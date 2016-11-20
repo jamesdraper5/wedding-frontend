@@ -15,7 +15,15 @@ class ModalUploadImage {
 
 		// Subscriptions
 		this.subscriptions = [];
-		this.subscriptions.push( this.btnText = ko.pureComputed(() => this.isSubmitting() ? 'Updating Image...' : 'Okay') )
+		this.subscriptions.push( this.btnText = ko.pureComputed(() => {
+			if ( this.isSubmitting() ) {
+				return 'Updating Image...'
+			} else if ( this.isEditing() ) {
+				return 'Confirm Changes'
+			} else {
+				return 'Save Image'
+			}
+		}))
 
 		//this.file.subscribe((n) => console.log('file', n))
 
@@ -32,12 +40,14 @@ class ModalUploadImage {
 	}
 
 	OnSubmit() {
+
 		if ( this.isEditing() ) {
-			app.flash.Info('Please finish editing your image first or press cancel to exit')
+			ko.postbox.publish('save-image-edits-'+this.uid)
 			return;
 		}
 
 		this.isSubmitting(true);
+
 		if ( this.file() !== null ) {
 			this.getSignedRequest(this.file())
 		} else {
