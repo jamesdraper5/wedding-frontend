@@ -5,7 +5,7 @@ class ModalUploadImage {
 	constructor(params) {
 		this.callback = params.callback;
 		this.title = params.title || 'Upload Image';
-		this.editorOptions = params.editorOptions || {};
+		this.editorOpts = params.editorOpts || {};
 		this.imageUrl = params.imageUrl || ko.observable(null);
 
 		this.uid = Date.now();
@@ -16,6 +16,8 @@ class ModalUploadImage {
 		// Subscriptions
 		this.subscriptions = [];
 		this.subscriptions.push( this.btnText = ko.pureComputed(() => this.isSubmitting() ? 'Updating Image...' : 'Okay') )
+
+		//this.file.subscribe((n) => console.log('file', n))
 
 		app.modal.Init('UploadImage', this, params)
 	}
@@ -33,6 +35,7 @@ class ModalUploadImage {
 		this.isSubmitting(true);
 		if ( this.file() !== null ) {
 			// TO DO: if editor is still open, prompt user to save or cancel editor
+
 			this.getSignedRequest(this.file())
 		} else {
 			this.Close()
@@ -55,8 +58,19 @@ class ModalUploadImage {
 	getSignedRequest(file) {
 
 		var url = 'api/files/sign-s3'
+		var newFileName;
+
+		if ( file.name.indexOf('amazonaws.com') > -1 ) {
+		    // Remove the URL from the file name - this will leave it with the same name as it had originally, so the file will be overwritten
+		    var arr = file.name.split('amazonaws.com/');
+		    arr.shift();
+		    newFileName = arr.join();
+		} else {
+			newFileName = this.uid + '-' + app.installation.id() + '-' + file.name
+		}
+
 		var postData = {
-			fileName: this.uid + '-' + app.installation.id() + '-' + file.name,
+			fileName: newFileName,
 			fileType: file.type
 		}
 
@@ -104,8 +118,7 @@ class ModalUploadImage {
 	}
 
 	dispose() {
-		// This runs when the component is torn down. Put here any logic necessary to clean up,
-		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+		this.subscriptions.forEach((sub) => sub.dispose())
 	}
 }
 
