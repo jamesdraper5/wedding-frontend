@@ -20,12 +20,9 @@ class WidgetImageEditor {
 		this.useEditor = (params.useEditor != null ? params.useEditor : true)
 		this.uid = params.uid || Date.now();
 
-		// console.log('widget params', params);
-
 		this.inputId = 'image-upload-' + this.uid
 		this.imgId = 'image-' + this.uid
 		this.fileName = null;
-		//this.fileType = null;
 		this.originalImgSrc = this.imageSrc();
 		this.previewImgSrc = ko.observable(this.imageSrc())
 		this.allowedMimeTypes = ['image/jpeg', 'image/png'];
@@ -36,13 +33,6 @@ class WidgetImageEditor {
 			return this.isEditing() ? 'Cancel Editing' : 'Edit Image'
 		});
 		this.subscriptions.push(this.editBtnText);
-
-		/*
-		this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
-			this.OnFinishedEditing()
-		}))
-		*/
-
 		$(document).on('change', '#'+this.inputId, (evt) => this.OnFileInputChange(evt) )
 
 	}
@@ -73,8 +63,6 @@ class WidgetImageEditor {
 			return;
 		}
 
-		this.fileName = this.uid + '-' + app.installation.id() + '-' + file.name;
-		//file.name = this.fileName; // TO DO: ensure file has a unique name
 		this.file(file)
 
 		var fr = new FileReader();
@@ -89,23 +77,14 @@ class WidgetImageEditor {
 
 		if ( this.isEditing() ) {
 
-			// this will happen when not selecting a new file - i.e. editing the existing file
+			// this will happen when editing the existing file, without using the filepicker to pick a new one
 			if ( this.fileName == null ) {
-				//var file =
-				//var fileName = this.previewImgSrc().substr(0, 10);
-				this.fileName = 'somethingRandomHere'; // this.uid + '-' + app.installation.id();
-				// this.fileType = file.split('.').pop();
+				this.fileName = this.originalImgSrc;
 			}
-
-			//console.log('this.previewImgSrc', this.previewImgSrc());
-			console.log('this.fileName', this.fileName);
-			//console.log('this.fileType', this.fileType);
 
 			this.initEditor()
 		} else {
-
 			this.cancelEditor()
-
 		}
 	}
 
@@ -113,12 +92,9 @@ class WidgetImageEditor {
 		$('#'+this.inputId).trigger('click')
 	}
 
-
-
 	OnFinishedEditing() {
 		var base64String = this.darkroom.sourceImage.toDataURL();
 		var generatedFile = this.dataURItoFile(base64String, this.fileName);
-		//this.getSignedRequest(generatedFile);
 		this.destroyDarkroom(base64String)
 		this.file(generatedFile)
 		this.isEditing(false)
@@ -143,7 +119,7 @@ class WidgetImageEditor {
 			backgroundColor: '#000',
 			plugins: {
 				crop: {
-				  ratio: 4/3
+				  ratio: opts.cropRatio || 4/3
 				},
 				save: {
 					callback: self.OnFinishedEditing.bind(self)
@@ -180,7 +156,6 @@ class WidgetImageEditor {
 		// separate out the mime component
 		var type = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-
 		// write the bytes of the string to a typed array
 		var ia = new Uint8Array(byteString.length);
 		for (var i = 0; i < byteString.length; i++) {
@@ -196,8 +171,7 @@ class WidgetImageEditor {
 
 
 	dispose() {
-		// This runs when the component is torn down. Put here any logic necessary to clean up,
-		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+		this.subscriptions.forEach((sub) => sub.dispose())
 		$(document).off('change', '#'+this.inputId, this.OnFileInputChange)
 	}
 }

@@ -59,7 +59,7 @@ class OverlayEditWeddingParty {
 	}
 
 	OnClickEditImage(person) {
-		app.modal.Show("upload-image", { imageUrl: person.imageUrl });
+		app.modal.Show("upload-image", { imageUrl: person.imageUrl, editorOpts: { cropRatio: 1 } });
 	}
 
 	Close() {
