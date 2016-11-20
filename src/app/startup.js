@@ -26,7 +26,7 @@ ko.components.register('page-forgot-password', { require: 'components/page-forgo
 ko.components.register('page-reset-password', { require: 'components/page-reset-password/page-reset-password' });
 ko.components.register('page-error', { require: 'components/page-error/page-error' });
 ko.components.register('widget-toggle-switch', { require: 'components/widget-toggle-switch/widget-toggle-switch' });
-ko.components.register('widget-image-uploader', { require: 'components/widget-image-uploader/widget-image-uploader' });
+ko.components.register('widget-image-editor', { require: 'components/widget-image-editor/widget-image-editor' });
 ko.components.register('modal-upload-image', { require: 'components/modal-upload-image/modal-upload-image' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 

@@ -1,8 +1,8 @@
 import ko from 'knockout';
 import darkroom from 'darkroom';
-import templateMarkup from 'text!./widget-image-uploader.html';
+import templateMarkup from 'text!./widget-image-editor.html';
 
-class WidgetImageUploader {
+class WidgetImageEditor {
 	/*
 	@params:
 		file: imageSrc File - this will
@@ -202,4 +202,4 @@ class WidgetImageUploader {
 	}
 }
 
-export default { viewModel: WidgetImageUploader, template: templateMarkup };
+export default { viewModel: WidgetImageEditor, template: templateMarkup };

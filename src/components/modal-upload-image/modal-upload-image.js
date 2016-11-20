@@ -15,7 +15,7 @@ class ModalUploadImage {
 
 		// Subscriptions
 		this.subscriptions = [];
-		this.subscriptions.push( this.btnText = ko.pureComputed(() => this.isSubmitting() ? 'Updating Image...' : 'OK') )
+		this.subscriptions.push( this.btnText = ko.pureComputed(() => this.isSubmitting() ? 'Updating Image...' : 'Okay') )
 
 		app.modal.Init('UploadImage', this, params)
 	}
