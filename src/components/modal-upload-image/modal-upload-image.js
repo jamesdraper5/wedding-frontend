@@ -32,10 +32,13 @@ class ModalUploadImage {
 	}
 
 	OnSubmit() {
+		if ( this.isEditing() ) {
+			app.flash.Info('Please finish editing your image first or press cancel to exit')
+			return;
+		}
+
 		this.isSubmitting(true);
 		if ( this.file() !== null ) {
-			// TO DO: if editor is still open, prompt user to save or cancel editor
-
 			this.getSignedRequest(this.file())
 		} else {
 			this.Close()
