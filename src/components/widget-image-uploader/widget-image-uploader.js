@@ -3,17 +3,31 @@ import darkroom from 'darkroom';
 import templateMarkup from 'text!./widget-image-uploader.html';
 
 class WidgetImageUploader {
+	/*
+	@params:
+		file: imageSrc File - this will
+		imageSrc: observable String - image src to update
+		isEditing: observable Boolean - is Darkroom currently active
+		useEditor: Boolean - if false then just preview selected file
+		editorOpts: Object - settings for Darkroom
+		uid: Number - unique id for UI / subscriptions
+	*/
 	constructor(params) {
-		this.observable = params.observable || ko.observable(null)
-		this.useEditor = params.useEditor || false;
+		this.file = params.file || ko.observable(null)
+		this.imageSrc = params.imageSrc || ko.observable(null)
 		this.editorOpts = params.editorOpts || {};
+		this.isEditing = (params.isEditing != null ? params.isEditing : ko.observable(false));
+		this.useEditor = (params.useEditor != null ? params.useEditor : true)
 		this.uid = params.uid || Date.now();
+
+		// console.log('widget params', params);
+
 		this.inputId = 'image-upload-' + this.uid
 		this.imgId = 'image-' + this.uid
-		this.isEditing = ko.observable(false);
 		this.fileName = null;
-		this.fileType = null;
-		this.originalImgSrc = this.observable();
+		//this.fileType = null;
+		this.originalImgSrc = this.imageSrc();
+		this.previewImgSrc = ko.observable(this.imageSrc())
 		this.allowedMimeTypes = ['image/jpeg', 'image/png'];
 
 		// Subscriptions
@@ -22,13 +36,20 @@ class WidgetImageUploader {
 			return this.isEditing() ? 'Cancel Editing' : 'Edit Image'
 		});
 		this.subscriptions.push(this.editBtnText);
+
+		/*
 		this.subscriptions.push( ko.postbox.subscribe(`save-image-${this.uid}`, () => {
-			this.OnSaveEdits()
+			this.OnFinishedEditing()
 		}))
+		*/
 
 		$(document).on('change', '#'+this.inputId, (evt) => this.OnFileInputChange(evt) )
 
 	}
+
+	/******************************
+	* Event Handlers
+	******************************/
 
 	OnFileInputChange(evt) {
 		var files = evt.target.files;
@@ -52,19 +73,13 @@ class WidgetImageUploader {
 			return;
 		}
 
-		this.fileName = this.uid + '-' + file.name;
-		this.fileType = file.type;
-
-		// If we're not gonna edit it then just upload straight away
-		if ( !this.useEditor ) {
-			this.getSignedRequest( file );
-			return;
-		}
+		this.fileName = this.uid + '-' + app.installation.id() + '-' + file.name;
+		//file.name = this.fileName; // TO DO: ensure file has a unique name
+		this.file(file)
 
 		var fr = new FileReader();
 		fr.onload = () => {
-			this.observable(fr.result); // Need to add image src to preview img so we can edit it
-			this.initEditor()
+			this.previewImgSrc(fr.result); // Need to add image src to preview img so we can edit it
 		}
 		fr.readAsDataURL(file);
 	}
@@ -73,10 +88,19 @@ class WidgetImageUploader {
 		this.isEditing( !this.isEditing() )
 
 		if ( this.isEditing() ) {
-			var file = this.observable();
-			var fileName = file.substr(0, file.lastIndexOf('.'));
-			this.fileName = this.uid + '-' + fileName;
-			this.fileType = file.split('.').pop();
+
+			// this will happen when not selecting a new file - i.e. editing the existing file
+			if ( this.fileName == null ) {
+				//var file =
+				//var fileName = this.previewImgSrc().substr(0, 10);
+				this.fileName = 'somethingRandomHere'; // this.uid + '-' + app.installation.id();
+				// this.fileType = file.split('.').pop();
+			}
+
+			//console.log('this.previewImgSrc', this.previewImgSrc());
+			console.log('this.fileName', this.fileName);
+			//console.log('this.fileType', this.fileType);
+
 			this.initEditor()
 		} else {
 
@@ -85,9 +109,25 @@ class WidgetImageUploader {
 		}
 	}
 
-	OnClickUpload() {
+	OnClickFilePicker() {
 		$('#'+this.inputId).trigger('click')
 	}
+
+
+
+	OnFinishedEditing() {
+		var base64String = this.darkroom.sourceImage.toDataURL();
+		var generatedFile = this.dataURItoFile(base64String, this.fileName);
+		//this.getSignedRequest(generatedFile);
+		this.destroyDarkroom(base64String)
+		this.file(generatedFile)
+		this.isEditing(false)
+	}
+
+
+	/******************************
+	* Workers
+	******************************/
 
 	initEditor() {
 		const opts = this.editorOpts;
@@ -106,7 +146,7 @@ class WidgetImageUploader {
 				  ratio: 4/3
 				},
 				save: {
-					callback: self.OnSaveEdits.bind(self)
+					callback: self.OnFinishedEditing.bind(self)
 				}
 			},
 			// Post initialize script
@@ -118,35 +158,18 @@ class WidgetImageUploader {
 		});
 	}
 
-	OnSaveEdits() {
-		if ( this.isEditing() ) {
-			var base64String = this.darkroom.sourceImage.toDataURL();
-			var generatedFile = this.dataURItoFile(base64String, this.fileName, this.fileType);
-			this.getSignedRequest(generatedFile);
-			this.destroyDarkroom(base64String)
-			this.isEditing(false)
-		} else {
-			if ( this.useEditor ) {
-				// TO DO: nothing has changed: just close modal.
-				// TO DO: Should this logic be in another function that then calls OnSaveEdits if necessary? Yeah....
-
-			} else {
-				// TO DO: not using editor - will this ever happen after editing?
-				// The modal should probably be closed as soon as a new file is chosen, so clicking Okay in modal would just close the modal
-			}
-		}
-	}
-
 	cancelEditor() {
+		$('#'+this.inputId).val('')
 		this.destroyDarkroom(this.originalImgSrc)
 	}
 
 	destroyDarkroom(src) {
-		$('#'+this.imgId).insertBefore('#'+this.inputId).attr('src',src).show();
+		this.previewImgSrc(src);
+		$('#'+this.imgId).insertBefore('#'+this.inputId).show();
 		$('.darkroom-container').remove();
 	}
 
-	dataURItoFile(dataURI, name, type) {
+	dataURItoFile(dataURI, name) {
 		// convert base64/URLEncoded data component to raw binary data held in a string
 		var byteString;
 		if (dataURI.split(',')[0].indexOf('base64') >= 0)
@@ -155,9 +178,8 @@ class WidgetImageUploader {
 			byteString = unescape(dataURI.split(',')[1]);
 
 		// separate out the mime component
-		if ( type == null ) {
-			type = dataURI.split(',')[0].split(':')[1].split(';')[0];
-		}
+		var type = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
 
 		// write the bytes of the string to a typed array
 		var ia = new Uint8Array(byteString.length);
@@ -168,43 +190,10 @@ class WidgetImageUploader {
 		return new File([ia], name, {type:type});
 	}
 
+	/******************************
+	* UI
+	******************************/
 
-	// @filetype: String - 'file' or 'base64'
-	getSignedRequest(fileData) {
-
-		var url = 'api/files/sign-s3'
-		var postData = {
-			fileName: this.fileName,
-			fileType: this.fileType
-		}
-
-		app.api.post(url, postData).then((result) => {
-			let data = result.response.data;
-			console.log('signed request result - data', data);
-			this.uploadFile(fileData, data.signedRequest, data.url);
-		}).catch((err) => {
-			console.log('err', err);
-			app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
-		})
-	}
-
-	// @fileData: Object - either a File object or an object containing a base64 encoded image string
-	uploadFile(fileData, signedRequestUrl, imageUrl) {
-		const xhr = new XMLHttpRequest();
-		xhr.open('PUT', signedRequestUrl);
-		xhr.onreadystatechange = () => {
-			if(xhr.readyState === 4){
-				if(xhr.status === 200){
-					this.observable(imageUrl)
-					app.flash.Success('Image Uploaded')
-					ko.postbox.publish(`image-uploaded-${this.uid}`)
-				} else{
-					app.flash.Error('Oh No!', 'Sorry, there seems to be an issue adding images at the moment, please try again')
-				}
-			}
-		};
-		xhr.send(fileData);
-	}
 
 	dispose() {
 		// This runs when the component is torn down. Put here any logic necessary to clean up,

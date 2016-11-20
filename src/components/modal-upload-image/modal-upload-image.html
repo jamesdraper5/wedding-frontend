@@ -7,13 +7,15 @@
 			</div>
 			<div class="modal-body uploader-body">
 				<!-- ko if: templateLoaded -->
-					<widget-image-uploader params="{ observable: imageUrl, useEditor: true, uid: uid, editorOptions: editorOptions }"></widget-image-uploader>
+					<widget-image-uploader params="{ file: file, isEditing: isEditing, imageSrc: imageUrl, uid: uid, editorOptions: editorOptions }"></widget-image-uploader>
 				<!-- /ko -->
 			</div>
 			<div class="modal-footer">
 				<div class="text-right">
 					<button class="btn btn-link" data-bind="click:OnClickCancel">Cancel</button>
-					<button id="modalConfirmBtn" class="btn btn-success" data-bind="click:OnSubmit">OK</button>
+					<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
+						<span class="ladda-label" data-bind="text: btnText()"></span>
+					</button>
 				</div>
 			</div>
 	    </div><!-- /.modal-content -->
