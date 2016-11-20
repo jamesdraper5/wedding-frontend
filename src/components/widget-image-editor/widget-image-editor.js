@@ -30,10 +30,6 @@ class WidgetImageEditor {
 
 		// Subscriptions
 		this.subscriptions = [];
-		this.editBtnText = ko.pureComputed(() => {
-			return this.isEditing() ? 'Cancel Editing' : 'Edit Image'
-		});
-		this.subscriptions.push(this.editBtnText);
 		this.subscriptions.push(ko.postbox.subscribe('save-image-edits-'+this.uid, () => this.OnFinishedEditing()));
 		$(document).on('change', '#'+this.inputId, (evt) => this.OnFileInputChange(evt) )
 

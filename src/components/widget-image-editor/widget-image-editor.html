@@ -3,9 +3,19 @@
 	<input type="file" data-bind="attr: { id: inputId }" class="file-upload-input" style="display:none">
 
 	<div class="image-uploader-options">
-		<button class="btn btn-primary" data-bind="click: OnClickToggleEdit">{{ editBtnText }}</button>
 		<!-- ko ifnot: isEditing -->
-			<button class="btn btn-default" data-bind="click: OnClickFilePicker">Select a new Image</button>
+			<button class="btn btn-primary" data-bind="click: OnClickToggleEdit">
+				<i class="fa fa-pencil"></i> Edit Image
+			</button>
+
+			<button class="btn btn-default" data-bind="click: OnClickFilePicker">
+				<i class="fa fa-cloud-upload"></i> Select a new Image
+			</button>
+		<!-- /ko -->
+		<!-- ko if: isEditing -->
+			<button class="btn btn-danger" data-bind="click: OnClickToggleEdit">
+				<i class="fa fa-times"></i> Cancel Editing
+			</button>
 		<!-- /ko -->
 	</div>
 </div>

@@ -40,15 +40,13 @@ class ModalUploadImage {
 	}
 
 	OnSubmit() {
-
 		if ( this.isEditing() ) {
 			ko.postbox.publish('save-image-edits-'+this.uid)
 			return;
 		}
 
-		this.isSubmitting(true);
-
 		if ( this.file() !== null ) {
+			this.isSubmitting(true);
 			this.getSignedRequest(this.file())
 		} else {
 			this.Close()
