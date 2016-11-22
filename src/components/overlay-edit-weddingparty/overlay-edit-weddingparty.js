@@ -18,7 +18,7 @@ class OverlayEditWeddingParty {
 			if ( this.isSubmitting() ) {
 				return 'Saving';
 			} else {
-				return 'Save';
+				return 'Save My Changes';
 			}
 		});
 
