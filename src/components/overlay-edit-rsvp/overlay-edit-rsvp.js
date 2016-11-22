@@ -15,7 +15,7 @@ class OverlayEditRsvp {
 			if ( this.isSubmitting() ) {
 				return 'Saving';
 			} else {
-				return 'Save';
+				return 'Save My Changes';
 			}
 		});
 
