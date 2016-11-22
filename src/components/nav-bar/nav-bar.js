@@ -6,14 +6,6 @@ class NavBarViewModel {
         this.route = params.route;
         this.installation = app.installation;
 
-        this.menuIcon = ko.pureComputed(() => {
-        	if ( app.sidebarPosition() === 'open' ) {
-        		return 'x'
-        	} else {
-        		return '<i class="glyphicon glyphicon-align-justify"></i>'
-        	}
-        });
-
         this.navbarClass = ko.pureComputed(() => {
         	var className = '';
         	if ( app.overlayToShow() == null ) {
