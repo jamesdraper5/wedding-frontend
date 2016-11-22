@@ -28,7 +28,10 @@
 			</div>
 			<div class="pull-right">
 				<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
-					<span class="ladda-label" data-bind="text: btnText()"></span>
+					<span class="ladda-label">
+						<i class="fa fa-check"></i>
+						<strong> {{ btnText }}</strong>
+					</span>
 				</button>
 			</div>
 		</div>

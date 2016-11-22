@@ -15,7 +15,7 @@ class OverlayWelcomeMessage {
 			if ( this.isSubmitting() ) {
 				return 'Saving';
 			} else {
-				return 'Save';
+				return 'Save My Changes';
 			}
 		});
 
@@ -41,6 +41,7 @@ class OverlayWelcomeMessage {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
+			$.scrollTo( $('#home-container'), 1000, { offset: -$('#main-nav').height() } )
 		}).finally(() => {
 			this.isSubmitting(false);
 		});

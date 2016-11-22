@@ -42,6 +42,7 @@ class OverlayEditRsvp {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
+			$.scrollTo( $('#rsvp-container'), 1000, { offset: -$('#main-nav').height() } )
 		}).finally(() => {
 			this.isSubmitting(false);
 		});
