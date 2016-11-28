@@ -13,6 +13,7 @@ app.use(express.static('public'));
 app.use(express.static('dist'));
 // not found in static files, so default to index.html
 app.use(function (req, res) {
+	console.log('req', req);
 	return res.sendFile(__dirname + '/index.html');
 });
 

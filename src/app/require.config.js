@@ -30,6 +30,7 @@ var require = {
 		"loggedInUserModel":    		"models/loggedInUserModel",
 		"modalHelper":     				"helpers/modal",
 		"moment":               		"bower_modules/moment/min/moment.min",
+		"page": 						"bower_modules/page/page",
 		"quill": 						"libs/quill/quill.min",
 		"signals":              		"bower_modules/js-signals/dist/signals.min",
 		"spin":                 		"bower_modules/ladda/dist/spin.min",

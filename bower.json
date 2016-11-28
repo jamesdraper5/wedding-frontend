@@ -23,7 +23,8 @@
     "knockout-postbox": "^0.5.2",
     "darkroom": "^2.0.1",
     "jquery.scrollTo": "^2.1.2",
-    "quill": "^1.1.5"
+    "quill": "^1.1.5",
+    "page": "^1.7.1"
   },
   "resolutions": {
     "knockout": "~3.3.0-alpha"

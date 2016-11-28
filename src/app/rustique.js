@@ -146,10 +146,6 @@ class Rustique {
 			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
 			this.isWeddingFound(true);
-
-			setTimeout(() => {
-				//app.modal.Show("upload-image", { imageUrl: 'images/test/ice.jpg' });
-			}, 500)
 		}
 
 		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
@@ -168,13 +164,14 @@ class Rustique {
 
 	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
 
-	    this.validateRoute(newRoute.request_)
+	    // TO DO!!!!!: this.validateRoute(newRoute.request_)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
 
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
-	            app.currentRoute().request_ = app.hasher.getHash()
+	            //app.currentRoute().request_ = app.hasher.getHash()
+	            console.log('TO DO: onUpdateRoute');
 	        }
 
 	        app.redirectToLogin()
@@ -278,16 +275,6 @@ class Rustique {
 
 	    if (opts.format) {
 	        hash = hash.toLowerCase()
-	    }
-
-	    this.router.onNextItemNotFound = opts.onNotFound // ok for this not to exist
-
-	    if (opts.silent) {
-	        this.hasher.changed.active = false
-	        this.hasher.setHash(hash)
-	        this.hasher.changed.active = true
-	    } else {
-	        this.hasher.setHash(hash)
 	    }
 	}
 
