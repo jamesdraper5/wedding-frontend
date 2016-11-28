@@ -27,7 +27,8 @@
 				</div>
 				<!-- /ko -->
 
-				<div id="page-holder" data-bind="css: app.sidebarPosition()">
+
+				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
 					<!-- ko if: route().showNav -->
 						<nav-bar params="route: route"></nav-bar>
@@ -43,7 +44,8 @@
 
 				</div>
 
-				<!-- ko if: app.overlayToShow() -->
+
+				<!-- ko if: app.overlayToShow() != null -->
 					<!-- ko with: app.overlayToShow() -->
 						<!-- ko component: { name: 'overlay-' + name, params: params } --><!-- /ko -->
 					<!-- /ko -->
@@ -55,7 +57,7 @@
 			<!-- ko component: { name: 'page-404', params: { route: route } } --><!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
-			LOADED WITH ERRORS!!!
+			<!-- ko component: { name: 'page-error', params: { route: route } } --><!-- /ko -->
 		<!-- /ko -->
 
 		<!-- Load Modals on demand -->
@@ -67,5 +69,6 @@
 		<!--
 		<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 		 -->
+
 	</body>
 </html>
