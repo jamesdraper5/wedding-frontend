@@ -1,4 +1,5 @@
 import ko from 'knockout';
+import fabric from 'fabric';
 import darkroom from 'darkroom';
 import 'darkroom-plugins';
 import templateMarkup from 'text!./widget-image-editor.html';

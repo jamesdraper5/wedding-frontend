@@ -36,7 +36,6 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		},
 		include: [
 			'requireLib',
-			'components/admin-panel/admin-panel',
 			'components/page-404/page-404',
 			'components/page-home/home',
 			'components/page-login/page-login',
@@ -45,26 +44,28 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 			'components/page-forgot-password/page-forgot-password',
 			'components/page-reset-password/page-reset-password',
 			'components/modal-confirm/modal-confirm',
-			'components/modal-upload-image/modal-upload-image',
 			'components/nav-bar/nav-bar',
-			'components/overlay-edit-intro/overlay-edit-intro',
-			'components/overlay-edit-maps/overlay-edit-maps',
-			'components/overlay-edit-rsvp/overlay-edit-rsvp',
-			'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
 			'components/section-intro/section-intro',
 			'components/section-maps/section-maps',
 			'components/section-rsvp/section-rsvp',
 			'components/section-wedding-party/section-wedding-party',
-			'components/widget-map/widget-map',
-			'components/widget-image-editor/widget-image-editor',
-			'components/widget-text-editor/widget-text-editor',
-			'components/widget-toggle-switch/widget-toggle-switch'
+			'components/widget-map/widget-map'
 		],
 		insertRequire: ['app/startup'],
 		bundles: {
 			// If you want parts of the site to load on demand, remove them from the 'include' list
 			// above, and group them into bundles here.
-			// 'bundle-name': [ 'some/module', 'another/module' ],
+			'editor': [
+				'components/admin-panel/admin-panel',
+				'components/modal-upload-image/modal-upload-image',
+				'components/overlay-edit-intro/overlay-edit-intro',
+				'components/overlay-edit-maps/overlay-edit-maps',
+				'components/overlay-edit-rsvp/overlay-edit-rsvp',
+				'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
+				'components/widget-image-editor/widget-image-editor',
+				'components/widget-text-editor/widget-text-editor',
+				'components/widget-toggle-switch/widget-toggle-switch'
+			]
 			// 'another-bundle-name': [ 'yet-another-module' ]
 		}
 	}),
