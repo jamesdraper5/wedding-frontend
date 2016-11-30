@@ -14,50 +14,66 @@ class Router {
 	constructor(config) {
 		this.currentRoute = ko.observable({});
 
-		this.routes = [
-			{ url: '',                      params: { page: 'page-home' } },
-			{ url: 'editor',                params: { page: 'page-home', isLoggedInPage: true, isEditorPage: true } },
-			{ url: 'editor/:pageToEdit:',   params: { page: 'page-home', isLoggedInPage: true, isEditorPage: true } },
-			{ url: 'account',               params: { page: 'page-home', isLoggedInPage: true } },
-			{ url: 'login',   	            params: { page: 'page-login', isLoggedInPage: false, showNav: false } },
-			{ url: 'forgotpassword', 		params: { page: 'page-forgot-password', isLoggedInPage: false, showNav: false } },
-			{ url: 'resetpassword/{token}', params: { page: 'page-reset-password', isLoggedInPage: false, showNav: false } }
-		]
-
-		/*
-		for ( var route of this.routes ) {
-			page(route, (ctx) => this.handleRoute(ctx, route))
-		}
-		*/
-
-		page('editor', this.test)
+		page('/',  this.showHomePage);
+		page('/editor',  this.showEditor.bind(this));
+		page('/editor/:section',  this.showEditor.bind(this));
+		page('/account',  this.showAccount.bind(this));
+		page('/login',  this.showLogin.bind(this));
+		page('/forgotpassword',  this.showForgotPassword.bind(this));
+		page('/resetpassword/:token',  this.showResetPassword.bind(this));
+		page('*', this.show404.bind(this));
 
 		page.start();
 
 	}
 
-	test(ctx) {
-		console.log('test', ctx);
+	showHomePage(ctx) {
+		this.currentRoute({ page: 'page-home', showNav: true })
+	}
 
+	showEditor(ctx) {
 		this.currentRoute({ page: 'page-home', isLoggedInPage: true, isEditorPage: true, showNav: true })
 	}
 
-	handleRoute(ctx, route) {
-
-		console.log('ctx', ctx);
-		console.log('route', route);
-
-		// Defaults
-		if ( route.params.showNav == null ) {
-			route.params.showNav = true;
-		}
-
-		//route.params.path =
-
-		this.currentRoute(route.params)
+	showAccount(ctx) {
+		this.currentRoute({ page: 'page-home', isLoggedInPage: true, showNav: true })
 	}
 
-	navigateToPath(path) {
+	showLogin(ctx) {
+		this.currentRoute({ page: 'page-login', isLoggedInPage: false, showNav: false })
+	}
+
+	showForgotPassword(ctx) {
+		this.currentRoute({ page: 'page-forgot-password', isLoggedInPage: false, showNav: false })
+	}
+
+	showResetPassword(ctx) {
+		this.currentRoute({ page: 'page-reset-password', isLoggedInPage: false, showNav: false })
+	}
+
+	show404() {
+		this.currentRoute({ page: 'page-404', isLoggedInPage: false, showNav: false })
+	}
+
+	getMatchingRoute(ctx) {
+		console.log('ctx', ctx);
+		let routes = this.routes.filter((route) => route.url === ctx.path )
+
+		console.log('routes', routes);
+
+		if ( routes.length ) {
+			let route = routes[0];
+
+			// Set any defaults required
+			if ( route.params.showNav == null ) {
+				route.params.showNav = true;
+			}
+
+			this.currentRoute( routes[0].params )
+		}
+	}
+
+	setRoute(path) {
 		page(path)
 	}
 

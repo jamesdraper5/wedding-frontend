@@ -155,8 +155,8 @@ gulp.task('css', ['less'], function () {
 gulp.task('html', function() {
 	return gulp.src('./src/index.html')
 		.pipe(htmlreplace({
-			'css': 'css.css',
-			'js': 'scripts.js'
+			'css': '/css.css',
+			'js': '/scripts.js'
 		}))
 		.pipe(gulp.dest('./'));
 });
@@ -189,6 +189,7 @@ gulp.task('serve:src', ['watch'], function() {
 	var staticFiles = serveStatic("public");
 	return connect.server({
 		root: transpilationConfig.root,
+		fallback: transpilationConfig.root + '/index.html',
 		middleware: function(connect, opt) {
 			return [
 				apiProxy,

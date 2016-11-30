@@ -94,7 +94,7 @@ class Rustique {
 
 	findInstallation() {
 
-		this.api.get("api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
+		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute()
 		}).catch(( error ) => {
@@ -187,9 +187,9 @@ class Rustique {
 	validateRoute(hash) {
 		var redirect = () => {
 			if ( app.isUserLoggedIn() ) {
-				app.GoTo('editor');
+				app.GoTo('/editor');
 			} else {
-				app.GoTo('');
+				app.GoTo('/');
 			}
 		}
 
@@ -253,7 +253,7 @@ class Rustique {
 	    if ( app.currentRoute().page !== "login" ) {
 	        this.flash.Error('You shall not pass!', 'You need to be logged in before you can access that page')
 	        app.requestedRouteBeforeLoginRedirect = app.currentRoute()
-	        app.GoTo("#login")
+	        app.GoTo("/login")
 	    }
 	    return false
 	}
@@ -263,19 +263,10 @@ class Rustique {
 	// Pass the silent flag to change it without the app updating
 	// Handy for when something is added ie. we just set the url, the app doesn't react
 	// option: onNotFound - a callback function for when the next item isn't found
-	GoTo(hash, inOpts) {
+	GoTo(hash) {
 	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
 
-	    var opts = {
-	        format: true,
-	        onNotFound: null,
-	        silent: false
-	    }
-	    $.extend(opts, inOpts)
-
-	    if (opts.format) {
-	        hash = hash.toLowerCase()
-	    }
+	    this.router.setRoute(hash)
 	}
 
 	showOverlay(overlay) {
@@ -297,7 +288,7 @@ class Rustique {
 			app.sidebarPosition('closed');
 			app.hideOverlay();
 			if (redirect) {
-				app.GoTo('')
+				app.GoTo('/')
 			}
 			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});
