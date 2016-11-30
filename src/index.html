@@ -30,9 +30,9 @@
 			<div data-bind="css: app.installation.themeClass">
 
 				<!-- ko if: app.hasSidebar() -->
-				<div id="admin-holder">
-					<admin-panel></admin-panel>
-				</div>
+					<div id="admin-holder">
+						<admin-panel></admin-panel>
+					</div>
 				<!-- /ko -->
 
 
@@ -45,13 +45,12 @@
 					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
 
 					<!-- ko if: route().page != 'page-login' -->
-					<footer id="page-footer">
-						<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
-					</footer>
+						<footer id="page-footer">
+							<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
+						</footer>
 					<!-- /ko -->
 
 				</div>
-
 
 				<!-- ko if: app.overlayToShow() != null -->
 					<!-- ko with: app.overlayToShow() -->
@@ -70,13 +69,8 @@
 
 		<!-- Load Modals on demand -->
 		<!-- ko foreach: app.modals -->
-		<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
+			<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
 		<!-- /ko -->
-
-
-		<!--
-		<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-		 -->
 
 	</body>
 </html>

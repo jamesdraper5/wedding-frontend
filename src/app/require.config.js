@@ -45,6 +45,9 @@ var require = {
 	shim: {
 		"bootstrap": { deps: ["jquery"] },
 		"rustique": { deps: ["toastr"] },
+		"fabric": {
+			exports: "fabric"
+		},
 		"darkroom": { deps: ["fabric"] },
 		"darkroom-plugins": { deps: ["darkroom"] }
 	}

@@ -36,16 +36,15 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		},
 		include: [
 			'requireLib',
-			'components/admin-panel/admin-panel',
 			'components/page-404/page-404',
 			'components/page-home/home',
 			'components/page-login/page-login',
+			'components/page-error/page-error',
+			'components/page-login/page-login',
+			'components/page-forgot-password/page-forgot-password',
+			'components/page-reset-password/page-reset-password',
 			'components/modal-confirm/modal-confirm',
 			'components/nav-bar/nav-bar',
-			'components/overlay-edit-intro/overlay-edit-intro',
-			'components/overlay-edit-maps/overlay-edit-maps',
-			'components/overlay-edit-rsvp/overlay-edit-rsvp',
-			'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
 			'components/section-intro/section-intro',
 			'components/section-maps/section-maps',
 			'components/section-rsvp/section-rsvp',
@@ -56,7 +55,17 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		bundles: {
 			// If you want parts of the site to load on demand, remove them from the 'include' list
 			// above, and group them into bundles here.
-			// 'bundle-name': [ 'some/module', 'another/module' ],
+			'editor': [
+				'components/admin-panel/admin-panel',
+				'components/modal-upload-image/modal-upload-image',
+				'components/overlay-edit-intro/overlay-edit-intro',
+				'components/overlay-edit-maps/overlay-edit-maps',
+				'components/overlay-edit-rsvp/overlay-edit-rsvp',
+				'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
+				'components/widget-image-editor/widget-image-editor',
+				'components/widget-text-editor/widget-text-editor',
+				'components/widget-toggle-switch/widget-toggle-switch'
+			]
 			// 'another-bundle-name': [ 'yet-another-module' ]
 		}
 	}),
@@ -132,15 +141,12 @@ gulp.task('less', function () {
 
 // Concatenates CSS files, rewrites relative paths to Bootstrap fonts, copies Bootstrap fonts
 gulp.task('css', ['less'], function () {
-	/*
-	var bowerCss = gulp.src('src/bower_modules/components-bootstrap/css/bootstrap.min.css')
-			.pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/')),
-	var mainCss = gulp.src('src/css/*.css').pipe(concat('css.css')),
-		allFonts = gulp.src('./src/bower_modules/components-bootstrap/fonts/*').pipe(gulp.dest('./src/fonts'));
-	return es.concat(mainCss, allFonts)
-		.pipe(gulp.dest('./dist/'));
-	*/
-	return gulp.src('src/css/*.css')
+	// Include stylesheets for any third party libs here:
+	var laddaStyles = gulp.src('src/bower_modules/ladda/dist/ladda.min.css'),
+		quillStyles = gulp.src('src/libs/quill/quill.snow.css'),
+		libCss = es.concat(laddaStyles, quillStyles).pipe(concat('libs.css')),
+		appCss = gulp.src('src/css/*.css');
+	return es.concat(appCss, libCss)
 		.pipe(concat('css.css'))
 		.pipe(gulp.dest('./dist/'));
 });
