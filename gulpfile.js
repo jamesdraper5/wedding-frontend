@@ -45,7 +45,7 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 			'components/overlay-edit-intro/overlay-edit-intro',
 			'components/overlay-edit-maps/overlay-edit-maps',
 			'components/overlay-edit-rsvp/overlay-edit-rsvp',
-			'components/overlay-edit-wedding-party/overlay-edit-wedding-party',
+			'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
 			'components/section-intro/section-intro',
 			'components/section-maps/section-maps',
 			'components/section-rsvp/section-rsvp',
