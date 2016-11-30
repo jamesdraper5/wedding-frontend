@@ -141,15 +141,12 @@ gulp.task('less', function () {
 
 // Concatenates CSS files, rewrites relative paths to Bootstrap fonts, copies Bootstrap fonts
 gulp.task('css', ['less'], function () {
-	/*
-	var bowerCss = gulp.src('src/bower_modules/components-bootstrap/css/bootstrap.min.css')
-			.pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/')),
-	var mainCss = gulp.src('src/css/*.css').pipe(concat('css.css')),
-		allFonts = gulp.src('./src/bower_modules/components-bootstrap/fonts/*').pipe(gulp.dest('./src/fonts'));
-	return es.concat(mainCss, allFonts)
-		.pipe(gulp.dest('./dist/'));
-	*/
-	return gulp.src('src/css/*.css')
+	// Include stylesheets for any third party libs here:
+	var laddaStyles = gulp.src('src/bower_modules/ladda/dist/ladda.min.css'),
+		quillStyles = gulp.src('src/libs/quill/quill.snow.css'),
+		libCss = es.concat(laddaStyles, quillStyles).pipe(concat('libs.css')),
+		appCss = gulp.src('src/css/*.css');
+	return es.concat(appCss, libCss)
 		.pipe(concat('css.css'))
 		.pipe(gulp.dest('./dist/'));
 });
