@@ -28,49 +28,40 @@ class Router {
 	}
 
 	showHomePage(ctx) {
-		this.currentRoute({ page: 'page-home', showNav: true })
+		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true })
 	}
 
 	showEditor(ctx) {
-		this.currentRoute({ page: 'page-home', isLoggedInPage: true, isEditorPage: true, showNav: true })
+		console.log('ctx', ctx);
+
+		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isEditorPage: true, showNav: true };
+
+		if ( ctx.params && ctx.params.section ) {
+			routeData.pageToEdit = ctx.params.section;
+		}
+
+		this.currentRoute(routeData)
+		console.log('this.currentRoute', this.currentRoute());
 	}
 
 	showAccount(ctx) {
-		this.currentRoute({ page: 'page-home', isLoggedInPage: true, showNav: true })
+		this.currentRoute({ page: 'page-home', path: ctx.path, isLoggedInPage: true, showNav: true })
 	}
 
 	showLogin(ctx) {
-		this.currentRoute({ page: 'page-login', isLoggedInPage: false, showNav: false })
+		this.currentRoute({ page: 'page-login', path: ctx.path, isLoggedInPage: false, showNav: false })
 	}
 
 	showForgotPassword(ctx) {
-		this.currentRoute({ page: 'page-forgot-password', isLoggedInPage: false, showNav: false })
+		this.currentRoute({ page: 'page-forgot-password', path: ctx.path, isLoggedInPage: false, showNav: false })
 	}
 
 	showResetPassword(ctx) {
-		this.currentRoute({ page: 'page-reset-password', isLoggedInPage: false, showNav: false })
+		this.currentRoute({ page: 'page-reset-password', path: ctx.path, isLoggedInPage: false, showNav: false })
 	}
 
 	show404() {
-		this.currentRoute({ page: 'page-404', isLoggedInPage: false, showNav: false })
-	}
-
-	getMatchingRoute(ctx) {
-		console.log('ctx', ctx);
-		let routes = this.routes.filter((route) => route.url === ctx.path )
-
-		console.log('routes', routes);
-
-		if ( routes.length ) {
-			let route = routes[0];
-
-			// Set any defaults required
-			if ( route.params.showNav == null ) {
-				route.params.showNav = true;
-			}
-
-			this.currentRoute( routes[0].params )
-		}
+		this.currentRoute({ page: 'page-404', path: ctx.path, isLoggedInPage: false, showNav: false })
 	}
 
 	setRoute(path) {

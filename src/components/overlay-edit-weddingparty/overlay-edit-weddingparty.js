@@ -65,7 +65,7 @@ class OverlayEditWeddingParty {
 
 	Close() {
 		app.hideOverlay();
-		app.GoTo('editor')
+		app.GoTo('/editor')
 	}
 
 	AddPerson(group) {

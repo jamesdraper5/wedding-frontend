@@ -160,18 +160,17 @@ class Rustique {
 	}
 
 	onUpdateRoute(newRoute) {
-		// TO DO: maybe add something here to map /editor to /#editor, etc
 
-	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
 
-	    // TO DO!!!!!: this.validateRoute(newRoute.request_)
+	    console.log('onUpdateRoute - newRoute', newRoute.path);
+
+	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
 
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
-	            //app.currentRoute().request_ = app.hasher.getHash()
-	            console.log('TO DO: onUpdateRoute');
+	            app.currentRoute().path = window.location.pathname;
 	        }
 
 	        app.redirectToLogin()
@@ -184,7 +183,7 @@ class Rustique {
 
 	}
 
-	validateRoute(hash) {
+	validateRoute(path) {
 		var redirect = () => {
 			if ( app.isUserLoggedIn() ) {
 				app.GoTo('/editor');
@@ -193,18 +192,18 @@ class Rustique {
 			}
 		}
 
-		// hash will be null when a shite url is passed in or the router isn't initialized
-		if ( hash == null || !this.isValidRoute(hash) ) {
+		// path will be null when a shite url is passed in or the router isn't initialized
+		if ( path == null || !this.isValidRoute(path) ) {
 			redirect()
 		}
 	}
 
-	isValidRoute(hash) {
-	    //console.log('isValidRoute - hash', '"' + hash + '"');
+	isValidRoute(path) {
+	    console.log('isValidRoute - path', '"' + path + '"');
 
-	    if ( hash === '' ) return true;
+	    if ( path === '' ) return true;
 
-	    var segments = hash.split('/');
+	    var segments = path.split('/');
 	    var section = this.validRoutes[segments[0]];
 
 	    if ( section != null ) { // does route exist in validRoutes
