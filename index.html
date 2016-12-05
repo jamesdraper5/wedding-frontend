@@ -7,6 +7,19 @@
 		<title>Loading...</title>
 		<link rel="stylesheet" href="/css.css">
 		<script src="/scripts.js"></script>
+
+		<script>
+			(function () {
+				var load = requirejs.load;
+				requirejs.load = function (context, moduleId, url) {
+			  		//modify url here, then call original load
+			  		return load(context, moduleId, url.replace("./", "/"));
+				};
+
+				//Now load code.
+				require(['app/startup']);
+			}());
+		</script>
 	</head>
 
 	<body data-bind="css: app.currentRoute().page">
