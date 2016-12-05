@@ -14,7 +14,7 @@ class Router {
 	constructor(config) {
 		this.currentRoute = ko.observable({});
 
-		page('/',  this.showHomePage);
+		page('/',  this.showHomePage.bind(this));
 		page('/editor',  this.showEditor.bind(this));
 		page('/editor/:section',  this.showEditor.bind(this));
 		page('/account',  this.showAccount.bind(this));
