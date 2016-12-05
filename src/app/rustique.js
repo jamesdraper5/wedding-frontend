@@ -285,7 +285,7 @@ class Rustique {
 
 	Logout(redirect=false) {
 		var firstName = app.loggedInUser.firstName()
-		app.api.post('api/me/logout').then((result) => {
+		app.api.post('/api/me/logout').then((result) => {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
