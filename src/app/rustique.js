@@ -135,7 +135,6 @@ class Rustique {
 	}
 
 	validateInitialRoute() {
-		console.log('validateInitialRoute');
 		var initPage = () => {
 			this.onUpdateRoute(app.currentRoute())
 			this.setPageTitle(this.installation.name());
@@ -155,7 +154,6 @@ class Rustique {
 	}
 
 	onUpdateRoute(newRoute) {
-
 
 	    console.log('onUpdateRoute - newRoute', newRoute.path);
 
@@ -196,22 +194,15 @@ class Rustique {
 	isValidRoute(path) {
 	    console.log('isValidRoute - path', '"' + path + '"');
 
-	    //return true;
-
 	    if ( ['', '/'].indexOf(path) > -1 ) return true;
 
 	    var segments = path.split('/');
 	    segments.shift(); // Remove the first element, as it will be an empty string
 	    var section = this.validRoutes[segments[0]];
 
-	    console.log('path', path);
-	    console.log('segments', segments);
-	    console.log('section', section);
-
 	    if ( section != null ) { // does route exist in validRoutes
 	    	if ( section.subroutes != null ) { // does the matched section have sub routes
 	    		if ( segments.length > 1 && segments[1] != null ) {
-	    			console.log('section.subroutes.indexOf(segments[1]) > -1', section.subroutes.indexOf(segments[1]) > -1);
 	    			return section.subroutes.indexOf(segments[1]) > -1; // Does the second level of the url match one of the sub routes, e.g. /editor/maps
 	    		} else {
 	    			return true; // only a top level url was passed so we already have a match, e.g. /editor
@@ -266,10 +257,10 @@ class Rustique {
 	// Pass the silent flag to change it without the app updating
 	// Handy for when something is added ie. we just set the url, the app doesn't react
 	// option: onNotFound - a callback function for when the next item isn't found
-	GoTo(hash) {
-	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
+	GoTo(path) {
+	    console.assert( path.indexOf("http") === -1, "Don't use GoTo for full URLs" )
 
-	    this.router.setRoute(hash)
+	    this.router.setRoute(path)
 	}
 
 	showOverlay(overlay) {
