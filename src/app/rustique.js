@@ -109,7 +109,7 @@ class Rustique {
 	}
 
 	updateInstallationData() {
-		this.api.get("api/installationInfo").then(( result ) => {
+		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
@@ -118,7 +118,7 @@ class Rustique {
 	}
 
 	getLoggedInUser() {
-		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
+		return this.api.get("/api/me", null, { emitError: false }).then(( result ) => {
 			if ( this.loggedInUser != null ) {
 				this.loggedInUser.UpdateData(result.response.data);
 			} else { // First time login
@@ -126,12 +126,6 @@ class Rustique {
 				//this.showWelcomeModal() // TO DO: low priority
 			}
 			this.isUserLoggedIn(true);
-
-			/*
-			setTimeout(() => {
-				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
-			}, 500)
-			*/
 
 			return result;
 		}).catch((err) => {
@@ -141,6 +135,7 @@ class Rustique {
 	}
 
 	validateInitialRoute() {
+		console.log('validateInitialRoute');
 		var initPage = () => {
 			this.onUpdateRoute(app.currentRoute())
 			this.setPageTitle(this.installation.name());
@@ -167,7 +162,7 @@ class Rustique {
 	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
-
+	    	console.log('app.currentRoute()', app.currentRoute());
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
 	            app.currentRoute().path = window.location.pathname;
@@ -201,14 +196,22 @@ class Rustique {
 	isValidRoute(path) {
 	    console.log('isValidRoute - path', '"' + path + '"');
 
-	    if ( path === '' ) return true;
+	    //return true;
+
+	    if ( ['', '/'].indexOf(path) > -1 ) return true;
 
 	    var segments = path.split('/');
+	    segments.shift(); // Remove the first element, as it will be an empty string
 	    var section = this.validRoutes[segments[0]];
+
+	    console.log('path', path);
+	    console.log('segments', segments);
+	    console.log('section', section);
 
 	    if ( section != null ) { // does route exist in validRoutes
 	    	if ( section.subroutes != null ) { // does the matched section have sub routes
 	    		if ( segments.length > 1 && segments[1] != null ) {
+	    			console.log('section.subroutes.indexOf(segments[1]) > -1', section.subroutes.indexOf(segments[1]) > -1);
 	    			return section.subroutes.indexOf(segments[1]) > -1; // Does the second level of the url match one of the sub routes, e.g. /editor/maps
 	    		} else {
 	    			return true; // only a top level url was passed so we already have a match, e.g. /editor
@@ -248,6 +251,7 @@ class Rustique {
 	}
 
 	redirectToLogin( callback ) {
+		console.log('redirectToLogin');
 	    // Redirect to login but remember this page
 	    if ( app.currentRoute().page !== "login" ) {
 	        this.flash.Error('You shall not pass!', 'You need to be logged in before you can access that page')
