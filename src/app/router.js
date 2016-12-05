@@ -57,7 +57,7 @@ class Router {
 	}
 
 	showResetPassword(ctx) {
-		this.currentRoute({ page: 'page-reset-password', path: ctx.path, isLoggedInPage: false, showNav: false })
+		this.currentRoute({ page: 'page-reset-password', path: ctx.path, token: ctx.params.token, isLoggedInPage: false, showNav: false })
 	}
 
 	show404(ctx) {
