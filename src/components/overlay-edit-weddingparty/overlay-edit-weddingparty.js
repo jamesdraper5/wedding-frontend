@@ -49,7 +49,7 @@ class OverlayEditWeddingParty {
 
 		partyData.groups = this.getGroupFormData(this.groups);
 
-		app.api.put(`api/weddingParties/${this.id}`, partyData).then((result) => {
+		app.api.put(`/api/weddingParties/${this.id}`, partyData).then((result) => {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();

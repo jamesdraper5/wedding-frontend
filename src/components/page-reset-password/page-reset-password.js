@@ -14,7 +14,7 @@ class PageResetPassword {
 	}
 
 	checkToken() {
-		app.api.get(`api/authenticate/checkresettoken/${this.token}`, {}, {errorCodesToIgnore: [404]}).then((result) => {
+		app.api.get(`/api/authenticate/checkresettoken/${this.token}`, {}, {errorCodesToIgnore: [404]}).then((result) => {
 			this.isValidToken(true)
 		}).catch((err) => {
 			this.isValidToken(false)
@@ -46,7 +46,7 @@ class PageResetPassword {
 
 		this.isSubmitting(true);
 
-		app.api.post('api/authenticate/resetpassword', data).then((result) => {
+		app.api.post('/api/authenticate/resetpassword', data).then((result) => {
 			app.flash.Success("Yipeee!", "Your password has been updated successfully");
 			app.getLoggedInUser().then((result) => {
 				setTimeout(() => {

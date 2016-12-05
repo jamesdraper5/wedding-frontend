@@ -53,7 +53,7 @@ class OverlayEditMaps {
 			mapData.locations.push(mapObj);
 		}
 
-		app.api.put(`api/mapSections/${this.id}`, mapData).then((result) => {
+		app.api.put(`/api/mapSections/${this.id}`, mapData).then((result) => {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
