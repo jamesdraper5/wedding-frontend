@@ -59,7 +59,7 @@ class WidgetMap {
 			zoom: 15,
 			scrollwheel: false
 		};
-		var pinImage = 'images/heart.png';
+		var pinImage = '/images/heart.png';
 
 		this.googleMap = new google.maps.Map(el, options);
 		this.googleMarker = new google.maps.Marker({

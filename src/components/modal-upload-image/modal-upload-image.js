@@ -68,7 +68,7 @@ class ModalUploadImage {
 	// @file: File - file object
 	getSignedRequest(file) {
 
-		var url = 'api/files/sign-s3'
+		var url = '/api/files/sign-s3'
 		var newFileName;
 
 		if ( file.name.indexOf('amazonaws.com') > -1 ) {

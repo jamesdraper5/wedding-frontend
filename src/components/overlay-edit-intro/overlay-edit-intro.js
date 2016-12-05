@@ -37,7 +37,7 @@ class OverlayWelcomeMessage {
 			menuText: this.menuText(),
 			isVisible: this.isVisible()
 		};
-		app.api.put(`api/intros/${this.id}`, introData).then((result) => {
+		app.api.put(`/api/intros/${this.id}`, introData).then((result) => {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
@@ -49,7 +49,7 @@ class OverlayWelcomeMessage {
 
 	Close() {
 		app.hideOverlay();
-		app.GoTo('editor')
+		app.GoTo('/editor')
 	}
 
 	dispose() {

@@ -94,7 +94,7 @@ class Rustique {
 
 	findInstallation() {
 
-		this.api.get("api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
+		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute()
 		}).catch(( error ) => {
@@ -109,7 +109,7 @@ class Rustique {
 	}
 
 	updateInstallationData() {
-		this.api.get("api/installationInfo").then(( result ) => {
+		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
@@ -118,7 +118,7 @@ class Rustique {
 	}
 
 	getLoggedInUser() {
-		return this.api.get("api/me", null, { emitError: false }).then(( result ) => {
+		return this.api.get("/api/me", null, { emitError: false }).then(( result ) => {
 			if ( this.loggedInUser != null ) {
 				this.loggedInUser.UpdateData(result.response.data);
 			} else { // First time login
@@ -126,12 +126,6 @@ class Rustique {
 				//this.showWelcomeModal() // TO DO: low priority
 			}
 			this.isUserLoggedIn(true);
-
-			/*
-			setTimeout(() => {
-				$('body').append('<scr'+'ipt src="//widget.cloudinary.com/global/all.js">' + '<\/scr'+'ipt>')
-			}, 500)
-			*/
 
 			return result;
 		}).catch((err) => {
@@ -146,10 +140,6 @@ class Rustique {
 			this.setPageTitle(this.installation.name());
 			this.hasLoadedData(true);
 			this.isWeddingFound(true);
-
-			setTimeout(() => {
-				//app.modal.Show("upload-image", { imageUrl: 'images/test/ice.jpg' });
-			}, 500)
 		}
 
 		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
@@ -164,17 +154,16 @@ class Rustique {
 	}
 
 	onUpdateRoute(newRoute) {
-		// TO DO: maybe add something here to map /editor to /#editor, etc
 
-	    //console.log('onUpdateRoute - newRoute', newRoute.request_);
+	    console.log('onUpdateRoute - newRoute', newRoute.path);
 
-	    this.validateRoute(newRoute.request_)
+	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
-
+	    	console.log('app.currentRoute()', app.currentRoute());
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
-	            app.currentRoute().request_ = app.hasher.getHash()
+	            app.currentRoute().path = window.location.pathname;
 	        }
 
 	        app.redirectToLogin()
@@ -187,27 +176,28 @@ class Rustique {
 
 	}
 
-	validateRoute(hash) {
+	validateRoute(path) {
 		var redirect = () => {
 			if ( app.isUserLoggedIn() ) {
-				app.GoTo('editor');
+				app.GoTo('/editor');
 			} else {
-				app.GoTo('');
+				app.GoTo('/');
 			}
 		}
 
-		// hash will be null when a shite url is passed in or the router isn't initialized
-		if ( hash == null || !this.isValidRoute(hash) ) {
+		// path will be null when a shite url is passed in or the router isn't initialized
+		if ( path == null || !this.isValidRoute(path) ) {
 			redirect()
 		}
 	}
 
-	isValidRoute(hash) {
-	    //console.log('isValidRoute - hash', '"' + hash + '"');
+	isValidRoute(path) {
+	    console.log('isValidRoute - path', '"' + path + '"');
 
-	    if ( hash === '' ) return true;
+	    if ( ['', '/'].indexOf(path) > -1 ) return true;
 
-	    var segments = hash.split('/');
+	    var segments = path.split('/');
+	    segments.shift(); // Remove the first element, as it will be an empty string
 	    var section = this.validRoutes[segments[0]];
 
 	    if ( section != null ) { // does route exist in validRoutes
@@ -252,11 +242,12 @@ class Rustique {
 	}
 
 	redirectToLogin( callback ) {
+		console.log('redirectToLogin');
 	    // Redirect to login but remember this page
 	    if ( app.currentRoute().page !== "login" ) {
 	        this.flash.Error('You shall not pass!', 'You need to be logged in before you can access that page')
 	        app.requestedRouteBeforeLoginRedirect = app.currentRoute()
-	        app.GoTo("#login")
+	        app.GoTo("/login")
 	    }
 	    return false
 	}
@@ -266,29 +257,10 @@ class Rustique {
 	// Pass the silent flag to change it without the app updating
 	// Handy for when something is added ie. we just set the url, the app doesn't react
 	// option: onNotFound - a callback function for when the next item isn't found
-	GoTo(hash, inOpts) {
-	    console.assert( hash.indexOf("http") === -1, "Don't use GoTo for full URLs" )
+	GoTo(path) {
+	    console.assert( path.indexOf("http") === -1, "Don't use GoTo for full URLs" )
 
-	    var opts = {
-	        format: true,
-	        onNotFound: null,
-	        silent: false
-	    }
-	    $.extend(opts, inOpts)
-
-	    if (opts.format) {
-	        hash = hash.toLowerCase()
-	    }
-
-	    this.router.onNextItemNotFound = opts.onNotFound // ok for this not to exist
-
-	    if (opts.silent) {
-	        this.hasher.changed.active = false
-	        this.hasher.setHash(hash)
-	        this.hasher.changed.active = true
-	    } else {
-	        this.hasher.setHash(hash)
-	    }
+	    this.router.setRoute(path)
 	}
 
 	showOverlay(overlay) {
@@ -304,13 +276,13 @@ class Rustique {
 
 	Logout(redirect=false) {
 		var firstName = app.loggedInUser.firstName()
-		app.api.post('api/me/logout').then((result) => {
+		app.api.post('/api/me/logout').then((result) => {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
 			app.hideOverlay();
 			if (redirect) {
-				app.GoTo('')
+				app.GoTo('/')
 			}
 			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
 		});

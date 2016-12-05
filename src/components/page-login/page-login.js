@@ -23,15 +23,15 @@ class PageLogin {
 			app.loggedInUser = null
 		}
 
-		app.api.post('api/authenticate', data).then((result) => {
+		app.api.post('/api/authenticate', data).then((result) => {
 			app.getLoggedInUser().then((result) => {
 				app.flash.Success(`Welcome back ${app.loggedInUser.firstName()}!`);
 				// app.cache.set "lastGoodUsername", @userName() TO DO: nice touch
 				if ( app.requestedRouteBeforeLoginRedirect != null ) {
-					app.GoTo( app.requestedRouteBeforeLoginRedirect.request_ )
+					app.GoTo( app.requestedRouteBeforeLoginRedirect.path )
 					app.requestedRouteBeforeLoginRedirect = undefined
 				} else {
-					app.GoTo( '#editor' )
+					app.GoTo( '/editor' )
 				}
 
 			})

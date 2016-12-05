@@ -15,7 +15,7 @@ class PageForgotPassword {
 		}
 		this.isSubmitting(true);
 
-		app.api.post('api/authenticate/recoverpassword', data, {errorCodesToIgnore: [404]}).then((result) => {
+		app.api.post('/api/authenticate/recoverpassword', data, {errorCodesToIgnore: [404]}).then((result) => {
 			app.flash.Success(`An email has been sent to ${this.userEmail()} with further instructions`);
 		}).catch((result) => {
 			console.log('result', result);
