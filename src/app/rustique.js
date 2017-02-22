@@ -155,12 +155,12 @@ class Rustique {
 
 	onUpdateRoute(newRoute) {
 
-	    console.log('onUpdateRoute - newRoute', newRoute.path);
+	    //console.log('onUpdateRoute - newRoute', newRoute.path);
 
 	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
-	    	console.log('app.currentRoute()', app.currentRoute());
+	    	//console.log('app.currentRoute()', app.currentRoute());
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
 	            app.currentRoute().path = window.location.pathname;
@@ -192,7 +192,7 @@ class Rustique {
 	}
 
 	isValidRoute(path) {
-	    console.log('isValidRoute - path', '"' + path + '"');
+	    //console.log('isValidRoute - path', '"' + path + '"');
 
 	    if ( ['', '/'].indexOf(path) > -1 ) return true;
 
@@ -242,7 +242,6 @@ class Rustique {
 	}
 
 	redirectToLogin( callback ) {
-		console.log('redirectToLogin');
 	    // Redirect to login but remember this page
 	    if ( app.currentRoute().page !== "login" ) {
 	        this.flash.Error('You shall not pass!', 'You need to be logged in before you can access that page')

@@ -14,7 +14,6 @@ class RsvpSection {
 		this.comment = ko.observable('');
 		this.guestType = ko.observable(0);
 		this.numPermittedGuests = ko.pureComputed(() => {
-			console.log('this.guestType()', this.guestType());
 			var guestCount = 0;
 			switch( parseInt(this.guestType(), 10) ) {
 				case 0:
@@ -29,7 +28,6 @@ class RsvpSection {
 				default:
 					guestCount = 0;
 			}
-			console.log('guestCount', guestCount);
 			return guestCount;
 		});
 
@@ -73,10 +71,8 @@ class RsvpSection {
 			comment: this.comment(),
 			isAttending: this.isAttending()
 		}
-		console.log('data', data);
 		//return false;
 		app.api.post(`/api/rsvps/${rsvpId}/reply`, data).then((result) => {
-			console.log('result', result);
 			app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')
 			setTimeout(() => {
 				this.hasSubmitted(true)

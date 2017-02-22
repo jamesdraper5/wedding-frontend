@@ -38,7 +38,6 @@ class OverlayEditRsvp {
 			isVisible: this.isVisible()
 		};
 		app.api.put(`/api/rsvps/${this.id}`, rsvpData).then((result) => {
-			console.log('result', result);
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();

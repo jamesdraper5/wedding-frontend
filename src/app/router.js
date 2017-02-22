@@ -32,8 +32,6 @@ class Router {
 	}
 
 	showEditor(ctx) {
-		console.log('ctx', ctx);
-
 		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isEditorPage: true, showNav: true };
 
 		if ( ctx.params && ctx.params.section ) {
@@ -41,7 +39,6 @@ class Router {
 		}
 
 		this.currentRoute(routeData)
-		console.log('this.currentRoute', this.currentRoute());
 	}
 
 	showAccount(ctx) {

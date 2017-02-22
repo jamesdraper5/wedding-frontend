@@ -87,10 +87,10 @@ class ModalUploadImage {
 
 		app.api.post(url, postData).then((result) => {
 			let data = result.response.data;
-			console.log('signed request result - data', data);
+			//console.log('signed request result - data', data);
 			this.uploadFile(file, data.signedRequest, data.url);
 		}).catch((err) => {
-			console.log('err', err);
+			//console.log('err', err);
 			app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
 		})
 	}

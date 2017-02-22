@@ -66,7 +66,6 @@ class OverlayEditMaps {
 	OnClickDeleteMap(map) {
 		var idx = app.utility.FindIndexByKeyValue(this.locations(), 'id', map.id());
 		if ( idx > -1 ) {
-			console.log('this', this);
 			this.locations.splice(idx, 1);
 		}
 	}
@@ -90,7 +89,6 @@ class OverlayEditMaps {
 	}
 
 	dispose() {
-		console.log('dispose');
 		// This runs when the component is torn down. Put here any logic necessary to clean up,
 		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
 	}
