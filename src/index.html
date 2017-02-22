@@ -51,13 +51,13 @@
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
-					<!-- ko if: route().showNav -->
-						<nav-bar params="route: route"></nav-bar>
+					<!-- ko if: app.currentRoute().showNav -->
+						<nav-bar params="route: app.currentRoute"></nav-bar>
 					<!-- /ko -->
 
-					<div id="page" class="container-fluid" data-bind="component: { name: route().page, params: route }"></div>
+					<div id="page" class="container-fluid" data-bind="component: { name: app.currentRoute().page, params: app.currentRoute }"></div>
 
-					<!-- ko if: route().page != 'page-login' -->
+					<!-- ko if: app.currentRoute().page != 'page-login' -->
 						<footer id="page-footer">
 							<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
 						</footer>
