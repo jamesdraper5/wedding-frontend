@@ -221,7 +221,7 @@ function babelTranspile(pathname, callback) {
 	if (babelIgnoreRegexes.some(function (re) { return re.test(pathname); })) return callback();
 	if (!babelCore.canCompile(pathname)) return callback();
 	var src  = path.join(transpilationConfig.root, pathname);
-	var opts = objectAssign({ sourceFileName: '/source/' + pathname }, transpilationConfig.babelConfig);
+	var opts = objectAssign({ sourceFileName: '/source' + pathname }, transpilationConfig.babelConfig);
 	babelCore.transformFile(src, opts, callback);
 }
 
