@@ -87,29 +87,9 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 
 // Pushes all the source files through Babel for transpilation
 gulp.task('js:babel', function() {
-	var excludeIndex = filter(['**', '!*index.js'], {restore: true}),
-		getIndex = filter('index.js');
-	return gulp.src(requireJsOptimizerConfig.baseUrl + '/**')
-		.pipe(excludeIndex)
-		.pipe(es.map(function(data, cb) {
-			if (!data.isNull()) {
-				babelTranspile(data.relative, function(err, res) {
-					if (res) {
-						data.contents = new Buffer(res.code);
-					}
-					cb(err, data);
-				});
-			} else {
-				cb(null, data);
-			}
-		}))
+	return gulp.src("src/**/*.js")
+		.pipe(babel())
 		.pipe(gulp.dest('./temp'))
-		.pipe(excludeIndex.restore)
-		.pipe(getIndex) // compile index.js separately and move straight to root folder
-		.pipe(babel({
-			presets: ['es2015', 'stage-2']
-		}))
-		.pipe(gulp.dest('./'))
 });
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
@@ -218,8 +198,9 @@ gulp.task('serve', ['default'], function() {
 });
 
 function babelTranspile(pathname, callback) {
+	console.log('babelTranspile', pathname);
 	if (babelIgnoreRegexes.some(function (re) { return re.test(pathname); })) return callback();
-	if (!babelCore.canCompile(pathname)) return callback();
+	if (!babelCore.util.canCompile(pathname)) return callback();
 	var src  = path.join(transpilationConfig.root, pathname);
 	var opts = objectAssign({ sourceFileName: '/source' + pathname }, transpilationConfig.babelConfig);
 	babelCore.transformFile(src, opts, callback);

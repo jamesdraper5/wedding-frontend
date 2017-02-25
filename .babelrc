@@ -1,0 +1,14 @@
+{
+	"ignore": [
+		"bower_modules",
+		"libs"
+	],
+	"presets": [
+	  	"latest",
+	  	"es2015",
+		"stage-2"
+	],
+	"plugins": [
+		"transform-es2015-modules-commonjs"
+	]
+}
