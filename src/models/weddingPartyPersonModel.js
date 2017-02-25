@@ -13,19 +13,22 @@ const weddingPartyPersonMapping = {
 	}
 }
 
+const nonTrackableKeys = ['isEditing'];
+
 class WeddingPartyPersonModel {
 	constructor(data) {
 
 		this.UpdateData(data);
 		this.isEditing = ko.observable(false);
-
 		this.trackAllChanges();
+
 		this.isDirty = ko.computed(() => {
 		    for (var key in this) {
-		        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty()) {
+		        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty() && nonTrackableKeys.indexOf(key) === -1) {
 		            return true;
 		        }
 		    }
+		    return false;
 		});
 
 	}
@@ -60,6 +63,7 @@ class WeddingPartyPersonModel {
 	trackAllChanges() {
 	    for (var key in this) {
 	        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) ) {
+	        	//console.log('key', key);
 	            this[key].extend({ trackChanges: true });
 	        }
 	    }

@@ -31,6 +31,7 @@
 
 					<!-- ko foreach: people -->
 						<div class="form-group wedding-party-person">
+							<pre data-bind="text: 'isDirty - ' +  isDirty()"></pre>
 							<!-- ko ifnot: isEditing -->
 								<div class="form-inline clearfix">
 									<p>{{ name }}</p>
