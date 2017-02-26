@@ -29,7 +29,7 @@ var gulp = require('gulp'),
 var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;'),
 	requireJsOptimizerConfig = merge(requireJsRuntimeConfig, {
 		out: 'scripts.js',
-		baseUrl: './src',
+		baseUrl: 'src',
 		name: 'app/startup',
 		paths: {
 			requireLib: 'bower_modules/requirejs/require'
@@ -77,8 +77,18 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 			'app/require.config.js'
 		],
 		babelConfig: {
-			modules: 'amd',
-			sourceMaps: 'inline'
+			presets: [
+			  	'latest',
+			  	'es2015',
+				'stage-2'
+			],
+			plugins: [
+				'transform-es2015-modules-commonjs'
+			],
+			ignore: [
+				'bower_modules',
+				'libs'
+			]
 		}
 	},
 	babelIgnoreRegexes = transpilationConfig.skip.map(function(item) {
@@ -87,16 +97,29 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 
 // Pushes all the source files through Babel for transpilation
 gulp.task('js:babel', function() {
-	return gulp.src("src/**/*.js")
-		.pipe(babel())
-		.pipe(gulp.dest('./temp'))
+	var excludeIndex = filter(['**', '!*index.js'], {restore: true});
+		return gulp.src(requireJsOptimizerConfig.baseUrl + '/**')
+			.pipe(excludeIndex)
+			.pipe(es.map(function(data, cb) {
+				if (!data.isNull()) {
+					babelTranspile(data.relative, function(err, res) {
+						if (res) {
+							data.contents = new Buffer(res.code);
+						}
+						cb(err, data);
+					});
+				} else {
+					cb(null, data);
+				}
+			}))
+			.pipe(gulp.dest('./temp'))
 });
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
 gulp.task('js:optimize', ['js:babel'], function() {
 	var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
 	return rjs(config)
-		.pipe(uglify({ preserveComments: 'some' }))
+		//.pipe(uglify({ preserveComments: 'some' }))
 		.pipe(gulp.dest('./dist/'));
 })
 
@@ -198,7 +221,6 @@ gulp.task('serve', ['default'], function() {
 });
 
 function babelTranspile(pathname, callback) {
-	console.log('babelTranspile', pathname);
 	if (babelIgnoreRegexes.some(function (re) { return re.test(pathname); })) return callback();
 	if (!babelCore.util.canCompile(pathname)) return callback();
 	var src  = path.join(transpilationConfig.root, pathname);
