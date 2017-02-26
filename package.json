@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "gulp"
+    "postinstall": "bower install && gulp"
   },
   "keywords": [],
   "engine": {
@@ -30,6 +30,7 @@
     "babel-preset-es2015": "6.22.0",
     "babel-preset-latest": "6.22.0",
     "babel-preset-stage-2": "6.22.0",
+    "bower": "1.8.0",
     "chalk": "0.4.0",
     "deeply": "0.1.0",
     "event-stream": "3.1.0",
