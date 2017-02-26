@@ -14,21 +14,8 @@
 		<!-- endbuild -->
 		<!-- build:js -->
 		<script src="app/require.config.js"></script>
-		<script src="bower_modules/requirejs/require.js"></script>
+		<script data-main="app/startup" src="bower_modules/requirejs/require.js"></script>
 		<!-- endbuild -->
-
-		<script>
-			(function () {
-				var load = requirejs.load;
-				requirejs.load = function (context, moduleId, url) {
-			  		//modify url here, then call original load
-			  		return load(context, moduleId, url.replace("./", "/"));
-				};
-
-				//Now load code.
-				require(['app/startup']);
-			}());
-		</script>
 	</head>
 
 	<body data-bind="css: app.currentRoute().page">
