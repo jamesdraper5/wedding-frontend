@@ -22,3 +22,5 @@ src/css/main.css
 public/images/test/
 
 index.html
+
+npm-debug.log
