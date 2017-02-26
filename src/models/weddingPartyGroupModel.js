@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
-import * as PersonModel from './weddingPartyPersonModel';
+import PersonModel from './weddingPartyPersonModel';
 
 
 class WeddingPartyGroupModel {

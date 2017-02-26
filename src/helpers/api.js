@@ -6,7 +6,7 @@ This allows us to access APIResult.id which is typically what we need from a pos
 
 import * as GoogleMapsLoader from 'google-maps';
 import * as $ from 'jquery';
-import * as EventEmitter2 from 'eventemitter2';
+import EventEmitter2 from 'eventemitter2';
 import * as moment from 'moment';
 import * as Promise from 'bluebird';
 

@@ -10,14 +10,14 @@ import 'bindings-ladda';
 import 'bindings-image-uploader';
 import 'extenders-trackChanges';
 import * as mapping from 'knockout-mapping';
-import * as api from '../helpers/api';
-import * as router from './router';
-import * as InstallationModel from 'installationModel';
-import * as LoggedInUserModel from 'loggedInUserModel';
-import * as FlashHelper from '../helpers/flash';
-import * as ModalHelper from '../helpers/modal';
-import * as ErrorHelper from '../helpers/errorHelper';
-import * as UtilityHelper from '../helpers/utility';
+import api from '../helpers/api';
+import router from './router';
+import InstallationModel from 'installationModel';
+import LoggedInUserModel from 'loggedInUserModel';
+import FlashHelper from '../helpers/flash';
+import ModalHelper from '../helpers/modal';
+import ErrorHelper from '../helpers/errorHelper';
+import UtilityHelper from '../helpers/utility';
 import { constants as Constants } from '../helpers/constants';
 
 class Rustique {

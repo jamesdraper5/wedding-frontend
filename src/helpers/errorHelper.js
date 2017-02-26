@@ -1,4 +1,4 @@
-import * as FlashHelper from './flash';
+import FlashHelper from './flash';
 import * as _ from 'lodash';
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };

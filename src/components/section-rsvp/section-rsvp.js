@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./section-rsvp.html';
-import * as Validator from '../../helpers/validation';
+import Validator from '../../helpers/validation';
 
 class RsvpSection {
 	constructor(params) {
