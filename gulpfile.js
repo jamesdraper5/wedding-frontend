@@ -188,14 +188,13 @@ gulp.task('reloadHtml', function(){
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
 gulp.task('serve:src', ['watch'], function() {
-	var apiProxy = proxy('/api', { target: 'http://localhost:5000', changeOrigin: true, logLevel: 'debug'});
 	var staticFiles = serveStatic("public");
 	return connect.server({
+		port: 3000,
 		root: transpilationConfig.root,
 		fallback: transpilationConfig.root + '/index.html',
 		middleware: function(connect, opt) {
 			return [
-				apiProxy,
 				staticFiles,
 				function (req, res, next) {
 					var pathname = path.normalize(url.parse(req.url).pathname);
