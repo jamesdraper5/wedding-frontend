@@ -4,6 +4,7 @@ var require = {
 	paths: {
 		"bindings-ladda":       		"bindings/ladda",
 		"bindings-image-uploader": 		"bindings/image-uploader",
+		"bindings-move-labels":       	"bindings/move-labels",
 		"bluebird":             		"bower_modules/bluebird/js/browser/bluebird.min",
 		"bootstrap":            		"bower_modules/components-bootstrap/js/bootstrap.min",
 		"constants":                	"helpers/constants",

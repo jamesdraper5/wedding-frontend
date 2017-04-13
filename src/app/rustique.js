@@ -8,6 +8,7 @@ import 'knockout-punches';
 import 'jquery-scrollTo';
 import 'bindings-ladda';
 import 'bindings-image-uploader';
+import 'bindings-move-labels';
 import 'extenders-trackChanges';
 import * as mapping from 'knockout-mapping';
 import api from '../helpers/api';

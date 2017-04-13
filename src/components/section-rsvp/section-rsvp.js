@@ -10,26 +10,12 @@ class RsvpSection {
 		this.isAttending = ko.observable(true);
 		this.numGuests = ko.observable(0);
 		this.emailAddress = ko.observable('');
-		this.guestName = ko.observable('');
+		this.phoneNumber = ko.observable('');
+		this.firstName = ko.observable('');
+		this.lastName = ko.observable('');
 		this.comment = ko.observable('');
-		this.guestType = ko.observable(0);
-		this.numPermittedGuests = ko.pureComputed(() => {
-			var guestCount = 0;
-			switch( parseInt(this.guestType(), 10) ) {
-				case 0:
-					guestCount = 0;
-					break;
-				case 1:
-					guestCount = 1;
-					break;
-				case 2:
-					guestCount = 4;
-					break;
-				default:
-					guestCount = 0;
-			}
-			return guestCount;
-		});
+		this.songChoice = ko.observable(null);
+		this.plusOnes = ko.observableArray([''])
 
 		this.isSubmitting = ko.observable(false);
 		this.hasSubmitted = ko.observable(false);
@@ -41,6 +27,9 @@ class RsvpSection {
 			} else {
 				return 'Send';
 			}
+		});
+		this.guestName = ko.pureComputed(() => {
+			return this.firstName() + ' ' + this.lastName();
 		});
 	}
 
@@ -67,7 +56,7 @@ class RsvpSection {
 		var data = {
 			name: this.guestName(),
 			emailAddress: this.emailAddress(),
-			numGuests: this.numGuests(),
+			numGuests: this.plusOnes().length,
 			comment: this.comment(),
 			isAttending: this.isAttending()
 		}
