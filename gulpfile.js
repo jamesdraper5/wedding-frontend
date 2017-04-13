@@ -22,7 +22,6 @@ var gulp = require('gulp'),
 	objectAssign = require('object-assign'),
 	proxy = require('http-proxy-middleware'),
 	less = require('gulp-less'),
-	server = require('gulp-express'),
 	serveStatic = require('serve-static');
 
 // Config
@@ -214,9 +213,8 @@ gulp.task('serve:src', ['watch'], function() {
 	});
 });
 
-// After building, starts a trivial static file server
-gulp.task('serve', ['default'], function() {
-	server.run(['index.js']);
+gulp.task('deploy', ['default'], function() {
+
 });
 
 function babelTranspile(pathname, callback) {
