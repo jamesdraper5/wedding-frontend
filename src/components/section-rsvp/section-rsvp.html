@@ -71,7 +71,7 @@
 				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">
 				  					Excellent! Are you bringing any guests?
 				  				</div>
-				  				<!-- ko foreach: plusOnes() -->
+				  				<!-- ko foreach: extraGuests() -->
 									<div class="col-md-12 moving-labels">
 										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Guest #' + parseInt($index()+1) }}</label>
 							  	  		<input type="text" class="form-control" data-bind="textInput: name, attr: { id: 'guest' + parseInt($index()+1) }" title="Please enter the full name of your guest">
@@ -81,7 +81,7 @@
 					  				</div>
 				  				<!-- /ko -->
 				  				<div class="col-md-12">
-					  				<button data-bind="click: OnClickAddGuest" class="btn btn-default" id="addGuest">Add another guest?</button>
+					  				<button data-bind="click: OnClickAddGuest" class="btn btn-default" id="addGuest">Add a guest</button>
 					  			</div>
 				  			</div>
 			  	  		</div>

@@ -13,11 +13,8 @@ class RsvpSection {
 		this.firstName = ko.observable('');
 		this.lastName = ko.observable('');
 		this.comment = ko.observable('');
-		this.songChoice = ko.observable(null);
-		this.plusOnes = ko.observableArray([{name: '', uid: Date.now()}])
-		this.numGuests = ko.pureComputed(() => {
-			return this.plusOnes.length;
-		});
+		this.songChoice = ko.observable('');
+		this.extraGuests = ko.observableArray([])
 
 		this.isSubmitting = ko.observable(false);
 		this.hasSubmitted = ko.observable(false);
@@ -38,22 +35,28 @@ class RsvpSection {
 	validateForm() {
 
 		var isValid = this.validator.ValidateAll([
-			{ input: this.emailAddress, inputName: 'Your email address', typeCheck: 'isEmail' },
-			{ input: this.guestName, inputName: 'Your name', typeCheck: 'notEmpty' }
+			{ input: this.firstName, inputName: 'Your first name', typeCheck: 'notEmpty' },
+			{ input: this.lastName, inputName: 'Your last name', typeCheck: 'notEmpty' },
+			{ input: this.phoneNumber, inputName: 'Your phone number', typeCheck: 'notEmpty' },
 		]);
+
+		if ( isValid && this.isAttending() == null ) {
+			app.flash.Error( "<strong>Oops!</strong> ", 'Please specify whether you can attend or not');
+			isValid = false;
+		}
 
 		return isValid;
 
 	}
 
 	OnClickAddGuest() {
-		this.plusOnes.push({name: '', uid: Date.now()});
+		this.extraGuests.push({name: '', uid: Date.now()});
 	}
 
 	OnClickRemoveGuest(guest) {
-		var idx = app.utility.FindIndexByKeyValue(this.plusOnes(), 'uid', guest.uid);
+		var idx = app.utility.FindIndexByKeyValue(this.extraGuests(), 'uid', guest.uid);
 		if ( idx > -1 ) {
-			this.plusOnes.splice(idx, 1);
+			this.extraGuests.splice(idx, 1);
 		}
 	}
 
@@ -68,11 +71,15 @@ class RsvpSection {
 		var rsvpId = this.rsvp.id();
 		var data = {
 			name: this.guestName(),
+			extraGuests: this.extraGuests().map((guest) => guest.name),
 			emailAddress: this.emailAddress(),
-			numGuests: this.numGuests,
+			phone: this.phoneNumber(),
 			comment: this.comment(),
-			isAttending: this.isAttending()
+			isAttending: this.isAttending(),
+			song: this.songChoice(),
+
 		}
+		console.log('data', data);
 		//return false;
 		app.api.post(`/api/rsvps/${rsvpId}/reply`, data).then((result) => {
 			app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')
