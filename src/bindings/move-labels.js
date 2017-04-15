@@ -7,51 +7,47 @@ ko.bindingHandlers.moveLabels = {
 
 		var subscriptions = [];
 		var $el = $(element);
+		var ticker;
 
 		// Forms where the labels move up when you type
 		function moveLabel(field,force) {
 			var val = field.val().length;
-			var label = field.siblings('label');
-			if ( !label.length ) {
+			var $label = field.siblings('label');
+			if ( !$label.length ) {
 				return;
 			}
 			if ( val || force ) {
-				label.addClass('moved');
+				$label.addClass('moved');
 			} else {
-				label.removeClass('moved');
+				$label.removeClass('moved');
 			}
 		}
 
-		// Chrome autofill yellow fix
-		function autofillFix() {
-			var autofills;
+		function checkInputs() {
+			var $autofills;
 			$el.find('label + input').each(function() {
 				moveLabel($(this));
 			});
 			try {
-				autofills = $(':-webkit-autofill')
+				$autofills = $(':-webkit-autofill')
 			} catch(err) {
-				autofills = []
+				$autofills = []
 			}
-			if ( autofills.length ) {
-				autofills.each(function() {
+			if ( $autofills.length ) {
+				$autofills.each(function() {
 					moveLabel($(this), true)
 				});
 			}
-			requestAnimationFrame(autofillFix);
+			// Needs to keep checking because autofill doesn't emit an event
+			ticker = requestAnimationFrame(checkInputs);
 		}
 
-
-		autofillFix();
-
-		$el.find('label + input').on('change keypress', function() {
-			moveLabel($(this)); // TO DO: can we just call moveLabel directly and then remove it on disposal (e.g. $el.off('change', moveLabel))
-		});
+		checkInputs();
 
 		ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
-			subscriptions.forEach((subscription) => {
-				subscription.dispose();
-			});
+			if ( ticker != null ) {
+				cancelAnimationFrame(ticker);
+			}
 		});
 
 
