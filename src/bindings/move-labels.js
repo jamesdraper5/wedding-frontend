@@ -25,7 +25,7 @@ ko.bindingHandlers.moveLabels = {
 
 		function checkInputs() {
 			var $autofills;
-			$el.find('label + input').each(function() {
+			$el.find('label + input, label + textarea').each(function() {
 				moveLabel($(this));
 			});
 			try {
