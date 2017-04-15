@@ -27,7 +27,7 @@ class RsvpSection {
 			} else if ( this.hasSubmitted() ) {
 				return 'RSVP Sent';
 			} else {
-				return 'Send';
+				return 'Send RSVP';
 			}
 		});
 		this.guestName = ko.pureComputed(() => {

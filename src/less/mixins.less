@@ -1,5 +1,6 @@
 //mixin with all css that depends on your theme
 .setupThemeCss() {
+
 	.serif() {
 		font-family: @serifFamily;
 	}
@@ -9,6 +10,12 @@
 	.displayFont() {
 		font-family: @displayFamily;
 	}
+	.highlightColor() {
+		color: @highlightColor;
+	}
+	.highlightBG() {
+		background-color: @highlightColor;
+	}
 
 	.serif {
 		.serif()
@@ -16,11 +23,20 @@
 	.sansSerif {
 		.sansSerif()
 	}
+	.highlight-color {
+		.highlightColor()
+	}
+	.highlight-bg {
+		.highlightBG()
+	}
+
+	color: @textColor;
+	background: @backgroundColor;
 
 	h1.main-header {
 	    .displayFont();
 	    font-size: 100px;
-	    color: #d090d3;
+	    color: @highlightColor;
 	    span {
 	    	.sansSerif();
 	    	display: block;
@@ -33,3 +49,4 @@
 	}
 
 }
+

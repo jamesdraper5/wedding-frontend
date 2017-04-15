@@ -1,6 +1,12 @@
+/* Everything in here will only be applied after the LESS has been compiled and the page has been rendered, as the theme class name
+	is only applied after the frontend has loaded and the installationInfo API call has returned. This means that everything in here needs
+	to overwrite the existing "blank" styles that a site with no template class would have. It also means that you can't reference any of the
+	variables in this file anywhere else as they won't be initialized until after the LESS is compiled.
+*/
 .paris {
 	@textColor: #333;
 	@backgroundColor: #fff;
+	@highlightColor: #d090d3;
 	@serifFamily: @quincy;
 	@sansSerifFamily: @lato;
 	@displayFamily: @baurbon;
@@ -8,9 +14,7 @@
 
 	.setupThemeCss();
 
-	color: @textColor;
-	background: @backgroundColor;
-
+	// These rules are specific to this theme
 	h2 {
 		text-transform: uppercase;
 		font-family: @montserrat;

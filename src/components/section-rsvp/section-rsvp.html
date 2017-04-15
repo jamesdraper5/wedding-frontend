@@ -49,14 +49,14 @@
 						<div class="text-center">Will you be attending?</div>
 						<div class="row">
 							<div class="col-md-6 text-center">
-								<label for="attending" class="btn btn-default" data-bind="css: { selected: isAttending() === true }">
+								<label for="attending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === true }">
 									<i class="fa fa-thumbs-up"></i>
 									<input type="radio" name="isAttending" id="attending" data-bind="checked: isAttending, checkedValue: true">
 									<span>Accept with pleasure</span>
 								</label>
 							</div>
 							<div class="col-md-6 text-center">
-								<label for="notAttending" class="btn btn-default" data-bind="css: { selected: isAttending() === false }">
+								<label for="notAttending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === false }">
 									<i class="fa fa-thumbs-down"></i>
 									<input type="radio" name="isAttending" id="notAttending" data-bind="checked: isAttending, checkedValue: false">
 									<span>Regretfully decline</span>
@@ -107,7 +107,9 @@
 			  	</div>
 
 			  	<button disabled type="submit" class="ladda-button btn btn-lg btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit, enable: !hasSubmitted()">
-			  		<span class="ladda-label" data-bind="text: btnText()"></span>
+			  		<span class="ladda-label">
+			  			<i class="fa fa-paper-plane"></i> {{ btnText }}
+			  		</span>
 			  	</button>
 			</form>
 
