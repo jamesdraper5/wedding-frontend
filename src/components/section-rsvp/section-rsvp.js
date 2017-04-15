@@ -8,14 +8,16 @@ class RsvpSection {
 		this.rsvp = app.installation.sections.rsvp;
 		this.containerId = this.rsvp.menuText().toLowerCase().split(' ').join('-') + '-container';
 		this.isAttending = ko.observable(true);
-		this.numGuests = ko.observable(0);
 		this.emailAddress = ko.observable('');
 		this.phoneNumber = ko.observable('');
 		this.firstName = ko.observable('');
 		this.lastName = ko.observable('');
 		this.comment = ko.observable('');
 		this.songChoice = ko.observable(null);
-		this.plusOnes = ko.observableArray([''])
+		this.plusOnes = ko.observableArray([{name: '', uid: Date.now()}])
+		this.numGuests = ko.pureComputed(() => {
+			return this.plusOnes.length;
+		});
 
 		this.isSubmitting = ko.observable(false);
 		this.hasSubmitted = ko.observable(false);
@@ -44,6 +46,17 @@ class RsvpSection {
 
 	}
 
+	OnClickAddGuest() {
+		this.plusOnes.push({name: '', uid: Date.now()});
+	}
+
+	OnClickRemoveGuest(guest) {
+		var idx = app.utility.FindIndexByKeyValue(this.plusOnes(), 'uid', guest.uid);
+		if ( idx > -1 ) {
+			this.plusOnes.splice(idx, 1);
+		}
+	}
+
 	OnSubmit() {
 
 		if ( !this.validateForm() ) {
@@ -56,7 +69,7 @@ class RsvpSection {
 		var data = {
 			name: this.guestName(),
 			emailAddress: this.emailAddress(),
-			numGuests: this.plusOnes().length,
+			numGuests: this.numGuests,
 			comment: this.comment(),
 			isAttending: this.isAttending()
 		}

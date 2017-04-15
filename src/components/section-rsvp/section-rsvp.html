@@ -65,23 +65,30 @@
 
 			  		<!-- ko if: isAttending() == 'true' -->
 			  			<div class="form-group">
-			  				<span>Excellent! Are you bringing any guests?</span>
-			  				<!-- ko foreach: plusOnes() -->
-				  				<div style="margin: 10px 0;">
-						  	  		<input type="text" class="form-control" data-bind="attr: { placeholder: 'Guest #' + parseInt($index()+1) }" title="Please enter the full name of your guest">
-				  				</div>
-			  				<!-- /ko -->
+							<div class="row">
+				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">Excellent! Are you bringing any guests?</div>
+				  				<!-- ko foreach: plusOnes() -->
+									<div class="col-md-12 moving-labels">
+										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Guest #' + parseInt($index()+1) }}</label>
+							  	  		<input type="text" class="form-control" data-bind="textInput: name, attr: { id: 'guest' + parseInt($index()+1) }" title="Please enter the full name of your guest">
+							  	  		<a data-bind="click: $component.OnClickRemoveGuest" href="#" class="remove-guest">
+							  	  			<i class="fa fa-times-circle"></i>
+							  	  		</a>
+					  				</div>
+				  				<!-- /ko -->
+				  				<button data-bind="click: OnClickAddGuest" class="btn btn-default">Add another guest</button>
+				  			</div>
 			  	  		</div>
-			  	  	<!-- /ko -->
 
-		  			<div class="form-group moving-labels">
-		  				<div class="row">
-		  					<div class="col-md-12">
-				  				<label for="song">A song that will get you onto the dancefloor</label>
-							    <input type="text" id="song" class="form-control" data-bind="textInput: songChoice" title="Your favourite song to get your boogie on">
+			  			<div class="form-group">
+			  				<div class="row">
+			  					<div class="col-md-12 moving-labels">
+					  				<label for="song">A song that will get you onto the dancefloor</label>
+								    <input type="text" id="song" class="form-control" data-bind="textInput: songChoice" title="Your favourite song to get your boogie on">
+								</div>
 							</div>
-						</div>
-		  			</div>
+			  			</div>
+			  	  	<!-- /ko -->
 
 					<div class="form-group moving-labels">
 						<label for="extraInfo">Your message for the couple (optional)</label>
