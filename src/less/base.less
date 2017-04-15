@@ -414,7 +414,6 @@ figure.hover-effect {
 #rsvp-form {
 	text-align: left;
 	font-size: 18px;
-	//text-transform: uppercase;
 	.form-group {
 		margin-bottom: 0;
 	}
@@ -424,10 +423,34 @@ figure.hover-effect {
 	}
 	.rsvp-form--attending {
 		margin-bottom: 40px;
+
 		label {
-			span {
+			width: 100%;
+			margin-top: 20px;
+			&.selected {
+				background: #666;
+				span, i {
+					color: #fff;
+				}
+			}
+			span, i {
 				display: block;
 			}
+			i {
+				font-size: 20px;
+				margin: 5px 0;
+			}
+		}
+
+		input[type=radio] {
+		    border: 0;
+		    clip: rect(0 0 0 0);
+		    height: 1px;
+		    margin: -1px;
+		    overflow: hidden;
+		    padding: 0;
+		    position: absolute;
+		    width: 1px;
 		}
 	}
 	label {
@@ -466,6 +489,7 @@ figure.hover-effect {
 		margin-bottom: 40px;
 	}
 }
+
 .circle {
 	border-radius: 100%;
 }

@@ -49,21 +49,23 @@
 						<div class="text-center">Will you be attending?</div>
 						<div class="row">
 							<div class="col-md-6 text-center">
-								<label>
-									<input type="radio" name="isAttending" value="true" data-bind="checked: isAttending">
+								<label for="attending" class="btn btn-default" data-bind="css: { selected: isAttending() === true }">
+									<i class="fa fa-thumbs-up"></i>
+									<input type="radio" name="isAttending" id="attending" data-bind="checked: isAttending, checkedValue: true">
 									<span>Accept with pleasure</span>
 								</label>
 							</div>
 							<div class="col-md-6 text-center">
-								<label>
-									<input type="radio" name="isAttending" value="false" data-bind="checked: isAttending">
+								<label for="notAttending" class="btn btn-default" data-bind="css: { selected: isAttending() === false }">
+									<i class="fa fa-thumbs-down"></i>
+									<input type="radio" name="isAttending" id="notAttending" data-bind="checked: isAttending, checkedValue: false">
 									<span>Regretfully decline</span>
 								</label>
 							</div>
 						</div>
 					</div>
 
-			  		<!-- ko if: isAttending() == 'true' -->
+			  		<!-- ko if: isAttending() -->
 			  			<div class="form-group">
 							<div class="row">
 				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">
