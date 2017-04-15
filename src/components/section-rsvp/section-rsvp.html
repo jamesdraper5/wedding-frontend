@@ -66,7 +66,9 @@
 			  		<!-- ko if: isAttending() == 'true' -->
 			  			<div class="form-group">
 							<div class="row">
-				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">Excellent! Are you bringing any guests?</div>
+				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">
+				  					Excellent! Are you bringing any guests?
+				  				</div>
 				  				<!-- ko foreach: plusOnes() -->
 									<div class="col-md-12 moving-labels">
 										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Guest #' + parseInt($index()+1) }}</label>
@@ -76,7 +78,9 @@
 							  	  		</a>
 					  				</div>
 				  				<!-- /ko -->
-				  				<button data-bind="click: OnClickAddGuest" class="btn btn-default">Add another guest</button>
+				  				<div class="col-md-12">
+					  				<button data-bind="click: OnClickAddGuest" class="btn btn-default" id="addGuest">Add another guest?</button>
+					  			</div>
 				  			</div>
 			  	  		</div>
 
@@ -90,9 +94,13 @@
 			  			</div>
 			  	  	<!-- /ko -->
 
-					<div class="form-group moving-labels">
-						<label for="extraInfo">Your message for the couple (optional)</label>
-						<textarea id="extraInfo" rows="3" class="form-control" data-bind="textInput: comment"></textarea>
+					<div class="form-group">
+						<div class="row">
+			  				<div class="col-md-12 moving-labels">
+								<label for="extraInfo">Your message for the couple (optional)</label>
+								<textarea id="extraInfo" rows="3" class="form-control" data-bind="textInput: comment"></textarea>
+							</div>
+						</div>
 					</div>
 			  	</div>
 
