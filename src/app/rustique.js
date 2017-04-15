@@ -6,6 +6,7 @@ import 'knockout-postbox';
 import 'knockout-projections';
 import 'knockout-punches';
 import 'jquery-scrollTo';
+import 'bindings-bot-checker';
 import 'bindings-ladda';
 import 'bindings-image-uploader';
 import 'bindings-move-labels';

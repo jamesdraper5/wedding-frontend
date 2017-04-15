@@ -16,6 +16,7 @@ class RsvpSection {
 		this.songChoice = ko.observable('');
 		this.extraGuests = ko.observableArray([])
 
+		this.userIsHuman = ko.observable(false); // don't let them submit form until we're sure they're not a spambot
 		this.isSubmitting = ko.observable(false);
 		this.hasSubmitted = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -30,6 +31,7 @@ class RsvpSection {
 		this.guestName = ko.pureComputed(() => {
 			return this.firstName() + ' ' + this.lastName();
 		});
+
 	}
 
 	validateForm() {
@@ -62,6 +64,11 @@ class RsvpSection {
 
 	OnSubmit() {
 
+		if ( !this.userIsHuman() ) {
+			app.flash.Error( "<strong>Hmmmm...</strong>", "This is awkward - we think you might be a spam bot. Please try again");
+			return false;
+		}
+
 		if ( !this.validateForm() ) {
 			return false;
 		}
@@ -79,7 +86,7 @@ class RsvpSection {
 			song: this.songChoice(),
 
 		}
-		console.log('data', data);
+
 		//return false;
 		app.api.post(`/api/rsvps/${rsvpId}/reply`, data).then((result) => {
 			app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')

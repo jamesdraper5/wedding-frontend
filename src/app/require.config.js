@@ -2,6 +2,7 @@
 var require = {
 	baseUrl: ".",
 	paths: {
+		"bindings-bot-checker":       	"bindings/bot-checker",
 		"bindings-ladda":       		"bindings/ladda",
 		"bindings-image-uploader": 		"bindings/image-uploader",
 		"bindings-move-labels":       	"bindings/move-labels",
