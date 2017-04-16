@@ -3,7 +3,7 @@ import 'bootstrap';
 import ko from 'knockout';
 import 'knockout-projections'
 import 'knockout-punches'
-import app from './rustique';
+import app from './app';
 import navBar from 'components/nav-bar/nav-bar';
 import pageHome from 'components/page-home/home';
 import sectionIntro from 'components/section-intro/section-intro';

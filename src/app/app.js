@@ -23,7 +23,7 @@ import ErrorHelper from '../helpers/errorHelper';
 import UtilityHelper from '../helpers/utility';
 import { constants as Constants } from '../helpers/constants';
 
-class Rustique {
+class App {
 	constructor(config) {
 
 		this.api = api;
@@ -323,4 +323,4 @@ class Rustique {
 
 
 
-export default Rustique;
+export default App;

@@ -45,7 +45,7 @@ var require = {
 	},
 	shim: {
 		"bootstrap": { deps: ["jquery"] },
-		"rustique": { deps: ["toastr"] },
+		"app": { deps: ["toastr"] },
 		"fabric": {
 			exports: "fabric"
 		},
