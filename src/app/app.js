@@ -7,6 +7,7 @@ import 'knockout-projections';
 import 'knockout-punches';
 import 'jquery-scrollTo';
 import 'bindings-bot-checker';
+import 'bindings-date-picker';
 import 'bindings-ladda';
 import 'bindings-image-uploader';
 import 'bindings-move-labels';
@@ -78,6 +79,7 @@ class App {
 			resetpassword: true,
 			editor: {
 				subroutes: [
+					'home',
 					'intro',
 					'maps',
 					'rsvp',

@@ -139,7 +139,8 @@ gulp.task('less', function () {
 			paths: [
 				path.join(__dirname, './src/bower_modules/components-bootstrap/less'),
 				path.join(__dirname, './src/bower_modules/toastr'),
-				path.join(__dirname, './src/bower_modules/darkroom/lib/css'),
+				path.join(__dirname, './src/bower_modules/darkroom/build'),
+				path.join(__dirname, './src/bower_modules/rome/dist'),
 				path.join(__dirname, './src/less/font-awesome')
 			]
 		}))

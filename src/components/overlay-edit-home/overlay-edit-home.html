@@ -1,0 +1,54 @@
+<div id="overlay" data-bind="style: { left: app.overlayLeftPos(), width: app.overlayWidth() }">
+	<div id="overlay-main">
+		<div class="modal-header">
+			<button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			<h4 class="modal-title">Edit Your Home Page</h4>
+		</div>
+		<div class="modal-body">
+			<div class="forms-container">
+				<div class="form-group" style="margin-bottom: 5px;">
+					<widget-toggle-switch params="{ value: isVisible, labelText: 'Show this section', style: { marginLeft: '10px' } }"></widget-toggle-switch>
+				</div>
+				<div class="form-group">
+					<label for="title">Site Name</label>
+					<input type="text" id="title" class="form-control" data-bind="textInput: name, enable: isVisible">
+				</div>
+				<div class="form-group">
+				    <label class="col-sm-2 control-label" data-bind="click: $component.OnClickEditImage" style="margin-top: 25px;;">Image</label>
+				    <div class="col-sm-10">
+						<figure class="user-preview hover-effect" data-bind="click: OnClickEditImage, attr: { id: 'person-img-' + id }">
+							<img src="https://maxcdn.icons8.com/iOS7/PNG/25/Users/user_male_circle_filled-25.png" width="100" height="100" data-bind="attr: { src: mainImage, alt: 'main image' }" />
+							<figcaption>
+								<p>
+									<i class="fa fa-pencil"></i> Edit
+								</p>
+							</figcaption>
+						</figure>
+				    </div>
+				</div>
+				<div class="form-group">
+					<label for="title">Wedding Date</label>
+					<input type="text" id="title" class="form-control" data-bind="dateInput: weddingDate, enable: isVisible">
+				</div>
+				<div class="form-group">
+					<label for="menu-text">Menu Text</label>
+					<input type="text" id="menu-text" class="form-control" data-bind="textInput: menuText, enable: isVisible">
+				</div>
+			</div>
+		</div>
+		<div class="overlay-footer" data-bind="style: { left: app.overlayLeftPos() }">
+			<div class="pull-left">
+				<button id="overlay-close-btn" class="btn btn-default" data-bind="click: Close">Close</button>
+			</div>
+			<div class="pull-right">
+				<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
+					<span class="ladda-label">
+						<i class="fa fa-check"></i>
+						<strong> {{ btnText }}</strong>
+					</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-bind="template: { afterRender:OnRendered }">

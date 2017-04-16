@@ -4,7 +4,7 @@ import * as mapping from 'knockout-mapping';
 
 class AdminPanel {
 	constructor(params) {
-		this.message = ko.observable('Hello from the admin-panel component!');
+
 	}
 
 	OnClickLogOut() {

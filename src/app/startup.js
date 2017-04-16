@@ -11,6 +11,7 @@ import sectionWeddingParty from 'components/section-wedding-party/section-weddin
 import sectionMaps from 'components/section-maps/section-maps';
 import sectionRsvp from 'components/section-rsvp/section-rsvp';
 import adminPanel from 'components/admin-panel/admin-panel';
+import overlayEditHome from 'components/overlay-edit-home/overlay-edit-home';
 import overlayEditIntro from 'components/overlay-edit-intro/overlay-edit-intro';
 import overlayEditWeddingParty from 'components/overlay-edit-weddingparty/overlay-edit-weddingparty';
 import overlayEditMaps from 'components/overlay-edit-maps/overlay-edit-maps';
@@ -36,6 +37,7 @@ ko.components.register('section-wedding-party', { viewModel: sectionWeddingParty
 ko.components.register('section-maps', { viewModel: sectionMaps.viewModel, template: sectionMaps.template });
 ko.components.register('section-rsvp', { viewModel: sectionRsvp.viewModel, template: sectionRsvp.template });
 ko.components.register('admin-panel', { viewModel: adminPanel.viewModel, template: adminPanel.template });
+ko.components.register('overlay-edit-home', { viewModel: overlayEditHome.viewModel, template: overlayEditHome.template });
 ko.components.register('overlay-edit-intro', { viewModel: overlayEditIntro.viewModel, template: overlayEditIntro.template });
 ko.components.register('overlay-edit-weddingparty', { viewModel: overlayEditWeddingParty.viewModel, template: overlayEditWeddingParty.template });
 ko.components.register('overlay-edit-maps', { viewModel: overlayEditMaps.viewModel, template: overlayEditMaps.template });

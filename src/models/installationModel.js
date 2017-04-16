@@ -1,15 +1,11 @@
 import ko from 'knockout';
 import moment from 'moment';
 import * as mapping from 'knockout-mapping';
+import HomeModel from './models/homeModel';
 import WeddingPartyModel from './models/weddingPartyModel';
 import MapModel from './models/mapModel';
 
 const installationMapping = {
-	'weddingDate': {
-		create: (options) => {
-			return moment(options.data).format('MMMM Do YYYY');
-		}
-	},
 	'weddingParty': {
 		create: (options) => {
 			return new WeddingPartyModel(options.data)

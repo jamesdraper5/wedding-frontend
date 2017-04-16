@@ -689,3 +689,31 @@ Edit user images in wedding party section
 .image-uploader-options {
 	margin-top: 10px;
 }
+
+
+// Rome datepicker fix
+.rd-container {
+    z-index: 99999;
+    padding: 20px;
+    border: 1px solid #999;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.6);
+    font-size: 12px;
+}
+.rd-days {
+    th, td {
+        padding: 3px;
+    }
+}
+.rd-back, .rd-next {
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.rd-back:before {
+    content: '\f053';
+}
+.rd-next:before {
+    content: '\f054';
+}

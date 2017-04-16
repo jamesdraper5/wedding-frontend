@@ -3,6 +3,7 @@ var require = {
 	baseUrl: ".",
 	paths: {
 		"bindings-bot-checker":       	"bindings/bot-checker",
+		"bindings-date-picker":       	"bindings/date-picker",
 		"bindings-ladda":       		"bindings/ladda",
 		"bindings-image-uploader": 		"bindings/image-uploader",
 		"bindings-move-labels":       	"bindings/move-labels",
@@ -17,6 +18,7 @@ var require = {
 		"fabric":               		"bower_modules/fabric/dist/fabric",
 		"flash":                		"helpers/flash",
 		"google-maps":          		"bower_modules/google-maps/lib/Google.min",
+		"homeModel":    				"models/homeModel",
 		"installationModel":    		"models/installationModel",
 		"jquery-scrollTo":              "bower_modules/jquery.scrollTo/jquery.scrollTo",
 		"jquery":               		"bower_modules/jquery/dist/jquery.min",
@@ -33,6 +35,7 @@ var require = {
 		"page": 						"bower_modules/page/page",
 		"quill": 						"libs/quill/quill.min",
 		"raven": 						"bower_modules/raven-js/dist/raven",
+		"rome": 						"bower_modules/rome/dist/rome",
 		"signals":              		"bower_modules/js-signals/dist/signals.min",
 		"spin":                 		"bower_modules/ladda/dist/spin.min",
 		"text":                 		"bower_modules/requirejs-text/text",
