@@ -31,7 +31,6 @@ class RsvpSection {
 		this.guestName = ko.pureComputed(() => {
 			return this.firstName() + ' ' + this.lastName();
 		});
-
 	}
 
 	validateForm() {
@@ -64,17 +63,6 @@ class RsvpSection {
 
 	OnSubmit() {
 
-		if ( !this.userIsHuman() ) {
-			app.flash.Error( "<strong>Hmmmm...</strong>", "This is awkward - we think you might be a spam bot. Please try again");
-			return false;
-		}
-
-		if ( !this.validateForm() ) {
-			return false;
-		}
-
-		this.isSubmitting(true);
-
 		var rsvpId = this.rsvp.id();
 		var data = {
 			name: this.guestName(),
@@ -87,7 +75,18 @@ class RsvpSection {
 
 		}
 
-		//return false;
+		if ( !this.userIsHuman() ) {
+			app.flash.Error( "<strong>Hmmmm...</strong>", "This is awkward - we think you might be a spam bot. Please try again");
+			app.SendSentryError('Possible spambot form submission', { level: 'warning', extra: data });
+			return false;
+		}
+
+		if ( !this.validateForm() ) {
+			return false;
+		}
+
+		this.isSubmitting(true);
+
 		app.api.post(`/api/rsvps/${rsvpId}/reply`, data).then((result) => {
 			app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')
 			setTimeout(() => {

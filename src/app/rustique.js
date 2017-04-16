@@ -12,6 +12,7 @@ import 'bindings-image-uploader';
 import 'bindings-move-labels';
 import 'extenders-trackChanges';
 import * as mapping from 'knockout-mapping';
+import Raven from 'raven';
 import api from '../helpers/api';
 import router from './router';
 import InstallationModel from 'installationModel';
@@ -35,6 +36,10 @@ class Rustique {
 		this.utility = new UtilityHelper();
 		this.modals = ko.observableArray(); //used or tracking loaded modals components
 		this.constants = Constants;
+
+		if ( !window.devMode ) {
+			Raven.config('https://8ef7d6007fea4ce6bc61f2a67d674530@sentry.io/158665').install();
+		}
 
 		this.api.on('error', this.errorHelper.Ajax);
 
@@ -99,8 +104,8 @@ class Rustique {
 		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute()
+			this.setRavenUser()
 		}).catch(( error ) => {
-			console.error( "Request Failed: ", error );
 			if ( error.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 			} else {
@@ -128,7 +133,6 @@ class Rustique {
 				//this.showWelcomeModal() // TO DO: low priority
 			}
 			this.isUserLoggedIn(true);
-
 			return result;
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
@@ -285,15 +289,36 @@ class Rustique {
 			if (redirect) {
 				app.GoTo('/')
 			}
-			app.flash.Success( `Okay ${firstName}, you are now signed out, don't be a stranger!` );
+			app.flash.Success( `Okay ${firstName}, you're now signed out, don't be a stranger!` );
 		});
 	}
-
-
 
 	setPageTitle(title) {
 		document.title = title;
 	}
+
+	// Sets current raven user for sentry tracking
+	setRavenUser() {
+	    if ( window.devMode ) return;
+        var opts = {};
+        if ( this.installation != null ) {
+            opts.installationId = this.installation.id();
+            opts.installation = this.installation.url();
+        }
+	    Raven.setUserContext(opts);
+	}
+
+	SendSentryError(errorMessage, opts={}) {
+	    if ( Raven != null && !window.devMode ) {
+	    	opts.level = opts.level || 'error';
+	    	opts.extra = opts.extra || {};
+	        Raven.captureMessage(errorMessage, {
+	        	level: opts.level,
+	        	extra: opts.extra
+	        });
+	    }
+	}
+
 }
 
 

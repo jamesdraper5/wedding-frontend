@@ -32,6 +32,7 @@ var require = {
 		"moment":               		"bower_modules/moment/min/moment.min",
 		"page": 						"bower_modules/page/page",
 		"quill": 						"libs/quill/quill.min",
+		"raven": 						"bower_modules/raven-js/dist/raven",
 		"signals":              		"bower_modules/js-signals/dist/signals.min",
 		"spin":                 		"bower_modules/ladda/dist/spin.min",
 		"text":                 		"bower_modules/requirejs-text/text",

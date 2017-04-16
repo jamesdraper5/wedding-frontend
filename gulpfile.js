@@ -22,7 +22,12 @@ var gulp = require('gulp'),
 	objectAssign = require('object-assign'),
 	proxy = require('http-proxy-middleware'),
 	less = require('gulp-less'),
-	serveStatic = require('serve-static');
+	serveStatic = require('serve-static'),
+	util = require('gulp-util');
+
+var gulpConfig = {
+	isProduction: !!util.env.production
+}
 
 // Config
 var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;'),
@@ -118,7 +123,7 @@ gulp.task('js:babel', function() {
 gulp.task('js:optimize', ['js:babel'], function() {
 	var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
 	return rjs(config)
-		//.pipe(uglify({ preserveComments: 'some' }))
+		.pipe(gulpConfig.isProduction ? uglify({ preserveComments: 'some' }) : util.noop())
 		.pipe(gulp.dest('./dist/'));
 })
 
@@ -158,7 +163,8 @@ gulp.task('html', function() {
 	return gulp.src('./src/index.html')
 		.pipe(htmlreplace({
 			'css': '/css.css',
-			'js': '/scripts.js'
+			'js': '/scripts.js',
+			'debug': '<script>window.devMode = ' + gulpConfig.isProduction + ';</script>'
 		}))
 		.pipe(gulp.dest('./'));
 });
@@ -214,7 +220,7 @@ gulp.task('serve:src', ['watch'], function() {
 });
 
 gulp.task('deploy', ['default'], function() {
-
+	// TO DO: copy index.html into dist folder, then run a gulp s3 plugin to deploy new build
 });
 
 function babelTranspile(pathname, callback) {
