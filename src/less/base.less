@@ -425,6 +425,9 @@ figure.hover-effect {
     background-size: cover;
 }
 
+.intro-block {
+	margin-top: 80px;
+}
 
 #rsvp-form {
 	text-align: left;
@@ -731,4 +734,24 @@ Edit user images in wedding party section
 }
 .rd-next:before {
     content: '\f054';
+}
+
+footer .fa-heart {
+	color: #d32f2f;
+}
+
+.pulse {
+	animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
