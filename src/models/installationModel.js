@@ -6,6 +6,11 @@ import WeddingPartyModel from './models/weddingPartyModel';
 import MapModel from './models/mapModel';
 
 const installationMapping = {
+	'home': {
+		create: (options) => {
+			return new HomeModel(options.data);
+		}
+	},
 	'weddingParty': {
 		create: (options) => {
 			return new WeddingPartyModel(options.data)

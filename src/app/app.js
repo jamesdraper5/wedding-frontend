@@ -101,11 +101,23 @@ class App {
 
 	}
 
+	initStyles(theme) {
+		var styleSheet = document.styleSheets[document.styleSheets.length-1];
+		switch(theme) {
+			case 'paris':
+				var bg = `url( ${this.installation.sections.home.mainImage()} )`;
+				this.addCSSRule(styleSheet, "#home-container", "background-image: " + bg, styleSheet.cssRules.length);
+				break;
+		}
+	}
+
 	findInstallation() {
 
 		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
-			this.validateInitialRoute()
+			this.validateInitialRoute();
+			console.log('this.installation', this.installation);
+			this.initStyles(this.installation.themeClass());
 			this.setRavenUser()
 		}).catch(( error ) => {
 			if ( error.status == 404 ) {
@@ -120,6 +132,10 @@ class App {
 	updateInstallationData() {
 		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
+			setTimeout(() => {
+				console.log('yes');
+				this.initStyles(this.installation.themeClass())
+			}, 200);
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
 			this.hasError(true);
@@ -319,6 +335,16 @@ class App {
 	        	extra: opts.extra
 	        });
 	    }
+	}
+
+	// Handy for theme-related styles
+	addCSSRule(sheet, selector, rules, index) {
+		if("insertRule" in sheet) {
+			sheet.insertRule(selector + "{" + rules + "}", index);
+		}
+		else if("addRule" in sheet) {
+			sheet.addRule(selector, rules, index);
+		}
 	}
 
 }

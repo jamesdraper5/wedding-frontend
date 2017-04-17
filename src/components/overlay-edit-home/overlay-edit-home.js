@@ -7,7 +7,7 @@ class OverlayHomeSection {
 
 		this.id = ko.unwrap(app.installation.sections.home.id);
 		this.name = ko.observable( ko.unwrap(app.installation.sections.home.name) );
-		this.weddingDate = ko.observable( moment(ko.unwrap(app.installation.sections.home.weddingDate)) );
+		this.weddingDate = ko.observable( ko.unwrap(app.installation.sections.home.weddingDate) );
 		this.mainImage = ko.observable( ko.unwrap(app.installation.sections.home.mainImage) );
 		this.menuText = ko.observable( ko.unwrap(app.installation.sections.home.menuText) );
 		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.home.isVisible) );
@@ -32,7 +32,7 @@ class OverlayHomeSection {
 	}
 
 	OnClickEditImage() {
-		app.modal.Show("upload-image", { imageUrl: this.mainImage, editorOpts: { cropRatio: 1 } });
+		app.modal.Show("upload-image", { imageUrl: this.mainImage });
 	}
 
 	OnSubmit() {

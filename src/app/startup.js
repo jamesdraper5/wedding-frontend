@@ -6,6 +6,7 @@ import 'knockout-punches'
 import app from './app';
 import navBar from 'components/nav-bar/nav-bar';
 import pageHome from 'components/page-home/home';
+import sectionHome from 'components/section-home/section-home';
 import sectionIntro from 'components/section-intro/section-intro';
 import sectionWeddingParty from 'components/section-wedding-party/section-wedding-party';
 import sectionMaps from 'components/section-maps/section-maps';
@@ -32,6 +33,7 @@ import modalUploadImage from 'components/modal-upload-image/modal-upload-image';
 // Components can be packaged as AMD modules, such as the following:
 ko.components.register('nav-bar', { viewModel: navBar.viewModel, template: navBar.template });
 ko.components.register('page-home', { viewModel: pageHome.viewModel, template: pageHome.template });
+ko.components.register('section-home', { viewModel: sectionHome.viewModel, template: sectionHome.template });
 ko.components.register('section-intro', { viewModel: sectionIntro.viewModel, template: sectionIntro.template });
 ko.components.register('section-wedding-party', { viewModel: sectionWeddingParty.viewModel, template: sectionWeddingParty.template });
 ko.components.register('section-maps', { viewModel: sectionMaps.viewModel, template: sectionMaps.template });

@@ -5,7 +5,7 @@ import moment from 'moment';
 const homeMapping = {
 	'weddingDate': {
 		create: (options) => {
-			return moment(options.data).format('MMMM Do YYYY');
+			return moment(options.data);
 		}
 	}
 }
