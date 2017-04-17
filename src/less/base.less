@@ -127,6 +127,10 @@ figure.hover-effect {
 	}
 }
 
+#main-nav {
+	transition: all 0.4s linear;
+}
+
 .popover {
 	color: #333;
     font-size: 14px;
@@ -406,15 +410,14 @@ figure.hover-effect {
 		position: relative;
 		z-index: 2;
 		background-color: transparent !important;
-		transition: background-color 50000s ease-in-out 0s, border-bottom-color .25s;
+		transition: background-color 50000s ease-in-out 0s, border-bottom-color .25s; // hides the yellow colour on autofilled inputs
 	}
 }
 
 #home-container {
     float: left;
     width: 100%;
-    padding-top: 400px;
-    //background-image: url(https://james-test-2.s3.amazonaws.com/1492421573090-1-couple2.jpeg);
+    padding-top: 120px;
     min-height: 100vh;
     background-position: center;
     background-repeat: no-repeat;

@@ -10,14 +10,19 @@
 	@serifFamily: @quincy;
 	@sansSerifFamily: @lato;
 	@displayFamily: @baurbon;
-	@headerFamily: @airbag;
+	@headerFamily: @montserrat;
 
 	.setupThemeCss();
 
 	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
 	h2 {
 		text-transform: uppercase;
-		font-family: @montserrat;
+		font-family: @headerFamily;
 		letter-spacing: 8px;
 	}
 	.tab-content {
