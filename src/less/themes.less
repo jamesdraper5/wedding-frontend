@@ -14,6 +14,7 @@
 
 	.setupThemeCss();
 
+
 	// These rules are specific to this theme
 	nav {
 		font-family: @headerFamily;
@@ -25,6 +26,29 @@
 		font-family: @headerFamily;
 		letter-spacing: 8px;
 	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: #fff;
+	    text-shadow: 2px 2px 2px #333;
+	    span {
+	    	.sansSerif();
+	    	display: block;
+	    	margin: 10px 0;
+	    	text-transform: uppercase;
+	    	letter-spacing: 5px;
+	    	font-size: 20px;
+	    	color: #fff;
+	    }
+	}
+	#home-container {
+		p {
+			color: #fff;
+			text-shadow: 1px 1px 1px #333;
+		}
+	}
+
 	.tab-content {
 		margin: 10px 0 30px;
 		padding-top: 20px;
@@ -35,3 +59,81 @@
 	}
 }
 
+.victoria {
+	@textColor: #6a6055;
+	@backgroundColor: #EBE8D8;
+	@highlightColor: #6a6055;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @lato;
+	@displayFamily: @tangerine;
+	@headerFamily: @montserrat;
+
+	.setupThemeCss();
+	.serif();
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @headerFamily;
+		letter-spacing: 8px;
+	}
+
+	hr {
+		border: 0;
+		height: 50px;
+		background-image: url('/images/hearts-arrow.png');
+		background-repeat: no-repeat;
+		background-position: 50%;
+	}
+
+	#page-holder {
+		background-color: @backgroundColor;
+	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: @highlightColor;
+	    letter-spacing: 5px;
+	    &:before {
+    	    content: '';
+		    display: inline-block;
+		    width: 100%;
+		    height: 140px;
+		    background-image: url('/images/curly-brace-top.png');
+		    background-repeat: no-repeat;
+		    background-position: 50%;
+	    }
+	}
+	p.wedding-date:after {
+    	content: '';
+    	display: inline-block;
+    	width: 100%;
+    	height: 140px;
+    	background-image: url('/images/curly-brace-bottom.png');
+    	background-repeat: no-repeat;
+    	background-position: 50%;
+	}
+	#home-container {
+		padding-top: 150px;
+	}
+
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+
+	.rsvp-form--attending label {
+		background-color: darken(@backgroundColor, 5%);
+	}
+
+}

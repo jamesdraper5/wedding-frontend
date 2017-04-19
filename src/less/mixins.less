@@ -14,7 +14,7 @@
 		color: @highlightColor;
 	}
 	.highlightBG() {
-		background-color: @highlightColor;
+		background-color: @highlightColor !important;
 	}
 
 	.serif {
@@ -33,38 +33,16 @@
 	color: @textColor;
 	background: @backgroundColor;
 
-	h1.main-header {
-	    .displayFont();
-	    font-size: 100px;
-	    color: #fff;
-	    text-shadow: 2px 2px 2px #333;
-	    span {
-	    	.sansSerif();
-	    	display: block;
-	    	margin: 10px 0;
-	    	text-transform: uppercase;
-	    	letter-spacing: 5px;
-	    	font-size: 20px;
-	    	color: #fff;
-	    }
-	}
-	#home-container {
-		p {
-			color: #fff;
-			text-shadow: 1px 1px 1px #333;
-		}
-	}
-
-	nav.solid-bg {
-		background: #fff;
+	#main-nav {
+		background: @backgroundColor;
 		a {
-			color: #666;
+			color: lighten(@textColor, 10%);
 			&:hover {
-				color: #333;
+				color: @textColor;
 			}
 		}
 		.hamburger-btn span {
-			background: #333;
+			background: @textColor;
 		}
 	}
 
