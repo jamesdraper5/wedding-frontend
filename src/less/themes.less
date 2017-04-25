@@ -86,7 +86,7 @@
 	hr {
 		border: 0;
 		height: 50px;
-		background-image: url('/images/hearts-arrow.png');
+		background-image: url('/images/themes/victoria/hearts-arrow.png');
 		background-repeat: no-repeat;
 		background-position: 50%;
 		&.minor {
@@ -108,7 +108,7 @@
 		    display: inline-block;
 		    width: 100%;
 		    height: 140px;
-		    background-image: url('/images/curly-brace-top.png');
+		    background-image: url('/images/themes/victoria/curly-brace-top.png');
 		    background-repeat: no-repeat;
 		    background-position: 50%;
 	    }
@@ -118,7 +118,7 @@
     	display: inline-block;
     	width: 100%;
     	height: 140px;
-    	background-image: url('/images/curly-brace-bottom.png');
+    	background-image: url('/images/themes/victoria/curly-brace-bottom.png');
     	background-repeat: no-repeat;
     	background-position: 50%;
 	}
@@ -137,6 +137,134 @@
 
 	.rsvp-form--attending label {
 		background-color: darken(@backgroundColor, 5%);
+		color: @textColor;
+	}
+
+}
+
+.atlantic {
+	@textColor: #58595B;
+	@backgroundColor: #fff;
+	@highlightColor: #263f75;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @lato;
+	@displayFamily: @tangerine;
+	@headerFamily: @quincy;
+
+	.setupThemeCss();
+	.serif();
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @headerFamily;
+		letter-spacing: 6px;
+	    display: inline-block;
+	    background-color: @highlightColor;
+	    color: #fff;
+	    position: relative;
+	    border: 1px solid #fff;
+		padding: 4px 6px;
+		font-size: 28px;
+	    &:after {
+	    	content: '';
+	    	display: inline-block;
+	    	background-image: url('/images/themes/atlantic/ribbon-right.png');
+	    	background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+	    	position: absolute;
+	    	width: 60px;
+	    	height: 30px;
+	    	top: 12px;
+	    	right: -40px;
+	    	z-index: -1;
+	    }
+	    &:before {
+	    	content: '';
+	    	display: inline-block;
+	    	background-image: url('/images/themes/atlantic/ribbon-left.png');
+	    	background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+	    	position: absolute;
+	    	width: 60px;
+	    	height: 30px;
+	    	top: 12px;
+	    	left: -40px;
+	    	z-index: -1;
+	    }
+	}
+
+	#page-holder {
+		background-color: @backgroundColor;
+	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: @textColor;
+	    letter-spacing: 5px;
+	    margin-top: 180px;
+	    margin-bottom: 20px;
+	}
+
+	#home-container {
+		padding-top: 0;
+		background-image: url('/images/themes/atlantic/zig-zag.png');
+    	background-repeat: repeat;
+    	background-position: 0 0;
+    	background-size: inherit;
+    	position: relative;
+    	border-bottom: 1px solid #eee;
+    	.sub-container {
+    		background: #fff;
+			position: absolute;
+			bottom: 0;
+			height: 50%;
+			border-top: 8px solid #ef3f42;
+    	}
+    	.initials {
+    		background: url('/images/themes/atlantic/anchor@2x.png');
+    		background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+    		width: 280px;
+    		height: 280px;
+		    position: absolute;
+		    top: -140px;
+		    left: calc(~"50% - 140px");
+		    font-family: @brixton;
+		    font-size: 50px;
+    		.initial {
+				color: #fff;
+				position: absolute;
+				top: 100px;
+				left: 82px;
+				&.second {
+					left: 158px;
+				}
+    		}
+    	}
+	}
+
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+
+	.rsvp-form--attending label {
+		background-color: darken(@backgroundColor, 5%);
+		color: @textColor;
 	}
 
 }

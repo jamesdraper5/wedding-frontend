@@ -1,6 +1,12 @@
 <div data-bind="attr: { id: containerId }">
-	<div class="col-xs-12 text-center">
+	<div class="col-xs-12 text-center sub-container">
 		<h1 class="main-header">{{ name }}</h1>
 		<p class="wedding-date">{{ weddingDate }}</p>
+		<!-- ko if: app.installation.themeClass() == 'atlantic' -->
+			<div class="initials">
+				<span class="initial first">A</span>
+				<span class="initial second">S</span>
+			</div>
+		<!-- /ko -->
 	</div>
 </div>
