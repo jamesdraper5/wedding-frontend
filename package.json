@@ -14,13 +14,14 @@
   "author": "James Draper",
   "license": "ISC",
   "devDependencies": {
+    "gulp-awspublish": "3.3.0",
+    "jasmine-core": "2.3.4",
     "karma": "0.13.10",
+    "karma-babel-preprocessor": "5.2.2",
     "karma-chrome-launcher": "0.2.1",
     "karma-jasmine": "0.3.6",
-    "karma-requirejs": "0.2.2",
     "karma-requireglobal-preprocessor": "0.0.0",
-    "karma-babel-preprocessor": "5.2.2",
-    "jasmine-core": "2.3.4"
+    "karma-requirejs": "0.2.2"
   },
   "dependencies": {
     "babel-cli": "6.16.0",
