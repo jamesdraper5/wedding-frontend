@@ -23,11 +23,24 @@ var gulp = require('gulp'),
 	proxy = require('http-proxy-middleware'),
 	less = require('gulp-less'),
 	serveStatic = require('serve-static'),
-	util = require('gulp-util'),
-	awspublish = require('gulp-awspublish');
+	gutil = require('gulp-util'),
+	argv = require('yargs').argv,
+	awspublish = require('gulp-awspublish'),
+	revAll = require('gulp-rev-all'),
+	cloudfront = require('gulp-cloudfront-invalidate-aws-publish'),
+	AWS = require('aws-sdk'),
+	parallelize = require("concurrent-transform");
 
+// Sets it to production if it the ENV var is production. If it's anything else (including undefined), then it's false
+
+
+//
+//
+// TO DO: this is probably no good any more, since we don't run gulp on a production server - it's run locally before assets are deployed to s3
+//
+//
 var gulpConfig = {
-	isProduction: !!util.env.production
+	isProduction: !!argv.production
 }
 
 // Config
@@ -124,7 +137,7 @@ gulp.task('js:babel', function() {
 gulp.task('js:optimize', ['js:babel'], function() {
 	var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
 	return rjs(config)
-		.pipe(gulpConfig.isProduction ? uglify({ preserveComments: 'some' }) : util.noop())
+		.pipe(gulpConfig.isProduction ? uglify({ preserveComments: 'some' }) : gutil.noop())
 		.pipe(gulp.dest('./dist/'));
 })
 
@@ -169,6 +182,13 @@ gulp.task('html', function() {
 			'debug': '<script>window.devMode = ' + gulpConfig.isProduction + ';</script>'
 		}))
 		.pipe(gulp.dest('./'));
+});
+
+// Copies assets from public directory into dist for deployment
+gulp.task('assets', function () {
+	// Include stylesheets for any third party libs here:
+	return gulp.src('./public/**')
+		.pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('watch', function() {
@@ -221,19 +241,25 @@ gulp.task('serve:src', ['watch'], function() {
 	});
 });
 
-gulp.task('deploy', ['default'], function() {
-	// TO DO: copy index.html into dist folder, then run a gulp s3 plugin to deploy new build
-});
 
-gulp.task('publish', function() {
+gulp.task('deploy', ['default'], function() {
+
+	//console.log('process.ENV', process.env);
+	var awsCredentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+	console.log('awsCredentials', awsCredentials);
+	/*
+
+	return;
+	*/
 
 	// create a new publisher using S3 options
 	// http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
 	var publisher = awspublish.create({
 		region: 'us-east-1',
 		params: {
-			Bucket: 'wedding-pixie-app-test'
-		}
+			Bucket: 'wedding-pixie-app'
+		},
+		credentials: awsCredentials
 	});
 
 	// define custom headers
@@ -241,19 +267,49 @@ gulp.task('publish', function() {
 		'Cache-Control': 'max-age=315360000, no-transform, public'
 	};
 
-	return gulp.src('./dist/*')
+	var cfSettings = {
+		distribution: 'E1IV4IALXFUTAM', // Cloudfront distribution ID
+		wait: false,                     // Whether to wait until invalidation is completed
+		indexRootPath: true,             // Invalidate index.html root paths
+		credentials: awsCredentials
+	}
+
+	gutil.log('Updating file references...');
+
+	return gulp.src('./dist/**')
+
+		// set a new revision if files have changed
+		.pipe(revAll.revision({
+			dontRenameFile: [
+				'index.html',
+				/^\/fonts/,
+				/^\/images/
+			]
+		}))
+
 		// gzip, Set Content-Encoding headers and add .gz extension
+		.on('end', function(){ gutil.log('Gzipping files...'); })
+
 		.pipe(awspublish.gzip())
 
 		// publisher will add Content-Length, Content-Type and headers specified above
 		// If not specified it will set x-amz-acl to public-read by default
-		.pipe(publisher.publish(headers))
+		.on('end', function(){ gutil.log('Publishing files to s3...'); })
+		//.pipe(publisher.publish(headers))
+		.pipe(parallelize(publisher.publish(headers), 10)) // upload 10 at a time in parallel
+
+		// invalidate Cloudfront cache on any files that were updated
+		.on('end', function(){ gutil.log('Invalidating Cloudfront caches...'); })
+		.pipe(cloudfront(cfSettings))
 
 		// create a cache file to speed up consecutive uploads
+		.on('end', function(){ gutil.log('Updating s3 cache...'); })
 		.pipe(publisher.cache())
 
 		// print upload updates to console
+		.on('end', function(){ gutil.log('Done'); })
 		.pipe(awspublish.reporter());
+
 });
 
 function babelTranspile(pathname, callback) {
@@ -264,7 +320,7 @@ function babelTranspile(pathname, callback) {
 	babelCore.transformFile(src, opts, callback);
 }
 
-gulp.task('default', ['html', 'js', 'css'], function(callback) {
-	callback();
+gulp.task('default', ['html', 'js', 'css', 'assets'], function(callback) {
 	console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
+	callback();
 });
