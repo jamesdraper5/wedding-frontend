@@ -10,6 +10,7 @@ class HomeSection {
 
 		this.containerId = this.homeData.menuText().toLowerCase().split(' ').join('-') + '-container';
 
+		this.foo = 'test123';
 	}
 
 	dispose() {
