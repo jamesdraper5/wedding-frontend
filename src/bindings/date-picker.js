@@ -1,9 +1,7 @@
 import ko from 'knockout';
 import $ from 'jquery';
-import rome from 'rome'
 import moment from 'moment';
-
-
+import rome from 'rome';
 
 function init(element, valueAccessor, allBindings, data, context) {
     var options = allBindings().dateInputOptions || {};
