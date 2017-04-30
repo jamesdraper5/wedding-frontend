@@ -7,7 +7,7 @@ class WidgetTextEditor {
 		this.originalContent = ko.observable(ko.unwrap(params.content) || '');
 		this.writeableContent = params.content || ko.observable('');
 		this.labelText = params.labelText || '';
-		this.editorId = 'editor' + Date.now();
+		this.editorId = 'quill' + Date.now();
 		this.enable = params.enable || ko.observable(true);
 		this.subscriptions = [];
 

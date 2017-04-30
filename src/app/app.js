@@ -29,7 +29,6 @@ class App {
 
 		this.api = api;
 		this.router = router;
-		this.hasher = router.hasher;
 		this.currentRoute = router.currentRoute;
 		this.flash = new FlashHelper();
 		this.errorHelper = new ErrorHelper();
@@ -69,7 +68,7 @@ class App {
 			if ( this.viewPortWidth() > 768 ) {
 				return (this.viewPortWidth() - this.sidebarWidth) + 'px';
 			} else {
-				return '100%'
+				return '100%';
 			}
 		})
 
@@ -116,7 +115,6 @@ class App {
 		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute();
-			console.log('this.installation', this.installation);
 			this.initStyles(this.installation.themeClass());
 			this.setRavenUser()
 		}).catch(( error ) => {
@@ -133,7 +131,6 @@ class App {
 		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
 			setTimeout(() => {
-				console.log('yes');
 				this.initStyles(this.installation.themeClass())
 			}, 200);
 		}).catch(( error ) => {
@@ -179,12 +176,10 @@ class App {
 
 	onUpdateRoute(newRoute) {
 
-	    //console.log('onUpdateRoute - newRoute', newRoute.path);
 
 	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
-	    	//console.log('app.currentRoute()', app.currentRoute());
 	        if ( $.isEmptyObject( app.currentRoute() ) ) {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
 	            app.currentRoute().path = window.location.pathname;
@@ -216,7 +211,6 @@ class App {
 	}
 
 	isValidRoute(path) {
-	    //console.log('isValidRoute - path', '"' + path + '"');
 
 	    if ( ['', '/'].indexOf(path) > -1 ) return true;
 
