@@ -18,7 +18,6 @@ var gulp = require('gulp'),
 	htmlreplace = require('gulp-html-replace'),
 	connect = require('gulp-connect'),
 	babelCore = require('babel-core'),
-	babel = require('gulp-babel'),
 	objectAssign = require('object-assign'),
 	proxy = require('http-proxy-middleware'),
 	less = require('gulp-less'),
@@ -49,6 +48,9 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		out: 'scripts.js',
 		baseUrl: 'src',
 		name: 'app/startup',
+		optimize: 'uglify2',
+		generateSourceMaps: true,
+		preserveLicenseComments: false,
 		paths: {
 			requireLib: 'bower_modules/requirejs/require'
 		},
@@ -135,7 +137,6 @@ gulp.task('js:babel', function() {
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
 gulp.task('js:optimize', ['js:babel'], function() {
-	console.log('gulpConfig', gulpConfig);
 	var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
 	return rjs(config)
 		.pipe(gulpConfig.isProduction ? uglify({ preserveComments: 'some' }) : gutil.noop())
