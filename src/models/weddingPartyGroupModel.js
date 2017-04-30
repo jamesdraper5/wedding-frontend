@@ -6,19 +6,40 @@ import PersonModel from './weddingPartyPersonModel';
 class WeddingPartyGroupModel {
 	constructor(data) {
 		this.UpdateData(data);
+		this.subscriptions = [];
 
 		this.trackAllChanges();
 		this.isDirty = ko.computed(() => {
 		    for (var key in this) {
+
 		        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty()) {
 		            return true;
+		        } else if ( key === 'people' ) {
+		        	for ( var person of this[key]() ) {
+	        			if ( person.isDirty() ) {
+	        				return true;
+	        			}
+	        		}
 		        }
 		    }
+		    return false;
+		});
+
+		// Tell the weddingPartyModel that this group has changed.
+		this.isDirty.subscribe((n) => {
+			ko.postbox.publish('group-changed',  {});
+		});
+
+		// The weddingPartyPersonModel sends this event to let us know that one of the people in the array has had their details updated.
+		// We can then use this to trigger the isDirty computed to update
+		ko.postbox.subscribe('person-changed',  () => {
+			this.people.valueHasMutated();
 		});
 
 		this.navTitle = ko.pureComputed(() => {
 			return this.title().split(" ")[0] + Date.now();
-		})
+		});
+
 
 	}
 
@@ -55,8 +76,10 @@ class WeddingPartyGroupModel {
 	trackAllChanges() {
 	    for (var key in this) {
 	        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) ) {
-	            this[key].extend({ trackChanges: true });
-	        }
+		        if ( key !== 'people' ) {
+		        	this[key].extend({ trackChanges: true });
+		        }
+		    }
 	    }
 	}
 }

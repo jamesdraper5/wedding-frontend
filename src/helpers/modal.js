@@ -10,7 +10,6 @@ class ModalHelper {
 	}
 
 	Init(modalId, modalVM, params={}, readyToShow=true) {
-		console.log('init');
 		modalVM.templateLoaded = ko.observable(false);
 		modalVM.modalDivId = modalId + params.modalId;
 		modalVM.modalRef = params.modalRef;

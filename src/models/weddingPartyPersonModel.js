@@ -31,6 +31,10 @@ class WeddingPartyPersonModel {
 		    return false;
 		});
 
+		this.isDirty.subscribe((n) => {
+			ko.postbox.publish('person-changed',  {});
+		});
+
 	}
 
 	UpdateData(data) {
@@ -63,7 +67,6 @@ class WeddingPartyPersonModel {
 	trackAllChanges() {
 	    for (var key in this) {
 	        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) ) {
-	        	//console.log('key', key);
 	            this[key].extend({ trackChanges: true });
 	        }
 	    }

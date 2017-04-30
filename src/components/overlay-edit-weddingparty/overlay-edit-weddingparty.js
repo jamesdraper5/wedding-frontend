@@ -1,17 +1,20 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./overlay-edit-weddingparty.html';
-import * as GroupModel from '../../models/weddingPartyGroupModel';
-import * as PersonModel from '../../models/weddingPartyPersonModel';
+import GroupModel from '../../models/weddingPartyGroupModel';
+import PersonModel from '../../models/weddingPartyPersonModel';
 
 class OverlayEditWeddingParty {
 	constructor(params) {
 
 		this.id = ko.unwrap(app.installation.sections.weddingParty.id);
-		this.title = ko.observable( ko.unwrap(app.installation.sections.weddingParty.title) );
-		this.content = ko.observable( ko.unwrap(app.installation.sections.weddingParty.text) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.weddingParty.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.weddingParty.isVisible) );
+		this.title = app.installation.sections.weddingParty.title;
+		this.content = app.installation.sections.weddingParty.text;
+		this.menuText = app.installation.sections.weddingParty.menuText;
+		this.isVisible = app.installation.sections.weddingParty.isVisible;
 		this.groups = ko.observableArray(ko.unwrap(app.installation.sections.weddingParty.groups));
+		this.isDirty = app.installation.sections.weddingParty.isDirty;
+
+		this.resetData = app.installation.sections.weddingParty.ResetData;
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -63,7 +66,26 @@ class OverlayEditWeddingParty {
 		app.modal.Show("upload-image", { imageUrl: person.imageUrl, editorOpts: { cropRatio: 1 } });
 	}
 
-	Close() {
+	Cancel() {
+		var self = this;
+		var close = function() {
+			self.Close(true);
+		}
+
+		if ( this.isDirty() ) {
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?.', close);
+		} else {
+			close();
+		}
+
+	}
+
+	Close(reset=false) {
+		console.log('reset', reset);
+		if ( reset ) {
+			console.log('resetting');
+			app.installation.sections.weddingParty.ResetData();
+		}
 		app.hideOverlay();
 		app.GoTo('/editor')
 	}

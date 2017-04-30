@@ -6,25 +6,42 @@ import GroupModel from './weddingPartyGroupModel';
 class WeddingPartyModel {
 	constructor(data) {
 		this.UpdateData(data);
+		this.originalData = data;
 
 		this.trackAllChanges();
 		this.isDirty = ko.computed(() => {
 		    for (var key in this) {
 		        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty()) {
 		            return true;
+		        } else if ( key === 'groups' ) {
+		        	for ( var group of this[key]() ) {
+	        			if ( group.isDirty() ) {
+	        				return true;
+	        			}
+	        		}
 		        }
 		    }
+		    return false;
 		});
 
-		//console.log('party model - data', data);
+		// The weddingPartyPersonModel sends this event to let us know that one of the people in the array has had their details updated.
+		// We can then use this to trigger the isDirty computed to update
+		ko.postbox.subscribe('group-changed', () => {
+			this.groups.valueHasMutated();
+		});
+
 		this.navTitle = ko.pureComputed(() => {
 			return this.title().split(" ")[0] + Date.now();
-		})
+		});
 
 	}
 
 	UpdateData(data) {
 		mapping.fromJS(data, WeddingPartyModel.mapping, this);
+	}
+
+	ResetData() {
+		this.UpdateData(this.originalData);
 	}
 
 	removePerson(person) {
@@ -56,7 +73,9 @@ class WeddingPartyModel {
 	trackAllChanges() {
 	    for (var key in this) {
 	        if (this.hasOwnProperty(key) && ko.isObservable(this[key]) ) {
-	            this[key].extend({ trackChanges: true });
+	        	if ( key !== 'groups' ) {
+		            this[key].extend({ trackChanges: true });
+		        }
 	        }
 	    }
 	}
