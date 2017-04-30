@@ -4,7 +4,7 @@ import * as GoogleMapsLoader from 'google-maps';
 
 class WidgetMap {
 	constructor(params) {
-		GoogleMapsLoader.KEY = 'AIzaSyBdlmh7fqtInzVycyxMmzS4n9rAvZSlZYI'; // TO DO: add to ENV variables
+		GoogleMapsLoader.KEY = app.constants.GOOGLEMAPSKEY;
 
 		// TO DO: Add map marker to styles
 		this.map = params.map;
