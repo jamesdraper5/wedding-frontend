@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./widget-map.html';
-import * as GoogleMapsLoader from 'google-maps';
+import { default as GoogleMapsLoader } from 'google-maps';
 
 class WidgetMap {
 	constructor(params) {
