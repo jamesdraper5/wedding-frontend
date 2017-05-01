@@ -75,7 +75,7 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		bundles: {
 			// If you want parts of the site to load on demand, remove them from the 'include' list
 			// above, and group them into bundles here.
-			'editor': [
+			'editorFiles': [
 				'components/admin-panel/admin-panel',
 				'components/modal-upload-image/modal-upload-image',
 				'components/overlay-edit-intro/overlay-edit-intro',
