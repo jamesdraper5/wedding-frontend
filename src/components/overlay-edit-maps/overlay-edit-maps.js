@@ -4,12 +4,15 @@ import MapModel from '../../models/mapModel';
 
 class OverlayEditMaps {
 	constructor(params) {
+		var maps = app.installation.sections.maps;
 
-		this.id = ko.unwrap(app.installation.sections.maps.id);
-		this.title = ko.observable( ko.unwrap(app.installation.sections.maps.title) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.maps.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.maps.isVisible) );
-		this.locations = ko.observableArray( ko.unwrap(app.installation.sections.maps.locations.slice(0)) );
+		this.id = ko.unwrap(maps.id);
+		this.menuText = maps.menuText;
+		this.isVisible = maps.isVisible;
+		this.locations = ko.observableArray( ko.unwrap(maps.locations.slice(0)) );
+		this.isDirty = maps.isDirty;
+
+		this.resetData = maps.ResetData;
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -33,7 +36,7 @@ class OverlayEditMaps {
 	OnSubmit() {
 		this.isSubmitting(true);
 		var mapData = {
-			title: this.title(),
+			title: '', // TO DO: wire this up
 			isVisible: this.isVisible(),
 			menuText: this.menuText()
 		};
@@ -83,9 +86,26 @@ class OverlayEditMaps {
 
 	}
 
-	Close() {
+	Cancel() {
+		var self = this;
+		var close = function() {
+			self.Close(true);
+		}
+
+		if ( this.isDirty() ) {
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?.', close);
+		} else {
+			close();
+		}
+
+	}
+
+	Close(reset=false) {
+		if ( reset ) {
+			app.installation.sections.maps.ResetData();
+		}
 		app.hideOverlay();
-		app.GoTo('/editor')
+		app.GoTo('/editor');
 	}
 
 	dispose() {

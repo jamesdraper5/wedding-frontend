@@ -5,16 +5,17 @@ import PersonModel from '../../models/weddingPartyPersonModel';
 
 class OverlayEditWeddingParty {
 	constructor(params) {
+		var weddingParty = app.installation.sections.weddingParty;
 
-		this.id = ko.unwrap(app.installation.sections.weddingParty.id);
-		this.title = app.installation.sections.weddingParty.title;
-		this.content = app.installation.sections.weddingParty.text;
-		this.menuText = app.installation.sections.weddingParty.menuText;
-		this.isVisible = app.installation.sections.weddingParty.isVisible;
-		this.groups = ko.observableArray(ko.unwrap(app.installation.sections.weddingParty.groups));
-		this.isDirty = app.installation.sections.weddingParty.isDirty;
+		this.id = ko.unwrap(weddingParty.id);
+		this.title = weddingParty.title;
+		this.content = weddingParty.text;
+		this.menuText = weddingParty.menuText;
+		this.isVisible = weddingParty.isVisible;
+		this.groups = ko.observableArray(ko.unwrap(weddingParty.groups));
+		this.isDirty = weddingParty.isDirty;
 
-		this.resetData = app.installation.sections.weddingParty.ResetData;
+		this.resetData = weddingParty.ResetData;
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -24,12 +25,6 @@ class OverlayEditWeddingParty {
 				return 'Save My Changes';
 			}
 		});
-
-		$("input[type='text']:disabled").popover({
-			trigger: 'hover',
-			text: 'test'
-		})
-
 	}
 
 	OnRendered() {
@@ -81,9 +76,7 @@ class OverlayEditWeddingParty {
 	}
 
 	Close(reset=false) {
-		console.log('reset', reset);
 		if ( reset ) {
-			console.log('resetting');
 			app.installation.sections.weddingParty.ResetData();
 		}
 		app.hideOverlay();

@@ -4,13 +4,13 @@ import templateMarkup from 'text!./overlay-edit-home.html';
 
 class OverlayHomeSection {
 	constructor(params) {
-
-		this.id = ko.unwrap(app.installation.sections.home.id);
-		this.name = ko.observable( ko.unwrap(app.installation.sections.home.name) );
-		this.weddingDate = ko.observable( ko.unwrap(app.installation.sections.home.weddingDate) );
-		this.mainImage = ko.observable( ko.unwrap(app.installation.sections.home.mainImage) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.home.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.home.isVisible) );
+		var data = app.installation.sections.home;
+		this.id = ko.unwrap(data.id);
+		this.name = ko.observable( ko.unwrap(data.name) );
+		this.weddingDate = ko.observable( ko.unwrap(data.weddingDate) );
+		this.mainImage = ko.observable( ko.unwrap(data.mainImage) );
+		this.menuText = ko.observable( ko.unwrap(data.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -19,6 +19,19 @@ class OverlayHomeSection {
 			} else {
 				return 'Save My Changes';
 			}
+		});
+
+		this.isDirty = ko.pureComputed(() => {
+			if (
+			    this.name() !== ko.unwrap(data.name) ||
+				this.weddingDate() !== ko.unwrap(data.weddingDate) ||
+				this.mainImage() !== ko.unwrap(data.mainImage) ||
+				this.menuText() !== ko.unwrap(data. menuText) ||
+				this.isVisible() !== ko.unwrap(data.isVisible)
+			) {
+				return true;
+			}
+			return false;
 		});
 
 	}
@@ -54,7 +67,24 @@ class OverlayHomeSection {
 		});
 	}
 
-	Close() {
+	Cancel() {
+		var self = this;
+		var close = function() {
+			self.Close(true);
+		}
+
+		if ( this.isDirty() ) {
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?', close);
+		} else {
+			close();
+		}
+
+	}
+
+	Close(reset=false) {
+		if ( reset ) {
+			app.utility.IgnoreFormChanges();
+		}
 		app.hideOverlay();
 		app.GoTo('/editor')
 	}

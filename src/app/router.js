@@ -6,6 +6,7 @@ import page from 'page';
 class Router {
 	constructor(config) {
 		this.currentRoute = ko.observable({});
+		this.isConfirmingChanges = ko.observable(false);
 
 		page('/',  this.showHomePage.bind(this));
 		page('/editor/:section',  this.showEditor.bind(this));
@@ -19,6 +20,7 @@ class Router {
 		page.start();
 
 	}
+
 	showHomePage(ctx) {
 		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true });
 	}
@@ -53,8 +55,20 @@ class Router {
 		this.currentRoute({ page: 'page-404', path: ctx.path, isLoggedInPage: false, showNav: false });
 	}
 
-	setRoute(path) {
-		page(path);
+	// force: change route even if there are unsaved form changes
+	setRoute(path, force=false) {
+
+		if ( !force && app.utility.DoesFormHaveChanges() ) {
+
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?', () => {
+				app.utility.IgnoreFormChanges();
+				app.ResetCurrentPageData();
+				page(path);
+			});
+
+		} else {
+			page(path);
+		}
 	}
 }
 

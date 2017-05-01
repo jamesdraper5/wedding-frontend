@@ -3,7 +3,7 @@ import moment from 'moment';
 import * as mapping from 'knockout-mapping';
 import HomeModel from './models/homeModel';
 import WeddingPartyModel from './models/weddingPartyModel';
-import MapModel from './models/mapModel';
+import MapGroupModel from './models/mapGroupModel';
 
 const installationMapping = {
 	'home': {
@@ -16,9 +16,9 @@ const installationMapping = {
 			return new WeddingPartyModel(options.data)
 		}
 	},
-	'locations': {
+	'maps': {
 		create: (options) => {
-			return new MapModel(options.data)
+			return new MapGroupModel(options.data)
 		}
 	}
 }

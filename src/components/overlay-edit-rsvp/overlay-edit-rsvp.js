@@ -3,12 +3,13 @@ import templateMarkup from 'text!./overlay-edit-rsvp.html';
 
 class OverlayEditRsvp {
    	constructor(params) {
+   		var data = app.installation.sections.rsvp;
 
-		this.id = ko.unwrap(app.installation.sections.rsvp.id);
-		this.title = ko.observable( ko.unwrap(app.installation.sections.rsvp.title) );
-		this.text = ko.observable( ko.unwrap(app.installation.sections.rsvp.text) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.rsvp.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.rsvp.isVisible) );
+		this.id = ko.unwrap(data.id);
+		this.title = ko.observable( ko.unwrap(data.title) );
+		this.text = ko.observable( ko.unwrap(data.text) );
+		this.menuText = ko.observable( ko.unwrap(data.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -17,6 +18,18 @@ class OverlayEditRsvp {
 			} else {
 				return 'Save My Changes';
 			}
+		});
+
+		this.isDirty = ko.pureComputed(() => {
+			if (
+			    this.title() !== ko.unwrap(data.title) ||
+				this.text() !== ko.unwrap(data.text) ||
+				this.menuText() !== ko.unwrap(data. menuText) ||
+				this.isVisible() !== ko.unwrap(data.isVisible)
+			) {
+				return true;
+			}
+			return false;
 		});
 
 	}
@@ -47,7 +60,24 @@ class OverlayEditRsvp {
 		});
 	}
 
-	Close() {
+	Cancel() {
+		var self = this;
+		var close = function() {
+			self.Close(true);
+		}
+
+		if ( this.isDirty() ) {
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?', close);
+		} else {
+			close();
+		}
+
+	}
+
+	Close(reset=false) {
+		if ( reset ) {
+			app.utility.IgnoreFormChanges();
+		}
 		app.hideOverlay();
 		app.GoTo('/editor')
 	}

@@ -1,4 +1,5 @@
 import ko from 'knockout';
+import 'jquery';
 
 class Utility {
 	constructor(data) {
@@ -26,6 +27,16 @@ class Utility {
 		}
 		return -1
 	}
+
+	DoesFormHaveChanges() {
+		console.log('foo', $('.hasChanges').not('.ignore'));
+		return $('.hasChanges').not('.ignore').length > 0;
+	}
+
+	IgnoreFormChanges() {
+		$('.hasChanges').addClass('ignore');
+	}
+
 }
 
 export default Utility;

@@ -3,12 +3,13 @@ import templateMarkup from 'text!./overlay-edit-intro.html';
 
 class OverlayWelcomeMessage {
 	constructor(params) {
+		var data = app.installation.sections.intro;
 
-		this.id = ko.unwrap(app.installation.sections.intro.id);
-		this.title = ko.observable( ko.unwrap(app.installation.sections.intro.header) );
-		this.content = ko.observable( ko.unwrap(app.installation.sections.intro.content) );
-		this.menuText = ko.observable( ko.unwrap(app.installation.sections.intro.menuText) );
-		this.isVisible = ko.observable( ko.unwrap(app.installation.sections.intro.isVisible) );
+		this.id = ko.unwrap(data.id);
+		this.title = ko.observable( ko.unwrap(data.header) );
+		this.content = ko.observable( ko.unwrap(data.content) );
+		this.menuText = ko.observable( ko.unwrap(data.menuText) );
+		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -17,6 +18,18 @@ class OverlayWelcomeMessage {
 			} else {
 				return 'Save My Changes';
 			}
+		});
+
+		this.isDirty = ko.pureComputed(() => {
+			if (
+			    this.title() !== ko.unwrap(data.header) ||
+				this.content() !== ko.unwrap(data.content) ||
+				this.menuText() !== ko.unwrap(data.menuText) ||
+				this.isVisible() !== ko.unwrap(data.isVisible)
+			) {
+				return true;
+			}
+			return false;
 		});
 
 	}
@@ -47,7 +60,26 @@ class OverlayWelcomeMessage {
 		});
 	}
 
-	Close() {
+	//
+
+	Cancel() {
+		var self = this;
+		var close = function() {
+			self.Close(true);
+		}
+
+		if ( this.isDirty() ) {
+			app.modal.Confirm('You have unsaved changes', 'Are you sure you want to discard these changes?.', close);
+		} else {
+			close();
+		}
+
+	}
+
+	Close(reset=false) {
+		if ( reset ) {
+			app.utility.IgnoreFormChanges();
+		}
 		app.hideOverlay();
 		app.GoTo('/editor')
 	}

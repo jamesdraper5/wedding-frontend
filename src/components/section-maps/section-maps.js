@@ -3,6 +3,7 @@ import templateMarkup from 'text!./section-maps.html';
 
 class MapsSection {
 	constructor(params) {
+		// TO DO: get a proper title for here from API
 		this.title = app.installation.sections.maps.menuText;
 		this.maps = app.installation.sections.maps.locations;
 		this.containerId = this.title().toLowerCase().split(' ').join('-') + '-container';

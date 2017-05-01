@@ -276,8 +276,18 @@ class App {
 	// option: onNotFound - a callback function for when the next item isn't found
 	GoTo(path) {
 	    console.assert( path.indexOf("http") === -1, "Don't use GoTo for full URLs" )
+	    this.router.setRoute(path);
+	}
 
-	    this.router.setRoute(path)
+	ResetCurrentPageData() {
+		if ( app.currentRoute().pageToEdit ) {
+			switch( app.currentRoute().pageToEdit ) {
+				case 'weddingparty':
+					app.installation.sections.weddingParty.ResetData();
+				case 'maps':
+					app.installation.sections.maps.ResetData();
+			}
+		}
 	}
 
 	showOverlay(overlay) {
