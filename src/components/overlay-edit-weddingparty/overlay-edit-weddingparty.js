@@ -80,7 +80,7 @@ class OverlayEditWeddingParty {
 			app.installation.sections.weddingParty.ResetData();
 		}
 		app.hideOverlay();
-		app.GoTo('/editor')
+		app.GoTo('/editor');
 	}
 
 	AddPerson(group) {

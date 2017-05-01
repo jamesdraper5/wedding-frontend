@@ -29,7 +29,6 @@ class Utility {
 	}
 
 	DoesFormHaveChanges() {
-		console.log('foo', $('.hasChanges').not('.ignore'));
 		return $('.hasChanges').not('.ignore').length > 0;
 	}
 

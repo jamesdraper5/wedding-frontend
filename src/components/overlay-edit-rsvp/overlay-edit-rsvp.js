@@ -79,7 +79,7 @@ class OverlayEditRsvp {
 			app.utility.IgnoreFormChanges();
 		}
 		app.hideOverlay();
-		app.GoTo('/editor')
+		app.GoTo('/editor');
 	}
 
 	dispose() {
