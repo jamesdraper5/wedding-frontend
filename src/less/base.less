@@ -330,6 +330,12 @@ figure.hover-effect {
 	}
 }
 
+.overlay-main {
+	height: 375px;
+    overflow: auto;
+	font-family: @font-family-sans-serif;
+}
+
 #overlay {
 	position: fixed;
     left: 0px;
@@ -342,6 +348,12 @@ figure.hover-effect {
 	background: #fff;
 	font-size: 14px;
 
+	hr {
+		background-image: none;
+	    height: 1px;
+		border-top: 1px solid @input-border;
+	}
+
 	#overlay-bg {
 		background: #333;
 	    opacity: 0.95;
@@ -351,10 +363,7 @@ figure.hover-effect {
 	    width: 100%;
 	    bottom: 0;
 	}
-	#overlay-main {
-		height: 375px;
-	    overflow: auto;
-	}
+
 
 	.modal-header {
 		position: relative;
@@ -442,6 +451,7 @@ figure.hover-effect {
 		label {
 			width: 100%;
 			margin-top: 20px;
+			border-width: 1px;
 			&.highlight-bg {
 				span, i {
 					color: #fff;
@@ -523,9 +533,12 @@ Edit user images in wedding party section
 }
 
 .wedding-party-person {
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid @input-border;
 	padding: 0 0 10px;
 	margin: 10px 0;
+	&:last-child {
+		border-bottom: 0 none;
+	}
 	p {
 		font-size: 14px;
 		display:inline;

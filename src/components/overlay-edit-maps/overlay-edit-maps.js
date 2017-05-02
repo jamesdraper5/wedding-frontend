@@ -30,7 +30,7 @@ class OverlayEditMaps {
 			footerHeight = $('.overlay-footer').outerHeight(),
 			overlayHeight = bodyHeight - footerHeight;
 
-		$('#overlay-main').height(overlayHeight + 'px');
+		$('.overlay-main').height(overlayHeight + 'px');
 	}
 
 	OnSubmit() {
