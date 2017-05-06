@@ -1,13 +1,14 @@
 import ko from 'knockout';
-import templateMarkup from 'text!./overlay-edit-rsvp.html';
+import moment from 'moment';
+import templateMarkup from 'text!./overlay-editor-home.html';
 
-class OverlayEditRsvp {
-   	constructor(params) {
-   		var data = app.installation.sections.rsvp;
-
+class OverlayHomeSection {
+	constructor(params) {
+		var data = app.installation.sections.home;
 		this.id = ko.unwrap(data.id);
-		this.title = ko.observable( ko.unwrap(data.title) );
-		this.text = ko.observable( ko.unwrap(data.text) );
+		this.name = ko.observable( ko.unwrap(data.name) );
+		this.weddingDate = ko.observable( ko.unwrap(data.weddingDate) );
+		this.mainImage = ko.observable( ko.unwrap(data.mainImage) );
 		this.menuText = ko.observable( ko.unwrap(data.menuText) );
 		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
 
@@ -22,8 +23,9 @@ class OverlayEditRsvp {
 
 		this.isDirty = ko.pureComputed(() => {
 			if (
-			    this.title() !== ko.unwrap(data.title) ||
-				this.text() !== ko.unwrap(data.text) ||
+			    this.name() !== ko.unwrap(data.name) ||
+				this.weddingDate() !== ko.unwrap(data.weddingDate) ||
+				this.mainImage() !== ko.unwrap(data.mainImage) ||
 				this.menuText() !== ko.unwrap(data. menuText) ||
 				this.isVisible() !== ko.unwrap(data.isVisible)
 			) {
@@ -42,19 +44,24 @@ class OverlayEditRsvp {
 		$('.overlay-main').height(overlayHeight + 'px');
 	}
 
+	OnClickEditImage() {
+		app.modal.Show("upload-image", { imageUrl: this.mainImage });
+	}
+
 	OnSubmit() {
 		this.isSubmitting(true);
-		var rsvpData = {
-			title: this.title(),
-			text: this.text(),
+		var homeData = {
+			name: this.name(),
+			weddingDate: this.weddingDate().format('YYYY-MM-DD'),
+			mainImage: this.mainImage(),
 			menuText: this.menuText(),
 			isVisible: this.isVisible()
 		};
-		app.api.put(`/api/rsvps/${this.id}`, rsvpData).then((result) => {
-			app.flash.Success('Updated baby!');
+		app.api.put(`/api/homeSections/${this.id}`, homeData).then((result) => {
+			app.flash.Success("Yep, that's all updated now");
 			app.updateInstallationData();
 			this.Close();
-			$.scrollTo( $('#rsvp-container'), 1000, { offset: -$('#main-nav').height() } )
+			$.scrollTo( $('#home-container'), 1000, { offset: -$('#main-nav').height() } )
 		}).finally(() => {
 			this.isSubmitting(false);
 		});
@@ -86,7 +93,6 @@ class OverlayEditRsvp {
 		// This runs when the component is torn down. Put here any logic necessary to clean up,
 		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
 	}
-
 }
 
-export default { viewModel: OverlayEditRsvp, template: templateMarkup };
+export default { viewModel: OverlayHomeSection, template: templateMarkup };

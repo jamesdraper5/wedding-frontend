@@ -75,13 +75,14 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
 		bundles: {
 			// If you want parts of the site to load on demand, remove them from the 'include' list
 			// above, and group them into bundles here.
-			'editorFiles': [
+			'adminFiles': [
 				'components/admin-panel/admin-panel',
 				'components/modal-upload-image/modal-upload-image',
-				'components/overlay-edit-intro/overlay-edit-intro',
-				'components/overlay-edit-maps/overlay-edit-maps',
-				'components/overlay-edit-rsvp/overlay-edit-rsvp',
-				'components/overlay-edit-weddingparty/overlay-edit-weddingparty',
+				'components/overlay-editor-intro/overlay-editor-intro',
+				'components/overlay-editor-maps/overlay-editor-maps',
+				'components/overlay-editor-rsvp/overlay-editor-rsvp',
+				'components/overlay-editor-weddingparty/overlay-editor-weddingparty',
+				'components/overlay-settings-general/overlay-settings-general',
 				'components/widget-image-editor/widget-image-editor',
 				'components/widget-text-editor/widget-text-editor',
 				'components/widget-toggle-switch/widget-toggle-switch'

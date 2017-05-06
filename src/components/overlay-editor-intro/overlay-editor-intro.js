@@ -1,5 +1,5 @@
 import ko from 'knockout';
-import templateMarkup from 'text!./overlay-edit-intro.html';
+import templateMarkup from 'text!./overlay-editor-intro.html';
 
 class OverlayWelcomeMessage {
 	constructor(params) {

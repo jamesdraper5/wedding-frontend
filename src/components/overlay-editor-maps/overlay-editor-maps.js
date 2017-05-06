@@ -1,5 +1,5 @@
 import ko from 'knockout';
-import templateMarkup from 'text!./overlay-edit-maps.html';
+import templateMarkup from 'text!./overlay-editor-maps.html';
 import MapModel from '../../models/mapModel';
 
 class OverlayEditMaps {

@@ -11,6 +11,7 @@ import 'bindings-date-picker';
 import 'bindings-ladda';
 import 'bindings-image-uploader';
 import 'bindings-move-labels';
+import 'bindings-slide-visible';
 import 'extenders-trackChanges';
 import * as mapping from 'knockout-mapping';
 import Raven from 'raven';
@@ -83,6 +84,11 @@ class App {
 					'maps',
 					'rsvp',
 					'weddingparty'
+				]
+			},
+			settings: {
+				subroutes: [
+					'general'
 				]
 			}
 		}
@@ -238,13 +244,13 @@ class App {
 		var route = this.currentRoute()
 
 		if ( this.isUserLoggedIn() ) {
-			if ( route.isEditorPage ) {
+			if ( route.isAdminPage ) {
 				this.sidebarPosition('open')
 			} else {
 				this.sidebarPosition('closed')
 			}
 			if ( route.pageToEdit != null ) {
-				var overlayName = `edit-${route.pageToEdit}`;
+				var overlayName = route.pageToEdit;
 				var overlay = {
 					name: overlayName,
 					params: {}

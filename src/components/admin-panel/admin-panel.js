@@ -4,7 +4,19 @@ import * as mapping from 'knockout-mapping';
 
 class AdminPanel {
 	constructor(params) {
+		this.subscriptions = [];
 
+		this.subscriptions.push(this.selectedSection = ko.pureComputed(() => {
+			console.log('app.currentRoute()', app.currentRoute());
+			var foo = 'settings';
+			var sections = app.currentRoute().path.split('/');
+			console.log('sections', sections);
+			if ( sections.length > 1) {
+				foo = sections[1];
+			}
+			console.log('foo', foo);
+			return foo; // default
+		}));
 	}
 
 	OnClickLogOut() {

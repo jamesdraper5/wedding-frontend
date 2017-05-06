@@ -9,8 +9,10 @@ class Router {
 		this.isConfirmingChanges = ko.observable(false);
 
 		page('/',  this.showHomePage.bind(this));
-		page('/editor/:section',  this.showEditor.bind(this));
-		page('/editor',  this.showEditor.bind(this));
+		page('/editor/:section',  this.showAdmin.bind(this));
+		page('/editor',  this.showAdmin.bind(this));
+		page('/settings/:section',  this.showAdmin.bind(this));
+		page('/settings',  this.showAdmin.bind(this));
 		page('/account',  this.showAccount.bind(this));
 		page('/login',  this.showLogin.bind(this));
 		page('/forgotpassword',  this.showForgotPassword.bind(this));
@@ -25,11 +27,15 @@ class Router {
 		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true });
 	}
 
-	showEditor(ctx) {
-		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isEditorPage: true, showNav: true };
+	showAdmin(ctx) {
+		console.log('ctx', ctx);
+		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isAdminPage: true, showNav: true };
 
+		// if there's a `section` value, then we're gonna open an overlay - need to know which one
 		if ( ctx.params && ctx.params.section ) {
-			routeData.pageToEdit = ctx.params.section;
+			var segments = ctx.path.split('/');
+		    segments.shift(); // Remove the first element, as it will be an empty string
+			routeData.pageToEdit = segments.join('-');
 		}
 
 		this.currentRoute(routeData);

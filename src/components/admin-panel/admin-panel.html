@@ -2,11 +2,11 @@
 
 	<ul id="admin-options">
 		<li class="editor">
-			<a href="javascript:;">
+			<a href="/editor" data-bind="click: OnClickSection">
 				<i class="fa fa-desktop" style="margin-right: 4px;"></i> Site Editor
 			</a>
 
-			<ul>
+			<ul data-bind="slideVisible: (selectedSection() === 'editor')">
 				<li>
 					<a href="/editor/home" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-home' }">
 						Home
@@ -38,11 +38,11 @@
 
 
 		<li class="settings">
-			<a href="javascript:;">
+			<a href="/settings" data-bind="click: OnClickSection">
 				<i class="fa fa-cog" style="margin-right: 7px;"></i> Settings
 			</a>
 
-			<ul>
+			<ul data-bind="slideVisible: (selectedSection() === 'settings')">
 				<li>
 					<a href="/settings/general" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'settings-general' }">
 						General
