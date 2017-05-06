@@ -269,7 +269,7 @@ figure.hover-effect {
 
 
 #admin-holder {
-	background: #a94274;
+    background-image: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
 	width: 260px;
 	position: fixed;
     left: 0px;
@@ -278,8 +278,8 @@ figure.hover-effect {
 	color: #fff;
 	font-size: 14px;
 	font-family: 'Quicksand', Helvetica, sans-serif;
-
 	z-index: 1000;
+	box-shadow: inset -2px -2px 10px 0px rgba(0, 0, 0, 0.3);
 	.open {
 		left: 0px;
 	}
@@ -287,35 +287,98 @@ figure.hover-effect {
 		margin: 20px 35px;
 	}
 }
-#admin-panel-content ul {
-	list-style: none;
-	padding-left: 0;
-	li {
-		text-transform: uppercase;
+#admin-panel-content {
+	text-transform: uppercase;
+	position: relative;
+	height: 100%;
+	#admin-options {
+		margin-top: 40px;
+	}
+	.admin-header {
+		margin-bottom: 20px;
 		a {
-			color: #fff;
-			display: block;
-		    padding: 8px 35px;
-		    &:hover {
-		    	text-decoration: none;
-		    	background: rgba(0,0,0,0.1);
-		    }
-		    &:active, &:visited, &:focus {
-		    	text-decoration: none;
-		    	outline: none;
-		    	color: #fff;
-		    }
-		    &.selected {
-		    	background: rgba(0,0,0,0.2);
-		    }
+			border-radius: 0;
 		}
 	}
 	ul {
+		list-style: none;
+		padding-left: 0;
+		position: relative;
 		a {
-			padding-left: 70px;
+			display: block;
+		    padding: 12px 35px;
+		}
+		ul {
+			&:before {
+				content: '';
+				height: 100%;
+				border-left: 1px solid rgba(255,255,255,0.3);
+			    position: absolute;
+			    left: 40px;
+			}
+			a {
+				padding-left: 60px;
+				position: relative;
+				&:before {
+					content: '';
+				    width: 7px;
+				    height: 7px;
+				    background: #fff;
+				    border-radius: 50%;
+				    position: absolute;
+				    left: 37px;
+				    top: 18px;
+				}
+				&:after {
+					content: '';
+				    width: 5px;
+				    height: 5px;
+				    background: #8989ba;
+				    border-radius: 50%;
+				    position: absolute;
+				    left: 38px;
+				    top: 19px;
+				    transition: all 0.4s ease-in;
+			}
+			}
 		}
 	}
+	a {
+		color: #fff;
+		transition: all 0.4s ease-in;
+	    &:hover {
+	    	text-decoration: none;
+	    	//background: rgba(0,0,0,0.05);
+	    }
+	    &:active, &:visited, &:focus {
+	    	text-decoration: none;
+	    	outline: none;
+	    	color: #fff;
+	    }
+	    &.selected {
+	    	//background: rgba(0,0,0,0.05);
+	    	&:after {
+	    		background: #fff;
+	    	}
+	    }
+	}
+
+	.sign-out {
+		position: absolute;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
+	    background: #666;
+	    text-align: center;
+	    a {
+	    	line-height: 3em;
+	    	display: block;
+	    	color: #fff;
+	    	border: 0 none;
+	    }
+	}
 }
+
 
 #page-holder {
 	position: absolute;

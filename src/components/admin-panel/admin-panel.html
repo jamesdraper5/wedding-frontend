@@ -1,52 +1,64 @@
 <div id="admin-panel-content">
-	<!-- <h3>Logo</h3> -->
-	<img src="/images/logo-white.png" style="width:120px; margin: 30px;"/>
 
 	<ul id="admin-options">
 		<li class="editor">
 			<a href="javascript:;">
-				<i class="fa fa-edit"></i> Site Editor
+				<i class="fa fa-desktop" style="margin-right: 4px;"></i> Site Editor
 			</a>
+
 			<ul>
 				<li>
 					<a href="/editor/home" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-home' }">
-						- Home
+						Home
 					</a>
 				</li>
 				<li>
 					<a href="/editor/intro" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-intro' }">
-						- About
+						About
 					</a>
 				</li>
 				<li>
-					<a href="/editor/weddingparty" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-wedding-party' }">
-						- Wedding Party
+					<a href="/editor/weddingparty" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-weddingparty' }">
+						Wedding Party
 					</a>
 				</li>
 				<li>
-					<a href="/editor/maps" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-locations' }">
-						- Locations
+					<a href="/editor/maps" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-maps' }">
+						Locations
 					</a>
 				</li>
 				<li>
 					<a href="/editor/rsvp" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-rsvp' }">
-						- RSVP
+						RSVP
 					</a>
 				</li>
 			</ul>
 		</li>
-		<!-- Will manage without this section a while I think
-		<li class="my-account">
+
+
+
+		<li class="settings">
 			<a href="javascript:;">
-				<i class="fa fa-user"></i> My Account
+				<i class="fa fa-cog" style="margin-right: 7px;"></i> Settings
 			</a>
+
+			<ul>
+				<li>
+					<a href="/settings/general" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'settings-general' }">
+						General
+					</a>
+				</li>
+			</ul>
 		</li>
-		-->
-		<li class="sign-out">
-			<a href="javascript:;" data-bind="click: OnClickLogOut">
-				<i class="fa fa-sign-out"></i> Sign Out
-			</a>
-		</li>
+
 	</ul>
+
+
+	<div class="sign-out">
+		<a href="javascript:;" data-bind="click: OnClickLogOut">
+			Sign Out
+		</a>
+	</div>
+
 </div>
 
