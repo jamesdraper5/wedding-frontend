@@ -5,8 +5,11 @@ import templateMarkup from 'text!./overlay-editor-home.html';
 class OverlayHomeSection {
 	constructor(params) {
 		var data = app.installation.sections.home;
+		console.log('data', data);
 		this.id = ko.unwrap(data.id);
-		this.name = ko.observable( ko.unwrap(data.name) );
+		this.name = ko.observable( this.generateDefaultTitle(data.partnerNames()) ); // generate a title such as "Mary & John" for the default title
+		this.hasCustomName = ko.observable( ko.unwrap(data.hasCustomName) );
+		this.customName = ko.observable( ko.unwrap(data.customName) ); // This is the title of the site in the installations table
 		this.weddingDate = ko.observable( ko.unwrap(data.weddingDate) );
 		this.mainImage = ko.observable( ko.unwrap(data.mainImage) );
 		this.menuText = ko.observable( ko.unwrap(data.menuText) );
@@ -34,6 +37,14 @@ class OverlayHomeSection {
 			return false;
 		});
 
+	}
+
+	generateDefaultTitle(names) {
+		console.log('names', names);
+		if ( names.length !== 2 ) {
+			return 'Our Wedding';
+		}
+		return `${names[0]} & ${names[1]}`;
 	}
 
 	OnRendered() {

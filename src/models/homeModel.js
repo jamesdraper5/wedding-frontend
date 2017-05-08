@@ -12,8 +12,11 @@ const homeMapping = {
 
 class HomeModel {
     constructor(data) {
-    	console.log('data', data);
+       	data.partnerOneName = data.partnerNames[0];
+       	data.partnerTwoName = data.partnerNames[1];
+
         mapping.fromJS(data, homeMapping, this);
+
     }
 
 }

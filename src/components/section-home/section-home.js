@@ -6,8 +6,9 @@ class HomeSection {
 	constructor(params) {
 		this.homeData = app.installation.sections.home;
 		this.weddingDate = this.homeData.weddingDate.format(app.constants.DATEFORMATS.long);
-		this.name = this.homeData.name;
 		this.containerId = this.homeData.menuText().toLowerCase().split(' ').join('-') + '-container';
+		this.partnerOneName = this.homeData.partnerOneName;
+		this.partnerTwoName = this.homeData.partnerTwoName;
 	}
 
 	dispose() {
