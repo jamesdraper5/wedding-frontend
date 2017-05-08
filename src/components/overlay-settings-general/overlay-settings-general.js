@@ -6,31 +6,71 @@ class OverlaySettingsGeneral extends overlayBaseModel {
    	constructor(params) {
    		super();
 
-   		this.accountUrl = ko.observable('');
-		this.siteTitle = ko.observable('');
-		this.faviconUrl = ko.observable('');
-		this.themeId = ko.observable(1);
+   		this.originalSubdomain = ko.unwrap(app.installation.url).split('.')[0];
+   		this.baseUrl = ( window.devMode ? 'wedding.dev' : 'weddingpixie.com' );
+
+   		this.accountUrl = ko.observable(this.originalSubdomain).extend({ rateLimit: 300 });
+		this.selectedThemeId = ko.observable( ko.unwrap(app.installation.theme.id) );
+		this.availableThemes = ko.observableArray([]);
+		this.isUrlAvailable = ko.observable(true);
 
 		this.isDirty = ko.pureComputed(() => {
 			if (
-			    1 === 1
+			    this.selectedThemeId() !== app.installation.theme.id() ||
+			    this.accountUrl() !== this.originalSubdomain
 			) {
 				return true;
 			}
 			return false;
 		});
 
+		this.areThemesLoaded = ko.observable(false);
+		this.subscriptions.push(this.accountUrl.subscribe((url) => {
+			this.checkUrl(url);
+		}));
+
+		this.loadThemes();
+
+	}
+
+	loadThemes() {
+		app.api.get('api/settings/themes').then((result) => {
+			this.availableThemes(result.response.data.themes);
+			this.areThemesLoaded(true);
+		});
+	}
+
+	checkUrl(url) {
+		if ( url.length === 0 ) {
+			this.isUrlAvailable(true);
+			return;
+		}
+		app.api.get(`api/installations/checkurl?url=${url}`).then((result) => {
+			this.isUrlAvailable(true);
+		}).catch((err) => {
+			this.isUrlAvailable(false);
+		})
+	}
+
+	OnClickPreviewTheme() {
+		console.log('TODO - OnClickPreviewTheme');
 	}
 
 	OnSubmit() {
 		this.isSubmitting(true);
+		var fullUrl = `${this.accountUrl()}.${this.baseUrl}`;
 		var data = {
-			title: 'test'
+			url: fullUrl,
+			themeId: this.selectedThemeId()
 		};
 		app.api.put('/api/settings/general', data).then((result) => {
-			app.flash.Success('Updated baby!');
-			app.updateInstallationData();
-			this.Close();
+			app.flash.Success('Settings updated');
+			if ( this.accountUrl() !== this.originalSubdomain ) {
+				window.location.href = 'http://' + result.response.data.url + '/settings';
+			} else {
+				app.updateInstallationData();
+				this.Close();
+			}
 		}).finally(() => {
 			this.isSubmitting(false);
 		});

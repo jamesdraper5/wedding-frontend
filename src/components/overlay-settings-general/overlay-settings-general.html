@@ -1,36 +1,65 @@
 <div id="overlay" data-bind="style: { left: app.overlayLeftPos(), width: app.overlayWidth() }">
 	<div class="overlay-main">
 		<div class="modal-header">
-			<button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			<button type="button" class="close" data-bind="click:Cancel"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
 			<h4 class="modal-title">General Settings</h4>
 		</div>
 		<form data-bind="css: { hasChanges: isDirty }">
 			<div class="modal-body">
 				<div class="forms-container">
+					<div class="form-group" style="margin-bottom: 30px;">
+						<label for="title">Website Address</label>
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<div class="input-group">
+									<input type="text" id="title" class="form-control text-right" style="letter-spacing: 1px;" placeholder="The adress for your website, e.g. janeandjohn.weddingpixie.com" data-bind="textInput: accountUrl">
+									<span class="input-group-addon">.weddingpixie.com</span>
+								</div>
+								<!-- ko ifnot: isUrlAvailable() -->
+									<p class="text-danger url-taken">
+										<small>Sorry, this address is already taken</small>
+									</p>
+								<!-- /ko -->
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="menu-text">Website Design</label>
-						<input type="text" id="menu-text" class="form-control" placeholder="The design theme of your website" data-bind="textInput: themeId">
+
+						<!-- ko if: areThemesLoaded() -->
+							<div class="row text-center theme-picker">
+								<!-- ko foreach: availableThemes -->
+									<div class="col-sm-6 col-md-4 theme-picker--theme" data-bind="css: { 'selected': $component.selectedThemeId() == id }">
+										<p>{{name}}</p>
+										<img data-bind="attr: { src: 'images/themes/previews/' + className + '.png', alt: className }" class="img-responsive">
+										<!--
+										<figure class="hover-effect" data-bind="click: $component.OnClickPreviewTheme">
+											<img data-bind="attr: { src: 'images/themes/previews/' + className + '.png', alt: className }" class="img-responsive">
+											<figcaption>
+												<p style="font-size: 20px;">
+													<i class="fa fa-eye"></i> <br>
+													Preview
+												</p>
+											</figcaption>
+										</figure>
+										-->
+										<div>
+											<label data-bind="attr: { for: className }">
+												<i class="fa fa-check-circle"></i>
+												<input type="radio" name="selectedTheme" class="hidden-radio" data-bind="checked: $component.selectedThemeId, checkedValue: id, attr: { id: className }">
+											</label>
+										</div>
+									</div>
+								<!-- /ko -->
+							</div>
+						<!-- /ko -->
 					</div>
-					<div class="form-group">
-						<label for="title">Website Address</label>
-						<input type="text" id="title" class="form-control" placeholder="The adress for your website, e.g. janeandjohn.weddingpixie.com" data-bind="textInput: accountUrl">
-					</div>
-					<div class="form-group">
-						<label for="content">Website Title</label>
-						<input type="text" id="content" class="form-control" placeholder="This is the text that will show in the tab at the top of your browser" data-bind="textInput: siteTitle">
-					</div>
-					<!-- TODO: Not a high priority just now (06/05/17)
-					<div class="form-group">
-						<label for="menu-text">Website Icon</label>
-						<input type="text" id="menu-text" class="form-control" placeholder="The title that will show in your top navigation, e.g. RSVP" data-bind="textInput: faviconUrl">
-					</div>
-					-->
 				</div>
 			</div>
 
 			<div class="overlay-footer" data-bind="style: { left: app.overlayLeftPos() }">
 				<div class="pull-left">
-					<button id="overlay-close-btn" class="btn btn-default" data-bind="click: Close">Close</button>
+					<button id="overlay-close-btn" class="btn btn-default" data-bind="click: Cancel">Close</button>
 				</div>
 				<div class="pull-right">
 					<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
