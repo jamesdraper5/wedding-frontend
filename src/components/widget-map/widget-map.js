@@ -55,7 +55,7 @@ class WidgetMap {
 		};
 		var options = {
 			center: locationCenter,
-			styles: this.themeStyles[app.installation.themeClass()],
+			styles: this.themeStyles[app.installation.theme.className()],
 			zoom: 15,
 			scrollwheel: false
 		};

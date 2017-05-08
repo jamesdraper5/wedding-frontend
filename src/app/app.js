@@ -137,7 +137,7 @@ class App {
 		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
 			setTimeout(() => {
-				this.initStyles(this.installation.themeClass())
+				this.initStyles(this.installation.theme.className())
 			}, 200);
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
