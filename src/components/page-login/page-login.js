@@ -24,7 +24,8 @@ class PageLogin {
 		}
 
 		app.api.post('/api/authenticate', data).then((result) => {
-			app.getLoggedInUser().then((result) => {
+			app.getLoggedInUser()
+			.then((result) => {
 				app.flash.Success(`Welcome back ${app.loggedInUser.firstName()}!`);
 				// app.cache.set "lastGoodUsername", @userName() TO DO: nice touch
 				if ( app.requestedRouteBeforeLoginRedirect != null ) {
@@ -33,13 +34,11 @@ class PageLogin {
 				} else {
 					app.GoTo( '/editor' )
 				}
-
 			})
-		}).catch((result) => {
-			if ( result.status && result.status === 401 ) {
-				app.flash.Error( "<strong>Ooops!</strong>", "Login failed. Incorrect email or password" );
-			}
-		}).finally(() => {
+			.catch(this.handleError);
+		})
+		.catch(this.handleError)
+		.finally((res) => {
 			this.userPassword('');
 			this.isSubmitting(false);
 		});
@@ -50,6 +49,16 @@ class PageLogin {
 		app.Logout().then(() => {
 			this.isLoggingOut(false);
 		})
+	}
+
+	handleError(result) {
+		if ( result.status && result.status === 401 ) {
+			app.flash.Error( "<strong>Ooops!</strong>", "Login failed. Incorrect email or password" );
+		} else if ( result.status && result.status === 403 ) {
+			app.flash.Error( "<strong>Hmmm</strong>", "Login failed. Please try again" );
+		} else {
+			app.flash.Error( "<strong>Oh No!</strong>", "We're having trouble logging you in at the moment. Try again in a little while" );
+		}
 	}
 
 	dispose() {

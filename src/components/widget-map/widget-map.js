@@ -1,10 +1,10 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./widget-map.html';
-import * as GoogleMapsLoader from 'google-maps';
+import { default as GoogleMapsLoader } from 'google-maps';
 
 class WidgetMap {
 	constructor(params) {
-		GoogleMapsLoader.KEY = 'AIzaSyBdlmh7fqtInzVycyxMmzS4n9rAvZSlZYI';
+		GoogleMapsLoader.KEY = app.constants.GOOGLEMAPSKEY;
 
 		// TO DO: Add map marker to styles
 		this.map = params.map;
@@ -55,7 +55,7 @@ class WidgetMap {
 		};
 		var options = {
 			center: locationCenter,
-			styles: this.themeStyles[app.installation.themeClass()],
+			styles: this.themeStyles[app.installation.theme.className()],
 			zoom: 15,
 			scrollwheel: false
 		};

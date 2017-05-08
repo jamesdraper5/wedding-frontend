@@ -1,47 +1,64 @@
 <div id="admin-panel-content">
-	<!-- <h3>Logo</h3> -->
-	<img src="/images/logo-white.png" style="width:120px; margin: 30px;"/>
 
 	<ul id="admin-options">
 		<li class="editor">
-			<a href="javascript:;">
-				<i class="fa fa-edit"></i> Site Editor
+			<a href="/editor" data-bind="click: OnClickSection">
+				<i class="fa fa-desktop" style="margin-right: 4px;"></i> Site Editor
 			</a>
-			<ul>
+
+			<ul data-bind="slideVisible: (selectedSection() === 'editor')">
 				<li>
-					<a href="/editor/intro" data-bind="css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-intro' }">
-						- Home
+					<a href="/editor/home" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'editor-home' }">
+						Home
 					</a>
 				</li>
 				<li>
-					<a href="/editor/weddingparty" data-bind="css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-wedding-party' }">
-						- Wedding Party
+					<a href="/editor/intro" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'editor-intro' }">
+						About
 					</a>
 				</li>
 				<li>
-					<a href="/editor/maps" data-bind="css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-locations' }">
-						- Locations
+					<a href="/editor/weddingparty" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'editor-weddingparty' }">
+						Wedding Party
 					</a>
 				</li>
 				<li>
-					<a href="/editor/rsvp" data-bind="css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'edit-rsvp' }">
-						- RSVP
+					<a href="/editor/maps" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'editor-maps' }">
+						Locations
+					</a>
+				</li>
+				<li>
+					<a href="/editor/rsvp" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'editor-rsvp' }">
+						RSVP
 					</a>
 				</li>
 			</ul>
 		</li>
-		<!-- Will manage without this section a while I think
-		<li class="my-account">
-			<a href="javascript:;">
-				<i class="fa fa-user"></i> My Account
+
+
+
+		<li class="settings">
+			<a href="/settings" data-bind="click: OnClickSection">
+				<i class="fa fa-cog" style="margin-right: 7px;"></i> Settings
 			</a>
+
+			<ul data-bind="slideVisible: (selectedSection() === 'settings')">
+				<li>
+					<a href="/settings/general" data-bind="click: OnClickSection, css: { selected: app.overlayToShow() != null && app.overlayToShow().name == 'settings-general' }">
+						General
+					</a>
+				</li>
+			</ul>
 		</li>
-		-->
-		<li class="sign-out">
-			<a href="javascript:;" data-bind="click: OnClickLogOut">
-				<i class="fa fa-sign-out"></i> Sign Out
-			</a>
-		</li>
+
 	</ul>
+
+
+	<div class="sign-out">
+		<a href="javascript:;" data-bind="click: OnClickLogOut">
+			Sign Out
+		</a>
+	</div>
+
 </div>
 

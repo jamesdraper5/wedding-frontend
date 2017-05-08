@@ -4,6 +4,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="robots" content="noindex, nofollow, noarchive, none, noodp, nosnippet">
+		<link rel="shortcut icon" href="images/heart.png">
 		<base href="/"/>
 		<title>Loading...</title>
 		<!-- build:css -->
@@ -25,7 +27,7 @@
 		<!-- /ko -->
 
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
-			<div data-bind="css: app.installation.themeClass">
+			<div data-bind="css: app.installation.theme.className">
 
 				<!-- ko if: app.hasSidebar() -->
 					<div id="admin-holder">
@@ -44,7 +46,9 @@
 
 					<!-- ko if: app.currentRoute().page != 'page-login' -->
 						<footer id="page-footer">
-							<p class="text-center">Powered by <a href="www.weddingpixie.com">Wedding Pixie</a></p>
+							<p class="text-center">
+								Made with <i class="fa fa-heart pulse" style="padding:0 1px;"></i> by <a href="www.weddingpixie.com">Wedding Pixie</a>
+							</p>
 						</footer>
 					<!-- /ko -->
 
@@ -70,8 +74,13 @@
 			<!-- ko component: { name: "modal-" + name, params:params } --><!-- /ko -->
 		<!-- /ko -->
 
+		<!-- build:debug -->
+		<script>window.devMode = true;</script>
+		<!-- endbuild -->
+
 		<!-- build:js -->
 		<script src="app/require.config.js"></script>
+		<script src="https://cdn.ravenjs.com/3.14.1/raven.min.js"></script>
 		<script data-main="app/startup" src="bower_modules/requirejs/require.js"></script>
 		<!-- endbuild -->
 

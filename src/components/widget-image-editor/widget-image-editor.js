@@ -26,7 +26,10 @@ class WidgetImageEditor {
 		this.imgId = 'image-' + this.uid
 		this.fileName = null;
 		this.originalImgSrc = this.imageSrc();
-		this.previewImgSrc = ko.observable(this.imageSrc())
+		if ( this.imageSrc() != null) {
+			this.originalImgSrc += '?uid=' + Date.now(); // the uid param here hopefully fixes a weird s3 issue where it was caching non-CORS responses sometimes
+		}
+		this.previewImgSrc = ko.observable(this.originalImgSrc);
 		this.allowedMimeTypes = ['image/jpeg', 'image/png'];
 
 		// Subscriptions

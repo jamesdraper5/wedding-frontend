@@ -1,7 +1,5 @@
 <section class="row">
-	<div class="col-md-2 col-md-offset-5 text-center">
-		<hr>
-	</div>
+	<hr>
 </section>
 
 <section class="row" data-bind="attr: { id: containerId }">
@@ -13,69 +11,103 @@
 			<!-- /ko -->
 
 			<br>
-			<hr>
+			<hr class="minor">
 			<br>
 
-			<form id="rsvp-form">
+			<form id="rsvp-form" data-bind="moveLabels: true, botChecker: userIsHuman">
 				<div>
-					<p><strong>Hi James & Lucy</strong></p>
 
-					<div class="rsvp-block">
-						<!-- <br> -->
-						<span>Thanks for your beautiful invitation,</span>
-				  		<select id="isAttending" data-bind="value: isAttending">
-							<option value="true">I wouldn't miss it for the world!</option>
-							<option value="false">I'm afraid I can't make it though.</option>
-				  		</select>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6 moving-labels">
+								<label for="firstName">First name</label>
+								<input type="text" id="firstName" class="form-control" data-bind="textInput: firstName" required title="Please enter your first name">
+							</div>
+							<div class="col-md-6 moving-labels">
+								<label for="lastName">Last name</label>
+								<input type="text" id="lastName" class="form-control" data-bind="textInput: lastName" required title="Please enter your last name">
+							</div>
+						</div>
 					</div>
 
-			  		<!-- ko if: isAttending() == 'true' -->
-			  			<div class="rsvp-block">
-			  				<span>My invitation said I could bring </span>
-				  	  		<select id="guestType" data-bind="value: guestType">
-				  				<option value="0">myself</option>
-								<option value="1">a date</option>
-								<option value="2">my family</option>
-				  	  		</select>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6 moving-labels">
+								<label for="emailAddress">Email address</label>
+							    <input type="email" id="emailAddress" class="form-control" data-bind="textInput: emailAddress" title="Please enter your email address. This is optional">
+							</div>
+							<div class="col-md-6 moving-labels">
+								<label for="phoneNumber">Phone number</label>
+							    <input type="text" id="phoneNumber" class="form-control" data-bind="textInput: phoneNumber" required title="Please enter your phone number">
+							</div>
+						</div>
+		  			</div>
+
+					<div class="form-group rsvp-form--attending">
+						<div class="text-center">Will you be attending?</div>
+						<div class="row">
+							<div class="col-md-6 text-center">
+								<label for="attending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === true }">
+									<i class="fa fa-thumbs-up"></i>
+									<input type="radio" name="isAttending" class="hidden-radio" id="attending" data-bind="checked: isAttending, checkedValue: true">
+									<span>Accept with pleasure</span>
+								</label>
+							</div>
+							<div class="col-md-6 text-center">
+								<label for="notAttending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === false }">
+									<i class="fa fa-thumbs-down"></i>
+									<input type="radio" name="isAttending" class="hidden-radio" id="notAttending" data-bind="checked: isAttending, checkedValue: false">
+									<span>Regretfully decline</span>
+								</label>
+							</div>
+						</div>
+					</div>
+
+			  		<!-- ko if: isAttending() -->
+			  			<div class="form-group">
+							<div class="row">
+				  				<div class="col-md-12 text-center" style="margin-bottom: 40px;">
+				  					Excellent! Are you bringing any guests?
+				  				</div>
+				  				<!-- ko foreach: extraGuests() -->
+									<div class="col-md-12 moving-labels">
+										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Guest #' + parseInt($index()+1) }}</label>
+							  	  		<input type="text" class="form-control" data-bind="textInput: name, attr: { id: 'guest' + parseInt($index()+1) }" title="Please enter the full name of your guest">
+							  	  		<a data-bind="click: $component.OnClickRemoveGuest" href="#" class="remove-guest">
+							  	  			<i class="fa fa-times-circle"></i>
+							  	  		</a>
+					  				</div>
+				  				<!-- /ko -->
+				  				<div class="col-md-12">
+					  				<button data-bind="click: OnClickAddGuest" class="btn btn-default" id="addGuest">Add a guest</button>
+					  			</div>
+				  			</div>
 			  	  		</div>
 
-						<!-- ko if: guestType() != 0 -->
-				  			<div class="rsvp-block">
-				  				<span> so I'll be bringing </span>
-				  				<!-- ko foreach: new Array(numPermittedGuests()) -->
-				  				<div style="margin: 10px 0;">
-						  	  		<input type="text" data-bind="attr: { placeholder: 'Guest #' + parseInt($index()+1) }">
-				  				</div>
-				  				<!-- /ko -->
-				  	  		</div>
-						<!-- /ko -->
+			  			<div class="form-group">
+			  				<div class="row">
+			  					<div class="col-md-12 moving-labels">
+					  				<label for="song">A song that will get you onto the dancefloor</label>
+								    <input type="text" id="song" class="form-control" data-bind="textInput: songChoice" title="Your favourite song to get your boogie on">
+								</div>
+							</div>
+			  			</div>
 			  	  	<!-- /ko -->
 
-				    <div class="rsvp-block">
-					    <span>If you need to contact me, my email address is </span>
-					    <input type="email" id="emailAddress" placeholder="youremail@address.com" data-bind="textInput: emailAddress">
-		  			</div>
-
-					<div class="rsvp-block">
-						<!-- <br> -->
-						<!-- ko if: isAttending() == 'true' -->
-							<p>Looking forward to the big day!</p>
-						<!-- /ko -->
-						<!-- ko if: isAttending() == 'false' -->
-							<p>I'm sorry I'll miss it, I hope you have a great day!</p>
-						<!-- /ko -->
-					    <input type="text" id="guestName" placeholder="Your name" data-bind="textInput: guestName">
-		  			</div>
-
-					<div class="rsvp-block">
-						<!-- <br> -->
-						<span>P.S.</span>
-						<textarea id="extraInfo" rows="3" placeholder="Your personal message to the couple (optional)" data-bind="textInput: comment"></textarea>
+					<div class="form-group">
+						<div class="row">
+			  				<div class="col-md-12 moving-labels">
+								<label for="extraInfo">Your message for the couple (optional)</label>
+								<textarea id="extraInfo" rows="3" class="form-control" data-bind="textInput: comment"></textarea>
+							</div>
+						</div>
 					</div>
 			  	</div>
 
-			  	<button disabled type="submit" class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit, enable: !hasSubmitted()">
-			  		<span class="ladda-label" data-bind="text: btnText()"></span>
+			  	<button disabled type="submit" class="ladda-button btn btn-lg btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit, enable: !hasSubmitted()">
+			  		<span class="ladda-label">
+			  			<i class="fa fa-paper-plane"></i> {{ btnText }}
+			  		</span>
 			  	</button>
 			</form>
 

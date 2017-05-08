@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./modal-upload-image.html';
+import Raven from 'raven';
 
 class ModalUploadImage {
 	constructor(params) {
@@ -87,11 +88,14 @@ class ModalUploadImage {
 
 		app.api.post(url, postData).then((result) => {
 			let data = result.response.data;
-			//console.log('signed request result - data', data);
 			this.uploadFile(file, data.signedRequest, data.url);
 		}).catch((err) => {
-			//console.log('err', err);
 			app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
+			Raven.captureMessage('Error getting s3 signed request', {
+                extra: {
+                	error: err
+                }
+            });
 		})
 	}
 
@@ -106,8 +110,13 @@ class ModalUploadImage {
 					this.imageUrl(imageUrl)
 					app.flash.Success('Image Updated')
 					this.Close()
-				} else{
-					app.flash.Error('Oh No!', 'Sorry, there seems to be an issue adding images at the moment, please try again')
+				} else {
+					app.flash.Error('Oh No!', 'Sorry, there seems to be an issue adding images at the moment, please try again');
+					Raven.captureMessage('Error uploading image to s3', {
+		                extra: {
+		                	error: err
+		                }
+		            });
 				}
 			}
 		};

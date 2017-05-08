@@ -1,16 +1,25 @@
 <div class="image-uploader">
-	<img data-bind="click: OnClickToggleEdit, attr: { src: previewImgSrc, id: imgId }" class="file-upload-image img-responsive" crossOrigin="Anonymous">
+	<!-- ko if: previewImgSrc() != null -->
+		<img data-bind="click: OnClickToggleEdit, attr: { src: previewImgSrc, id: imgId }" class="file-upload-image img-responsive" crossOrigin="anonymous">
+	<!-- /ko -->
 	<input type="file" data-bind="attr: { id: inputId }" class="file-upload-input" style="display:none">
 
 	<div class="image-uploader-options">
 		<!-- ko ifnot: isEditing -->
-			<button class="btn btn-primary" data-bind="click: OnClickToggleEdit">
-				<i class="fa fa-pencil"></i> Edit Image
-			</button>
+			<!-- ko if: imageSrc() != null -->
+				<button class="btn btn-primary" data-bind="click: OnClickToggleEdit">
+					<i class="fa fa-pencil"></i> Edit Image
+				</button>
 
-			<button class="btn btn-default" data-bind="click: OnClickFilePicker">
-				<i class="fa fa-cloud-upload"></i> Select a new Image
-			</button>
+				<button class="btn btn-default" data-bind="click: OnClickFilePicker">
+					<i class="fa fa-cloud-upload"></i> Select a new Image
+				</button>
+			<!-- /ko -->
+			<!-- ko if: imageSrc() == null -->
+				<button class="btn btn-default" data-bind="click: OnClickFilePicker">
+					<i class="fa fa-cloud-upload"></i> Select an Image
+				</button>
+			<!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: isEditing -->
 			<button class="btn btn-danger" data-bind="click: OnClickToggleEdit">

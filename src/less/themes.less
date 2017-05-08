@@ -1,21 +1,54 @@
+/* Everything in here will only be applied after the LESS has been compiled and the page has been rendered, as the theme class name
+	is only applied after the frontend has loaded and the installationInfo API call has returned. This means that everything in here needs
+	to overwrite the existing "blank" styles that a site with no template class would have. It also means that you can't reference any of the
+	variables in this file anywhere else as they won't be initialized until after the LESS is compiled.
+*/
 .paris {
 	@textColor: #333;
 	@backgroundColor: #fff;
+	@highlightColor: #d090d3;
 	@serifFamily: @quincy;
 	@sansSerifFamily: @lato;
 	@displayFamily: @baurbon;
-	@headerFamily: @airbag;
+	@headerFamily: @montserrat;
 
 	.setupThemeCss();
 
-	color: @textColor;
-	background: @backgroundColor;
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
 
 	h2 {
 		text-transform: uppercase;
-		font-family: @montserrat;
+		font-family: @headerFamily;
 		letter-spacing: 8px;
 	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: #fff;
+	    text-shadow: 2px 2px 2px #333;
+	    span {
+	    	.sansSerif();
+	    	display: block;
+	    	margin: 10px 0;
+	    	text-transform: uppercase;
+	    	letter-spacing: 5px;
+	    	font-size: 20px;
+	    	color: #fff;
+	    }
+	}
+	#home-container {
+		p {
+			color: #fff;
+			text-shadow: 1px 1px 1px #333;
+		}
+	}
+
 	.tab-content {
 		margin: 10px 0 30px;
 		padding-top: 20px;
@@ -26,3 +59,212 @@
 	}
 }
 
+.victoria {
+	@textColor: #6a6055;
+	@backgroundColor: #EBE8D8;
+	@highlightColor: #6a6055;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @lato;
+	@displayFamily: @tangerine;
+	@headerFamily: @montserrat;
+
+	.setupThemeCss();
+	.serif();
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @headerFamily;
+		letter-spacing: 8px;
+	}
+
+	hr {
+		border: 0;
+		height: 50px;
+		background-image: url('/images/themes/victoria/hearts-arrow.png');
+		background-repeat: no-repeat;
+		background-position: 50%;
+		&.minor {
+			width: 160px;
+		}
+	}
+
+	#page-holder {
+		background-color: @backgroundColor;
+	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: @highlightColor;
+	    letter-spacing: 5px;
+	    &:before {
+    	    content: '';
+		    display: inline-block;
+		    width: 100%;
+		    height: 140px;
+		    background-image: url('/images/themes/victoria/curly-brace-top.png');
+		    background-repeat: no-repeat;
+		    background-position: 50%;
+	    }
+	}
+	p.wedding-date:after {
+    	content: '';
+    	display: inline-block;
+    	width: 100%;
+    	height: 140px;
+    	background-image: url('/images/themes/victoria/curly-brace-bottom.png');
+    	background-repeat: no-repeat;
+    	background-position: 50%;
+	}
+	#home-container {
+		padding-top: 150px;
+	}
+
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+
+	.rsvp-form--attending label {
+		background-color: darken(@backgroundColor, 5%);
+		color: @textColor;
+	}
+
+}
+
+.atlantic {
+	@textColor: #58595B;
+	@backgroundColor: #fff;
+	@highlightColor: #263f75;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @lato;
+	@displayFamily: @tangerine;
+	@headerFamily: @quincy;
+
+	.setupThemeCss();
+	.serif();
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @headerFamily;
+		letter-spacing: 6px;
+	    display: inline-block;
+	    background-color: @highlightColor;
+	    color: #fff;
+	    position: relative;
+	    border: 1px solid #fff;
+		padding: 4px 6px;
+		font-size: 28px;
+	    &:after {
+	    	content: '';
+	    	display: inline-block;
+	    	background-image: url('/images/themes/atlantic/ribbon-right.png');
+	    	background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+	    	position: absolute;
+	    	width: 60px;
+	    	height: 30px;
+	    	top: 12px;
+	    	right: -40px;
+	    	z-index: -1;
+	    }
+	    &:before {
+	    	content: '';
+	    	display: inline-block;
+	    	background-image: url('/images/themes/atlantic/ribbon-left.png');
+	    	background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+	    	position: absolute;
+	    	width: 60px;
+	    	height: 30px;
+	    	top: 12px;
+	    	left: -40px;
+	    	z-index: -1;
+	    }
+	}
+
+	#page-holder {
+		background-color: @backgroundColor;
+	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    color: @textColor;
+	    letter-spacing: 5px;
+	    margin-top: 180px;
+	    margin-bottom: 20px;
+	}
+
+	#home-container {
+		padding-top: 0;
+		background-image: url('/images/themes/atlantic/zig-zag.png');
+    	background-repeat: repeat;
+    	background-position: 0 0;
+    	background-size: inherit;
+    	position: relative;
+    	border-bottom: 1px solid #eee;
+    	.sub-container {
+    		background: #fff;
+			position: absolute;
+			bottom: 0;
+			height: 50%;
+			border-top: 8px solid #ef3f42;
+    	}
+    	.initials {
+    		background: url('/images/themes/atlantic/anchor@2x.png');
+    		background-repeat: no-repeat;
+	    	background-position: 0 0;
+	    	background-size: contain;
+    		width: 280px;
+    		height: 280px;
+		    position: absolute;
+		    top: -140px;
+		    left: calc(~"50% - 140px");
+		    font-family: @brixton;
+		    font-size: 50px;
+    		.initial {
+				color: #fff;
+				position: absolute;
+				top: 100px;
+				left: 82px;
+				&.second {
+					left: 158px;
+				}
+    		}
+    	}
+	}
+
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+
+	.rsvp-form--attending label {
+		background-color: darken(@backgroundColor, 5%);
+		color: @textColor;
+	}
+
+}

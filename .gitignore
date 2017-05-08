@@ -3,6 +3,7 @@ node_modules/
 bower_modules/
 
 # Don't track build output
+build/
 dist/
 temp/
 
@@ -24,3 +25,7 @@ public/images/test/
 index.html
 
 npm-debug.log
+
+.awspublish-wedding-pixie-app-test
+
+.awspublish-wedding-pixie-app

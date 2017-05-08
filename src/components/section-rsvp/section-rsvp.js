@@ -7,30 +7,16 @@ class RsvpSection {
 		this.validator = new Validator();
 		this.rsvp = app.installation.sections.rsvp;
 		this.containerId = this.rsvp.menuText().toLowerCase().split(' ').join('-') + '-container';
-		this.isAttending = ko.observable(true);
-		this.numGuests = ko.observable(0);
+		this.isAttending = ko.observable(null);
 		this.emailAddress = ko.observable('');
-		this.guestName = ko.observable('');
+		this.phoneNumber = ko.observable('');
+		this.firstName = ko.observable('');
+		this.lastName = ko.observable('');
 		this.comment = ko.observable('');
-		this.guestType = ko.observable(0);
-		this.numPermittedGuests = ko.pureComputed(() => {
-			var guestCount = 0;
-			switch( parseInt(this.guestType(), 10) ) {
-				case 0:
-					guestCount = 0;
-					break;
-				case 1:
-					guestCount = 1;
-					break;
-				case 2:
-					guestCount = 4;
-					break;
-				default:
-					guestCount = 0;
-			}
-			return guestCount;
-		});
+		this.songChoice = ko.observable('');
+		this.extraGuests = ko.observableArray([])
 
+		this.userIsHuman = ko.observable(false); // don't let them submit form until we're sure they're not a spambot
 		this.isSubmitting = ko.observable(false);
 		this.hasSubmitted = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -39,23 +25,61 @@ class RsvpSection {
 			} else if ( this.hasSubmitted() ) {
 				return 'RSVP Sent';
 			} else {
-				return 'Send';
+				return 'Send RSVP';
 			}
+		});
+		this.guestName = ko.pureComputed(() => {
+			return this.firstName() + ' ' + this.lastName();
 		});
 	}
 
 	validateForm() {
 
 		var isValid = this.validator.ValidateAll([
-			{ input: this.emailAddress, inputName: 'Your email address', typeCheck: 'isEmail' },
-			{ input: this.guestName, inputName: 'Your name', typeCheck: 'notEmpty' }
+			{ input: this.firstName, inputName: 'Your first name', typeCheck: 'notEmpty' },
+			{ input: this.lastName, inputName: 'Your last name', typeCheck: 'notEmpty' },
+			{ input: this.phoneNumber, inputName: 'Your phone number', typeCheck: 'notEmpty' },
 		]);
+
+		if ( isValid && this.isAttending() == null ) {
+			app.flash.Error( "<strong>Oops!</strong> ", 'Please specify whether you can attend or not');
+			isValid = false;
+		}
 
 		return isValid;
 
 	}
 
+	OnClickAddGuest() {
+		this.extraGuests.push({name: '', uid: Date.now()});
+	}
+
+	OnClickRemoveGuest(guest) {
+		var idx = app.utility.FindIndexByKeyValue(this.extraGuests(), 'uid', guest.uid);
+		if ( idx > -1 ) {
+			this.extraGuests.splice(idx, 1);
+		}
+	}
+
 	OnSubmit() {
+
+		var rsvpId = this.rsvp.id();
+		var data = {
+			name: this.guestName(),
+			extraGuests: this.extraGuests().map((guest) => guest.name),
+			emailAddress: this.emailAddress(),
+			phone: this.phoneNumber(),
+			comment: this.comment(),
+			isAttending: this.isAttending(),
+			song: this.songChoice(),
+
+		}
+
+		if ( !this.userIsHuman() ) {
+			app.flash.Error( "<strong>Hmmmm...</strong>", "This is awkward - we think you might be a spam bot. Please try again");
+			app.SendSentryError('Possible spambot form submission', { level: 'warning', extra: data });
+			return false;
+		}
 
 		if ( !this.validateForm() ) {
 			return false;
@@ -63,15 +87,6 @@ class RsvpSection {
 
 		this.isSubmitting(true);
 
-		var rsvpId = this.rsvp.id();
-		var data = {
-			name: this.guestName(),
-			emailAddress: this.emailAddress(),
-			numGuests: this.numGuests(),
-			comment: this.comment(),
-			isAttending: this.isAttending()
-		}
-		//return false;
 		app.api.post(`/api/rsvps/${rsvpId}/reply`, data).then((result) => {
 			app.flash.Success('RSVP Sent!', 'Excellent, thanks for getting back to us!!')
 			setTimeout(() => {

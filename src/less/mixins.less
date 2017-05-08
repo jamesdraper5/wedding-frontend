@@ -1,5 +1,6 @@
 //mixin with all css that depends on your theme
 .setupThemeCss() {
+
 	.serif() {
 		font-family: @serifFamily;
 	}
@@ -9,6 +10,12 @@
 	.displayFont() {
 		font-family: @displayFamily;
 	}
+	.highlightColor() {
+		color: @highlightColor;
+	}
+	.highlightBG() {
+		background-color: @highlightColor !important;
+	}
 
 	.serif {
 		.serif()
@@ -16,20 +23,28 @@
 	.sansSerif {
 		.sansSerif()
 	}
+	.highlight-color {
+		.highlightColor()
+	}
+	.highlight-bg {
+		.highlightBG()
+	}
 
-	h1.main-header {
-	    .displayFont();
-	    font-size: 100px;
-	    color: #d090d3;
-	    span {
-	    	.sansSerif();
-	    	display: block;
-	    	margin: 10px 0;
-	    	text-transform: uppercase;
-	    	letter-spacing: 5px;
-	    	font-size: 20px;
-	    	color: #888;
-	    }
+	color: @textColor;
+	background: @backgroundColor;
+
+	#main-nav {
+		background: @backgroundColor;
+		a {
+			color: lighten(@textColor, 10%);
+			&:hover {
+				color: @textColor;
+			}
+		}
+		.hamburger-btn span {
+			background: @textColor;
+		}
 	}
 
 }
+
