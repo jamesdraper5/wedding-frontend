@@ -4,12 +4,19 @@
 	<h2>Something isn't right</h2>
 
 	<div class="text-center col-md-2 col-md-offset-5 col-xs-6 col-xs-offset-3">
-		<img src="http://placekitten.com/600/600" class="img-circle img-responsive" alt="error kitty">
+		<img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="img-circle img-responsive" alt="error kitty">
 	</div>
 
 	<div class="text-center col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-		<p>Here's a picture of a cute kitten for you to look at while we chase the bugs out of our system.</p>
-		<p>If you get tired of looking at the kitty please email us at <a href="mailto:support@weddingpixie.com">support@weddingpixie.com</a></p>
+		<!-- ko if: errorCode == 429 -->
+			<p>Sorry, it seems you've reached the rate limit for requests to our server. This limit will be reset again in 15 minutes. You can look at this kitty while you wait.</p>
+			<p>If you think you're seeing this message in error (or if you'd just like to say hi), please email us at <a href="mailto:hello@weddingpixie.com">hello@weddingpixie.com</a></p>
+
+		<!-- /ko -->
+		<!-- ko ifnot: errorCode == 429 -->
+			<p>Here's a picture of a cute kitten for you to look at while we chase the bugs out of our system.</p>
+			<p>If you get tired of looking at the kitty please email us at <a href="mailto:hello@weddingpixie.com">hello@weddingpixie.com</a></p>
+		<!-- /ko -->
 
 		<a href="/" class="btn btn-default">Go Back Home</a>
 	</div>

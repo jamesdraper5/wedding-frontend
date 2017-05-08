@@ -47,6 +47,7 @@ class App {
 		this.hasLoadedData = ko.observable(false);
 		this.isWeddingFound = ko.observable(false);
 		this.hasError = ko.observable(false);
+		this.errorCode = ko.observable(null);
 		this.isUserLoggedIn = ko.observable(false);
 		this.currentRoute.subscribe((newRoute) => {
 			this.onUpdateRoute(newRoute)
@@ -122,8 +123,10 @@ class App {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute();
 			this.initStyles(this.installation.themeClass());
-			this.setRavenUser()
+			this.setRavenUser();
+			this.errorCode(null);
 		}).catch(( error ) => {
+			this.errorCode(error.status);
 			if ( error.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 			} else {
@@ -136,12 +139,14 @@ class App {
 	updateInstallationData() {
 		this.api.get("/api/installationInfo").then(( result ) => {
 			this.installation.UpdateData(result.response.installation);
+			this.errorCode(null);
 			setTimeout(() => {
 				this.initStyles(this.installation.theme.className())
 			}, 200);
 		}).catch(( error ) => {
 			console.error( "Request Failed: ", error );
 			this.hasError(true);
+			this.errorCode(error.status);
 		});
 	}
 

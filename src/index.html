@@ -63,10 +63,10 @@
 			</div>
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && !app.isWeddingFound() && !app.hasError() -->
-			<!-- ko component: { name: 'page-404', params: { route: route } } --><!-- /ko -->
+			<!-- ko component: { name: 'page-404' } --><!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
-			<!-- ko component: { name: 'page-error', params: { route: route } } --><!-- /ko -->
+			<!-- ko component: { name: 'page-error', params: { errorCode: app.errorCode() } } --><!-- /ko -->
 		<!-- /ko -->
 
 		<!-- Load Modals on demand -->

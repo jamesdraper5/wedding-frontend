@@ -9,17 +9,19 @@ class ErrorHelper {
 
 		// Some messages to save us having them everywhere in code
 		this.messages = {
-			AccessDenied: "Access Denied",
-			AccessDeniedDetail: "The server has denied you access. If this seems unusual, try logging out and back in again.",
-			NotFound: "Not Found",
-			NotFoundDetail: "Sorry, either that resource does not exist or you do not have permission to access it.",
-			NetworkTimeout: "Network Timeout",
-			NetworkTimeoutDetail: "Please check your internet connection and try again. Email support@weddingpixie.com if you still have problems.",
-			ServerRejected: "Server Rejected",
-			ServerRejectedDetail: "Sorry the server rejected this request.",
-			ServerRejectedWithMessage: "The server rejected this request with the message:",
-			ServerError: "Server Error",
-			ServerErrorDetail: "Sorry the server ran into a problem processing this request. Please bear with us while we squish this little bug."
+			accessDenied: "Access Denied",
+			accessDeniedDetail: "The server has denied you access. If this seems unusual, try logging out and back in again.",
+			notFound: "Not Found",
+			notFoundDetail: "Sorry, either that resource does not exist or you do not have permission to access it.",
+			networkTimeout: "Network Timeout",
+			networkTimeoutDetail: "Please check your internet connection and try again. Email hello@weddingpixie.com if you still have problems.",
+			serverRejected: "Server Rejected",
+			serverRejectedDetail: "Sorry the server rejected this request.",
+			serverRejectedWithMessage: "The server rejected this request with the message:",
+			serverError: "Server Error",
+			serverErrorDetail: "Sorry the server ran into a problem processing this request. Please bear with us while we squish this little bug.",
+			rateLimit: "Rate Limit Reached",
+			rateLimitDetail: "Sorry, you have made the maximum number of requests in the current time frame. Please try again in 15 minutes."
 		}
 
 		this.Ajax = __bind(this.Ajax, this);
@@ -42,11 +44,11 @@ class ErrorHelper {
 			}
 		} else if ( xhr.status == 404 ) { // Not found
 			if ( errorCodesToIgnore.indexOf(xhr.status) === -1 ) {
-				app.flash.Error( this.messages.NotFound, opts.custom404Text || this.messages.NotFoundDetail );
+				app.flash.Error( this.messages.notFound, opts.custom404Text || this.messages.notFoundDetail );
 			}
 		} else if ( xhr.status == 403 ) { // Access Denied
 			if ( errorCodesToIgnore.indexOf(xhr.status) === -1 ) {
-				app.flash.Error( this.messages.AccessDenied, ( xhr.statusText.toLowerCase() === 'access denied' ? this.messages.AccessDeniedDetail : xhr.statusText ) );
+				app.flash.Error( this.messages.accessDenied, ( xhr.statusText.toLowerCase() === 'access denied' ? this.messages.accessDeniedDetail : xhr.statusText ) );
 			}
 		} else if ( xhr.status == 400 ) { // Server rejected
 			if ( xhr.responseJSON != null && xhr.responseJSON.message && xhr.responseJSON.message === 'Validation error' && xhr.responseJSON.data != null && _.isArray(xhr.responseJSON.data) ) {
@@ -60,20 +62,22 @@ class ErrorHelper {
 					var validationMsg = validationMessages[0].substring(0,1).toUpperCase() + validationMessages[0].substring(1,validationMessages[0].length);
 					app.flash.Error( "<strong>"+expl+"</strong> ", validationMsg );
 				} else {
-					app.flash.Error( "<strong>"+expl+"</strong> ", this.messages.ServerRejectedDetail );
+					app.flash.Error( "<strong>"+expl+"</strong> ", this.messages.serverRejectedDetail );
 				}
 			} else if ( xhr.responseJSON != null && xhr.responseJSON.message ) {
 				app.flash.Error( "<strong>"+expl+"</strong> ", xhr.responseJSON.message );
 			} else {
-				app.flash.Error( this.messages.ServerRejected, this.messages.ServerRejectedDetail );
+				app.flash.Error( this.messages.serverRejected, this.messages.serverRejectedDetail );
 			}
+		} else if ( xhr.status == 429 ) { // Rate limit exceeded
+			app.flash.Error( this.messages.rateLimit, this.messages.rateLimitDetail );
 		} else if ( xhr.status == 0 ) { // Network timeout
-			app.flash.Error( this.messages.NetworkTimeout, this.messages.NetworkTimeoutDetail );
+			app.flash.Error( this.messages.networkTimeout, this.messages.networkTimeoutDetail );
 		} else {
 			if ( xhr.responseJSON != null && xhr.responseJSON.message ) {
 				app.flash.Error( expl, xhr.responseJSON.message )
 			} else {
-				app.flash.Error( this.messages.ServerError, this.messages.ServerErrorDetail );
+				app.flash.Error( this.messages.serverError, this.messages.serverErrorDetail );
 			}
 		}
 
