@@ -28,7 +28,6 @@ class Router {
 	}
 
 	showAdmin(ctx) {
-		console.log('ctx', ctx);
 		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isAdminPage: true, showNav: true };
 
 		// if there's a `section` value, then we're gonna open an overlay - need to know which one
