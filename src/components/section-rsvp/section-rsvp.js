@@ -23,7 +23,7 @@ class RsvpSection {
 			if ( this.isSubmitting() ) {
 				return 'Sending RSVP';
 			} else if ( this.hasSubmitted() ) {
-				return 'RSVP Sent';
+				return 'Your RSVP has been sent - thank you!';
 			} else {
 				return 'Send RSVP';
 			}
