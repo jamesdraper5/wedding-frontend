@@ -33,17 +33,6 @@ class RsvpSection {
 		});
 	}
 
-	validateForm() {
-
-		if ( this.isAttending() == null ) {
-			app.flash.Error( "<strong>Oops!</strong> ", 'Please specify whether you can attend or not');
-			isValid = false;
-		}
-
-		return isValid;
-
-	}
-
 	OnClickAddGuest() {
 		this.extraGuests.push({name: '', uid: Date.now()});
 	}
@@ -72,10 +61,6 @@ class RsvpSection {
 		if ( !this.userIsHuman() ) {
 			app.flash.Error( "<strong>Hmmmm...</strong>", "This is awkward - we think you might be a spam bot. Please try again");
 			app.SendSentryError('Possible spambot form submission', { level: 'warning', extra: data });
-			return false;
-		}
-
-		if ( !this.validateForm() ) {
 			return false;
 		}
 

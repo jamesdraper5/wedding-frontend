@@ -49,14 +49,14 @@
 							<div class="col-md-6 text-center">
 								<label for="attending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === true }">
 									<i class="fa fa-thumbs-up"></i>
-									<input type="radio" name="isAttending" class="hidden-radio" id="attending" data-bind="checked: isAttending, checkedValue: true">
+									<input type="radio" name="isAttending" class="hidden-radio" id="attending" required data-bind="checked: isAttending, checkedValue: true">
 									<span>Accept with pleasure</span>
 								</label>
 							</div>
 							<div class="col-md-6 text-center">
 								<label for="notAttending" class="btn btn-default" data-bind="css: { 'highlight-bg': isAttending() === false }">
 									<i class="fa fa-thumbs-down"></i>
-									<input type="radio" name="isAttending" class="hidden-radio" id="notAttending" data-bind="checked: isAttending, checkedValue: false">
+									<input type="radio" name="isAttending" class="hidden-radio" id="notAttending" required data-bind="checked: isAttending, checkedValue: false">
 									<span>Regretfully decline</span>
 								</label>
 							</div>
