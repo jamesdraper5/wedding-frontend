@@ -31,8 +31,12 @@ class NavBarViewModel {
 
 	OnClickNavItem(item) {
 		var navHeight = $('#main-nav').height();
-		var sectionId = '#' + item.toLowerCase().split(' ').join('-') + '-container'; // e.g. #wedding-party-container
-		$.scrollTo( $(sectionId), 600, { offset: -navHeight } )
+		var $section = $( this.getSectionId(item) );
+		$.scrollTo( $section, 600, { offset: -navHeight } )
+	}
+
+	getSectionId(item) {
+		return '#' + item.toLowerCase().split(' ').join('-') + '-container'; // e.g. #wedding-party-container
 	}
 
 	OnClickToggleSidebar() {

@@ -29,7 +29,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<!-- ko foreach: installation.activeSections -->
 				<li>
-					<a href="#" data-bind="click: $component.OnClickNavItem">{{ $data }}</a>
+					<a href="#" data-bind="click: $component.OnClickNavItem, attr: { href: $component.getSectionId($data) }">{{ $data }}</a>
 				</li>
 				<!-- /ko -->
 			</ul>
