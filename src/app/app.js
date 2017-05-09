@@ -122,7 +122,7 @@ class App {
 		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
 			this.validateInitialRoute();
-			this.initStyles(this.installation.themeClass());
+			this.initStyles(this.installation.theme.className());
 			this.setRavenUser();
 			this.errorCode(null);
 		}).catch(( error ) => {
@@ -144,7 +144,6 @@ class App {
 				this.initStyles(this.installation.theme.className())
 			}, 200);
 		}).catch(( error ) => {
-			console.error( "Request Failed: ", error );
 			this.hasError(true);
 			this.errorCode(error.status);
 		});
