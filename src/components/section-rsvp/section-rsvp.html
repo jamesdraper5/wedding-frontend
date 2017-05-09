@@ -14,7 +14,7 @@
 			<hr class="minor">
 			<br>
 
-			<form id="rsvp-form" data-bind="moveLabels: true, botChecker: userIsHuman">
+			<form id="rsvp-form" data-bind="moveLabels: true, botChecker: userIsHuman, submit: OnSubmit">
 				<div>
 
 					<div class="form-group">
@@ -87,7 +87,7 @@
 			  			<div class="form-group">
 			  				<div class="row">
 			  					<div class="col-md-12 moving-labels">
-					  				<label for="song">A song that will get you onto the dancefloor</label>
+					  				<label for="song">A song that will get you onto the dancefloor (optional)</label>
 								    <input type="text" id="song" class="form-control" data-bind="textInput: songChoice" title="Your favourite song to get your boogie on">
 								</div>
 							</div>
@@ -104,7 +104,7 @@
 					</div>
 			  	</div>
 
-			  	<button disabled type="submit" class="ladda-button btn btn-lg btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit, enable: !hasSubmitted()">
+			  	<button disabled type="submit" class="ladda-button btn btn-lg btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, enable: !hasSubmitted()">
 			  		<span class="ladda-label">
 			  			<i class="fa fa-paper-plane"></i> {{ btnText }}
 			  		</span>

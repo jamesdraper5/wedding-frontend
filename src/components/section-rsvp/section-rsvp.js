@@ -35,13 +35,7 @@ class RsvpSection {
 
 	validateForm() {
 
-		var isValid = this.validator.ValidateAll([
-			{ input: this.firstName, inputName: 'Your first name', typeCheck: 'notEmpty' },
-			{ input: this.lastName, inputName: 'Your last name', typeCheck: 'notEmpty' },
-			{ input: this.phoneNumber, inputName: 'Your phone number', typeCheck: 'notEmpty' },
-		]);
-
-		if ( isValid && this.isAttending() == null ) {
+		if ( this.isAttending() == null ) {
 			app.flash.Error( "<strong>Oops!</strong> ", 'Please specify whether you can attend or not');
 			isValid = false;
 		}
