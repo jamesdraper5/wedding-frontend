@@ -5,9 +5,10 @@ import templateMarkup from 'text!./overlay-editor-home.html';
 class OverlayHomeSection {
 	constructor(params) {
 		var data = app.installation.sections.home;
-		console.log('data', data);
+		this.defaultName = this.generateDefaultTitle(data.partnerNames());
+
 		this.id = ko.unwrap(data.id);
-		this.name = ko.observable( this.generateDefaultTitle(data.partnerNames()) ); // generate a title such as "Mary & John" for the default title
+		this.name = ko.observable( this.defaultName ); // generate a title such as "Mary & John" for the default title
 		this.hasCustomName = ko.observable( ko.unwrap(data.hasCustomName) );
 		this.customName = ko.observable( ko.unwrap(data.customName) ); // This is the title of the site in the installations table
 		this.weddingDate = ko.observable( ko.unwrap(data.weddingDate) );
@@ -26,7 +27,7 @@ class OverlayHomeSection {
 
 		this.isDirty = ko.pureComputed(() => {
 			if (
-			    this.name() !== ko.unwrap(data.name) ||
+			    this.name() !== this.defaultName ||
 				this.weddingDate() !== ko.unwrap(data.weddingDate) ||
 				this.mainImage() !== ko.unwrap(data.mainImage) ||
 				this.menuText() !== ko.unwrap(data. menuText) ||
