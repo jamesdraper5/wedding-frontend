@@ -112,7 +112,7 @@ class App {
 		switch(theme) {
 			case 'paris':
 				var bg = `url( ${this.installation.sections.home.mainImage()} )`;
-				this.addCSSRule(styleSheet, "#home-container", "background-image: " + bg, styleSheet.cssRules.length);
+				this.addCSSRule(styleSheet, ".paris #home-container", "background-image: " + bg, styleSheet.cssRules.length);
 				break;
 		}
 	}
