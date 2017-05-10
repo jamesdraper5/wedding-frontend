@@ -21,6 +21,7 @@ class NavBarViewModel {
 
 	}
 
+	// add class for making the nav bar BG solid when scrolled
 	updateNav() {
 		if ( $('body').scrollTop() >= 100 ) {
 			$('#main-nav').addClass('solid-bg');

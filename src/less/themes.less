@@ -21,6 +21,34 @@
 		text-transform: uppercase;
 	}
 
+	// Main nav is transparent with white text until you scroll, then white BG with black text
+	#main-nav {
+		background: transparent;
+		a {
+			color: #fff;
+			text-shadow: 0 0 2px #000;
+			transition: all 0.2s ease-in;
+			&:hover {
+				color: #fff;
+				text-shadow: 0 0 5px #000;
+			}
+		}
+		.hamburger-btn span {
+			background: #fff;
+		}
+		&.solid-bg {
+			background: #fff;
+			a {
+				color: #666;
+				text-shadow: none;
+				&:hover {
+					color: #333;
+					text-shadow: none;
+				}
+			}
+		}
+	}
+
 	h2 {
 		text-transform: uppercase;
 		font-family: @headerFamily;
@@ -44,6 +72,7 @@
 	}
 	#home-container {
 		background-color: #5f9ea0; // this is just a placeholder BG color until the BG image loads
+		background-image: url('images/heart-hands-darkened.jpg');
 		p {
 			color: #fff;
 			text-shadow: 1px 1px 1px #333;
