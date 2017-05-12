@@ -81,6 +81,10 @@ class ModalUploadImage {
 			newFileName = app.installation.id() + '/' + this.uid + '-' + file.name;
 		}
 
+		if ( newFileName.indexOf('?uid=') !== -1 ) {
+			newFileName = newFileName.split('?uid=')[0];
+		}
+
 		var postData = {
 			fileName: newFileName,
 			fileType: file.type
