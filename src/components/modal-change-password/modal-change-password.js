@@ -6,7 +6,6 @@ class ModalChangePassword {
 	constructor(params) {
 		this.callback = params.callback;
 
-
 		this.uid = Date.now();
 
 		this.currentPassword = ko.observable('');
@@ -39,7 +38,26 @@ class ModalChangePassword {
 
 	OnSubmit() {
 
-		this.Close();
+		if ( this.newPassword() !== this.newPasswordConfirm() ) {
+			app.flash.Error('Your new password and new password confirmation don\'t match');
+			return;
+		}
+
+		this.isSubmitting(true);
+
+		var data = {
+			currentPassword: this.currentPassword(),
+			newPassword: this.newPassword()
+		};
+
+		app.api.post('/api/settings/changepassword', data).then((result) => {
+			app.flash.Success('You password has been updated');
+			app.updateInstallationData();
+			this.Close();
+		}).finally(() => {
+			this.isSubmitting(false);
+		});
+
 
 	}
 
