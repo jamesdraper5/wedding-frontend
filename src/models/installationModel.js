@@ -9,6 +9,9 @@ const installationMapping = {
 	'home': {
 		create: (options) => {
 			return new HomeModel(options.data);
+		},
+		update: (options) => {
+			return options.target.UpdateData(options.data);
 		}
 	},
 	'weddingParty': {

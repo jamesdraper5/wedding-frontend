@@ -5,6 +5,9 @@ import moment from 'moment';
 const homeMapping = {
 	'weddingDate': {
 		create: (options) => {
+			return ko.observable(moment(options.data));
+		},
+		update: (options) => {
 			return moment(options.data);
 		}
 	}
@@ -12,11 +15,23 @@ const homeMapping = {
 
 class HomeModel {
     constructor(data) {
-       	data.partnerOneName = data.partnerNames[0];
-       	data.partnerTwoName = data.partnerNames[1];
+       	this.partnerOneName = ko.pureComputed(() => {
+       		return this.partnerNames()[0];
+       	});
 
-        mapping.fromJS(data, homeMapping, this);
+       	this.partnerTwoName = ko.pureComputed(() => {
+       		return this.partnerNames()[1];
+       	});
 
+       	this.weddingDateFormatted = ko.pureComputed(() => {
+			return this.weddingDate().format(app.constants.DATEFORMATS.long);
+		});
+
+       	this.UpdateData(data);
+    }
+
+    UpdateData(data) {
+        return mapping.fromJS(data, homeMapping, this);
     }
 
 }

@@ -6,10 +6,11 @@ class HomeSection {
 	constructor(params) {
 		this.subscriptions = [];
 		this.homeData = app.installation.sections.home;
-		this.weddingDate = this.homeData.weddingDate.format(app.constants.DATEFORMATS.long);
+		this.weddingDate = this.homeData.weddingDateFormatted;
 		this.containerId = this.homeData.menuText().toLowerCase().split(' ').join('-') + '-container';
 		this.partnerOneName = this.homeData.partnerOneName;
 		this.partnerTwoName = this.homeData.partnerTwoName;
+
 		this.subscriptions.push(this.partnerOneInitial = ko.pureComputed(() => {
 			return this.partnerOneName().charAt(0);
 		}));
@@ -21,6 +22,7 @@ class HomeSection {
 	dispose() {
 		// This runs when the component is torn down. Put here any logic necessary to clean up,
 		// for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+		this.subscriptions.forEach((sub) => sub.dispose())
 	}
 }
 
