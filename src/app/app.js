@@ -89,7 +89,8 @@ class App {
 			},
 			settings: {
 				subroutes: [
-					'general'
+					'general',
+					'account'
 				]
 			}
 		}

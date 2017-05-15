@@ -16,6 +16,7 @@ import overlayEditHome from 'components/overlay-editor-home/overlay-editor-home'
 import overlayEditIntro from 'components/overlay-editor-intro/overlay-editor-intro';
 import overlayEditWeddingParty from 'components/overlay-editor-weddingparty/overlay-editor-weddingparty';
 import overlayEditMaps from 'components/overlay-editor-maps/overlay-editor-maps';
+import overlaySettingsAccount from 'components/overlay-settings-account/overlay-settings-account';
 import overlaySettingsGeneral from 'components/overlay-settings-general/overlay-settings-general';
 import widgetMap from 'components/widget-map/widget-map';
 import modalConfirm from 'components/modal-confirm/modal-confirm';
@@ -29,6 +30,7 @@ import pageError from 'components/page-error/page-error';
 import widgetToggleSwitch from 'components/widget-toggle-switch/widget-toggle-switch';
 import widgetImageEditor from 'components/widget-image-editor/widget-image-editor';
 import modalUploadImage from 'components/modal-upload-image/modal-upload-image';
+import modalChangePassword from 'components/modal-change-password/modal-change-password';
 
 
 // Components can be packaged as AMD modules, such as the following:
@@ -45,6 +47,7 @@ ko.components.register('overlay-editor-intro', { viewModel: overlayEditIntro.vie
 ko.components.register('overlay-editor-weddingparty', { viewModel: overlayEditWeddingParty.viewModel, template: overlayEditWeddingParty.template });
 ko.components.register('overlay-editor-maps', { viewModel: overlayEditMaps.viewModel, template: overlayEditMaps.template });
 ko.components.register('overlay-settings-general', { viewModel: overlaySettingsGeneral.viewModel, template: overlaySettingsGeneral.template });
+ko.components.register('overlay-settings-account', { viewModel: overlaySettingsAccount.viewModel, template: overlaySettingsAccount.template });
 ko.components.register('widget-map', { viewModel: widgetMap.viewModel, template: widgetMap.template });
 ko.components.register('modal-confirm', { viewModel: modalConfirm.viewModel, template: modalConfirm.template });
 ko.components.register('overlay-editor-rsvp', { viewModel: overlayEditRsvp.viewModel, template: overlayEditRsvp.template });
@@ -57,6 +60,7 @@ ko.components.register('page-error', { viewModel: pageError.viewModel, template:
 ko.components.register('widget-toggle-switch', { viewModel: widgetToggleSwitch.viewModel, template: widgetToggleSwitch.template });
 ko.components.register('widget-image-editor', { viewModel: widgetImageEditor.viewModel, template: widgetImageEditor.template });
 ko.components.register('modal-upload-image', { viewModel: modalUploadImage.viewModel, template: modalUploadImage.template });
+ko.components.register('modal-change-password', { viewModel: modalChangePassword.viewModel, template: modalChangePassword.template });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();
