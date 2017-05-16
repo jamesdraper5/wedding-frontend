@@ -7,7 +7,7 @@ const weddingPartyPersonMapping = {
 			if ( options.data != null ) {
 				return ko.observable( options.data );
 			} else {
-				return ko.observable( "https://maxcdn.icons8.com/iOS7/PNG/100/Users/user_male_circle_filled-100.png" );
+				return ko.observable( "images/bridesmaid-bw.jpg" );
 			}
 		}
 	}
