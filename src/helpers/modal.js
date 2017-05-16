@@ -21,7 +21,7 @@ class ModalHelper {
 		modalVM.allowFade = ko.observable(true);
 
 
-		var showModal = (modalVM) => {
+		function showModal(modalVM) {
 			modalVM.modalDiv.modal("show");
 			app.currentModalVM = modalVM;
 
@@ -38,8 +38,10 @@ class ModalHelper {
 			attachOnhide(modalVM);
 		}
 
-		var attachOnhide = (modalVM) => {
+		function attachOnhide(modalVM) {
+
 			modalVM.modalDiv.on('hidden.bs.modal', (e) => {
+
 				// Clear the binding - not having this causes madness
 				$( modalVM.modalDiv ).unbind( 'hidden.bs.modal' )
 
@@ -58,11 +60,11 @@ class ModalHelper {
 				}
 
 				// Remove the modal component from the DOM by removing it in app.modals
-				app.modals.remove(modalVM.modalRef);
+				app.modals.pop(); // assuming it's the last one in the modals array for now
 			});
 		}
 
-		var onModalTemplateLoaded = () => {
+		function onModalTemplateLoaded() {
 			modalVM.modalDiv = $('#'+modalVM.modalDivId);
 			modalVM.modalDiv.on('shown.bs.modal', (e) => {
 				// Clear the binding - not having this causes madness
