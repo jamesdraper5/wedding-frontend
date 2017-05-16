@@ -21,6 +21,7 @@ class WidgetImageEditor {
 		this.isEditing = (params.isEditing != null ? params.isEditing : ko.observable(false));
 		this.useEditor = (params.useEditor != null ? params.useEditor : true)
 		this.uid = params.uid || Date.now();
+		this.defaultImages = params.defaultImages || [];
 
 		this.inputId = 'image-upload-' + this.uid
 		this.imgId = 'image-' + this.uid
@@ -92,6 +93,14 @@ class WidgetImageEditor {
 
 	OnClickFilePicker() {
 		$('#'+this.inputId).trigger('click')
+	}
+
+	OnClickUseDefault() {
+		app.modal.Show("image-picker", {
+			images: this.defaultImages,
+			usePostbox: true,
+			uid: this.uid
+		});
 	}
 
 	OnFinishedEditing() {

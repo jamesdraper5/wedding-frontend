@@ -14,6 +14,10 @@ class OverlayEditWeddingParty {
 		this.isVisible = weddingParty.isVisible;
 		this.groups = ko.observableArray(ko.unwrap(weddingParty.groups));
 		this.isDirty = weddingParty.isDirty;
+		this.defaultImages = [
+			'images/groomsman-bw.jpg',
+			'images/bridesmaid-bw.jpg'
+		];
 
 		this.resetData = weddingParty.ResetData;
 
@@ -58,7 +62,7 @@ class OverlayEditWeddingParty {
 	}
 
 	OnClickEditImage(person) {
-		app.modal.Show("upload-image", { imageUrl: person.imageUrl, editorOpts: { cropRatio: 1 } });
+		app.modal.Show("upload-image", { imageUrl: person.imageUrl, editorOpts: { cropRatio: 1 }, defaultImages: this.defaultImages });
 	}
 
 	Cancel() {

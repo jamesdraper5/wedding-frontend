@@ -3,19 +3,25 @@
 	    <div class="modal-content">
 	    	<div class="modal-header">
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" data-bind="text:title">Upload Image</h4>
+		        <h4 class="modal-title">Pick an Image</h4>
 			</div>
-			<div class="modal-body uploader-body">
+			<div class="modal-body image-picker">
 				<!-- ko if: templateLoaded -->
-					<widget-image-editor params="{ file: file, isEditing: isEditing, imageSrc: imageUrl, uid: uid, editorOpts: editorOpts, defaultImages: defaultImages }"></widget-image-editor>
+
+					<div class="clearfix">
+						<!-- ko foreach: images -->
+							<div class="image-picker--image-holder" data-bind="click: $component.OnSelectImage">
+								<img data-bind="attr: { src: $data }" />
+							</div>
+						<!-- /ko -->
+					</div>
+
 				<!-- /ko -->
 			</div>
 			<div class="modal-footer">
 				<div class="text-right">
 					<button class="btn btn-link" data-bind="click:OnClickCancel">Cancel</button>
-					<button class="ladda-button btn btn-success" data-style="expand-right" data-bind="ladda:isSubmitting, click:OnSubmit">
-						<span class="ladda-label" data-bind="text: btnText()"></span>
-					</button>
+					<button class="btn btn-success" data-bind="click:OnClickConfirm">Okay</button>
 				</div>
 			</div>
 	    </div><!-- /.modal-content -->

@@ -29,6 +29,7 @@ import pageResetPassword from 'components/page-reset-password/page-reset-passwor
 import pageError from 'components/page-error/page-error';
 import widgetToggleSwitch from 'components/widget-toggle-switch/widget-toggle-switch';
 import widgetImageEditor from 'components/widget-image-editor/widget-image-editor';
+import modalImagePicker from 'components/modal-image-picker/modal-image-picker';
 import modalUploadImage from 'components/modal-upload-image/modal-upload-image';
 import modalChangePassword from 'components/modal-change-password/modal-change-password';
 
@@ -59,6 +60,7 @@ ko.components.register('page-reset-password', { viewModel: pageResetPassword.vie
 ko.components.register('page-error', { viewModel: pageError.viewModel, template: pageError.template });
 ko.components.register('widget-toggle-switch', { viewModel: widgetToggleSwitch.viewModel, template: widgetToggleSwitch.template });
 ko.components.register('widget-image-editor', { viewModel: widgetImageEditor.viewModel, template: widgetImageEditor.template });
+ko.components.register('modal-image-picker', { viewModel: modalImagePicker.viewModel, template: modalImagePicker.template });
 ko.components.register('modal-upload-image', { viewModel: modalUploadImage.viewModel, template: modalUploadImage.template });
 ko.components.register('modal-change-password', { viewModel: modalChangePassword.viewModel, template: modalChangePassword.template });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]

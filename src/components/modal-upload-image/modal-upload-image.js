@@ -8,6 +8,7 @@ class ModalUploadImage {
 		this.title = params.title || 'Upload Image';
 		this.editorOpts = params.editorOpts || {};
 		this.imageUrl = params.imageUrl || ko.observable(null);
+		this.defaultImages = params.defaultImages || [];
 
 		this.uid = Date.now();
 		this.file = ko.observable(null);
@@ -24,9 +25,9 @@ class ModalUploadImage {
 			} else {
 				return 'Save Image'
 			}
-		}))
+		}));
 
-		//this.file.subscribe((n) => console.log('file', n))
+		this.subscriptions.push( ko.postbox.subscribe('image-picker-selection-'+this.uid, (data) => this.OnSelectDefaultImage(data)) );
 
 		app.modal.Init('UploadImage', this, params)
 	}
@@ -35,6 +36,11 @@ class ModalUploadImage {
 	/******************************
 	* Event Handlers
 	******************************/
+	OnSelectDefaultImage(data) {
+		app.flash.Success('Image Updated');
+		this.imageUrl(data.image)
+		this.Close()
+	}
 
 	OnClickCancel() {
 		this.Close()

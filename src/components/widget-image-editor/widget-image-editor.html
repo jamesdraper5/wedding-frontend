@@ -8,16 +8,21 @@
 		<!-- ko ifnot: isEditing -->
 			<!-- ko if: imageSrc() != null -->
 				<button class="btn btn-primary" data-bind="click: OnClickToggleEdit">
-					<i class="fa fa-pencil"></i> Edit Image
+					<i class="fa fa-pencil"></i> Edit image
 				</button>
 
 				<button class="btn btn-default" data-bind="click: OnClickFilePicker">
-					<i class="fa fa-cloud-upload"></i> Select a new Image
+					<i class="fa fa-cloud-upload"></i> Select a new image
 				</button>
 			<!-- /ko -->
 			<!-- ko if: imageSrc() == null -->
 				<button class="btn btn-default" data-bind="click: OnClickFilePicker">
-					<i class="fa fa-cloud-upload"></i> Select an Image
+					<i class="fa fa-cloud-upload"></i> Select an image
+				</button>
+			<!-- /ko -->
+			<!-- ko if: defaultImages.length -->
+				<button class="btn btn-default" data-bind="click: OnClickUseDefault">
+					<i class="fa fa-cloud-upload"></i> Use a default image
 				</button>
 			<!-- /ko -->
 		<!-- /ko -->
