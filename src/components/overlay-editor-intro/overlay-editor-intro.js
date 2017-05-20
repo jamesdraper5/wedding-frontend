@@ -20,6 +20,10 @@ class OverlayWelcomeMessage {
 			}
 		});
 
+		this.sectionId = ko.pureComputed(() => {
+			return app.getContainerId(this.menuText);
+		});
+
 		this.isDirty = ko.pureComputed(() => {
 			if (
 			    this.title() !== ko.unwrap(data.header) ||
@@ -54,7 +58,8 @@ class OverlayWelcomeMessage {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
-			$.scrollTo( $('#home-container'), 1000, { offset: -$('#main-nav').height() } )
+			$.scrollTo( $(this.sectionId()), 1000, { offset: -$('#main-nav').height() } );
+			console.log('okay');
 		}).finally(() => {
 			this.isSubmitting(false);
 		});

@@ -7,7 +7,7 @@ class HomeSection {
 		this.subscriptions = [];
 		this.homeData = app.installation.sections.home;
 		this.weddingDate = this.homeData.weddingDateFormatted;
-		this.containerId = this.homeData.menuText().toLowerCase().split(' ').join('-') + '-container';
+		this.containerId = app.getContainerId(this.homeData.menuText);
 		this.partnerOneName = this.homeData.partnerOneName;
 		this.partnerTwoName = this.homeData.partnerTwoName;
 

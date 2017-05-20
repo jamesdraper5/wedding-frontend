@@ -27,7 +27,6 @@ import { constants as Constants } from '../helpers/constants';
 
 class App {
 	constructor(config) {
-
 		this.api = api;
 		this.router = router;
 		this.currentRoute = router.currentRoute;
@@ -74,6 +73,10 @@ class App {
 			}
 		})
 
+		this.bodyClass = ko.pureComputed(() => {
+			return this.getBodyClass();
+		});
+
 		this.validRoutes = {
 			login: true,
 			forgotpassword: true,
@@ -115,7 +118,7 @@ class App {
 				var bg = this.installation.sections.home.mainImage();
 				if ( bg != null ) {
 					var bgStyle = `url( ${bg} )`;
-					this.addCSSRule(styleSheet, ".paris #home-container", "background-image: " + bgStyle, styleSheet.cssRules.length);
+					this.addCSSRule(styleSheet, ".paris .home-container", "background-image: " + bgStyle, styleSheet.cssRules.length);
 				}
 				break;
 		}
@@ -313,6 +316,20 @@ class App {
 		app.overlayToShow(null);
 		$('body').removeClass('no-scroll');
 		//app.GoTo('editor');
+	}
+
+	getBodyClass() {
+		let className = app.currentRoute().page;
+		if ( app.isUserLoggedIn() ) {
+			className += ' logged-in';
+		}
+		return className;
+	}
+
+	// e.g. #wedding-party-container
+	getContainerId(sectionName) {
+		sectionName = ko.unwrap(sectionName); // unwrap in case it's an observable
+		return '#' + sectionName.toLowerCase().split(' ').join('-') + '-container';
 	}
 
 	Logout(redirect=false) {

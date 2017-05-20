@@ -6,7 +6,7 @@ class MapsSection {
 		// TO DO: get a proper title for here from API
 		this.title = app.installation.sections.maps.menuText;
 		this.maps = app.installation.sections.maps.locations;
-		this.containerId = this.title().toLowerCase().split(' ').join('-') + '-container';
+		this.containerId = app.getContainerId(this.title);
 	}
 
 	dispose() {

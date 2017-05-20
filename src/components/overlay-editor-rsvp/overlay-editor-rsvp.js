@@ -32,6 +32,10 @@ class OverlayEditRsvp {
 			return false;
 		});
 
+        this.sectionId = ko.pureComputed(() => {
+			return app.getContainerId(this.menuText);
+		});
+
 	}
 
 	OnRendered() {
@@ -54,7 +58,7 @@ class OverlayEditRsvp {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
-			$.scrollTo( $('#rsvp-container'), 1000, { offset: -$('#main-nav').height() } )
+            $.scrollTo( $(this.sectionId()), 1000, { offset: -$('#main-nav').height() } );
 		}).finally(() => {
 			this.isSubmitting(false);
 		});

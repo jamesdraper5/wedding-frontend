@@ -11,6 +11,9 @@ class NavBarViewModel {
 			if ( app.overlayToShow() == null ) {
 				className += 'navbar-fixed-top ';
 			}
+			if ( app.isUserLoggedIn() ) {
+				className += 'logged-in ';
+			}
 			className += app.sidebarPosition();
 			return className;
 		});

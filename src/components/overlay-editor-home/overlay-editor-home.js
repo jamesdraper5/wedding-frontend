@@ -15,6 +15,9 @@ class OverlayHomeSection {
 		this.mainImage = ko.observable( ko.unwrap(data.mainImage) );
 		this.menuText = ko.observable( ko.unwrap(data.menuText) );
 		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
+		this.sectionId = ko.pureComputed(() => {
+			return app.getContainerId(this.menuText);
+		});
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -73,7 +76,7 @@ class OverlayHomeSection {
 			app.flash.Success("Yep, that's all updated now");
 			app.updateInstallationData();
 			this.Close();
-			$.scrollTo( $('#home-container'), 1000, { offset: -$('#main-nav').height() } )
+			$.scrollTo( $(this.sectionId()), 1000, { offset: -$('#main-nav').height() } )
 		}).finally(() => {
 			this.isSubmitting(false);
 		});

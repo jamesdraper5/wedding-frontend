@@ -29,6 +29,10 @@ class OverlayEditWeddingParty {
 				return 'Save My Changes';
 			}
 		});
+
+		this.sectionId = ko.pureComputed(() => {
+			return app.getContainerId(this.menuText);
+		});
 	}
 
 	OnRendered() {
@@ -55,7 +59,7 @@ class OverlayEditWeddingParty {
 			app.flash.Success('Updated baby!');
 			app.updateInstallationData();
 			this.Close();
-			$.scrollTo( $('#wedding-party-container'), 1000, { offset: -$('#main-nav').height() } )
+			$.scrollTo( $(this.sectionId()), 1000, { offset: -$('#main-nav').height() } );
 		}).finally(() => {
 			this.isSubmitting(false);
 		});
