@@ -54,9 +54,6 @@ class App {
 
 		this.findInstallation();
 
-		this.hasSidebar = ko.pureComputed(() => {
-			return this.currentRoute().isLoggedInPage && this.isUserLoggedIn();
-		});
 		this.sidebarPosition = ko.observable('closed');
 		this.overlayToShow = ko.observable( null );
 		this.sidebarWidth = 260;
@@ -180,7 +177,7 @@ class App {
 			this.isWeddingFound(true);
 		}
 
-		if ( this.currentRoute().isLoggedInPage && app.loggedInUser == null ) {
+		if ( app.loggedInUser == null ) {
 			// If loggedInPage, make /api/me call then validate route and show page
 			return this.getLoggedInUser().finally(() => {
 				initPage()

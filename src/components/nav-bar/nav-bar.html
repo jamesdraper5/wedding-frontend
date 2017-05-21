@@ -10,20 +10,8 @@
 				</span>
 			</button>
 
-			<!-- ko if: app.hasSidebar() -->
-				<a href="#" data-bind="click: OnClickToggleSidebar" class="admin-toggle">
-					<span class="sr-only">Toggle admin menu</span>
-					<span class="hamburger-btn" data-bind="css: app.sidebarPosition()">
-					  <span></span>
-					  <span></span>
-					  <span></span>
-					  <span></span>
-					</span>
-				</a>
-			<!-- /ko -->
-			<!-- ko ifnot: app.hasSidebar() -->
-				<a href="/" class="navbar-brand">{{ installation.name }}</a>
-			<!-- /ko -->
+			<a href="/" class="navbar-brand">{{ installation.name }}</a>
+
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">

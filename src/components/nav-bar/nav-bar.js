@@ -43,14 +43,6 @@ class NavBarViewModel {
 		return '#' + item.toLowerCase().split(' ').join('-') + '-container'; // e.g. #wedding-party-container
 	}
 
-	OnClickToggleSidebar() {
-		if ( app.sidebarPosition() === 'open' ) {
-			app.sidebarPosition( 'closed' )
-		} else {
-			app.sidebarPosition( 'open' )
-		}
-
-	}
 }
 
 export default { viewModel: NavBarViewModel, template: template };

@@ -77,7 +77,6 @@ body.logged-in {
 	#overlay, .navbar-fixed-top {
 		top: 40px;
 	}
-
 }
 
 // Shows an "edit" msg when hovering on an image
@@ -238,9 +237,7 @@ figure.hover-effect {
 .admin-toggle {
 	position: relative;
 	float: left;
-	padding: 9px 10px;
-	margin-top: 8px;
-	margin-bottom: 8px;
+	padding: 4px 3px;
 	background-color: transparent;
 	background-image: none;
 }
@@ -313,7 +310,7 @@ figure.hover-effect {
 	position: relative;
 	height: 100%;
 	padding-top: 40px;
-	.admin-header {
+	.admin-panel-header {
 		margin-bottom: 20px;
 		a {
 			border-radius: 0;
@@ -905,13 +902,49 @@ footer .fa-heart {
 
 .admin-header {
 	background: #333;
-    padding: 10px;
+    padding: 10px 30px;;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: @admin-header-z-index;
-    font-size: 12px;
+    font-size: 14px;
     height: 40px;
 	color: #fff;
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+	.admin-header--left-nav {
+		list-style: none;
+		padding: 0;
+		color: #fff;
+		display: inline-block;
+		li {
+			float: left;
+			display: inline-block;
+		}
+	}
+	.dropdown-menu {
+		top: 27px;
+	}
+	.user-avatar {
+		border-radius: 50%;
+		background: #aa62e3;
+		color: #fff;
+		text-decoration: none;
+		padding: 5px;
+		margin-left: 5px;
+	}
+	.help-dropdown {
+		margin-right: 20px;
+	}
+	.caret-icon {
+		fill: #fff;
+	}
+}
+
+.caret-icon {
+	width: 10px;
+	height: 10px;
 }

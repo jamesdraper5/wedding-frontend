@@ -1,0 +1,77 @@
+<div class="admin-header">
+
+    <ul class="admin-header--left-nav">
+        <li>
+            <a href="#" data-bind="click: OnClickToggleSidebar" class="admin-toggle">
+                <span class="sr-only">Toggle admin menu</span>
+                <span class="hamburger-btn" data-bind="css: app.sidebarPosition()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
+        </li>
+    </ul>
+
+
+    <div class="dropdown pull-right account-dropdown">
+    	<a class="dropdown-toggle" href="#" id="account-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Hi James
+            <span class="user-avatar">JD</span>
+            <svg class="caret-icon" viewBox="0 0 32 32">
+                <path d="M4.686,12.686l9.899,9.9c0.781,0.781,2.047,0.781,2.828,0l9.9-9.9l-2.475-2.475L16,19.05l-8.839-8.839L4.686,12.686z"></path>
+            </svg>
+        </a>
+    	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="account-dropdown">
+            <li>
+                <a href="editor">
+                    <i class="fa fa-desktop fa-fw" aria-hidden="true"></i> Editor
+                </a>
+            </li>
+            <li>
+                <a href="settings">
+                    <i class="fa fa-cog fa-fw" aria-hidden="true"></i> Settings
+                </a>
+            </li>
+    		<li>
+                <a href="#" data-bind="click: OnClickHelp">
+                    <i class="fa fa-question fa-fw" aria-hidden="true"></i> Contact Support
+                </a>
+            </li>
+    		<li role="separator" class="divider"></li>
+    		<li>
+                <a href="#" data-bind="click: OnClickLogOut">
+                    <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Logout
+                </a>
+            </li>
+    	</ul>
+    </div>
+
+    <div class="dropdown pull-right help-dropdown">
+    	<a class="dropdown-toggle" href="#" id="help-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+            <!-- <span class="caret"></span> -->
+            <svg class="caret-icon" viewBox="0 0 32 32">
+                <path d="M4.686,12.686l9.899,9.9c0.781,0.781,2.047,0.781,2.828,0l9.9-9.9l-2.475-2.475L16,19.05l-8.839-8.839L4.686,12.686z"></path>
+            </svg>
+        </a>
+    	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="help-dropdown">
+            <li>
+                <a href="http://support.weddingpixie.com/getting-started" target="_blank">Getting started</a>
+            </li>
+            <!--
+            <li>
+                <a href="http://support.weddingpixie.com/designs" target="_blank">Designs</a>
+            </li>
+            <li>
+                <a href="http://support.weddingpixie.com/rsvps" target="_blank">RSVPs</a>
+            </li>
+            <li>
+                <a href="http://support.weddingpixie.com/locations" target="_blank">Locations</a>
+            </li>
+            -->
+    	</ul>
+    </div>
+
+</div>

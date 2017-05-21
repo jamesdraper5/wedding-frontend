@@ -23,14 +23,12 @@
 
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
 			<!-- ko if: app.isUserLoggedIn() -->
-				<div class="admin-header">
-					Admin bar
-				</div>
+				<admin-header></admin-header>
 			<!-- /ko -->
 
 			<div data-bind="css: app.installation.theme.className">
 
-				<!-- ko if: app.hasSidebar() -->
+				<!-- ko if: app.isUserLoggedIn() -->
 					<div id="admin-holder">
 						<admin-panel></admin-panel>
 					</div>
