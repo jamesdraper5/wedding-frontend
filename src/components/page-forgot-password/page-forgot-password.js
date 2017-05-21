@@ -17,6 +17,7 @@ class PageForgotPassword {
 
 		app.api.post('/api/authenticate/recoverpassword', data, {errorCodesToIgnore: [404]}).then((result) => {
 			app.flash.Success(`An email has been sent to ${this.userEmail()} with further instructions`);
+			app.GoTo('/login');
 		}).catch((result) => {
 			if ( result.status === 404 ) {
 				app.flash.Error( "<strong>Oops!</strong> ", "No account with that email was found." );
