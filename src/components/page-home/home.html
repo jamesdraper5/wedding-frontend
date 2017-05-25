@@ -1,25 +1,24 @@
 <div class="main-section" data-bind="with: installation">
 
-	<section class="row">
-
+	<!-- ko if: sections.home && sections.home.isVisible() -->
 		<section-home></section-home>
+	<!-- /ko -->
 
-		<!-- ko if: sections.intro && sections.intro.isVisible() -->
-			<section-intro></section-intro>
-		<!-- /ko -->
+	<!-- ko if: sections.intro && sections.intro.isVisible() -->
+		<section-intro></section-intro>
+	<!-- /ko -->
 
-		<!-- ko if: sections.weddingParty && sections.weddingParty.isVisible() -->
-			<section-wedding-party></section-wedding-party>
-		<!-- /ko -->
+	<!-- ko if: sections.weddingParty && sections.weddingParty.isVisible() -->
+		<section-wedding-party></section-wedding-party>
+	<!-- /ko -->
 
-		<!-- ko if: sections.maps && sections.maps.isVisible() -->
-			<section-maps></section-maps>
-		<!-- /ko -->
+	<!-- ko if: sections.maps && sections.maps.isVisible() -->
+		<section-maps></section-maps>
+	<!-- /ko -->
 
-		<!-- ko if: sections.rsvp && sections.rsvp.isVisible() -->
-			<section-rsvp></section-rsvp>
-		<!-- /ko -->
+	<!-- ko if: sections.rsvp && sections.rsvp.isVisible() -->
+		<section-rsvp></section-rsvp>
+	<!-- /ko -->
 
-	</section>
 </div>
 <span data-bind="template: { afterRender: OnRendered.bind($component) }"></span>
