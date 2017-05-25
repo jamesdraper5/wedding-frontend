@@ -409,6 +409,10 @@ figure.hover-effect {
 	}
 }
 
+#page {
+	overflow: hidden;
+}
+
 .modal-body {
 	font-size: 14px;
 }
@@ -947,4 +951,31 @@ footer .fa-heart {
 .caret-icon {
 	width: 10px;
 	height: 10px;
+}
+
+// Hide the site content when sidebar is open on narrow devices. Show a message telling them to close sidebar instead
+#narrow-device-edit-msg {
+	display: none;
+	position: absolute;
+	width: 90%;
+	left: 5%;
+	top: 60px;
+    text-align: center;
+}
+#main-nav, #page {
+	transition: opacity .4s ease-in;
+}
+#page-holder.open {
+	#main-nav, #page {
+		opacity: 0;
+		@media (min-width: 667px) {
+			opacity: 1;
+		}
+	}
+	#narrow-device-edit-msg {
+		display: block;
+		@media (min-width: 667px) {
+			display: none;
+		}
+	}
 }

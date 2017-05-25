@@ -43,6 +43,10 @@
 
 					<div id="page" class="container-fluid" data-bind="component: { name: app.currentRoute().page, params: app.currentRoute }"></div>
 
+					<div id="narrow-device-edit-msg">
+						Close the sidebar to preview your site
+					</div>
+
 					<!-- ko if: app.currentRoute().page != 'page-login' -->
 						<footer id="page-footer">
 							<p class="text-center">
