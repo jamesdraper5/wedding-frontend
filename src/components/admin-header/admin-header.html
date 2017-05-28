@@ -17,8 +17,8 @@
 
     <div class="dropdown pull-right account-dropdown">
     	<a class="dropdown-toggle" href="#" id="account-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Hi James
-            <span class="user-avatar">JD</span>
+            {{ 'Hi ' + app.loggedInUser.firstName() }}
+            <span class="user-avatar">{{app.loggedInUser.initials()}}</span>
             <svg class="caret-icon" viewBox="0 0 32 32">
                 <path d="M4.686,12.686l9.899,9.9c0.781,0.781,2.047,0.781,2.828,0l9.9-9.9l-2.475-2.475L16,19.05l-8.839-8.839L4.686,12.686z"></path>
             </svg>
