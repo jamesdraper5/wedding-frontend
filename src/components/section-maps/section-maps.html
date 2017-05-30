@@ -8,16 +8,24 @@
 	<h2>{{ title }}</h2>
 </div>
 
-<!-- ko foreach: maps -->
-	<section class="row">
-		<div class="col-md-8 col-md-offset-2 text-center">
-			<h4>{{ title }}</h4>
-			<widget-map params="map: $data, mapHeight: '400px'"></widget-map>
-		</div>
-	</section>
-	<section class="row map-text">
-		<div class="col-md-8 col-md-offset-2 text-center">
-			<p>{{ description }}</p>
-		</div>
-	</section>
-<!-- /ko -->
+<section class="locations">
+	<div class="row">
+		<!-- ko foreach: maps -->
+			<div class="col-md-6 text-center">
+				<div class="locations--location">
+					<img src="images/event-party.jpg" class="location-img img-responsive"/>
+					<div class="location-info">
+						<span class="location-icon">
+							<i class="fa fa-glass"></i>
+						</span>
+						<h4>{{ title }}</h4>
+						<p>{{ description }}</p>
+					</div>
+				</div>
+
+			</div>
+		<!-- /ko -->
+	</div>
+</section>
+
+<widget-map params="locationsArray: maps, mapHeight: '400px'"></widget-map>

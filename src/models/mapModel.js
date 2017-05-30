@@ -1,9 +1,21 @@
 import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
+import moment from 'moment';
+
+const mapMapping = {
+	'startTime': {
+		create: (options) => {
+			return ko.observable(moment(options.data));
+		},
+		update: (options) => {
+			return moment(options.data);
+		}
+	}
+}
 
 class MapModel {
     constructor(data) {
-        mapping.fromJS(data, {}, this);
+        mapping.fromJS(data, mapMapping, this);
 
         this.address = ko.observable('') // used for geocoding address string to map co-ords
         this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API

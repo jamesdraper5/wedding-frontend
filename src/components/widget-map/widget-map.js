@@ -1,13 +1,15 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./widget-map.html';
 import { default as GoogleMapsLoader } from 'google-maps';
+import moment from 'moment';
 
 class WidgetMap {
 	constructor(params) {
 		GoogleMapsLoader.KEY = app.constants.GOOGLEMAPSKEY;
 
 		// TO DO: Add map marker to styles
-		this.map = params.map;
+		this.map = params.map; // this is used in edit mode
+		this.locationsArray = ko.unwrap(params.locationsArray) || []; // This is for showing multiple markers on one map in display mode
 		this.uid = Date.now();
 		this.mapHeight = params.mapHeight || '300px';
 		this.isEditMode = params.isEditMode || false;
@@ -47,7 +49,9 @@ class WidgetMap {
 		});
 	}
 
-	renderGoogleMap(google) {
+
+
+	renderEditableMap() {
 		var el = document.getElementById('map' + this.uid);
 		var locationCenter = {
 			lat: parseFloat(this.map.latitude(), 10),
@@ -85,6 +89,62 @@ class WidgetMap {
 
 		// To add the marker to the map, call setMap();
 		this.googleMarker.setMap(this.googleMap)
+
+	}
+
+	renderDisplayMap() {
+
+		function renderInfoContent(location) {
+			return `<div class="info-content">
+						<h3>${location.title()}</h3>
+						<p>${location.startTime().format('dddd, MMMM Do YYYY, h:mm a')}</p>
+						<p>
+							<a href="https://maps.google.com/?daddr=${location.latitude()}%2C${location.longitude()}" target="_blank">Get Directions</a>
+						</p>
+					</div>`;
+		}
+
+		var el = document.getElementById('map' + this.uid);
+		var bounds = new google.maps.LatLngBounds();
+		var options = {
+			styles: this.themeStyles[app.installation.theme.className()],
+			scrollwheel: false
+		};
+		var pinImage = '/images/heart.png';
+		var infoWindow = new google.maps.InfoWindow()
+
+		this.googleMap = new google.maps.Map(el, options);
+
+		// Loop through our array of markers & place each one on the map
+	    for ( let location of this.locationsArray ) {
+	        var position = new google.maps.LatLng(location.latitude(), location.longitude());
+	        bounds.extend(position);
+
+			let marker = new google.maps.Marker({
+	            position: position,
+	            map: this.googleMap,
+	            title: location.title()
+	        });
+
+	        // Allow each marker to have an info window
+			google.maps.event.addListener(marker, 'click', () => {
+	            infoWindow.setContent(renderInfoContent(location));
+				infoWindow.open(this.googleMap, marker);
+	        });
+
+	        // Automatically center the map fitting all markers on the screen
+	        this.googleMap.fitBounds(bounds);
+	    }
+
+	}
+
+	renderGoogleMap(google) {
+		if ( this.isEditMode ) {
+			this.renderEditableMap(google);
+		} else {
+			this.renderDisplayMap(google);
+		}
+
 	}
 
 	// @pos: { lat: float, lng: float }
