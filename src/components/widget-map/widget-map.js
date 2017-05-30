@@ -155,8 +155,7 @@ class WidgetMap {
 			if (status == google.maps.GeocoderStatus.OK) {
 				this.map.address( results[0].formatted_address )
 			} else {
-				// TO DO: This should just be a toastr at most
-				//app.modal.Alert('Oh Dear', 'We had a problem determining the address at this location. ')
+				app.flash.Warn('Oh Dear', 'We had a problem determining the address at this location.');
 			}
 		});
 	}
