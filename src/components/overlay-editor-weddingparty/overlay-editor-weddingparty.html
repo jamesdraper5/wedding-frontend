@@ -53,22 +53,22 @@
 
 											<div class="form-horizontal">
 												<div class="form-group">
-												    <label class="col-sm-2 control-label" data-bind="attr: { for: 'person-name-' + id }">Name</label>
+												    <label class="col-sm-2 control-label" data-bind="attr: { for: 'person-name-' + id() }">Name</label>
 												    <div class="col-sm-10">
-														<input type="text" class="form-control" data-bind="textInput: name, enable: $component.isVisible, attr: { id: 'person-name-' + id }">
+														<input type="text" class="form-control" data-bind="textInput: name, enable: $component.isVisible, attr: { id: 'person-name-' + id() }">
 												    </div>
 												</div>
 												<div class="form-group">
-												    <label class="col-sm-2 control-label" data-bind="attr: { for: 'person-desc-' + id }">Description</label>
+												    <label class="col-sm-2 control-label" data-bind="attr: { for: 'person-desc-' + id() }">Description</label>
 												    <div class="col-sm-10">
-												        <textarea class="form-control" rows="4" data-bind="textInput: text, enable: $component.isVisible, attr: { id: 'person-desc-' + id }" placeholder="Some info about this person..."></textarea>
+												        <textarea class="form-control" rows="4" data-bind="textInput: text, enable: $component.isVisible, attr: { id: 'person-desc-' + id() }" placeholder="Some info about this person..."></textarea>
 												    </div>
 												</div>
 												<div class="form-group">
 												    <label class="col-sm-2 control-label" data-bind="click: $component.OnClickEditImage" style="margin-top: 25px;;">Image</label>
 												    <div class="col-sm-10">
-														<figure class="user-preview hover-effect" data-bind="click: $component.OnClickEditImage, attr: { id: 'person-img-' + id }">
-															<img src="https://maxcdn.icons8.com/iOS7/PNG/25/Users/user_male_circle_filled-25.png" width="100" height="100" class="circle" data-bind="attr: { src: imageUrl, alt: name }" />
+														<figure class="user-preview hover-effect" data-bind="click: $component.OnClickEditImage, attr: { id: 'person-img-' + id() }">
+															<img width="100" height="100" class="circle" data-bind="attr: { src: imageUrl, alt: name }" />
 															<figcaption class="circle">
 																<p>
 																	<i class="fa fa-pencil"></i> Edit
