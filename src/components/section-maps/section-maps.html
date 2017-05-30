@@ -12,10 +12,10 @@
 			<!-- ko foreach: maps -->
 				<div class="col-md-6 text-center">
 					<div class="locations--location">
-						<img src="images/event-party.jpg" class="location-img img-responsive"/>
+						<img data-bind="attr: { src: image }" onerror="this.src='images/event-party.jpg';" class="location-img img-responsive"/>
 						<div class="location-info">
 							<span class="location-icon">
-								<i class="fa fa-glass"></i>
+								<i class="fa fa-{{mapIcon}}"></i>
 							</span>
 							<h4>{{ title }}</h4>
 							<p class="description">{{ description }}</p>
