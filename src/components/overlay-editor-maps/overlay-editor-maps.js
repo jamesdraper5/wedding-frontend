@@ -16,6 +16,7 @@ class OverlayEditMaps {
 			'images/event-ceremony.jpg',
 			'images/event-party.jpg'
 		];
+		this.availableIcons = ['heart', 'glass', 'cutlery', 'music'];
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -86,6 +87,12 @@ class OverlayEditMaps {
 
 	OnClickEditImage(venue) {
 		app.modal.Show("upload-image", { imageUrl: venue.image, editorOpts: { cropRatio: 1 }, defaultImages: this.defaultImages });
+	}
+
+	OnClickMapIcon(venue, icon) {
+		console.log('venue', venue);
+		console.log('icon', icon);
+		venue.mapIcon(icon);
 	}
 
 	AddLocation(group) {

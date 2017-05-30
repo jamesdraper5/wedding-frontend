@@ -90,7 +90,11 @@
 									></span>
 								</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-bind="textInput: mapIcon, attr: { id: 'map-icon-' + id() }, enable: $component.isVisible">
+									<!-- ko foreach: $component.availableIcons -->
+										<span class="location-editor-map-icon" data-bind="click: $component.OnClickMapIcon.bind($data, $parent), css: { selected: $parent.mapIcon() === $data }">
+											<i class="fa fa-{{$data}}"></i>
+										</span>
+									<!-- /ko -->
 								</div>
 							</div>
 
