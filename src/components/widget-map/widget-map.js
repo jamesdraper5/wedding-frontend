@@ -3,6 +3,8 @@ import templateMarkup from 'text!./widget-map.html';
 import { default as GoogleMapsLoader } from 'google-maps';
 import moment from 'moment';
 
+var CustomMarker;
+
 class WidgetMap {
 	constructor(params) {
 		GoogleMapsLoader.KEY = app.constants.GOOGLEMAPSKEY;
@@ -49,7 +51,13 @@ class WidgetMap {
 		});
 	}
 
-
+	renderGoogleMap(google) {
+		if ( this.isEditMode ) {
+			this.renderEditableMap(google);
+		} else {
+			this.renderDisplayMap(google);
+		}
+	}
 
 	renderEditableMap() {
 		var el = document.getElementById('map' + this.uid);
@@ -110,7 +118,7 @@ class WidgetMap {
 			styles: this.themeStyles[app.installation.theme.className()],
 			scrollwheel: false
 		};
-		var pinImage = '/images/heart.png';
+
 		var infoWindow = new google.maps.InfoWindow()
 
 		this.googleMap = new google.maps.Map(el, options);
@@ -120,11 +128,20 @@ class WidgetMap {
 	        var position = new google.maps.LatLng(location.latitude(), location.longitude());
 	        bounds.extend(position);
 
+			/*
 			let marker = new google.maps.Marker({
 	            position: position,
 	            map: this.googleMap,
 	            title: location.title()
 	        });
+			*/
+
+			let marker = this.createCustomMarker({
+				position: position,
+				map: this.googleMap,
+				iconClass: location.mapIcon()
+			});
+
 
 	        // Allow each marker to have an info window
 			google.maps.event.addListener(marker, 'click', () => {
@@ -138,14 +155,73 @@ class WidgetMap {
 
 	}
 
-	renderGoogleMap(google) {
-		if ( this.isEditMode ) {
-			this.renderEditableMap(google);
-		} else {
-			this.renderDisplayMap(google);
-		}
+	createCustomMarker(opts) {
 
+		// create this class for the first time. Have to do it this shitty way as we need to be sure the Google Maps API has loaded first
+		if ( CustomMarker == null ) {
+			CustomMarker = class CustomMarker extends google.maps.OverlayView {
+
+				constructor(opts) {
+					super();
+					this.position = opts.position;
+					this.iconClass = opts.iconClass || 'heart';
+					this.setMap(opts.map);
+					// These are the values used in the CSS - we use it here just to move the markers by e.g. markerWidth/2 to center them.
+					// Can't do this in the CSS as the markers already have a 45deg trasnsform so they would get translated 45deg up/right
+					this.markerWidth = 50;
+					this.markerHeight = 50;
+				}
+
+				draw() {
+
+					var div = this.div;
+					var span, icon;
+
+					if (!div) {
+
+						div = this.div = document.createElement('div');
+						span = document.createElement('span');
+						icon = document.createElement('i');
+						div.className = 'map-marker';
+						icon.className = `fa fa-${this.iconClass}`;
+
+						google.maps.event.addDomListener(div, "click", (event) => {
+							google.maps.event.trigger(this, "click");
+						});
+
+						span.appendChild(icon);
+						div.appendChild(span);
+
+						var panes = this.getPanes();
+						panes.overlayImage.appendChild(div);
+					}
+
+					var point = this.getProjection().fromLatLngToDivPixel(this.position);
+
+					if (point) {
+						div.style.left = (point.x - this.markerWidth/2) + 'px';
+						div.style.top = (point.y - this.markerHeight/2) + 'px';
+					}
+				}
+
+				getPosition() {
+					return this.position;
+				}
+
+				remove() {
+					this.setMap(null);
+					if (this.div) {
+						this.div.parentNode.removeChild(this.div);
+						this.div = null;
+					}
+				}
+
+			}
+
+		}
+		return new CustomMarker(opts);
 	}
+
 
 	// @pos: { lat: float, lng: float }
 	geocodePosition(pos) {
