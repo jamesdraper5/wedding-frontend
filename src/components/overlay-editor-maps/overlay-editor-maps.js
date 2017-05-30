@@ -11,8 +11,11 @@ class OverlayEditMaps {
 		this.isVisible = maps.isVisible;
 		this.locations = ko.observableArray( ko.unwrap(maps.locations.slice(0)) );
 		this.isDirty = maps.isDirty;
-
 		this.resetData = maps.ResetData;
+		this.defaultImages = [
+			'images/event-ceremony.jpg',
+			'images/event-party.jpg'
+		];
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {
@@ -53,7 +56,10 @@ class OverlayEditMaps {
 				description: loc.description(),
 				latitude: loc.latitude(),
 				longitude: loc.longitude(),
-				startTime: loc.startTime().format('YYYY-MM-DD HH:mm:ss')
+				address: loc.address(),
+				startTime: loc.startTime().format('YYYY-MM-DD HH:mm:ss'),
+				mapIcon: loc.mapIcon(),
+				image: loc.image()
 			}
 			if ( !loc.isNew ) {
 				mapObj.id = loc.id()
@@ -78,14 +84,21 @@ class OverlayEditMaps {
 		}
 	}
 
+	OnClickEditImage(venue) {
+		app.modal.Show("upload-image", { imageUrl: venue.image, editorOpts: { cropRatio: 1 }, defaultImages: this.defaultImages });
+	}
+
 	AddLocation(group) {
 		var newMap = new MapModel({
 			id: Date.now(),
 			title: "Wedding Ceremony",
-            description: "",
+            description: '',
 			startTime: null,
             latitude: 40.7505,
             longitude: -73.9934,
+			address: '',
+			mapIcon: 'heart',
+			image: 'images/event-ceremony.jpg',
             isNew: true
 		});
 		this.locations.push(newMap);

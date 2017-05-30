@@ -26,45 +26,109 @@
 
 					<!-- ko foreach: locations -->
 						<hr>
-						<div class="form-group">
-							<label>
-								{{ 'Venue #' + parseInt($index()+1) + ' Location' }}
-								<span
+
+						<div class="form-horizontal">
+
+							<div class="form-group">
+								<strong data-bind="text: 'Event #' + parseInt($index()+1)">Event 1</strong>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="attr: { for: 'map-title-' + id() }" placeholder="e.g. Wedding Ceremony">Event Name</label>
+								<div class="col-sm-10">
+									<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title, enable: $component.isVisible" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="attr: { for: 'map-desc-' + id() }" placeholder="A brief description of the event">Description</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }, enable: $component.isVisible"></textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="attr: { for: 'map-time-' + id() }" placeholder="What time does it start?">Start Time</label>
+								<div class="col-sm-10">
+									<input type="text" id="title" class="form-control" data-bind="dateInput: startTime, dateInputOptions: { allowEmpty: true, hasTime: true, format: 'dddd, MMMM Do YYYY, h:mm a' }, attr: { id: 'map-time-' + id() }, enable: $component.isVisible">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="click: $component.OnClickEditImage, attr: { for: 'map-time-' + id() }">
+									Venue Image
+									<span
 									class="glyphicon glyphicon-info-sign"
 									aria-hidden="true"
 									data-toggle="popover"
 									data-trigger="hover"
-									title="Entering a location"
-									data-content="Type the address below and click 'View on map' to set your location. If you need to adjust the location on the map, you can drag the marker to your chosen location. Press the + and - buttons on the map to zoom in and out, and drag the map to move it's location."
-								></span>
-							</label>
+									title="Your venue image"
+									data-content="You can add a photo of the venue here or just choose one of our placeholder images"
+									></span>
+								</label>
+								<div class="col-sm-10">
+									<figure class="hover-effect" data-bind="click: $component.OnClickEditImage, attr: { id: 'location-img-' + id() }">
+										<img src="brokenLink" class="location-image-preview" data-bind="attr: { src: image, alt: name }" />
+										<figcaption>
+											<p>
+												<i class="fa fa-pencil"></i> Edit
+											</p>
+										</figcaption>
+									</figure>
+								</div>
+							</div>
 
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Enter the address of your venue" data-bind="textInput: address, enable: $component.isVisible">
-					            <span class="input-group-btn">
-									<button class="btn btn-primary" type="button" data-bind="click: updateGoogleMapLocation, enable: $component.isVisible">
-				              			<span class="glyphicon glyphicon-screenshot"></span>
-										View on map
-				              		</button>
-				              	</span>
-				            </div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="attr: { for: 'map-icon-' + id() }">
+									Map Icon
+									<span
+										class="glyphicon glyphicon-info-sign"
+										aria-hidden="true"
+										data-toggle="popover"
+										data-trigger="hover"
+										title="What's this?"
+										data-content="This will appear as a marker on the map, showing your guests where to find your venue"
+									></span>
+								</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" data-bind="textInput: mapIcon, attr: { id: 'map-icon-' + id() }, enable: $component.isVisible">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label" data-bind="attr: { for: 'map-address-' + id() }">
+									Address
+									<span
+										class="glyphicon glyphicon-info-sign"
+										aria-hidden="true"
+										data-toggle="popover"
+										data-trigger="hover"
+										title="Entering a location"
+										data-content="Type the address below and click 'View on map' to set your location. If you need to adjust the location on the map, you can drag the marker to your chosen location. Press the + and - buttons on the map to zoom in and out, and drag the map to move it's location."
+									></span>
+								</label>
+								<div class="col-sm-10">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Enter the address of your venue" data-bind="textInput: address, attr: { id: 'map-address-' + id() }, enable: $component.isVisible">
+							            <span class="input-group-btn">
+											<button class="btn btn-primary" type="button" data-bind="click: updateGoogleMapLocation, enable: $component.isVisible">
+						              			<i class="fa fa-map-marker"></i> View on map
+						              		</button>
+						              	</span>
+						            </div>
+								</div>
+							</div>
 
 							<br>
-							<widget-map params="map: $data, mapHeight: '300px', isEditMode: true"></widget-map>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">
+									Map Location
+								</label>
+								<div class="col-sm-10">
+									<widget-map params="map: $data, mapHeight: '300px', isEditMode: true"></widget-map>
+								</div>
+							</div>
 							<br>
 
-							<div class="form-group">
-								<label data-bind="text: 'Venue #' + parseInt($index()+1) + ' Title', attr: { for: 'map-title-' + id() }">Venue Name</label>
-								<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title, enable: $component.isVisible" class="form-control">
-							</div>
-							<div class="form-group">
-								<label data-bind="text: 'Venue #' + parseInt($index()+1) + ' Description', attr: { for: 'map-desc-' + id() }">Venue Description</label>
-								<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }, enable: $component.isVisible"></textarea>
-							</div>
-							<div class="form-group">
-								<label data-bind="attr: { for: 'map-time-' + id() }">Event Time</label>
-								<input type="text" id="title" class="form-control" data-bind="dateInput: startTime, dateInputOptions: { allowEmpty: true, hasTime: true, format: 'dddd, MMMM Do YYYY, h:mm a' }, attr: { id: 'map-time-' + id() }, enable: $component.isVisible">								
-							</div>
 							<div class="form-group align-right">
 								<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap, enable: $component.isVisible">Delete this Venue</button>
 							</div>
