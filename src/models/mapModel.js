@@ -17,8 +17,15 @@ class MapModel {
     constructor(data) {
         mapping.fromJS(data, mapMapping, this);
 
-        this.address = ko.observable('') // used for geocoding address string to map co-ords
+        //this.address = ko.observable('') // used for geocoding address string to map co-ords
         this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API
+
+		this.formattedStartTime = ko.pureComputed(() => {
+			if ( this.startTime() != null ) {
+				return this.startTime().format('dddd, MMMM Do YYYY - h:mmA');
+			}
+			return '';
+		});
 
         this.trackAllChanges();
 
