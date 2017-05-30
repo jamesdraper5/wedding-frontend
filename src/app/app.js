@@ -103,7 +103,8 @@ class App {
 
 		$('body').popover({
 		    selector: '[data-toggle="popover"]',
-		    trigger: 'hover'
+		    trigger: 'hover',
+			container: 'body'
 		});
 
 	}
