@@ -10,8 +10,6 @@ function init(element, valueAccessor, allBindings, data, context) {
     var hasTime = options.hasTime || false;
     var displayFormat = options.format || app.constants.DATEFORMATS.long;
 
-    console.log('valueAccessor', ko.unwrap(valueAccessor()));
-
     var picker = rome(element, {
         time: hasTime,
         inputFormat: displayFormat,
