@@ -52,7 +52,8 @@ class OverlayEditMaps {
 				title: loc.title(),
 				description: loc.description(),
 				latitude: loc.latitude(),
-				longitude: loc.longitude()
+				longitude: loc.longitude(),
+				startTime: loc.startTime().format('YYYY-MM-DD HH:mm:ss')
 			}
 			if ( !loc.isNew ) {
 				mapObj.id = loc.id()
@@ -80,8 +81,9 @@ class OverlayEditMaps {
 	AddLocation(group) {
 		var newMap = new MapModel({
 			id: Date.now(),
-			title: "New Map",
+			title: "Wedding Ceremony",
             description: "",
+			startTime: null,
             latitude: 40.7505,
             longitude: -73.9934,
             isNew: true

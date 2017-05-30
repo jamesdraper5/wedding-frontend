@@ -28,7 +28,7 @@
 						<hr>
 						<div class="form-group">
 							<label>
-								{{ 'Map #' + parseInt($index()+1) + ' Location' }}
+								{{ 'Venue #' + parseInt($index()+1) + ' Location' }}
 								<span
 									class="glyphicon glyphicon-info-sign"
 									aria-hidden="true"
@@ -54,15 +54,19 @@
 							<br>
 
 							<div class="form-group">
-								<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Title', attr: { for: 'map-title-' + id() }">Map Title</label>
+								<label data-bind="text: 'Venue #' + parseInt($index()+1) + ' Title', attr: { for: 'map-title-' + id() }">Venue Name</label>
 								<input type="text" data-bind="attr: { id: 'map-title-' + id() }, textInput: title, enable: $component.isVisible" class="form-control">
 							</div>
 							<div class="form-group">
-								<label data-bind="text: 'Map #' + parseInt($index()+1) + ' Description', attr: { for: 'map-desc-' + id() }">Map Description</label>
+								<label data-bind="text: 'Venue #' + parseInt($index()+1) + ' Description', attr: { for: 'map-desc-' + id() }">Venue Description</label>
 								<textarea class="form-control" rows="6" data-bind="textInput: description, attr: { id: 'map-desc-' + id() }, enable: $component.isVisible"></textarea>
 							</div>
+							<div class="form-group">
+								<label data-bind="attr: { for: 'map-time-' + id() }">Event Time</label>
+								<input type="text" id="title" class="form-control" data-bind="dateInput: startTime, dateInputOptions: { allowEmpty: true, hasTime: true, format: 'dddd, MMMM Do YYYY, h:mm a' }, attr: { id: 'map-time-' + id() }, enable: $component.isVisible">								
+							</div>
 							<div class="form-group align-right">
-								<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap, enable: $component.isVisible">Delete this Location</button>
+								<button class="btn btn-danger" data-bind="click: $component.OnClickDeleteMap, enable: $component.isVisible">Delete this Venue</button>
 							</div>
 						</div>
 					<!-- /ko -->
@@ -70,7 +74,7 @@
 					<hr>
 					<div class="form-group">
 						<div class="form-inline">
-					        <button class="btn btn-success" data-bind="click: AddLocation, enable: isVisible">Add Another Location</button>
+					        <button class="btn btn-success" data-bind="click: AddLocation, enable: isVisible">Add Another Venue</button>
 						</div>
 					</div>
 
