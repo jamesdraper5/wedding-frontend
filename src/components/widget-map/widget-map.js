@@ -128,20 +128,11 @@ class WidgetMap {
 	        var position = new google.maps.LatLng(location.latitude(), location.longitude());
 	        bounds.extend(position);
 
-			/*
-			let marker = new google.maps.Marker({
-	            position: position,
-	            map: this.googleMap,
-	            title: location.title()
-	        });
-			*/
-
 			let marker = this.createCustomMarker({
 				position: position,
 				map: this.googleMap,
 				iconClass: location.mapIcon()
 			});
-
 
 	        // Allow each marker to have an info window
 			google.maps.event.addListener(marker, 'click', () => {
