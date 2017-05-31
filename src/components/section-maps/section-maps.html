@@ -44,7 +44,7 @@
 				<p class="directions--body">{{ description }}</p>
 				<!-- ko if: showLink -->
 					<p class="directions--more-info">
-						<a data-bind="attr: { href: 'http://' + linkUrl() }" class="highlight-color" target="_blank">{{ linkText }}</a>
+						<a data-bind="attr: { href: app.utility.FormatLink(linkUrl()) }" class="highlight-color" target="_blank">{{ linkText }}</a>
 					</p>
 				<!-- /ko -->
 			</div>
