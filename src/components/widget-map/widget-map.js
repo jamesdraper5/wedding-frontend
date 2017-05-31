@@ -103,11 +103,11 @@ class WidgetMap {
 	renderDisplayMap() {
 
 		function renderInfoContent(location) {
-			return `<div class="info-content">
+			return `<div class="map-info-window">
 						<h3>${location.title()}</h3>
-						<p>${location.startTime().format('dddd, MMMM Do YYYY, h:mm a')}</p>
+						<p class="map-info-window--date">${location.startTime().format('dddd, MMMM Do YYYY, h:mm a')}</p>
 						<p>
-							<a href="https://maps.google.com/?daddr=${location.latitude()}%2C${location.longitude()}" target="_blank">Get Directions</a>
+							<a href="https://maps.google.com/?daddr=${location.latitude()}%2C${location.longitude()}" class="highlight-color" target="_blank">Get Directions</a>
 						</p>
 					</div>`;
 		}
