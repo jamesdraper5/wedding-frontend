@@ -37,4 +37,18 @@
 		</div>
 	</div>
 
+	<div class="directions">
+		<!-- ko foreach: directions -->
+			<div class="directions-box text-center">
+				<h3>{{ title }}</h3>
+				<p class="directions--body">{{ description }}</p>
+				<!-- ko if: showLink -->
+					<p class="directions--more-info">
+						<a data-bind="attr: { href: 'http://' + linkUrl() }" class="highlight-color" target="_blank">{{ linkText }}</a>
+					</p>
+				<!-- /ko -->
+			</div>
+		<!-- /ko -->
+	</div>
+
 </div>

@@ -2,6 +2,7 @@ import ko from 'knockout';
 import * as mapping from 'knockout-mapping';
 import moment from 'moment';
 
+const nonTrackableKeys = ['isEditing'];
 const mapMapping = {
 	'startTime': {
 		create: (options) => {
@@ -15,9 +16,10 @@ const mapMapping = {
 
 class MapModel {
     constructor(data) {
+		data.isEditing = !!data.isEditing; // if it's undefined then cooerce it to false
+
         mapping.fromJS(data, mapMapping, this);
 
-        //this.address = ko.observable('') // used for geocoding address string to map co-ords
         this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API
 
 		this.formattedStartTime = ko.pureComputed(() => {
@@ -31,7 +33,7 @@ class MapModel {
 
         this.isDirty = ko.computed(() => {
             for (var key in this) {
-                if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty()) {
+                if (this.hasOwnProperty(key) && ko.isObservable(this[key]) && typeof this[key].isDirty === 'function' && this[key].isDirty() && nonTrackableKeys.indexOf(key) === -1) {
                     return true;
                 }
             }
@@ -47,6 +49,10 @@ class MapModel {
     	ko.postbox.publish('update-gmap-location', { id: this.id(), address: this.address() });
 
     }
+
+	ToggleEdit() {
+		this.isEditing( !this.isEditing() );
+	}
 
     trackAllChanges() {
 	    for (var key in this) {

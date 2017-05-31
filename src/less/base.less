@@ -467,6 +467,8 @@ figure.hover-effect {
 		padding: 20px 25px;
 		text-align: right;
 	    z-index: @overlay-footer-z-index;
+		background: #fff;
+	    box-shadow: 0px -1px 4px rgba(0,0,0,0.1);
 	}
 	.close {
 		font-size: 24px;
@@ -607,13 +609,15 @@ Edit user images in wedding party section
 	cursor: pointer;
 }
 
-.wedding-party-person {
+.list-item {
 	border-bottom: 1px solid @input-border;
 	padding: 0 0 10px;
 	margin: 10px 0;
 	&:last-child {
 		border-bottom: 0 none;
 	}
+}
+.list-item--details {
 	p {
 		font-size: 14px;
 		display:inline;
@@ -1046,36 +1050,6 @@ footer .fa-heart {
 	}
 }
 
-/************* Editing locations ***************/
-.location-image-preview {
-	max-width: 400px;
-}
-.location-editor-map-icon {
-	border-radius: 50%;
-	background: #666;
-	color: #fff;
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	float: left;
-	margin-right: 20px;
-	transition: all .4s ease-in;
-	cursor: pointer;
-	&.selected {
-		border: 2px solid #128f76; // TO DO: change to correct LESS variable
-		-webkit-transform: scale(1.3);
-		-moz-transform: scale(1.3);
-		-o-transform: scale(1.3);
-		transform: scale(1.3);
-	}
-	&:hover:not(.selected) {
-		opacity: 0.8
-	}
-}
-
 .map-marker {
 	width: 50px;
 	height: 50px;
@@ -1112,4 +1086,83 @@ footer .fa-heart {
 	.map-info-window--date {
 		font-style: italic;
 	}
+}
+
+.directions {
+	max-width: 1000px;
+	margin: 0 auto;
+	display: flex;
+    flex-wrap: wrap;
+	overflow: hidden;
+	.directions-box {
+	    flex: 1;
+	    min-width: 25%;
+	    border: 5px solid white;
+	}
+	h3 {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	p {
+		font-size: 16px;
+	}
+	.directions--body {
+		// TODO: limit the visible text here for better layout
+	}
+	.directions--more-info {
+		a {
+
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.directions .directions-box {
+    	min-width: 33.33%;
+  	}
+}
+
+@media (max-width: 768px) {
+	.directions .directions-box {
+		min-width: 50%;
+  	}
+}
+
+
+/************* Editing locations ***************/
+.event-title {
+	margin-bottom: 15px;
+	text-align: center;
+}
+.location-image-preview {
+	max-width: 400px;
+}
+.location-editor-map-icon {
+	border-radius: 50%;
+	background: #666;
+	color: #fff;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	float: left;
+	margin-right: 20px;
+	transition: all .4s ease-in;
+	cursor: pointer;
+	&.selected {
+		border: 2px solid #128f76; // TO DO: change to correct LESS variable
+		-webkit-transform: scale(1.3);
+		-moz-transform: scale(1.3);
+		-o-transform: scale(1.3);
+		transform: scale(1.3);
+	}
+	&:hover:not(.selected) {
+		opacity: 0.8
+	}
+}
+.button-row {
+	overflow: hidden;
+	margin-bottom: 15px;
 }

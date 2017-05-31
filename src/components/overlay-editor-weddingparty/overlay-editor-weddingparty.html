@@ -32,9 +32,9 @@
 
 							<div class="people">
 								<!-- ko foreach: people -->
-									<div class="form-group wedding-party-person">
+									<div class="form-group list-item">
 										<!-- ko ifnot: isEditing -->
-											<div class="form-inline clearfix">
+											<div class="list-item--details clearfix">
 												<p>{{ name }}</p>
 
 												<span class="pull-right">
@@ -92,11 +92,9 @@
 							</div>
 
 							<div class="form-group clearfix">
-								<div class="form-inline">
-							        <button class="btn btn-success pull-right" data-bind="click: $component.AddPerson, enable: $component.isVisible">
-							        	<i class="fa fa-plus"></i> Add Person
-							        </button>
-								</div>
+						        <button class="btn btn-success pull-right" data-bind="click: $component.AddPerson, enable: $component.isVisible">
+						        	<i class="fa fa-plus"></i> Add Person
+						        </button>
 							</div>
 						<!-- /ko -->
 					</div>
