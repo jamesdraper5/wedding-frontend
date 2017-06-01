@@ -309,3 +309,130 @@
 	}
 
 }
+
+.flora {
+	@textColor: #6a6055;
+	@backgroundColor: #fff;
+	@highlightColor: #a267a0;
+	@serifFamily: @quincy;
+	@sansSerifFamily: @lato;
+	@displayFamily: @foxInTheSnow;
+	@headerFamily: @josefin;
+
+	.setupThemeCss();
+	.serif();
+
+	// These rules are specific to this theme
+	nav {
+		font-family: @headerFamily;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		text-transform: uppercase;
+		font-family: @headerFamily;
+		letter-spacing: 8px;
+	}
+
+	hr {
+		border: 0;
+		height: 40px;
+		background-image: url('/images/themes/flora/heartgraphic.png');
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: contain;
+		position: relative;
+		opacity: 0.5;
+		&::before {
+			content: '';
+		    position: absolute;
+		    left: 0;
+		    top: 17px;
+		    border-top: 1px solid rgba(0,0,0,0.1);
+		    width: calc(~"50% - 25px");
+		}
+		&::after {
+			content: '';
+		    position: absolute;
+		    right: 0;
+		    top: 17px;
+		    border-top: 1px solid rgba(0,0,0,0.1);
+		    width: calc(~"50% - 25px");
+		}
+		&.minor {
+			width: 160px;
+		}
+	}
+	/*
+	*/
+
+	#page-holder {
+		background-color: @backgroundColor;
+	}
+
+	h1.main-header {
+	    .displayFont();
+	    font-size: 100px;
+	    letter-spacing: 5px;
+	    &:before {
+    	    content: '';
+		    display: inline-block;
+		    width: 100%;
+		    height: 180px;
+		    background-image: url('/images/themes/flora/flowers2.png');
+		    background-repeat: no-repeat;
+		    background-position: 50%;
+			background-size: contain;
+	    }
+	}
+
+	p.wedding-date {
+		font-family: @headerFamily;
+		margin-top: 20px;
+		letter-spacing: 3px;
+		&:after {
+	    	content: '';
+	    	display: inline-block;
+	    	width: 100%;
+	    	height: 80px;
+	    	background-image: url('/images/themes/flora/heartgraphic.png');
+	    	background-repeat: no-repeat;
+	    	background-position: 50%;
+			background-size: contain;
+			margin-top: 20px;
+		}
+	}
+
+
+
+	.home-container {
+		padding-top: 150px;
+	}
+
+	.tab-content {
+		margin: 10px 0 30px;
+		padding-top: 20px;
+		border-top: 1px solid fade(@textColor, 20%);
+		img.wedding-person {
+			border-radius: 50%;
+		}
+	}
+
+	.rsvp-form--attending label {
+		background-color: darken(@backgroundColor, 5%);
+		color: @textColor;
+	}
+	.rsvp-block:after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+		height: 60px;
+		background-image: url('/images/themes/flora/flowers.png');
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: contain;
+		margin-top: 70px;
+		filter: grayscale(0.5);
+	}
+
+}
