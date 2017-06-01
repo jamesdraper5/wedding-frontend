@@ -4,20 +4,51 @@
 	</div>
 </section>
 
-<div class="col-md-6 col-md-offset-3 text-center" data-bind="attr: { id: containerId }">
+<div class="events-container text-center" data-bind="attr: { id: containerId }">
 	<h2>{{ title }}</h2>
-</div>
 
-<!-- ko foreach: maps -->
-	<section class="row">
-		<div class="col-md-8 col-md-offset-2 text-center">
-			<h4>{{ title }}</h4>
-			<widget-map params="map: $data, mapHeight: '400px'"></widget-map>
+	<section class="locations">
+		<div class="row">
+			<!-- ko foreach: maps -->
+				<div class="col-md-6 text-center">
+					<div class="locations--location">
+						<img data-bind="attr: { src: image }" onerror="this.src='images/event-party.jpg';" class="location-img img-responsive"/>
+						<div class="location-info">
+							<span class="location-icon">
+								<i class="fa fa-{{mapIcon}}"></i>
+							</span>
+							<h4>{{ title }}</h4>
+							<p class="description">{{ description }}</p>
+							<p class="start-time">{{ formattedStartTime }}</p>
+							<p class="address">{{ address }}</p>
+						</div>
+					</div>
+
+				</div>
+			<!-- /ko -->
 		</div>
 	</section>
-	<section class="row map-text">
-		<div class="col-md-8 col-md-offset-2 text-center">
-			<p>{{ description }}</p>
+
+	<widget-map params="locationsArray: maps, mapHeight: '400px'"></widget-map>
+
+	<div class="row map-instructions">
+		<div class="col-md-12 text-center">
+			<p>For help with directions in getting to the venues just click on the map markers for more details</p>
 		</div>
-	</section>
-<!-- /ko -->
+	</div>
+
+	<div class="directions">
+		<!-- ko foreach: directions -->
+			<div class="directions-box text-center">
+				<h3>{{ title }}</h3>
+				<p class="directions--body">{{ description }}</p>
+				<!-- ko if: showLink -->
+					<p class="directions--more-info">
+						<a data-bind="attr: { href: app.utility.FormatLink(linkUrl()) }" class="highlight-color" target="_blank">{{ linkText }}</a>
+					</p>
+				<!-- /ko -->
+			</div>
+		<!-- /ko -->
+	</div>
+
+</div>

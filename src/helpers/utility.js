@@ -36,6 +36,15 @@ class Utility {
 		$('.hasChanges').addClass('ignore');
 	}
 
+	FormatLink(url) {
+		if ( url == null || /^mailto:/i.test(url) ) {
+			return url;
+		}
+		if (!/^https?:\/\//i.test(url)) {
+		    url = 'http://' + url;
+		}
+		return url;
+	}
 }
 
 export default Utility;

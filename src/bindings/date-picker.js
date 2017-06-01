@@ -7,10 +7,12 @@ function init(element, valueAccessor, allBindings, data, context) {
     var options = allBindings().dateInputOptions || {};
     var allowEmpty = !!options.allowEmpty;
     var appendTo = options.appendTo;
+    var hasTime = options.hasTime || false;
+    var displayFormat = options.format || app.constants.DATEFORMATS.long;
 
     var picker = rome(element, {
-        time: false,
-        inputFormat: app.constants.DATEFORMATS.long,
+        time: hasTime,
+        inputFormat: displayFormat,
         weekdayFormat: 'short',
         dayFormat: 'D',
         weekStart: 1,
@@ -31,7 +33,7 @@ function init(element, valueAccessor, allBindings, data, context) {
         var inputValue = $e.val();
         var date = null;
         if ( inputValue ) {
-            date = moment(inputValue, app.constants.DATEFORMATS.long);
+            date = moment(inputValue, displayFormat);
         }
         var currentMoment = valueAccessor()();
 
@@ -40,7 +42,7 @@ function init(element, valueAccessor, allBindings, data, context) {
 
         if ( dateValid ) {
             picker.setValue(date);
-            $e.val( date.format(app.constants.DATEFORMATS.long) );
+            $e.val( date.format(displayFormat) );
 
             var year = date.year()
             var month = date.month()
@@ -60,7 +62,7 @@ function init(element, valueAccessor, allBindings, data, context) {
                     valueAccessor()( null );
                 } else {
                     picker.setValue(currentMoment.clone());
-                    $e.val( currentMoment.format(app.constants.DATEFORMATS.long) );
+                    $e.val( currentMoment.format(displayFormat) );
                 }
             } else {
                 if ( currentMoment === null ) {
@@ -104,6 +106,7 @@ function init(element, valueAccessor, allBindings, data, context) {
 function update(element, valueAccessor, allBindings, data, context) {
     var options = allBindings().dateInputOptions || {};
     var allowEmpty = !!options.allowEmpty;
+    var displayFormat = options.format || app.constants.DATEFORMATS.long;
 
     var picker = rome.find(element);
     var currentMoment = valueAccessor()();
@@ -117,7 +120,7 @@ function update(element, valueAccessor, allBindings, data, context) {
         }
     } else if ( moment.isMoment(currentMoment) && currentMoment.isValid() ) {
         picker.setValue( currentMoment.clone() );
-        $(element).val( currentMoment.format(app.constants.DATEFORMATS.long) );
+        $(element).val( currentMoment.format(displayFormat) );
     } else {
         if ( allowEmpty ) {
             valueAccessor()( null );

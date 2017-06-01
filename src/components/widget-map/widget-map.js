@@ -1,13 +1,17 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./widget-map.html';
 import { default as GoogleMapsLoader } from 'google-maps';
+import moment from 'moment';
+
+var CustomMarker;
 
 class WidgetMap {
 	constructor(params) {
 		GoogleMapsLoader.KEY = app.constants.GOOGLEMAPSKEY;
 
 		// TO DO: Add map marker to styles
-		this.map = params.map;
+		this.map = params.map; // this is used in edit mode
+		this.locationsArray = ko.unwrap(params.locationsArray) || []; // This is for showing multiple markers on one map in display mode
 		this.uid = Date.now();
 		this.mapHeight = params.mapHeight || '300px';
 		this.isEditMode = params.isEditMode || false;
@@ -48,6 +52,14 @@ class WidgetMap {
 	}
 
 	renderGoogleMap(google) {
+		if ( this.isEditMode ) {
+			this.renderEditableMap(google);
+		} else {
+			this.renderDisplayMap(google);
+		}
+	}
+
+	renderEditableMap() {
 		var el = document.getElementById('map' + this.uid);
 		var locationCenter = {
 			lat: parseFloat(this.map.latitude(), 10),
@@ -85,7 +97,122 @@ class WidgetMap {
 
 		// To add the marker to the map, call setMap();
 		this.googleMarker.setMap(this.googleMap)
+
 	}
+
+	renderDisplayMap() {
+
+		function renderInfoContent(location) {
+			return `<div class="map-info-window">
+						<h3>${location.title()}</h3>
+						<p class="map-info-window--date">${location.startTime().format('dddd, MMMM Do YYYY, h:mm a')}</p>
+						<p>
+							<a href="https://maps.google.com/?daddr=${location.latitude()}%2C${location.longitude()}" class="highlight-color" target="_blank">Get Directions</a>
+						</p>
+					</div>`;
+		}
+
+		var el = document.getElementById('map' + this.uid);
+		var bounds = new google.maps.LatLngBounds();
+		var options = {
+			styles: this.themeStyles[app.installation.theme.className()],
+			scrollwheel: false
+		};
+
+		var infoWindow = new google.maps.InfoWindow()
+
+		this.googleMap = new google.maps.Map(el, options);
+
+		// Loop through our array of markers & place each one on the map
+	    for ( let location of this.locationsArray ) {
+	        var position = new google.maps.LatLng(location.latitude(), location.longitude());
+	        bounds.extend(position);
+
+			let marker = this.createCustomMarker({
+				position: position,
+				map: this.googleMap,
+				iconClass: location.mapIcon()
+			});
+
+	        // Allow each marker to have an info window
+			google.maps.event.addListener(marker, 'click', () => {
+	            infoWindow.setContent(renderInfoContent(location));
+				infoWindow.open(this.googleMap, marker);
+	        });
+
+	        // Automatically center the map fitting all markers on the screen
+	        this.googleMap.fitBounds(bounds);
+	    }
+
+	}
+
+	createCustomMarker(opts) {
+
+		// create this class for the first time. Have to do it this shitty way as we need to be sure the Google Maps API has loaded first
+		if ( CustomMarker == null ) {
+			CustomMarker = class CustomMarker extends google.maps.OverlayView {
+
+				constructor(opts) {
+					super();
+					this.position = opts.position;
+					this.iconClass = opts.iconClass || 'heart';
+					this.setMap(opts.map);
+					// These are the values used in the CSS - we use it here just to move the markers by e.g. markerWidth/2 to center them.
+					// Can't do this in the CSS as the markers already have a 45deg trasnsform so they would get translated 45deg up/right
+					this.markerWidth = 50;
+					this.markerHeight = 50;
+				}
+
+				draw() {
+
+					var div = this.div;
+					var span, icon;
+
+					if (!div) {
+
+						div = this.div = document.createElement('div');
+						span = document.createElement('span');
+						icon = document.createElement('i');
+						div.className = 'map-marker';
+						icon.className = `fa fa-${this.iconClass}`;
+
+						google.maps.event.addDomListener(div, "click", (event) => {
+							google.maps.event.trigger(this, "click");
+						});
+
+						span.appendChild(icon);
+						div.appendChild(span);
+
+						var panes = this.getPanes();
+						panes.overlayImage.appendChild(div);
+					}
+
+					var point = this.getProjection().fromLatLngToDivPixel(this.position);
+
+					if (point) {
+						div.style.left = (point.x - this.markerWidth/2) + 'px';
+						div.style.top = (point.y - this.markerHeight/2) + 'px';
+					}
+				}
+
+				getPosition() {
+					return this.position;
+				}
+
+				remove() {
+					this.setMap(null);
+					if (this.div) {
+						this.div.parentNode.removeChild(this.div);
+						this.div = null;
+					}
+				}
+
+			}
+
+		}
+		return new CustomMarker(opts);
+	}
+
 
 	// @pos: { lat: float, lng: float }
 	geocodePosition(pos) {
@@ -95,8 +222,7 @@ class WidgetMap {
 			if (status == google.maps.GeocoderStatus.OK) {
 				this.map.address( results[0].formatted_address )
 			} else {
-				// TO DO: This should just be a toastr at most
-				//app.modal.Alert('Oh Dear', 'We had a problem determining the address at this location. ')
+				app.flash.Warn('Oh Dear', 'We had a problem determining the address at this location.');
 			}
 		});
 	}

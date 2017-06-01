@@ -46,5 +46,15 @@
 		}
 	}
 
-}
+	.locations .location-icon, .location-editor-map-icon, .map-marker {
+		.highlightBG();
+	}
 
+	.map-instructions {
+		background: darken(@backgroundColor, 3%);
+		p {
+			color: lighten(@textColor, 50%);
+		}
+	}
+
+}
