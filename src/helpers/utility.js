@@ -45,6 +45,13 @@ class Utility {
 		}
 		return url;
 	}
+
+	getMapStyles(theme) {
+		if ( app.constants.MAPSTYLES[theme] != null ) {
+			return app.constants.MAPSTYLES[theme];
+		}
+		return app.constants.MAPSTYLES.default;
+	}
 }
 
 export default Utility;

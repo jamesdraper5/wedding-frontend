@@ -18,24 +18,6 @@ class WidgetMap {
 		this.googleMap = null;
 		this.googleMarker = null;
 		this.google = null;
-		this.themeStyles = {
-			paris: [
-				{
-					featureType: "all",
-					stylers: [{ saturation: -80 }]
-				},
-				{
-					featureType: "road.arterial",
-					elementType: "geometry",
-					stylers: [{ hue: "#00ffee" }, { saturation: 50 }]
-				},
-				{
-					featureType: "poi.business",
-					elementType: "labels",
-					stylers: [{ visibility: "off" }]
-				}
-			]
-		};
 		this.subscriptions = [];
 		this.setInitialLocation();
 
@@ -67,7 +49,7 @@ class WidgetMap {
 		};
 		var options = {
 			center: locationCenter,
-			styles: this.themeStyles[app.installation.theme.className()],
+			styles: app.utility.getMapStyles( app.installation.theme.className() ),
 			zoom: 15,
 			scrollwheel: false
 		};
@@ -115,7 +97,7 @@ class WidgetMap {
 		var el = document.getElementById('map' + this.uid);
 		var bounds = new google.maps.LatLngBounds();
 		var options = {
-			styles: this.themeStyles[app.installation.theme.className()],
+			styles: app.utility.getMapStyles( app.installation.theme.className() ),
 			scrollwheel: false
 		};
 
