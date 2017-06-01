@@ -17,13 +17,12 @@ const mapMapping = {
 class MapModel {
     constructor(data) {
 		data.isEditing = !!data.isEditing; // if it's undefined then cooerce it to false
-
         mapping.fromJS(data, mapMapping, this);
 
         this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API
 
 		this.formattedStartTime = ko.pureComputed(() => {
-			if ( this.startTime().isValid() ) {
+			if ( moment.isMoment(this.startTime()) && this.startTime().isValid() ) {
 				return this.startTime().format('dddd, MMMM Do YYYY - h:mmA');
 			}
 			return '';
