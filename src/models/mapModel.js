@@ -23,7 +23,7 @@ class MapModel {
         this.isNew = data.isNew || false; // check whether this map is newly created, needed for adding new location to mapSections API
 
 		this.formattedStartTime = ko.pureComputed(() => {
-			if ( moment.isMoment(this.startTime()) ) {
+			if ( this.startTime().isValid() ) {
 				return this.startTime().format('dddd, MMMM Do YYYY - h:mmA');
 			}
 			return '';
