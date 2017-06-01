@@ -105,7 +105,7 @@ class WidgetMap {
 		function renderInfoContent(location) {
 			return `<div class="map-info-window">
 						<h3>${location.title()}</h3>
-						<p class="map-info-window--date">${location.startTime().format('dddd, MMMM Do YYYY, h:mm a')}</p>
+						<p class="map-info-window--date">${location.formattedStartTime()}</p>
 						<p>
 							<a href="https://maps.google.com/?daddr=${location.latitude()}%2C${location.longitude()}" class="highlight-color" target="_blank">Get Directions</a>
 						</p>
