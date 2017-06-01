@@ -7,8 +7,6 @@ class DirectionsModel {
     constructor(data) {
         data.isEditing = !!data.isEditing; // if it's undefined then cooerce it to false
 
-        console.log('data', data);
-
         mapping.fromJS(data, {}, this);
 
         this.isNew = data.isNew || false; // check whether this model is newly created, needed for adding new direction to mapSections API
