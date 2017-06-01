@@ -23,6 +23,10 @@ class HomeModel {
        		return this.partnerNames()[1];
        	});
 
+		this.title = ko.pureComputed(() => {
+       		return `${this.partnerOneName()} & ${this.partnerTwoName()}`;
+       	});
+
        	this.weddingDateFormatted = ko.pureComputed(() => {
 			return this.weddingDate().format(app.constants.DATEFORMATS.long);
 		});
