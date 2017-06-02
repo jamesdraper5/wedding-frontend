@@ -55,13 +55,14 @@ class OverlayEditMaps {
 		mapData.directions = []
 
 		for ( var loc of this.locations() ) {
+			let startTime = loc.startTime() || moment();
 			var mapObj = {
 				title: loc.title(),
 				description: loc.description(),
 				latitude: loc.latitude(),
 				longitude: loc.longitude(),
 				address: loc.address(),
-				startTime: loc.startTime().format('YYYY-MM-DD HH:mm:ss'),
+				startTime: startTime.format('YYYY-MM-DD HH:mm:ss'),
 				mapIcon: loc.mapIcon(),
 				image: loc.image()
 			}
