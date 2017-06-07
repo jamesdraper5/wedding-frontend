@@ -2,6 +2,7 @@
 var require = {
 	baseUrl: ".",
 	paths: {
+		"babel-polyfill": 				"../node_modules/babel-polyfill/dist/polyfill",
 		"bindings-bot-checker":       	"bindings/bot-checker",
 		"bindings-date-picker":       	"bindings/date-picker",
 		"bindings-ladda":       		"bindings/ladda",

@@ -3,7 +3,6 @@ import templateMarkup from 'text!./page-error.html';
 
 class PageError {
     constructor(params) {
-    	console.log('params', params);
     	this.errorCode = params.errorCode || 500;
     }
 

@@ -44,7 +44,6 @@ class OverlayHomeSection {
 	}
 
 	generateDefaultTitle(names) {
-		console.log('names', names);
 		if ( names.length !== 2 ) {
 			return 'Our Wedding';
 		}

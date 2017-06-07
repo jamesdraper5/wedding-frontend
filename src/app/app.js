@@ -1,4 +1,5 @@
 // import 'jquery-ui'; this randomly throws errors for some reason
+import 'babel-polyfill';
 import ko from 'knockout';
 import 'jquery';
 import 'bootstrap';
