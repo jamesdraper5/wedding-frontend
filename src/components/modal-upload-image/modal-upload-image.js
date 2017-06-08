@@ -124,7 +124,7 @@ class ModalUploadImage {
 					app.flash.Error('Oh No!', 'Sorry, there seems to be an issue adding images at the moment, please try again');
 					Raven.captureMessage('Error uploading image to s3', {
 		                extra: {
-		                	error: err
+		                	error: xhr.response
 		                }
 		            });
 				}
