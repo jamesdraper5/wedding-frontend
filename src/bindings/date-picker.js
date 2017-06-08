@@ -37,27 +37,39 @@ function init(element, valueAccessor, allBindings, data, context) {
         }
         var currentMoment = valueAccessor()();
 
-        var dateValid = moment.isMoment(date) && date.isValid()
-        var currentMomentValid = moment.isMoment(currentMoment) && currentMoment.isValid();
+        var isDateValid = moment.isMoment(date) && date.isValid();
+        var isCurrentMomentValid = moment.isMoment(currentMoment) && currentMoment.isValid();
 
-        if ( dateValid ) {
+        if ( isDateValid ) {
             picker.setValue(date);
             $e.val( date.format(displayFormat) );
 
-            var year = date.year()
-            var month = date.month()
-            var day = date.date()
+            var year = date.year(),
+                month = date.month(),
+                day = date.date(),
+                hour = date.hour(),
+                minute = date.minute(),
+                selectedDate;
 
-            if ( currentMomentValid ) {
-                var datesEqual = currentMoment.year() == year && currentMoment.month() == month && currentMoment.date() == day;
+            if ( isCurrentMomentValid ) {
+                var datesEqual = currentMoment.year() == year && currentMoment.month() == month && currentMoment.date() == day && currentMoment.hour() == hour && currentMoment.minute() == minute;
                 if ( !datesEqual ) {
-	                valueAccessor()(currentMoment.clone().year(year).month(month).date(day))
+                    if ( hasTime ) {
+                        selectedDate = currentMoment.clone().year(year).month(month).date(day).hour(hour).minute(minute).second(0)
+                    } else {
+                        selectedDate = currentMoment.clone().year(year).month(month).date(day)
+                    }
+	                valueAccessor()(selectedDate)
                 }
             } else {
-                valueAccessor()( moment().year(year).month(month).date(day) );
+                if ( hasTime ) {
+                    valueAccessor()( moment().year(year).month(month).date(day).hour(hour).minute(minute).second(0) );
+                } else {
+                    valueAccessor()( moment().year(year).month(month).date(day) );
+                }
             }
         } else {
-            if ( currentMomentValid ) {
+            if ( isCurrentMomentValid ) {
                 if ( allowEmpty && !inputValue ) {
                     valueAccessor()( null );
                 } else {
