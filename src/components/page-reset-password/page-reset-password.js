@@ -47,14 +47,12 @@ class PageResetPassword {
 		this.isSubmitting(true);
 
 		app.api.post('/api/authenticate/resetpassword', data).then((result) => {
-			app.flash.Success("Yipeee!", "Your password has been updated successfully");
-			app.getLoggedInUser().then((result) => {
-				setTimeout(() => {
-					app.GoTo( '/editor' )
-				}, 1000)
-			})
+			app.flash.Success("Password updated", "Please login with your new password");
 			this.newPassword('');
 			this.confirmation('');
+			setTimeout(() => {
+				app.GoTo('/login')
+			}, 2000);
 		}).finally(() => {
 			this.isSubmitting(false);
 		});
