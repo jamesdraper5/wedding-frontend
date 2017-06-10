@@ -15,9 +15,7 @@ class OverlayHomeSection {
 		this.mainImage = ko.observable( ko.unwrap(data.mainImage) );
 		this.menuText = ko.observable( ko.unwrap(data.menuText) );
 		this.isVisible = ko.observable( ko.unwrap(data.isVisible) );
-		this.sectionId = ko.pureComputed(() => {
-			return app.getContainerId(this.menuText);
-		});
+		this.sectionId = ko.pureComputed(() => `#${app.getContainerId(this.menuText)}` );
 
 		this.isSubmitting = ko.observable(false);
 		this.btnText = ko.pureComputed(() => {

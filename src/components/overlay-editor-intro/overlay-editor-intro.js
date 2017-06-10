@@ -20,9 +20,7 @@ class OverlayWelcomeMessage {
 			}
 		});
 
-		this.sectionId = ko.pureComputed(() => {
-			return app.getContainerId(this.menuText);
-		});
+		this.sectionId = ko.pureComputed(() => `#${app.getContainerId(this.menuText)}` );
 
 		this.isDirty = ko.pureComputed(() => {
 			if (

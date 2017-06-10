@@ -32,9 +32,7 @@ class OverlayEditRsvp {
 			return false;
 		});
 
-        this.sectionId = ko.pureComputed(() => {
-			return app.getContainerId(this.menuText);
-		});
+        this.sectionId = ko.pureComputed(() => `#${app.getContainerId(this.menuText)}` );
 
 	}
 

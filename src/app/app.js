@@ -333,7 +333,7 @@ class App {
 	// e.g. #wedding-party-container
 	getContainerId(sectionName) {
 		sectionName = ko.unwrap(sectionName); // unwrap in case it's an observable
-		return '#' + sectionName.toLowerCase().split(' ').join('-') + '-container';
+		return sectionName.toLowerCase().split(' ').join('-') + '-container';
 	}
 
 	Logout(redirect=false) {

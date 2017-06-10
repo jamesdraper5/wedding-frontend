@@ -5,7 +5,7 @@ class IntroSection {
     constructor(params) {
     	this.intro = app.installation.sections.intro;
     	this.signature = app.installation.name;
-    	this.containerId = this.intro.menuText().toLowerCase().split(' ').join('-') + '-container';
+        this.containerId = app.getContainerId(this.intro.menuText());
     	//console.log('this.intro', this.intro);
 
     }

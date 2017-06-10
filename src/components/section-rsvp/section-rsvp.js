@@ -6,7 +6,7 @@ class RsvpSection {
 	constructor(params) {
 		this.validator = new Validator();
 		this.rsvp = app.installation.sections.rsvp;
-		this.containerId = this.rsvp.menuText().toLowerCase().split(' ').join('-') + '-container';
+		this.containerId = app.getContainerId(this.rsvp.menuText());
 		this.isAttending = ko.observable(null);
 		this.emailAddress = ko.observable('');
 		this.phoneNumber = ko.observable('');
