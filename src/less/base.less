@@ -555,6 +555,11 @@ figure.hover-effect {
 	}
 	label {
 		font-weight: normal;
+		@media(max-width:767px) {
+			&.song-choice-label {
+				top: -18px
+			}
+		}
 	}
 	input[type='text'], input[type='email'] {
 		font-size: 18px;
