@@ -3,7 +3,7 @@
 	to overwrite the existing "blank" styles that a site with no template class would have. It also means that you can't reference any of the
 	variables in this file anywhere else as they won't be initialized until after the LESS is compiled.
 */
-.paris {
+.classic {
 	@textColor: #333;
 	@backgroundColor: #fff;
 	@highlightColor: #629D93;
@@ -175,7 +175,7 @@
 			color: lighten(@textColor, 25%);
 		}
 	}
-	
+
 	.rsvp-form--attending label {
 		background-color: darken(@backgroundColor, 5%);
 		color: @textColor;

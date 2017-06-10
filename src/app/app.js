@@ -113,11 +113,11 @@ class App {
 	initStyles(theme) {
 		var styleSheet = document.styleSheets[document.styleSheets.length-1];
 		switch(theme) {
-			case 'paris':
+			case 'classic':
 				var bg = this.installation.sections.home.mainImage();
 				if ( bg != null ) {
 					var bgStyle = `url( ${bg} )`;
-					this.addCSSRule(styleSheet, ".paris .home-container", "background-image: " + bgStyle, styleSheet.cssRules.length);
+					this.addCSSRule(styleSheet, ".classic .home-container", "background-image: " + bgStyle, styleSheet.cssRules.length);
 				}
 				break;
 		}
