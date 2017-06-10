@@ -108,6 +108,11 @@ class App {
 			container: 'body'
 		});
 
+		// Add a class so it can be styled correctly (non-transparent BG on Classic theme)
+		$('body').on('click', '.navbar-toggle', () => {
+			$('#main-nav').toggleClass('dropdown-open');
+		});
+
 	}
 
 	initStyles(theme) {
