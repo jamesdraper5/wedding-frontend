@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import 'jquery';
+import 'number-to-words';
 
 class Utility {
 	constructor(data) {
@@ -52,6 +53,19 @@ class Utility {
 		}
 		return app.constants.MAPSTYLES.default;
 	}
+
+	toOrdinal(num) {
+		return numberToWords.toOrdinal(num)
+	}
+
+	toWords(num) {
+		return numberToWords.toWords(num)
+	}
+
+	toWordsOrdinal(num) {
+		return numberToWords.toWordsOrdinal(num)
+	}
+
 }
 
 export default Utility;

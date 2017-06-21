@@ -34,6 +34,7 @@ var require = {
 		"loggedInUserModel":    		"models/loggedInUserModel",
 		"modalHelper":     				"helpers/modal",
 		"moment":               		"bower_modules/moment/min/moment.min",
+		"number-to-words":				"../node_modules/number-to-words/numberToWords.min",
 		"overlayBaseModel":    			"models/overlayBaseModel",
 		"page": 						"bower_modules/page/page",
 		"quill": 						"libs/quill/quill.min",

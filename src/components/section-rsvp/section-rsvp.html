@@ -71,7 +71,7 @@
 				  				</div>
 				  				<!-- ko foreach: extraGuests() -->
 									<div class="col-md-12 moving-labels">
-										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Guest #' + parseInt($index()+1) }}</label>
+										<label data-bind="attr: {for: 'guest' + parseInt($index()+1)}">{{ 'Your ' + app.utility.toWordsOrdinal($index()+1) + ' guest' }}</label>
 							  	  		<input type="text" class="form-control" data-bind="textInput: name, attr: { id: 'guest' + parseInt($index()+1) }" title="Please enter the full name of your guest">
 							  	  		<a data-bind="click: $component.OnClickRemoveGuest" href="#" class="remove-guest">
 							  	  			<i class="fa fa-times-circle"></i>
