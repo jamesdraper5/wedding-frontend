@@ -1,0 +1,31 @@
+<div id="payment-page">
+
+	<div class="payment-form">
+
+		<div class="text-center">
+			<h1>Wedding Pixie</h1>
+			<p>Publish your website</p>
+		</div>
+
+		<section class="text-center">
+			<h2>Your Payment Details</h2>
+			<form action="/api/subscriptions" method="post" id="payment-form" data-bind="submit: OnSubmit">
+				<label>
+					<input class="field is-empty" placeholder="Jane Doe" data-bind="textInput: userName" />
+					<span><span>Name</span></span>
+				</label>
+				<label>
+					<div id="card-element" class="field is-empty"></div>
+					<span><span>Card</span></span>
+				</label>
+				<button type="submit">Pay $25</button>
+				<div class="outcome">
+					<div class="error" role="alert"></div>
+					<div class="success"></div>
+				</div>
+			</form>
+		</section>
+
+	</div>
+
+</div>

@@ -22,6 +22,7 @@ import overlaySettingsGeneral from 'components/overlay-settings-general/overlay-
 import widgetMap from 'components/widget-map/widget-map';
 import modalConfirm from 'components/modal-confirm/modal-confirm';
 import overlayEditRsvp from 'components/overlay-editor-rsvp/overlay-editor-rsvp';
+import pageBilling from 'components/page-billing/page-billing';
 import pageLogin from 'components/page-login/page-login';
 import page404 from 'components/page-404/page-404';
 import widgetTextEditor from 'components/widget-text-editor/widget-text-editor';
@@ -54,6 +55,7 @@ ko.components.register('overlay-settings-account', { viewModel: overlaySettingsA
 ko.components.register('widget-map', { viewModel: widgetMap.viewModel, template: widgetMap.template });
 ko.components.register('modal-confirm', { viewModel: modalConfirm.viewModel, template: modalConfirm.template });
 ko.components.register('overlay-editor-rsvp', { viewModel: overlayEditRsvp.viewModel, template: overlayEditRsvp.template });
+ko.components.register('page-billing', { viewModel: pageBilling.viewModel, template: pageBilling.template });
 ko.components.register('page-login', { viewModel: pageLogin.viewModel, template: pageLogin.template });
 ko.components.register('page-404', { viewModel: page404.viewModel, template: page404.template });
 ko.components.register('widget-text-editor', { viewModel: widgetTextEditor.viewModel, template: widgetTextEditor.template });

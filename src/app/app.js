@@ -79,6 +79,7 @@ class App {
 			login: true,
 			forgotpassword: true,
 			resetpassword: true,
+			publish: true,
 			editor: {
 				subroutes: [
 					'home',
