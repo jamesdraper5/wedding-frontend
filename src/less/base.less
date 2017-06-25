@@ -1190,20 +1190,17 @@ footer .fa-heart {
 	font-variant: normal;
 	padding: 0;
 	margin: 0;
-	background: #424770;
-	display: flex;
-	align-items: center;
 	min-height: 100%;
 
 	form {
-		width: 480px;
+		max-width: 480px;
 		margin: 20px auto;
 	}
 
 	label {
 		height: 35px;
 		position: relative;
-		color: #8798AB;
+		//color: #8798AB;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -1217,7 +1214,7 @@ footer .fa-heart {
 		height: 100%;
 		font-weight: 300;
 		line-height: 32px;
-		color: #8798AB;
+		//color: #8798AB;
 		border-bottom: 1px solid #586A82;
 		transition: border-bottom-color 200ms ease-in-out;
 		cursor: text;
@@ -1247,7 +1244,6 @@ footer .fa-heart {
 		background: transparent;
 		font-weight: 300;
 		border: 0;
-		color: white;
 		outline: none;
 		cursor: text;
 		display: block;
@@ -1284,8 +1280,6 @@ footer .fa-heart {
 		font-size: 19px;
 		font-weight: 400;
 		width: 100%;
-		height: 47px;
-		line-height: 45px;
 		outline: none;
 	}
 
@@ -1305,23 +1299,17 @@ footer .fa-heart {
 		text-align: center;
 	}
 
-	.error,
-	.success {
+	.error {
 		display: none;
 		font-size: 15px;
 	}
 
-	.error.visible,
-	.success.visible {
+	.error.visible {
 		display: inline;
 	}
 
 	.error {
 		color: #E4584C;
-	}
-
-	.success {
-		color: #34D08C;
 	}
 
 }

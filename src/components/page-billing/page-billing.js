@@ -8,7 +8,7 @@ const elements = stripe.elements();
 const styles = {
 	base: {
 		iconColor: '#8898AA',
-		color: 'white',
+		color: '#333333',
 		lineHeight: '36px',
 		fontWeight: 300,
 		fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -27,6 +27,18 @@ class PageBilling {
 	constructor(params) {
 		this.subscriptions = [];
 		this.userName = ko.observable('');
+		this.isSubmitting = ko.observable(false);
+		this.isSitePublished = ko.observable(false);
+
+		this.btnText = ko.computed(() => {
+			if ( this.isSitePublished() ) {
+				return 'Your site is live!';
+			} else if ( this.isSubmitting() ) {
+				return 'Publishing your site...';
+			} else {
+				return 'Publish my site';
+			}
+		});
 
 		// Create an instance of the card Element
 		this.card = elements.create('card', {
@@ -70,15 +82,15 @@ class PageBilling {
 		var extraDetails = {
 			name: this.userName()
 		};
-		//stripe.createToken(this.card, extraDetails).then(this.stripeTokenHandler);
+
+		this.isSubmitting(true);
 
 		const {token, error} = await stripe.createToken(this.card, extraDetails);
-
-		console.log('token, error', token, error);
 
 		if (error) {
 			// Inform the user if there was an error
 			this.displayError(error);
+			this.isSubmitting(false);
 		} else {
 			// Send the token to your server
 			this.stripeTokenHandler(token);
@@ -95,21 +107,28 @@ class PageBilling {
 	}
 
 	stripeTokenHandler(token) {
-		// Insert the token ID into the form so it gets submitted to the server
-
-		console.log('token', token);
-
-
 
 		let data = {
-			stripeToken: token.id,
-			userName: this.userName(),
-			email: app.loggedInUser.email()
+			token: token.id,
+			name: this.userName(),
+			email: app.loggedInUser.email(),
+			accountId: app.installation.id(),
+			planId: 1 // hardcoded for now as there's only one plan
 		}
 
-		app.api.post('api/subscriptions', data).then((result) => {
+		app.api.post('api/billing/subscription', data).then((result) => {
 			console.log('result', result);
-		})
+		}).then((result) => {
+			setTimeout(() => {
+				// timeout used to make sure btn gets disabled - looks like a bug in KO / Ladda
+				this.isSitePublished(true);
+			}, 200);
+		}).catch((err) => {
+			console.log('err', err);
+			//app.flash.Error('')
+		}).finally(() => {
+			this.isSubmitting(false);
+		});
 	}
 
 
