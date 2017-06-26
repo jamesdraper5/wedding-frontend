@@ -43,7 +43,7 @@
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
-					<!-- ko if: app.currentRoute().showNav -->
+					<!-- ko if: app.shouldShowNav -->
 						<nav-bar params="route: app.currentRoute"></nav-bar>
 					<!-- /ko -->
 

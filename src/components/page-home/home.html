@@ -1,23 +1,38 @@
 <div class="main-section" data-bind="with: installation">
+	<!-- ko if: app.installation.isPaid() || app.isUserLoggedIn() -->
+		<!-- ko if: sections.home && sections.home.isVisible() -->
+			<section-home></section-home>
+		<!-- /ko -->
 
-	<!-- ko if: sections.home && sections.home.isVisible() -->
-		<section-home></section-home>
+		<!-- ko if: sections.intro && sections.intro.isVisible() -->
+			<section-intro></section-intro>
+		<!-- /ko -->
+
+		<!-- ko if: sections.weddingParty && sections.weddingParty.isVisible() -->
+			<section-wedding-party></section-wedding-party>
+		<!-- /ko -->
+
+		<!-- ko if: sections.maps && sections.maps.isVisible() -->
+			<section-maps></section-maps>
+		<!-- /ko -->
+
+		<!-- ko if: sections.rsvp && sections.rsvp.isVisible() -->
+			<section-rsvp></section-rsvp>
+		<!-- /ko -->
 	<!-- /ko -->
 
-	<!-- ko if: sections.intro && sections.intro.isVisible() -->
-		<section-intro></section-intro>
+	<!-- ko if: !app.installation.isPaid() && !app.isUserLoggedIn() -->
+		<div class="coming-soon">
+			<h1>{{app.installation.sections.home.partnerOneName}} & {{app.installation.sections.home.partnerTwoName}}</h1>
+			<h2>Coming soon</h2>
+		</div>
 	<!-- /ko -->
 
-	<!-- ko if: sections.weddingParty && sections.weddingParty.isVisible() -->
-		<section-wedding-party></section-wedding-party>
-	<!-- /ko -->
-
-	<!-- ko if: sections.maps && sections.maps.isVisible() -->
-		<section-maps></section-maps>
-	<!-- /ko -->
-
-	<!-- ko if: sections.rsvp && sections.rsvp.isVisible() -->
-		<section-rsvp></section-rsvp>
+	<!-- ko if: app.isUserLoggedIn() && !app.installation.isPaid() -->
+		<div class="footer-cta">
+			This is a preview of your website. In order for your guests to view it you need to publish your site.
+			<a href="/publish" class="btn btn-success">Publish site</a>
+		</div>
 	<!-- /ko -->
 
 </div>

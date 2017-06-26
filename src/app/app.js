@@ -75,6 +75,15 @@ class App {
 			return this.getBodyClass();
 		});
 
+		this.shouldShowNav = ko.pureComputed(() => {
+			if ( this.installation == null ) return false;
+			if ( !this.currentRoute().showNav ) return false;
+			if ( !this.installation.isPaid() && !this.isUserLoggedIn() ) {
+				return false;
+			}
+			return true;
+		});
+
 		this.validRoutes = {
 			login: true,
 			forgotpassword: true,
