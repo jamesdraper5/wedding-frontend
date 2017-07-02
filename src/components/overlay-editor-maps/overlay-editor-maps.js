@@ -1,4 +1,5 @@
 import ko from 'knockout';
+import moment from 'moment';
 import templateMarkup from 'text!./overlay-editor-maps.html';
 import MapModel from '../../models/mapModel';
 import DirectionsModel from '../../models/directionsModel';
