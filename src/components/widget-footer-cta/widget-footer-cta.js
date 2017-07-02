@@ -10,7 +10,6 @@ class WidgetFooterCta {
 
     getPaymentToken() {
         app.api.get('/api/authenticate/getpaymenttoken').then((result) => {
-            console.log('result', result)
             this.token(result.response.data.token);
             this.isTokenLoaded(true);
         });
