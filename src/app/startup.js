@@ -34,7 +34,7 @@ import widgetImageEditor from 'components/widget-image-editor/widget-image-edito
 import modalImagePicker from 'components/modal-image-picker/modal-image-picker';
 import modalUploadImage from 'components/modal-upload-image/modal-upload-image';
 import modalChangePassword from 'components/modal-change-password/modal-change-password';
-
+import widgetFooterCta from 'components/widget-footer-cta/widget-footer-cta';
 
 // Components can be packaged as AMD modules, such as the following:
 ko.components.register('nav-bar', { viewModel: navBar.viewModel, template: navBar.template });
@@ -67,6 +67,7 @@ ko.components.register('widget-image-editor', { viewModel: widgetImageEditor.vie
 ko.components.register('modal-image-picker', { viewModel: modalImagePicker.viewModel, template: modalImagePicker.template });
 ko.components.register('modal-upload-image', { viewModel: modalUploadImage.viewModel, template: modalUploadImage.template });
 ko.components.register('modal-change-password', { viewModel: modalChangePassword.viewModel, template: modalChangePassword.template });
+ko.components.register('widget-footer-cta', { viewModel: widgetFooterCta.viewModel, template: widgetFooterCta.template }); 
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 window.app = new app();

@@ -23,16 +23,13 @@
 
 	<!-- ko if: !app.installation.isPaid() && !app.isUserLoggedIn() -->
 		<div class="coming-soon">
-			<h1>{{app.installation.sections.home.partnerOneName}} & {{app.installation.sections.home.partnerTwoName}}</h1>
+			<h1>{{app.installation.sections.home.partnerOneName}} &amp; {{app.installation.sections.home.partnerTwoName}}</h1>
 			<h2>Coming soon</h2>
 		</div>
 	<!-- /ko -->
 
 	<!-- ko if: app.isUserLoggedIn() && !app.installation.isPaid() -->
-		<div class="footer-cta">
-			This is a preview of your website. In order for your guests to view it you need to publish your site.
-			<a href="/publish" class="btn btn-success">Publish site</a>
-		</div>
+		<widget-footer-cta></widget-footer-cta>
 	<!-- /ko -->
 
 </div>
