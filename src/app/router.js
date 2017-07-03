@@ -25,7 +25,7 @@ class Router {
 	}
 
 	showHomePage(ctx) {
-		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true, showSidebar: false, showAdminHeader: true });
+		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true, showSidebar: true, showAdminHeader: true });
 	}
 
 	showAdmin(ctx) {
