@@ -2,12 +2,15 @@
 
 import ko from 'knockout';
 import page from 'page';
+import QueryString from '../helpers/queryString';
 
 class Router {
 	constructor(config) {
 		this.currentRoute = ko.observable({});
 		this.isConfirmingChanges = ko.observable(false);
+		this.qs = new QueryString();
 
+		page('*', this.parse.bind(this));
 		page('/', this.showHomePage.bind(this));
 		page('/editor/:section', this.showAdmin.bind(this));
 		page('/editor', this.showAdmin.bind(this));
@@ -24,12 +27,17 @@ class Router {
 
 	}
 
+	parse(ctx, next) {
+		ctx.query = this.qs.Parse(location.search.slice(1));
+		next();
+	}
+
 	showHomePage(ctx) {
-		this.currentRoute({ page: 'page-home', path: ctx.path, showNav: true, showSidebar: true, showAdminHeader: true });
+		this.currentRoute({ page: 'page-home', path: ctx.path, qryParams: ctx.query, showNav: true, showSidebar: true, showAdminHeader: true });
 	}
 
 	showAdmin(ctx) {
-		var routeData = { page: 'page-home', path: ctx.path, isLoggedInPage: true, isAdminPage: true, showNav: true, showSidebar: true, showAdminHeader: true };
+		var routeData = { page: 'page-home', path: ctx.path, qryParams: ctx.query, isLoggedInPage: true, isAdminPage: true, showNav: true, showSidebar: true, showAdminHeader: true };
 
 		// if there's a `section` value, then we're gonna open an overlay - need to know which one
 		if ( ctx.params && ctx.params.section ) {
@@ -39,30 +47,31 @@ class Router {
 		}
 
 		this.currentRoute(routeData);
+		
 	}
 
 	showAccount(ctx) {
-		this.currentRoute({ page: 'page-home', path: ctx.path, isLoggedInPage: true, showNav: true, showSidebar: true, showAdminHeader: true });
+		this.currentRoute({ page: 'page-home', path: ctx.path, qryParams: ctx.query, isLoggedInPage: true, showNav: true, showSidebar: true, showAdminHeader: true });
 	}
 
 	showLogin(ctx) {
-		this.currentRoute({ page: 'page-login', path: ctx.path, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
+		this.currentRoute({ page: 'page-login', path: ctx.path, qryParams: ctx.query, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
 	}
 
 	showForgotPassword(ctx) {
-		this.currentRoute({ page: 'page-forgot-password', path: ctx.path, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
+		this.currentRoute({ page: 'page-forgot-password', path: ctx.path, qryParams: ctx.query, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
 	}
 
 	showResetPassword(ctx) {
-		this.currentRoute({ page: 'page-reset-password', path: ctx.path, token: ctx.params.token, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
+		this.currentRoute({ page: 'page-reset-password', path: ctx.path, qryParams: ctx.query, token: ctx.params.token, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
 	}
 
 	showPaymentsPage(ctx) {
-		this.currentRoute({ page: 'page-billing', path: ctx.path, isLoggedInPage: true, showNav: false, showSidebar: false, showAdminHeader: false });
+		this.currentRoute({ page: 'page-billing', path: ctx.path, qryParams: ctx.query, isLoggedInPage: true, showNav: false, showSidebar: false, showAdminHeader: false });
 	}
 
 	show404(ctx) {
-		this.currentRoute({ page: 'page-404', path: ctx.path, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
+		this.currentRoute({ page: 'page-404', path: ctx.path, qryParams: ctx.query, isLoggedInPage: false, showNav: false, showSidebar: false, showAdminHeader: false });
 	}
 
 	// force: change route even if there are unsaved form changes
