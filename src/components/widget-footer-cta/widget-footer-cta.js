@@ -3,16 +3,7 @@ import templateMarkup from 'text!./widget-footer-cta.html';
 
 class WidgetFooterCta {
     constructor(params) {
-        this.isTokenLoaded = ko.observable(false);
-        this.getPaymentToken();
-        this.token = ko.observable(null);
-    }
 
-    getPaymentToken() {
-        app.api.get('/api/authenticate/getpaymenttoken').then((result) => {
-            this.token(result.response.data.token);
-            this.isTokenLoaded(true);
-        });
     }
 
     dispose() {

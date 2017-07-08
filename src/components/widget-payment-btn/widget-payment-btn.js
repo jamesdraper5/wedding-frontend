@@ -1,0 +1,30 @@
+import ko from 'knockout';
+import templateMarkup from 'text!./widget-payment-btn.html';
+
+class WidgetPaymentBtn {
+    constructor(params) {
+        console.log('params', params);
+        this.mode = params.mode; // 'payment' or 'update'. 'update' is just for changing card details
+        this.btnText = params.btnText || 'Publish site';
+        console.assert(['payment', 'update'].indexOf(this.mode) !== -1);
+        this.isTokenLoaded = ko.observable(false);
+        this.getPaymentToken();
+        this.token = ko.observable(null);
+        this.stripeId = ko.observable(null);
+    }
+
+    getPaymentToken() {
+        app.api.get('/api/authenticate/getpaymenttoken').then((result) => {
+            this.token(result.response.data.token);
+            this.stripeId(result.response.data.stripeId);
+            this.isTokenLoaded(true);
+        });
+    }
+
+    dispose() {
+        // This runs when the component is torn down. Put here any logic necessary to clean up,
+        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+    }
+}
+
+export default { viewModel: WidgetPaymentBtn, template: templateMarkup };

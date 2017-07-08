@@ -1,11 +1,4 @@
-<!-- ko if: isTokenLoaded -->
-    <div class="footer-cta">
-        <p>This is a preview of your website. In order for your guests to view it you need to publish your site.</p>
-        <form method="post" action="http://www.wedding.dev/publish">
-            <input type="hidden" name="name" data-bind="value: app.loggedInUser.firstName" />
-            <input type="hidden" name="token" data-bind="value: token" />
-            <input type="hidden" name="pid" value="1" />
-            <button type="submit" class="btn btn-success">Publish site</button>
-        </form>
-    </div>
-<!-- /ko -->
+<div class="footer-cta">
+    <p>This is a preview of your website. In order for your guests to view it you need to publish your site.</p>
+    <widget-payment-btn params="mode: 'payment', btnText: 'Publish site'"></widget-payment-btn>
+</div>
