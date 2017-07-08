@@ -16,7 +16,6 @@ class WidgetPaymentBtn {
     getPaymentToken() {
         app.api.get('/api/authenticate/getpaymenttoken').then((result) => {
             this.token(result.response.data.token);
-            this.stripeId(result.response.data.stripeId);
             this.isTokenLoaded(true);
         });
     }

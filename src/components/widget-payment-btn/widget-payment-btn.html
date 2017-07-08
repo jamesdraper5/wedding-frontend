@@ -2,7 +2,6 @@
     <form method="post" action="http://www.wedding.dev/publish">
         <input type="hidden" name="name" data-bind="value: app.loggedInUser.firstName" />
         <input type="hidden" name="token" data-bind="value: token" />
-        <input type="hidden" name="stripeId" data-bind="value: stripeId" />
         <input type="hidden" name="pid" value="1" />
         <input type="hidden" name="mode" data-bind="value: mode" />
         <button type="submit" class="btn btn-success">{{btnText}}</button>
