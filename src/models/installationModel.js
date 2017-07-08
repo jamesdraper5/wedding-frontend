@@ -30,6 +30,9 @@ class InstallationModel {
 	constructor(data) {
 		this.UpdateData(data);
 		this.activeSections = ko.pureComputed(this.generateLinks, this);
+		this.isPaid = ko.pureComputed(() => {
+			return this.paymentStatus() !== 'unpaid'
+		});
 	}
 
 	UpdateData(data) {
@@ -52,4 +55,3 @@ class InstallationModel {
 }
 
 export default InstallationModel;
-
