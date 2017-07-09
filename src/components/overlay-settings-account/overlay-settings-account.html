@@ -30,19 +30,19 @@
 					</div>
 
 
-					<!-- ko if: app.installation.isPaid() -->
+					<!-- ko if: ['paid', 'pending'].indexOf(app.installation.paymentStatus()) > -1 -->
 						<hr>
 						<div>
 							<p>
 								<widget-payment-btn params="mode: 'update', btnText: 'Update payment details'"></widget-payment-btn>
 							</p>
 						</div>
-
-						<hr>
-						<div class="cancellation-message">
-							<p class="text-danger">Need to cancel your account? Just contact us at <a href="mailto:support@weddingpixie.com" target="_blank">support@weddingpixie.com</a></p>
-						</div>
 					<!-- /ko -->
+
+					<hr>
+					<div class="cancellation-message">
+						<p class="text-danger">Need to cancel your account? Just contact us at <a href="mailto:support@weddingpixie.com" target="_blank">support@weddingpixie.com</a></p>
+					</div>
 
 				</div>
 			</div>
