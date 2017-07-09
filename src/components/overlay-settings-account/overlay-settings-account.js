@@ -11,8 +11,6 @@ class OverlaySettingsAccount extends overlayBaseModel {
 		this.partnerOne = ko.observable(null);
 		this.partnerTwo = ko.observable(null);
 
-		//this.partners = ko.observableArray([]);
-
 		this.isDirty = ko.pureComputed(() => {
 			if (
 			    false

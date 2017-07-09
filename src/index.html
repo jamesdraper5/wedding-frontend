@@ -28,13 +28,13 @@
 		<!-- /ko -->
 
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
-			<!-- ko if: app.isUserLoggedIn() -->
+			<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showAdminHeader -->
 				<admin-header></admin-header>
 			<!-- /ko -->
 
 			<div data-bind="css: app.installation.theme.className">
 
-				<!-- ko if: app.isUserLoggedIn() -->
+				<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showSidebar -->
 					<div id="admin-holder">
 						<admin-panel></admin-panel>
 					</div>
@@ -43,7 +43,7 @@
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
-					<!-- ko if: app.currentRoute().showNav -->
+					<!-- ko if: app.shouldShowNav -->
 						<nav-bar params="route: app.currentRoute"></nav-bar>
 					<!-- /ko -->
 

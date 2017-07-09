@@ -5,6 +5,16 @@ class HomeViewModel {
 	constructor(route) {
 		this.installation = app.installation;
 		this.showAdmin = ko.observable(route.showAdmin || false);
+		this.checkForMessages(route.qryParams);
+	}
+
+	checkForMessages(data) {
+		if ( data.pid && parseInt(data.pid, 10) > 0 && app.installation.isPaid() ) {
+			app.flash.Success('Congratulations, your site is now live! Thanks for being an awesome customer!');
+		}
+		if ( data.ccu && data.ccu == 1 && app.installation.isPaid() ) {
+			app.flash.Success('Your payment details have been updated. Thanks for being an awesome customer!');
+		}
 	}
 
 	OnRendered() {

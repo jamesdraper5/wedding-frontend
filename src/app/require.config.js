@@ -37,6 +37,7 @@ var require = {
 		"number-to-words":				"../node_modules/number-to-words/numberToWords.min",
 		"overlayBaseModel":    			"models/overlayBaseModel",
 		"page": 						"bower_modules/page/page",
+		"qsHelper":          			"helpers/queryString",
 		"quill": 						"libs/quill/quill.min",
 		"raven": 						"bower_modules/raven-js/dist/raven",
 		"rome": 						"bower_modules/rome/dist/rome.min",
