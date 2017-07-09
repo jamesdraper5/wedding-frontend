@@ -10,6 +10,7 @@ class WidgetPaymentBtn {
         this.getPaymentToken();
         this.token = ko.observable(null);
         this.stripeId = ko.observable(null);
+        this.paymentUrl = 'https://www.weddingpixie.com/publish';
     }
 
     getPaymentToken() {

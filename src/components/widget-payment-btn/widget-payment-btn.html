@@ -1,5 +1,5 @@
 <!-- ko if: isTokenLoaded -->
-    <form method="post" action="http://www.wedding.dev/publish">
+    <form method="post" data-bind="attr: { action: paymentUrl }">
         <input type="hidden" name="name" data-bind="value: app.loggedInUser.firstName" />
         <input type="hidden" name="token" data-bind="value: token" />
         <input type="hidden" name="pid" value="1" />
