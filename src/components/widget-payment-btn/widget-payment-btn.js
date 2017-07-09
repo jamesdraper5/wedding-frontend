@@ -3,7 +3,6 @@ import templateMarkup from 'text!./widget-payment-btn.html';
 
 class WidgetPaymentBtn {
     constructor(params) {
-        console.log('params', params);
         this.mode = params.mode; // 'payment' or 'update'. 'update' is just for changing card details
         this.btnText = params.btnText || 'Publish site';
         console.assert(['payment', 'update'].indexOf(this.mode) !== -1);
