@@ -101,11 +101,7 @@ class ModalUploadImage {
 			this.uploadFile(file, data.signedRequest, data.url);
 		}).catch((err) => {
 			app.flash.Error('Uh Oh...', 'Sorry, there seems to be an issue adding images at the moment, please try again')
-			Raven.captureMessage('Error getting s3 signed request', {
-                extra: {
-                	error: err
-                }
-            });
+			Raven.captureException(err);
 		})
 	}
 
