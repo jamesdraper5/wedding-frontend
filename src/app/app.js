@@ -420,7 +420,7 @@ class App {
 	}
 
 	initGoogleAdsTracker() {
-		let scriptSrc = 'http://www.googleadservices.com/pagead/conversion_async.js';
+		let scriptSrc = '//www.googleadservices.com/pagead/conversion_async.js';
 		$('body').append(`<script src="${scriptSrc}"><\/script>`);
 	}
 
