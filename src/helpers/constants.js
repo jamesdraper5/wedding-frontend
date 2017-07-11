@@ -29,5 +29,12 @@ export const constants = {
 			}
 		]
 	},
-	GOOGLEMAPSKEY: 'AIzaSyCp9Tk_ZUKItrsNRQ32JCEd8jOyx-9Sebg'
+	GOOGLEMAPSKEY: 'AIzaSyCp9Tk_ZUKItrsNRQ32JCEd8jOyx-9Sebg',
+	PRICEPLANS: [
+		{
+			id: 1,
+			name: 'Basic',
+			price: 49
+		}
+	]
 }

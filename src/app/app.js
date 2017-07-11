@@ -178,6 +178,7 @@ class App {
 				//this.showWelcomeModal() // TO DO: low priority
 			}
 			this.isUserLoggedIn(true);
+			this.initThirdPartyScripts();
 			return result;
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
@@ -205,7 +206,6 @@ class App {
 	}
 
 	onUpdateRoute(newRoute) {
-
 
 	    this.validateRoute(newRoute.path)
 
@@ -393,6 +393,35 @@ class App {
 		else if("addRule" in sheet) {
 			sheet.addRule(selector, rules, index);
 		}
+	}
+
+	initThirdPartyScripts() {
+        if ( this.thirdPartyScriptsInitialized ) return;
+        this.thirdPartyScriptsInitialized = true;
+		this.initGoogleCommerce();
+		this.initGoogleAdsTracker();
+	}
+
+	initGoogleCommerce() {
+        if (window.ga != null) return;
+        let googleInstallationId = this.installation.id();
+        let googleUserId = this.loggedInUser.id();
+        let googleScript = `
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-97533393-1', 'auto', {
+				'userId': '${googleInstallationId}.${googleUserId}'
+			});
+			ga('require', 'ecommerce');`;
+
+		$('body').append('<scr'+'ipt>' + googleScript + '<\/scr'+'ipt>');
+	}
+
+	initGoogleAdsTracker() {
+		let scriptSrc = 'http://www.googleadservices.com/pagead/conversion_async.js';
+		$('body').append(`<script src="${scriptSrc}"><\/script>`);
 	}
 
 }
