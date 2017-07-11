@@ -6,10 +6,10 @@ const nonTrackableKeys = ['isEditing'];
 const mapMapping = {
 	'startTime': {
 		create: (options) => {
-			return ko.observable(moment(options.data));
+			return ko.observable(moment.utc(options.data));
 		},
 		update: (options) => {
-			return moment(options.data);
+			return moment.utc(options.data);
 		}
 	}
 }
