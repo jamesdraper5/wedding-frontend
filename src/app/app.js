@@ -347,7 +347,7 @@ class App {
 
 	Logout(redirect=false) {
 		var firstName = app.loggedInUser.firstName()
-		app.api.post('/api/me/logout').then((result) => {
+		return app.api.post('/api/me/logout').then((result) => {
 			app.loggedInUser = null;
 			app.isUserLoggedIn(false);
 			app.sidebarPosition('closed');
