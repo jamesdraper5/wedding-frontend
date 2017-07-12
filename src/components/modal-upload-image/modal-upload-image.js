@@ -87,9 +87,13 @@ class ModalUploadImage {
 			newFileName = app.installation.id() + '/' + this.uid + '-' + file.name;
 		}
 
+		// Remove the 'uid' cache busting param if it's there
 		if ( newFileName.indexOf('?uid=') !== -1 ) {
 			newFileName = newFileName.split('?uid=')[0];
 		}
+
+		// Replace any spaces with underscores - needed so that we can use the images in CSS rules
+		newFileName = newFileName.replace(/\s+/g, '_');
 
 		var postData = {
 			fileName: newFileName,
