@@ -10,7 +10,6 @@ import 'jquery-scrollTo';
 import 'bindings-bot-checker';
 import 'bindings-date-picker';
 import 'bindings-ladda';
-import 'bindings-image-uploader';
 import 'bindings-move-labels';
 import 'bindings-slide-visible';
 import 'extenders-trackChanges';

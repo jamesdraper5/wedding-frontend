@@ -6,7 +6,6 @@ var require = {
 		"bindings-bot-checker":       	"bindings/bot-checker",
 		"bindings-date-picker":       	"bindings/date-picker",
 		"bindings-ladda":       		"bindings/ladda",
-		"bindings-image-uploader": 		"bindings/image-uploader",
 		"bindings-move-labels":       	"bindings/move-labels",
 		"bindings-slide-visible":       "bindings/slide-visible",
 		"bluebird":             		"bower_modules/bluebird/js/browser/bluebird.min",
