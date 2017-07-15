@@ -1,7 +1,9 @@
 <div id="overlay" data-bind="style: { left: app.overlayLeftPos(), width: app.overlayWidth() }">
 	<div class="overlay-main">
 		<div class="modal-header">
-			<button type="button" class="close" data-bind="click:Close"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			<span class="close-btn" data-bind="click:Close">
+				<span class="sr-only">close</span>
+			</span>
 			<h4 class="modal-title">Edit Your RSVP Section</h4>
 		</div>
 		<form data-bind="css: { hasChanges: isDirty }">

@@ -2,7 +2,9 @@
 	<div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	    	<div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="close-btn" data-dismiss="modal" aria-label="Close">
+					<span class="sr-only">close</span>
+				</span>
 		        <h4 class="modal-title" data-bind="text:title">Upload Image</h4>
 			</div>
 			<div class="modal-body uploader-body">
@@ -26,4 +28,3 @@
 <!-- ko if: $data.readyToShow != null && readyToShow -->
     <div data-bind="template:{afterRender:function(){templateLoaded(true)}}" class="hidden"></div>
 <!-- /ko -->
-

@@ -62,23 +62,15 @@ input[type=radio].hidden-radio {
     width: 1px;
 }
 
-/*
-#test-logo {
-	#word1 {
-		font: 20px Fairy_Tales;
-	    display: block;
-	    line-height: 1em;
-	    margin-left: -31px;
-	    color: #666;
-	}
-	#word2 {
-	    font: 50px Fairy_Tales;
-	    display: block;
-	    color: #9575CD;
-	    margin-top: -22px;
-	}
+.form-control, input {
+	border-width: 1px;
 }
-*/
+.form-control:focus {
+	border-color: darken(#dce4ec, 10%);
+}
+.ql-container.ql-snow, .ql-toolbar.ql-snow {
+	border-color: #dce4ec;
+}
 
 // some things need to be pushed down to accommodate the admin bar at the top
 body.logged-in {
@@ -205,7 +197,7 @@ figure.hover-effect {
 	}
 }
 
-
+/* Animated hamburger menu */
 .hamburger-btn {
 	width: 16px;
 	height: 16px;
@@ -239,9 +231,6 @@ figure.hover-effect {
 	}
 }
 
-
-
-/* Animated hanburger menu */
 .admin-toggle {
 	position: relative;
 	float: left;
@@ -286,6 +275,38 @@ figure.hover-effect {
   top: 5px;
   width: 0%;
   left: 50%;
+}
+
+
+.close-btn {
+	width: 14px;
+	height: 14px;
+	position: relative;
+	display: block;
+	cursor: pointer;
+	&:before, &:after {
+		content: '';
+		display: block;
+		position: absolute;
+		height: 1px;
+		width: 100%;
+		background: #000;
+		opacity: 1;
+		left: 0;
+		top: 5px;
+	}
+	&:before {
+		transform: rotate(45deg);
+	}
+
+	&:after {
+		transform: rotate(-45deg);
+	}
+}
+
+.modal-header .close-btn {
+	float: right;
+	margin-top: 8px;
 }
 
 
@@ -1227,6 +1248,6 @@ footer .fa-heart {
 .cancellation-message a {
 	color: @danger-color;
 	&:hover {
-		color: @danger-color;	
+		color: @danger-color;
 	}
 }
