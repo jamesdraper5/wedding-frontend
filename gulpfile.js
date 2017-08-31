@@ -181,8 +181,8 @@ gulp.task('css', ['less'], function () {
 gulp.task('html', function() {
 	return gulp.src('./src/index.html')
 		.pipe(htmlreplace({
-			'css': '/css.css',
-			'js': '/scripts.js',
+			'css': 'http://cdn.wedding.dev/css.css',
+			'js': 'http://cdn.wedding.dev/scripts.js',
 			'debug': '<script>window.devMode = ' + !gulpConfig.isProduction + ';</script>'
 		}))
 		.pipe(gulp.dest('./')) // needed for testing locally through connect server
