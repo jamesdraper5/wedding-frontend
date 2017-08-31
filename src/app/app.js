@@ -104,6 +104,14 @@ class App {
 			}
 		}
 
+		this.is404 = ko.pureComputed(() => {
+			return this.hasLoadedData() && !this.isWeddingFound() && !this.isRootDomain() && !this.hasError();
+		})
+
+		this.isRootDomain = ko.pureComputed(() => {
+			return location.host.split('.')[0] === 'www';
+		})
+
 		$(window).resize(() => {
 		    var $body = $('body')
 		    this.viewPortWidth( $body.width() )
@@ -148,6 +156,9 @@ class App {
 			this.errorCode(error.status);
 			if ( error.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
+				if ( this.isRootDomain() ) {
+					this.onUpdateRoute(app.currentRoute())
+				}
 			} else {
 				this.hasLoadedData(true);
 				this.hasError(true);
@@ -205,7 +216,7 @@ class App {
 	}
 
 	onUpdateRoute(newRoute) {
-
+		console.log('onUpdateRoute');
 	    this.validateRoute(newRoute.path)
 
 	    if ( newRoute.isLoggedInPage && app.loggedInUser == null ) {
@@ -213,7 +224,7 @@ class App {
 	            // If no current route set, and not logged in, then store asked for Hash for redirect after login
 	            app.currentRoute().path = window.location.pathname;
 	        }
-
+			console.log('redirecting to login');
 	        app.redirectToLogin()
 	    }
 
@@ -227,6 +238,7 @@ class App {
 	validateRoute(path) {
 		var redirect = () => {
 			if ( app.isUserLoggedIn() ) {
+				console.log('going to /editor');
 				app.GoTo('/editor');
 			} else {
 				app.GoTo('/');

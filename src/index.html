@@ -27,19 +27,18 @@
 			</div>
 		<!-- /ko -->
 
-		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() -->
-			<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showAdminHeader -->
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() && app.isUserLoggedIn() -->
+			<!-- ko if: app.currentRoute().showAdminHeader -->
 				<admin-header></admin-header>
 			<!-- /ko -->
 
 			<div data-bind="css: app.installation.theme.className">
 
-				<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showSidebar -->
+				<!-- ko if: app.currentRoute().showSidebar -->
 					<div id="admin-holder">
 						<admin-panel></admin-panel>
 					</div>
 				<!-- /ko -->
-
 
 				<div id="page-holder" data-bind="css: app.sidebarPosition(), style: { visibility: app.overlayToShow() == null ? 'visible' : 'hidden' }">
 
@@ -53,13 +52,11 @@
 						Close the sidebar to preview your site
 					</div>
 
-					<!-- ko if: app.currentRoute().page != 'page-login' -->
-						<footer id="page-footer">
-							<p class="text-center">
-								Made with <i class="fa fa-heart pulse" style="padding:0 1px;"></i> by <a href="https://www.weddingpixie.com" target="_blank">Wedding Pixie</a>
-							</p>
-						</footer>
-					<!-- /ko -->
+					<footer id="page-footer">
+						<p class="text-center">
+							Made with <i class="fa fa-heart pulse" style="padding:0 1px;"></i> by <a href="https://www.weddingpixie.com" target="_blank">Wedding Pixie</a>
+						</p>
+					</footer>
 
 				</div>
 
@@ -71,9 +68,15 @@
 
 			</div>
 		<!-- /ko -->
-		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && !app.isWeddingFound() && !app.hasError() -->
+
+		<!-- ko if: !app.isUserLoggedIn() && !app.is404() -->
+			<!-- ko component: { name: 'page-login' } --><!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko if: app.is404 -->
 			<!-- ko component: { name: 'page-404' } --><!-- /ko -->
 		<!-- /ko -->
+
 		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() == true && app.hasError() -->
 			<!-- ko component: { name: 'page-error', params: { errorCode: app.errorCode() } } --><!-- /ko -->
 		<!-- /ko -->
