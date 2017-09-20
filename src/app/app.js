@@ -52,7 +52,8 @@ class App {
 			this.onUpdateRoute(newRoute)
 		});
 
-		this.findInstallation();
+		//this.findInstallation();
+		this.getInitialData();
 
 		this.sidebarPosition = ko.observable('closed');
 		this.overlayToShow = ko.observable( null );
@@ -144,27 +145,55 @@ class App {
 		}
 	}
 
-	findInstallation() {
+	getInitialData() {
+		this.logIn().finally(() => this.initInstallation());
+	}
 
-		this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
+	getLoggedInUser() {
+		return this.api.get("/api/me", null, { emitError: false }).then(( result ) => {
+			if ( this.loggedInUser != null ) {
+				this.loggedInUser.UpdateData(result.response.data);
+			} else { // First time login
+				this.loggedInUser = new LoggedInUserModel(result.response.data)
+			}
+			return this.loggedInUser;
+		});
+	}
+
+	findInstallation() {
+		return this.api.get("/api/installationInfo", {}, {errorCodesToIgnore: [404]}).then(( result ) => {
 			this.installation = new InstallationModel( result.response.installation );
+			return this.installation;
+		}).catch((err) => {
+			return err;
+		});
+	}
+
+	initInstallation() {
+		this.findInstallation().then((installation) => {
 			this.validateInitialRoute();
-			this.initStyles(this.installation.theme.className());
+			this.initStyles(installation.theme.className());
 			this.setRavenUser();
 			this.errorCode(null);
-		}).catch(( error ) => {
-			this.errorCode(error.status);
-			if ( error.status == 404 ) {
+			if ( app.isUserLoggedIn() ) {
+				this.initThirdPartyScripts();
+			}
+		}).catch((err) => {
+			console.log('err', err);
+			this.errorCode(err.status);
+			if ( err.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 				if ( this.isRootDomain() ) {
+					console.log('here 1')
 					this.onUpdateRoute(app.currentRoute())
 				}
 			} else {
 				this.hasLoadedData(true);
 				this.hasError(true);
 			}
-		});
+		})
 	}
+
 
 	updateInstallationData() {
 		this.api.get("/api/installationInfo").then(( result ) => {
@@ -179,20 +208,31 @@ class App {
 		});
 	}
 
-	getLoggedInUser() {
-		return this.api.get("/api/me", null, { emitError: false }).then(( result ) => {
-			if ( this.loggedInUser != null ) {
-				this.loggedInUser.UpdateData(result.response.data);
-			} else { // First time login
-				this.loggedInUser = new LoggedInUserModel(result.response.data)
-				//this.showWelcomeModal() // TO DO: low priority
-			}
+	logIn(getInstallation=false) {
+		return this.getLoggedInUser().then((res) => {
 			this.isUserLoggedIn(true);
-			this.initThirdPartyScripts();
-			return result;
+			if (getInstallation) {
+				return this.initInstallation();
+			} else {
+				return res;
+			}
 		}).catch((err) => {
 			this.isUserLoggedIn(false);
 			return err;
+		});
+	}
+
+	Logout(redirect=false) {
+		var firstName = app.loggedInUser.firstName()
+		return app.api.post('/api/me/logout').then((result) => {
+			app.loggedInUser = null;
+			app.isUserLoggedIn(false);
+			app.sidebarPosition('closed');
+			app.hideOverlay();
+			if (redirect) {
+				app.GoTo('/login')
+			}
+			app.flash.Success( `Okay ${firstName}, you're now signed out, don't be a stranger!` );
 		});
 	}
 
@@ -206,11 +246,14 @@ class App {
 
 		if ( app.loggedInUser == null ) {
 			// If loggedInPage, make /api/me call then validate route and show page
-			return this.getLoggedInUser().finally(() => {
+			console.log(1)
+			return this.logIn().finally(() => {
+				console.log(2)
 				initPage()
 			})
 		} else {
 			// else just validate route and show page immediately
+			console.log(3)
 			initPage()
 		}
 	}
@@ -354,20 +397,6 @@ class App {
 	getContainerId(sectionName) {
 		sectionName = ko.unwrap(sectionName); // unwrap in case it's an observable
 		return sectionName.toLowerCase().split(' ').join('-') + '-container';
-	}
-
-	Logout(redirect=false) {
-		var firstName = app.loggedInUser.firstName()
-		return app.api.post('/api/me/logout').then((result) => {
-			app.loggedInUser = null;
-			app.isUserLoggedIn(false);
-			app.sidebarPosition('closed');
-			app.hideOverlay();
-			if (redirect) {
-				app.GoTo('/')
-			}
-			app.flash.Success( `Okay ${firstName}, you're now signed out, don't be a stranger!` );
-		});
 	}
 
 	setPageTitle(title) {
