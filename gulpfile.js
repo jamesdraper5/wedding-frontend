@@ -179,10 +179,11 @@ gulp.task('css', ['less'], function () {
 
 // Copies index.html, replacing <script> and <link> tags to reference production URLs
 gulp.task('html', function() {
+	var assetsUrl = gulpConfig.isProduction ? '//assets.weddingpixie.com/' : '//assets.wedding.dev/';
 	return gulp.src('./src/index.html')
 		.pipe(htmlreplace({
-			'css': 'http://cdn.wedding.dev/css.css',
-			'js': 'http://cdn.wedding.dev/scripts.js',
+			'css': assetsUrl + 'css.css',
+			'js': assetsUrl + 'scripts.js',
 			'debug': '<script>window.devMode = ' + !gulpConfig.isProduction + ';</script>'
 		}))
 		.pipe(gulp.dest('./')) // needed for testing locally through connect server
