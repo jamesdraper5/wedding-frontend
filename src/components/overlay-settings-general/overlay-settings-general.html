@@ -9,22 +9,24 @@
 		<form data-bind="css: { hasChanges: isDirty }">
 			<div class="modal-body">
 				<div class="forms-container">
-					<div class="form-group" style="margin-bottom: 30px;">
-						<label for="title">Website Address</label>
-						<div class="row">
-							<div class="col-md-4 col-sm-6">
-								<div class="input-group">
-									<input type="text" id="title" class="form-control text-right" style="letter-spacing: 1px;" placeholder="The adress for your website, e.g. janeandjohn.weddingpixie.com" data-bind="textInput: accountUrl">
-									<span class="input-group-addon">.weddingpixie.com</span>
+					<!-- ko if: app.installation.isPaid() && !app.installation.hasCustomDomain() -->
+						<div class="form-group" style="margin-bottom: 30px;">
+							<label for="title">Website Address</label>
+							<div class="row">
+								<div class="col-md-4 col-sm-6">
+									<div class="input-group">
+										<input type="text" id="title" class="form-control text-right" style="letter-spacing: 1px;" placeholder="The adress for your website, e.g. janeandjohn.weddingpixie.com" data-bind="textInput: accountUrl">
+										<span class="input-group-addon">.weddingpixie.com</span>
+									</div>
+									<!-- ko ifnot: isUrlAvailable() -->
+										<p class="text-danger url-taken">
+											<small>Sorry, this address is already taken</small>
+										</p>
+									<!-- /ko -->
 								</div>
-								<!-- ko ifnot: isUrlAvailable() -->
-									<p class="text-danger url-taken">
-										<small>Sorry, this address is already taken</small>
-									</p>
-								<!-- /ko -->
 							</div>
 						</div>
-					</div>
+					<!-- /ko -->
 					<div class="form-group">
 						<label for="menu-text">Website Design</label>
 

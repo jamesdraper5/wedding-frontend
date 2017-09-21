@@ -6,7 +6,7 @@ class OverlaySettingsGeneral extends overlayBaseModel {
    	constructor(params) {
    		super();
 
-   		this.originalSubdomain = ko.unwrap(app.installation.url).split('.')[0];
+   		this.originalSubdomain = (app.installation.url() != null ? app.installation.url().split('.')[0] : null);
    		this.baseUrl = ( window.devMode ? 'wedding.dev' : 'weddingpixie.com' );
 
    		this.accountUrl = ko.observable(this.originalSubdomain).extend({ rateLimit: 300 });
