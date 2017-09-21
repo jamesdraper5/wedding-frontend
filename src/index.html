@@ -27,14 +27,14 @@
 			</div>
 		<!-- /ko -->
 
-		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() && app.isUserLoggedIn() -->
-			<!-- ko if: app.currentRoute().showAdminHeader -->
+		<!-- ko if: typeof window.app != 'undefined' && app.hasLoadedData() && app.isWeddingFound() && !app.shouldShowLogin() -->
+			<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showAdminHeader -->
 				<admin-header></admin-header>
 			<!-- /ko -->
 
 			<div data-bind="css: app.installation.theme.className">
 
-				<!-- ko if: app.currentRoute().showSidebar -->
+				<!-- ko if: app.isUserLoggedIn() && app.currentRoute().showSidebar -->
 					<div id="admin-holder">
 						<admin-panel></admin-panel>
 					</div>
@@ -48,9 +48,11 @@
 
 					<div id="page" class="container-fluid" data-bind="component: { name: app.currentRoute().page, params: app.currentRoute }"></div>
 
-					<div id="narrow-device-edit-msg">
-						Close the sidebar to preview your site
-					</div>
+					<!-- ko if: app.isUserLoggedIn() -->
+						<div id="narrow-device-edit-msg">
+							Close the sidebar to preview your site
+						</div>
+					<!-- /ko -->
 
 					<footer id="page-footer">
 						<p class="text-center">
@@ -69,7 +71,7 @@
 			</div>
 		<!-- /ko -->
 
-		<!-- ko if: !app.isUserLoggedIn() && !app.is404() -->
+		<!-- ko if: app.shouldShowLogin -->
 			<!-- ko component: { name: 'page-login' } --><!-- /ko -->
 		<!-- /ko -->
 

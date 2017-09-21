@@ -110,8 +110,13 @@ class App {
 		})
 
 		this.isRootDomain = ko.pureComputed(() => {
-			return location.host.split('.')[0] === 'www';
+			return location.host === this.constants.ROOTDOMAIN;
 		})
+
+		this.shouldShowLogin = ko.pureComputed(() => {
+			return app.currentRoute().page === 'page-login' && !app.is404();
+		});
+
 
 		$(window).resize(() => {
 		    var $body = $('body')
@@ -184,7 +189,6 @@ class App {
 			if ( err.status == 404 ) {
 				this.hasLoadedData(true); // We're not setting this.isWeddingFound to true here
 				if ( this.isRootDomain() ) {
-					console.log('here 1')
 					this.onUpdateRoute(app.currentRoute())
 				}
 			} else {
