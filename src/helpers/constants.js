@@ -1,4 +1,6 @@
+const rootDomain = ( window.devMode ? 'www.wedding.dev' : 'www.weddingpixie.com' );
 export const constants = {
+	ROOTDOMAIN: rootDomain,
 	VALIDROUTES: [
 		'',
 		'login',
@@ -36,5 +38,9 @@ export const constants = {
 			name: 'Basic',
 			price: 49
 		}
+	],
+	TRUSTEDSITES: [
+		1,
+		9
 	]
 }

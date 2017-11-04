@@ -20,6 +20,11 @@
 					<a href="#" data-bind="click: $component.OnClickNavItem, attr: { href: $component.getSectionId($data) }">{{ $data }}</a>
 				</li>
 				<!-- /ko -->
+				<!-- ko if: app.constants.TRUSTEDSITES.indexOf(app.installation.id()) !== -1 -->
+				<li>
+					<a href="#faqs-container" data-bind="click: $component.OnClickFAQ">FAQs</a>
+				</li>
+				<!-- /ko -->
 			</ul>
 		</div>
 	</div>

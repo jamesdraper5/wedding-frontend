@@ -39,6 +39,16 @@ class NavBarViewModel {
 		$.scrollTo( $section, 600, { offset: -navHeight } )
 	}
 
+	OnClickFAQ() {
+		if ( app.constants.TRUSTEDSITES.indexOf(app.installation.id()) === -1 ) {
+			console.log('nnnn');
+			return;
+		}
+		var navHeight = $('#main-nav').height();
+		var $section = '#faqs-container';
+		$.scrollTo( $section, 600, { offset: -navHeight } )
+	}
+
 	getSectionId(item) {
 		return '#' + item.toLowerCase().split(' ').join('-') + '-container'; // e.g. #wedding-party-container
 	}
